@@ -8,11 +8,11 @@ import {
 } from "../../routes";
 import { NavItem, NavItemProps } from "./NavItem";
 import {
-  LuBook,
   LuHouse,
-  LuListMusic,
+  LuListOrdered,
   LuMusic,
   LuSettings,
+  LuSquareLibrary,
   LuUser,
 } from "react-icons/lu";
 import { Footer } from "../footer";
@@ -24,9 +24,17 @@ export const Nav = () => {
 
   const routes: NavItemProps[] = [
     { to: "/", label: "Home", icon: LuHouse },
-    { to: getCompositionListPath(), label: "Compositions", icon: LuMusic },
-    { to: getRoutineListPath(), label: "Routines", icon: LuListMusic },
-    { to: getSupplementaryListPath(), label: "Supplementaries", icon: LuBook },
+    {
+      to: getCompositionListPath(),
+      label: "Compositions",
+      icon: LuMusic,
+    },
+    { to: getRoutineListPath(), label: "Routines", icon: LuListOrdered },
+    {
+      to: getSupplementaryListPath(),
+      label: "Supplementaries",
+      icon: LuSquareLibrary,
+    },
   ];
 
   const auxRoutes: NavItemProps[] = [

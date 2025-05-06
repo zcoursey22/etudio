@@ -1,20 +1,17 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren } from "react";
 import { AuthContext } from "./AuthContext";
+import useLocalStorage from "use-local-storage";
 
 const KEY = "etudio_isAuthenticated";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem(KEY) === "true"
-  );
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorage(KEY, false);
 
   const login = () => {
     setIsAuthenticated(true);
-    localStorage.setItem(KEY, "true");
   };
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.setItem(KEY, "false");
   };
 
   return (

@@ -1,11 +1,11 @@
 import { Accordion, Heading, Stack } from "@chakra-ui/react";
-import { LuAlarmClock, LuGauge } from "react-icons/lu";
+import { LuGauge, LuHourglass } from "react-icons/lu";
 import { TbMetronome } from "react-icons/tb";
 import { ToolItem, ToolItemProps } from "./ToolItem";
 
 const tools: ToolItemProps[] = [
   { value: "metronome", label: "Metronome", icon: TbMetronome },
-  { value: "stopwatch", label: "Stopwatch", icon: LuAlarmClock },
+  { value: "pomodoro", label: "Pomodoro", icon: LuHourglass },
   { value: "tuner", label: "Tuner", icon: LuGauge },
 ];
 
