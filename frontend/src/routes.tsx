@@ -3,15 +3,20 @@ import {
   CompositionDetail,
   CompositionList,
   Home,
+  Landing,
+  Login,
   NotFound,
   Profile,
   RoutineDetail,
   RoutineList,
   Settings,
+  Signup,
   SupplementaryDetail,
   SupplementaryList,
 } from "./pages";
-import { Layout } from "./components";
+import { Layout } from "./components/Layout";
+import { RouteGuard } from "./components/RouteGuard";
+import { AuthLayout } from "./components/AuthLayout";
 
 const COMPOSITIONS = "compositions";
 const ROUTINES = "routines";
@@ -21,13 +26,18 @@ const SETTINGS = "settings";
 const LOGIN = "login";
 const SIGNUP = "signup";
 
-export const routes: RouteObject[] = [
-  {
-    path: "/",
-    element: <Layout />,
+export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
+  const publicRoutes = {
+    element: <RouteGuard redirectTo="/" reversed />,
     children: [
-      { path: "*", element: <NotFound /> },
-      { index: true, path: "/", element: <Home /> },
+      { path: `${LOGIN}`, element: <Login /> },
+      { path: `${SIGNUP}`, element: <Signup /> },
+    ],
+  };
+
+  const protectedRoutes = {
+    element: <RouteGuard redirectTo="/" />,
+    children: [
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
       { path: `${ROUTINES}`, element: <RoutineList /> },
@@ -37,10 +47,30 @@ export const routes: RouteObject[] = [
       { path: `${PROFILE}`, element: <Profile /> },
       { path: `${SETTINGS}`, element: <Settings /> },
     ],
-  },
-  { path: "/login", element: <Home /> },
-  { path: "/signup", element: <Home /> },
-];
+  };
+
+  return [
+    {
+      path: "/",
+      element: isAuthenticated ? <Layout /> : <AuthLayout />,
+      children: [
+        { path: "/", element: isAuthenticated ? <Home /> : <Landing /> },
+        ...(isAuthenticated ? [protectedRoutes] : []),
+        ...[publicRoutes],
+        {
+          path: "*",
+          element: isAuthenticated ? (
+            <NotFound />
+          ) : (
+            <RouteGuard redirectTo="/">
+              <NotFound />
+            </RouteGuard>
+          ),
+        },
+      ],
+    },
+  ];
+};
 
 export const getCompositionListPath = () => {
   return `/${COMPOSITIONS}`;

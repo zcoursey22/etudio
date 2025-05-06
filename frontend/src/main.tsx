@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App.tsx";
+import { AuthProvider } from "./components/auth/AuthProvider.tsx";
 
 const system = createSystem(
   defaultConfig,
@@ -17,6 +18,10 @@ const system = createSystem(
       // html: {
       //   colorPalette: "pink",
       // },
+      "html[data-theme='dark']": {
+        background: "var(--chakra-colors-black)",
+        color: "var(--chakra-colors-white)",
+      },
     },
     theme: {
       tokens: {
@@ -28,12 +33,14 @@ const system = createSystem(
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <ChakraProvider value={system}>
-        <ColorModeProvider>
-          <App />
-        </ColorModeProvider>
-      </ChakraProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <ChakraProvider value={system}>
+          <ColorModeProvider>
+            <App />
+          </ColorModeProvider>
+        </ChakraProvider>
+      </BrowserRouter>
+    </AuthProvider>
   </StrictMode>
 );

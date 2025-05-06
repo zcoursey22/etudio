@@ -9,7 +9,7 @@ export const Layout = () => {
       <Header />
       <Flex flex={"1"} gap="1em">
         <Nav />
-        <Box as={"main"} flex={"1"} p="1em" pl="0">
+        <Box as={"main"} flex={"1"} p="1em" pl={"0"}>
           <Outlet />
         </Box>
       </Flex>

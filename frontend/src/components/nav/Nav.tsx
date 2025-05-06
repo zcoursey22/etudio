@@ -17,9 +17,11 @@ import {
 } from "react-icons/lu";
 import { Footer } from "../footer";
 import { Tools } from "../tools";
-import { Title } from "../Title";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Nav = () => {
+  const { logout } = useAuth();
+
   const routes: NavItemProps[] = [
     { to: "/", label: "Home", icon: LuHouse },
     { to: getCompositionListPath(), label: "Compositions", icon: LuMusic },
@@ -45,7 +47,7 @@ export const Nav = () => {
         {/* <Title /> */}
         <Stack as={"nav"}>
           {routes.map(({ to, label, icon }) => (
-            <NavItem to={to} label={label} icon={icon} />
+            <NavItem key={to} to={to} label={label} icon={icon} />
           ))}
         </Stack>
         <Tools />
@@ -53,10 +55,12 @@ export const Nav = () => {
       <Stack gap={"1em"}>
         <Stack as={"nav"}>
           {auxRoutes.map(({ to, label, icon }) => (
-            <NavItem to={to} label={label} icon={icon} />
+            <NavItem key={to} to={to} label={label} icon={icon} />
           ))}
         </Stack>
-        <Button variant={"surface"}>Sign out</Button>
+        <Button variant={"surface"} onClick={logout}>
+          Sign out
+        </Button>
         <Footer />
       </Stack>
     </Flex>

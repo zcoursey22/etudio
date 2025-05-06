@@ -15,7 +15,7 @@ export const Tools = () => {
       <Heading>Tools</Heading>
       <Accordion.Root multiple>
         {tools.map((tool) => (
-          <ToolItem {...tool} />
+          <ToolItem key={tool.value} {...tool} />
         ))}
       </Accordion.Root>
     </Stack>
