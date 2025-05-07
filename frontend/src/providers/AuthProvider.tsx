@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
-import { AuthContext } from "./AuthContext";
 import useLocalStorage from "use-local-storage";
+import { AuthContext } from "../contexts";
 
 const KEY = "etudio_isAuthenticated";
 
@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const login = () => {
     setIsAuthenticated(true);
   };
+
   const logout = () => {
     setIsAuthenticated(false);
   };

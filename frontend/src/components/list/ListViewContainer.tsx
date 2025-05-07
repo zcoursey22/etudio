@@ -14,8 +14,7 @@ import { LuCircleAlert, LuLayoutGrid, LuMenu } from "react-icons/lu";
 import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
 import { Resource } from "../../models";
-
-const getCurrentViewKey = (title: string) => `etudio_currentView_${title}`;
+import { useSettings } from "../../hooks";
 
 enum ListViewType {
   TABLE = "table",
@@ -45,12 +44,32 @@ export const ListViewContainer = <T extends Resource>({
   renderRowContents,
   renderGridItemContents,
 }: ListViewContainerProps<T>) => {
-  const [currentView, setCurrentView] = useLocalStorage(
-    getCurrentViewKey(title),
+  const GLOBAL_VIEW_KEY = "etudio_currentView";
+  const PAGE_VIEW_KEY = `${GLOBAL_VIEW_KEY}_${title}`;
+
+  const {
+    settings: { syncListViewType },
+  } = useSettings();
+
+  const [globalViewType, setGlobalViewType] = useLocalStorage(
+    GLOBAL_VIEW_KEY,
     ListViewType.TABLE
   );
 
-  const ListView = currentView === ListViewType.TABLE ? ListTable : ListGrid;
+  const [pageViewType, setPageViewType] = useLocalStorage(
+    PAGE_VIEW_KEY,
+    globalViewType
+  );
+
+  const handleViewTypeChange = (viewType: ListViewType) => {
+    setGlobalViewType(viewType);
+    setPageViewType(viewType);
+  };
+
+  const currentViewType = syncListViewType ? globalViewType : pageViewType;
+
+  const ListView =
+    currentViewType === ListViewType.TABLE ? ListTable : ListGrid;
 
   let content = (
     <ListView
@@ -88,11 +107,14 @@ export const ListViewContainer = <T extends Resource>({
 
   return (
     <Stack>
-      <Flex align={"flex-end"} justify={"space-between"}>
+      <Flex align={"flex-start"} justify={"space-between"}>
         <Heading>{title}</Heading>
         <SegmentGroup.Root
-          value={currentView}
-          onValueChange={({ value }) => setCurrentView(value as ListViewType)}
+          value={currentViewType}
+          onValueChange={({ value }) =>
+            handleViewTypeChange(value as ListViewType)
+          }
+          size={"sm"}
         >
           <SegmentGroup.Indicator />
           <SegmentGroup.Items
@@ -102,7 +124,11 @@ export const ListViewContainer = <T extends Resource>({
               {
                 value: ListViewType.TABLE,
                 label: (
-                  <IconButton variant={"plain"} pointerEvents={"none"}>
+                  <IconButton
+                    variant={"plain"}
+                    pointerEvents={"none"}
+                    size={"sm"}
+                  >
                     <LuMenu />
                   </IconButton>
                 ),
@@ -110,7 +136,11 @@ export const ListViewContainer = <T extends Resource>({
               {
                 value: ListViewType.GRID,
                 label: (
-                  <IconButton variant={"plain"} pointerEvents={"none"}>
+                  <IconButton
+                    variant={"plain"}
+                    pointerEvents={"none"}
+                    size={"sm"}
+                  >
                     <LuLayoutGrid />
                   </IconButton>
                 ),

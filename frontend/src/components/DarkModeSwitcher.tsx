@@ -9,6 +9,7 @@ export const DarkModeSwitcher = () => {
     <SegmentGroup.Root
       value={colorMode}
       onValueChange={(e) => setColorMode(e.value as ColorMode)}
+      size={"md"}
     >
       <SegmentGroup.Indicator />
       <SegmentGroup.Items
@@ -18,7 +19,7 @@ export const DarkModeSwitcher = () => {
           {
             value: "light",
             label: (
-              <IconButton variant={"plain"} pointerEvents={"none"}>
+              <IconButton variant={"plain"} pointerEvents={"none"} size={"md"}>
                 <LuSun />
               </IconButton>
             ),
@@ -26,7 +27,7 @@ export const DarkModeSwitcher = () => {
           {
             value: "dark",
             label: (
-              <IconButton variant={"plain"} pointerEvents={"none"}>
+              <IconButton variant={"plain"} pointerEvents={"none"} size={"md"}>
                 <LuMoon />
               </IconButton>
             ),
