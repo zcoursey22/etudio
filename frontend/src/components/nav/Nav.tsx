@@ -1,5 +1,6 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import {
+  getArrangementListPath,
   getCompositionListPath,
   getProfilePath,
   getRoutineListPath,
@@ -8,6 +9,7 @@ import {
 } from "../../routes";
 import { NavItem, NavItemProps } from "./NavItem";
 import {
+  LuGuitar,
   LuHouse,
   LuListOrdered,
   LuMusic,
@@ -28,6 +30,11 @@ export const Nav = () => {
       to: getCompositionListPath(),
       label: "Compositions",
       icon: LuMusic,
+    },
+    {
+      to: getArrangementListPath(),
+      label: "Scores",
+      icon: LuGuitar,
     },
     { to: getRoutineListPath(), label: "Routines", icon: LuListOrdered },
     {

@@ -16,6 +16,9 @@ const system = createSystem(
       html: {
         colorPalette: "gray",
       },
+      "label[data-scope='checkbox']": {
+        cursor: "pointer",
+      },
       "html[data-theme='dark']": {
         background: "var(--chakra-colors-black)",
         color: "var(--chakra-colors-white)",

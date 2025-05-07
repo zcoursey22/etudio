@@ -7,7 +7,14 @@ interface ListGridItemProps {
 
 export const ListGridItem = ({ content }: ListGridItemProps) => {
   return (
-    <Card.Root asChild size={"sm"} variant={"outline"} flex={"1"}>
+    <Card.Root
+      asChild
+      size={"sm"}
+      variant={"subtle"}
+      flex={"1"}
+      shadow={"none"}
+      _hover={{ shadow: "sm" }}
+    >
       <LinkBox>{content}</LinkBox>
     </Card.Root>
   );

@@ -7,35 +7,59 @@ import {
   Table,
 } from "@chakra-ui/react";
 import { ListViewContainer } from "../components/list";
-import { Supplementary } from "../models";
+import { Arrangement, Composition } from "../models";
 import { NavLink } from "../components/nav/NavLink";
-import { getSupplementaryDetailPath } from "../routes";
+import {
+  getArrangementDetailPath,
+  getArrangerDetailPath,
+  getCompositionDetailPath,
+} from "../routes";
 import { formatDate } from "../utils";
 import { LuDownload, LuExpand, LuStar } from "react-icons/lu";
 
-const supplementaries: Supplementary[] = [
+const athleticTheme: Composition = {
+  id: "4",
+  created: new Date(),
+  lastModified: new Date(),
+  name: "Athletic Theme",
+  composer: {
+    id: "1",
+    name: "Koji Kondo",
+    created: new Date(),
+    lastModified: new Date(),
+  },
+  source: {
+    id: "1",
+    name: "Yoshi's Island",
+    created: new Date(),
+    lastModified: new Date(),
+  },
+};
+
+const arrangements: Arrangement[] = [
   {
     id: "1",
+    name: "athletic-theme.pdf",
+    composition: athleticTheme,
+    arranger: {
+      id: "2",
+      name: "Sam Griffin",
+      created: new Date(),
+      lastModified: new Date(),
+    },
     created: new Date(),
     lastModified: new Date(),
-    name: "instruction-book.pdf",
-  },
-  {
-    id: "2",
-    created: new Date(),
-    lastModified: new Date(),
-    isFavorite: true,
-    name: "recording-reference.wav",
   },
 ];
+
 const loading = false;
 const error = undefined;
 
-export const SupplementaryList = () => {
+export const ArrangementList = () => {
   return (
     <ListViewContainer
-      title="Supplementaries"
-      items={supplementaries}
+      title="Scores"
+      items={arrangements}
       loading={loading}
       error={error}
       renderHeaderRowContents={() => (
@@ -54,11 +78,20 @@ export const SupplementaryList = () => {
             </Flex>
           </Table.ColumnHeader>
           <Table.ColumnHeader>Name</Table.ColumnHeader>
+          <Table.ColumnHeader>Composition</Table.ColumnHeader>
+          <Table.ColumnHeader>Arranger</Table.ColumnHeader>
           <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
           <Table.ColumnHeader width={"1"} />
         </>
       )}
-      renderRowContents={({ id, lastModified, name, isFavorite }) => (
+      renderRowContents={({
+        id,
+        name,
+        arranger,
+        composition,
+        lastModified,
+        isFavorite,
+      }) => (
         <>
           <Table.Cell>
             <Checkbox.Root colorPalette={"blue"}>
@@ -75,11 +108,21 @@ export const SupplementaryList = () => {
           </Table.Cell>
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
-              <NavLink to={getSupplementaryDetailPath(id)}>{name}</NavLink>
+              <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
               <Icon>
                 <LuExpand />
               </Icon>
             </Flex>
+          </Table.Cell>
+          <Table.Cell>
+            <NavLink to={getCompositionDetailPath(composition.id)}>
+              {composition.name}
+            </NavLink>
+          </Table.Cell>
+          <Table.Cell>
+            <NavLink to={getArrangerDetailPath(arranger.id)}>
+              {arranger.name}
+            </NavLink>
           </Table.Cell>
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
@@ -91,7 +134,7 @@ export const SupplementaryList = () => {
           </Table.Cell>
         </>
       )}
-      renderGridItemContents={({ id, name, isFavorite }) => (
+      renderGridItemContents={({ id, name, arranger, isFavorite }) => (
         <>
           <Card.Body>
             <Card.Title>
@@ -99,7 +142,7 @@ export const SupplementaryList = () => {
                 <LinkOverlay asChild>
                   <NavLink
                     colorPalette={"gray"}
-                    to={getSupplementaryDetailPath(id)}
+                    to={getArrangementDetailPath(id)}
                   >
                     {name}
                   </NavLink>
@@ -109,6 +152,11 @@ export const SupplementaryList = () => {
                 </Icon>
               </Flex>
             </Card.Title>
+            <Card.Description>
+              <NavLink to={getArrangerDetailPath(arranger.id)}>
+                {arranger.name}
+              </NavLink>
+            </Card.Description>
           </Card.Body>
           <Card.Footer>
             <Icon color={isFavorite ? "orange" : "fg"}>

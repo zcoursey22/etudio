@@ -1,79 +1,68 @@
-export interface Resource {
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+
+export interface Base {
   id: string;
+  name: string;
+}
+
+export interface Resource extends Base {
   created: Date;
   lastModified: Date;
   isFavorite?: boolean;
 }
 
-export interface Source {
-  name: string;
-  source?: Source;
+export interface Artist extends Resource {
+  firstName?: string;
+  lastName?: string;
+  members?: Artist[];
 }
 
-export interface Collection {
-  title: string;
-  artist: string; // Composer? Artist and have Composer and Arranger extend from it?
-}
+// COMPOSITIONS
 
 export interface Composition extends Resource {
-  composer: string;
-  title: string;
+  composer: Artist;
   partOf?: Composition;
   source?: Source;
   collection?: Collection;
-  arrangements: number;
+  arrangements?: Arrangement[];
 }
 
-export interface Routine extends Resource {
+export interface Source extends Resource {
+  source?: Source;
+}
+
+export interface Collection extends Resource {
+  artist: Artist;
+}
+
+// ARRANGEMENTS
+
+export interface Arrangement extends Resource {
+  composition: Composition;
+  arranger: Artist;
+  parts?: Part[];
+}
+
+export interface Part extends Base {
+  transposed?: number;
+  tuning?: Tuning;
+  instrument?: Instrument;
+  difficulty?: number;
+}
+
+export interface Tuning extends Base {
+  instrument: Instrument;
+}
+
+export interface Instrument extends Base {
+  id: string;
   name: string;
 }
 
-export interface Supplementary extends Resource {
-  name: string;
-}
+// ROUTINES
 
-// export interface Composer {
-//   id: string;
-//   firstName: string;
-//   lastName: string;
-// }
+export interface Routine extends Resource {}
 
-// export interface Composition {
-//   id: string;
-//   composers: Composer[];
-//   title: string;
-//   parts: Part[];
-//   relatedCompositions: Composition[];
-// }
+// SUPPLEMENTARIES
 
-// export interface Arranger {
-//   id: string;
-//   firstName: string;
-//   lastName: string;
-// }
-
-// export interface Arrangement {
-//   id: string;
-//   composition: Composition;
-//   arrangers: Arranger[];
-//   parts: Part[];
-// }
-
-// export interface Part {
-//   id: string;
-//   name: string;
-//   transposed: number;
-//   tuning: Tuning;
-//   instrument: Instrument;
-// }
-
-// export interface Tuning {
-//   id: string;
-//   name: string;
-//   instrument: Instrument;
-// }
-
-// export interface Instrument {
-//   id: string;
-//   name: string;
-// }
+export interface Supplementary extends Resource {}

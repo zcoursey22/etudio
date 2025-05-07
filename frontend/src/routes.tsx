@@ -1,5 +1,8 @@
 import { RouteObject } from "react-router-dom";
 import {
+  ArrangementDetail,
+  ArrangementList,
+  ArrangerDetail,
   ComposerDetail,
   CompositionDetail,
   CompositionList,
@@ -20,13 +23,16 @@ import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 
 const COMPOSITIONS = "compositions";
+const COMPOSERS = "composers";
+const ARRANGEMENTS = "arrangements";
+const ARRANGERS = "arrangers";
 const ROUTINES = "routines";
 const SUPPLEMENTARIES = "supplementaries";
+
 const PROFILE = "profile";
 const SETTINGS = "settings";
 const LOGIN = "login";
 const SIGNUP = "signup";
-const COMPOSERS = "composers";
 
 export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const publicRoutes = {
@@ -43,6 +49,9 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
       { path: `${COMPOSERS}/:id`, element: <ComposerDetail /> },
+      { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
+      { path: `${ARRANGEMENTS}/:id`, element: <ArrangementDetail /> },
+      { path: `${ARRANGERS}/:id`, element: <ArrangerDetail /> },
       { path: `${ROUTINES}`, element: <RoutineList /> },
       { path: `${ROUTINES}/:id`, element: <RoutineDetail /> },
       { path: `${SUPPLEMENTARIES}`, element: <SupplementaryList /> },
@@ -75,6 +84,8 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   ];
 };
 
+// COMPOSITIONS
+
 export const getCompositionListPath = () => {
   return `/${COMPOSITIONS}`;
 };
@@ -86,6 +97,21 @@ export const getComposerDetailPath = (id: string) => {
   return `/${COMPOSERS}/${id}`;
 };
 
+// ARRANGEMENTS
+
+export const getArrangementListPath = () => {
+  return `/${ARRANGEMENTS}`;
+};
+export const getArrangementDetailPath = (id: string) => {
+  return `${getArrangementListPath()}/${id}`;
+};
+
+export const getArrangerDetailPath = (id: string) => {
+  return `/${ARRANGERS}/${id}`;
+};
+
+// ROUTINES
+
 export const getRoutineListPath = () => {
   return `/${ROUTINES}`;
 };
@@ -93,12 +119,16 @@ export const getRoutineDetailPath = (id: string) => {
   return `${getRoutineListPath()}/${id}`;
 };
 
+// SUPPLEMENTARIES
+
 export const getSupplementaryListPath = () => {
   return `/${SUPPLEMENTARIES}`;
 };
 export const getSupplementaryDetailPath = (id: string) => {
   return `${getSupplementaryListPath()}/${id}`;
 };
+
+// ADMIN
 
 export const getProfilePath = () => {
   return `/${PROFILE}`;
@@ -111,6 +141,7 @@ export const getSettingPath = () => {
 export const getLoginPath = () => {
   return `/${LOGIN}`;
 };
+
 export const getSignupPath = () => {
   return `/${SIGNUP}`;
 };
