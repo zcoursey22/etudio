@@ -1,16 +1,73 @@
-import { Card, Table } from "@chakra-ui/react";
+import { Card, Checkbox, Icon, LinkOverlay, Table } from "@chakra-ui/react";
 import { ListViewContainer } from "../components/list";
 import { Composition } from "../models";
+import { NavLink } from "../components/nav/NavLink";
+import { getComposerDetailPath, getCompositionDetailPath } from "../routes";
+import { formatDate } from "../utils";
+import { LuStar } from "react-icons/lu";
+
+const nocturneOp9: Composition = {
+  id: "7",
+  created: new Date(),
+  lastModified: new Date(),
+  title: "Nocturne, Op. 9",
+  composer: "Frederic Chopin",
+  arrangements: 1,
+};
 
 const compositions: Composition[] = [
   {
     id: "1",
+    created: new Date(),
+    lastModified: new Date(),
+    isFavorite: true,
     title: "Ode to Joy",
-    composer: "Ludvig von Beethoven",
-    favorited: true,
+    composer: "Ludwig van Beethoven",
+    arrangements: 2,
+    partOf: {
+      composer: "Ludwig van Beethoven",
+      title: "Symphony No. 9",
+      arrangements: 0,
+      id: "5",
+      created: new Date(),
+      lastModified: new Date(),
+    },
   },
-  { id: "2", title: "Cello Prelude", composer: "Johann Sebastian Bach" },
-  { id: "3", title: "Nocturne", composer: "Frederick Chopin" },
+  {
+    id: "2",
+    created: new Date(),
+    lastModified: new Date(),
+    title: "Cello Suite No. 1 - Prelude",
+    composer: "Johann Sebastian Bach",
+    arrangements: 0,
+    partOf: {
+      id: "6",
+      created: new Date(),
+      lastModified: new Date(),
+      title: "Cello Suite No. 1",
+      composer: "Johann Sebastian Bach",
+      arrangements: 0,
+    },
+  },
+  {
+    id: "3",
+    created: new Date(),
+    lastModified: new Date(),
+    title: "Nocturne, Op. 9, No. 2",
+    composer: "Frederic Chopin",
+    arrangements: 1,
+    partOf: nocturneOp9,
+  },
+  {
+    id: "4",
+    created: new Date(),
+    lastModified: new Date(),
+    title: "Athletic Theme",
+    composer: "Koji Kondo",
+    arrangements: 0,
+    source: { name: "Yoshi's Island" },
+  },
+  nocturneOp9,
 ];
 const loading = false;
 const error = undefined;
@@ -24,21 +81,79 @@ export const CompositionList = () => {
       error={error}
       renderHeaderRowContents={() => (
         <>
+          <Table.ColumnHeader width={"1"}>
+            <Checkbox.Root colorPalette={"blue"}>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+            </Checkbox.Root>
+          </Table.ColumnHeader>
+          <Table.ColumnHeader width={"1"}>
+            <Icon>
+              <LuStar fill="white" />
+            </Icon>
+          </Table.ColumnHeader>
           <Table.ColumnHeader>Title</Table.ColumnHeader>
           <Table.ColumnHeader>Composer</Table.ColumnHeader>
+          <Table.ColumnHeader>From</Table.ColumnHeader>
+          <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
         </>
       )}
-      renderRowContents={(item) => (
+      renderRowContents={({
+        id,
+        lastModified,
+        isFavorite,
+        title,
+        composer,
+        source,
+        partOf,
+      }) => (
         <>
-          <Table.Cell>{item.title}</Table.Cell>
-          <Table.Cell>{item.composer}</Table.Cell>
+          <Table.Cell>
+            <Checkbox.Root colorPalette={"blue"}>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+            </Checkbox.Root>
+          </Table.Cell>
+          <Table.Cell>
+            <Icon color={isFavorite ? "orange" : "fg"}>
+              <LuStar fill={isFavorite ? "orange" : "none"} />
+            </Icon>
+          </Table.Cell>
+          <Table.Cell>
+            <NavLink to={getCompositionDetailPath(id)}>{title}</NavLink>
+          </Table.Cell>
+          <Table.Cell>
+            <NavLink to={getComposerDetailPath(id)}>{composer}</NavLink>
+          </Table.Cell>
+          <Table.Cell>
+            {source ? source.name : partOf ? partOf.title : "-"}
+          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
-      renderGridItemContents={(item) => (
-        <Card.Body>
-          <Card.Title>{item.title}</Card.Title>
-          <Card.Description>{item.composer}</Card.Description>
-        </Card.Body>
+      renderGridItemContents={({ id, title, composer, isFavorite }) => (
+        <>
+          <Card.Body>
+            <Card.Title>
+              <LinkOverlay asChild>
+                <NavLink
+                  colorPalette={"gray"}
+                  to={getCompositionDetailPath(id)}
+                >
+                  {title}
+                </NavLink>
+              </LinkOverlay>
+            </Card.Title>
+            <Card.Description>
+              <NavLink to={getComposerDetailPath(id)}>{composer}</NavLink>
+            </Card.Description>
+          </Card.Body>
+          <Card.Footer>
+            <Icon color={isFavorite ? "orange" : "fg"}>
+              <LuStar fill={isFavorite ? "orange" : "none"} />
+            </Icon>
+          </Card.Footer>
+        </>
       )}
     />
   );

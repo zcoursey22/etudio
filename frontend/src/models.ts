@@ -1,19 +1,29 @@
 export interface Resource {
   id: string;
-  favorited?: boolean;
+  created: Date;
+  lastModified: Date;
+  isFavorite?: boolean;
+}
+
+export interface Source {
+  name: string;
+  source?: Source;
 }
 
 export interface Composition extends Resource {
   composer: string;
   title: string;
+  source?: Source;
+  partOf?: Composition;
+  arrangements: number;
 }
 
 export interface Routine extends Resource {
-  title: string;
+  name: string;
 }
 
 export interface Supplementary extends Resource {
-  title: string;
+  name: string;
 }
 
 // export interface Composer {

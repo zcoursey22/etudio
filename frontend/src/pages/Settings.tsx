@@ -10,12 +10,15 @@ export const Settings = () => {
       <Stack>
         <Heading size={"md"}>Display</Heading>
         <Flex align={"center"} justify={"space-between"}>
-          <Text>Keep selected view type synced across all lists</Text>
+          <Text color={"fg.muted"}>
+            Keep selected view type synced across all lists
+          </Text>
           <Switch.Root
             checked={settings.syncListViewType}
             onCheckedChange={({ checked }) =>
               updateSettings({ syncListViewType: checked })
             }
+            colorPalette={"blue"}
           >
             <Switch.HiddenInput />
             <Switch.Control>

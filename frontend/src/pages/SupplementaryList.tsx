@@ -1,10 +1,24 @@
-import { Card, Table } from "@chakra-ui/react";
+import { Card, LinkOverlay, Table } from "@chakra-ui/react";
 import { ListViewContainer } from "../components/list";
 import { Supplementary } from "../models";
+import { NavLink } from "../components/nav/NavLink";
+import { getSupplementaryDetailPath } from "../routes";
+import { formatDate } from "../utils";
 
 const supplementaries: Supplementary[] = [
-  { id: "1", title: "instruction-book.pdf" },
-  { id: "2", title: "recording-reference.wav" },
+  {
+    id: "1",
+    created: new Date(),
+    lastModified: new Date(),
+    name: "instruction-book.pdf",
+  },
+  {
+    id: "2",
+    created: new Date(),
+    lastModified: new Date(),
+    isFavorite: true,
+    name: "recording-reference.wav",
+  },
 ];
 const loading = false;
 const error = undefined;
@@ -19,16 +33,29 @@ export const SupplementaryList = () => {
       renderHeaderRowContents={() => (
         <>
           <Table.ColumnHeader>Name</Table.ColumnHeader>
+          <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
         </>
       )}
-      renderRowContents={(item) => (
+      renderRowContents={({ id, lastModified, name }) => (
         <>
-          <Table.Cell>{item.title}</Table.Cell>
+          <Table.Cell>
+            <NavLink to={getSupplementaryDetailPath(id)}>{name}</NavLink>
+          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
-      renderGridItemContents={(item) => (
+      renderGridItemContents={({ id, name }) => (
         <Card.Body>
-          <Card.Title>{item.title}</Card.Title>
+          <Card.Title>
+            <LinkOverlay asChild>
+              <NavLink
+                colorPalette={"gray"}
+                to={getSupplementaryDetailPath(id)}
+              >
+                {name}
+              </NavLink>
+            </LinkOverlay>
+          </Card.Title>
         </Card.Body>
       )}
     />

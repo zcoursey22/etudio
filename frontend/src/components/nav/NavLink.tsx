@@ -1,14 +1,20 @@
-import { Link } from "@chakra-ui/react";
+import { Link, LinkProps } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 
-interface NavLinkProps extends PropsWithChildren {
+interface NavLinkProps extends PropsWithChildren, LinkProps {
   to: string;
 }
 
-export const NavLink = ({ children, to }: NavLinkProps) => {
+export const NavLink = (props: NavLinkProps) => {
+  const { to, children, fontWeight, colorPalette } = props;
   return (
-    <Link variant={"underline"} asChild>
+    <Link
+      {...props}
+      fontWeight={fontWeight || "semibold"}
+      colorPalette={colorPalette || "blue"}
+      asChild
+    >
       <RouterNavLink to={to}>{children}</RouterNavLink>
     </Link>
   );

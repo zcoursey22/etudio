@@ -14,7 +14,7 @@ export const ListTable = <T extends Resource>({
   renderRowContents,
 }: ListTableViewProps<T>) => {
   return (
-    <Table.Root size="sm" interactive variant={"outline"} borderRadius={"sm"}>
+    <Table.Root size="sm" interactive borderRadius={"sm"}>
       <Table.Header>
         <Table.Row>{renderHeaderRowContents()}</Table.Row>
       </Table.Header>

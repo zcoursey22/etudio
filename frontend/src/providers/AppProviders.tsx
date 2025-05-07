@@ -13,9 +13,9 @@ const system = createSystem(
   defaultConfig,
   defineConfig({
     globalCss: {
-      // html: {
-      //   colorPalette: "pink",
-      // },
+      html: {
+        colorPalette: "gray",
+      },
       "html[data-theme='dark']": {
         background: "var(--chakra-colors-black)",
         color: "var(--chakra-colors-white)",

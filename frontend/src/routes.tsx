@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import {
+  ComposerDetail,
   CompositionDetail,
   CompositionList,
   Home,
@@ -25,6 +26,7 @@ const PROFILE = "profile";
 const SETTINGS = "settings";
 const LOGIN = "login";
 const SIGNUP = "signup";
+const COMPOSERS = "composers";
 
 export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const publicRoutes = {
@@ -40,6 +42,7 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
     children: [
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
+      { path: `${COMPOSERS}/:id`, element: <ComposerDetail /> },
       { path: `${ROUTINES}`, element: <RoutineList /> },
       { path: `${ROUTINES}/:id`, element: <RoutineDetail /> },
       { path: `${SUPPLEMENTARIES}`, element: <SupplementaryList /> },
@@ -77,6 +80,10 @@ export const getCompositionListPath = () => {
 };
 export const getCompositionDetailPath = (id: string) => {
   return `${getCompositionListPath()}/${id}`;
+};
+
+export const getComposerDetailPath = (id: string) => {
+  return `/${COMPOSERS}/${id}`;
 };
 
 export const getRoutineListPath = () => {
