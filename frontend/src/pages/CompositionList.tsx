@@ -1,17 +1,11 @@
-import {
-  Card,
-  Checkbox,
-  Flex,
-  Icon,
-  LinkOverlay,
-  Table,
-} from "@chakra-ui/react";
-import { ListViewContainer } from "../components/list";
+import { Checkbox, Table } from "@chakra-ui/react";
+import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
 import { Artist, Composition } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getComposerDetailPath, getCompositionDetailPath } from "../routes";
 import { formatDate } from "../utils";
-import { LuStar } from "react-icons/lu";
+import { CompositionListGridItemContents } from "../components/compositions";
+import { Favorite } from "../components/Favorite";
 
 const artists: { [key: string]: Artist } = {
   chopin: {
@@ -139,13 +133,7 @@ export const CompositionList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.ColumnHeader>
-          <Table.ColumnHeader width={"1"}>
-            <Flex align={"center"}>
-              <Icon>
-                <LuStar fill="white" />
-              </Icon>
-            </Flex>
-          </Table.ColumnHeader>
+          <FavoriteColumnHeader />
           <Table.ColumnHeader>Title</Table.ColumnHeader>
           <Table.ColumnHeader>Composer</Table.ColumnHeader>
           <Table.ColumnHeader>From</Table.ColumnHeader>
@@ -170,11 +158,7 @@ export const CompositionList = () => {
             </Checkbox.Root>
           </Table.Cell>
           <Table.Cell>
-            <Flex align={"center"}>
-              <Icon color={isFavorite ? "orange" : "fg"}>
-                <LuStar fill={isFavorite ? "orange" : "none"} />
-              </Icon>
-            </Flex>
+            <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
             <NavLink to={getCompositionDetailPath(id)}>{name}</NavLink>
@@ -194,29 +178,8 @@ export const CompositionList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
-      renderGridItemContents={({ id, name, composer, isFavorite }) => (
-        <>
-          <Card.Body>
-            <Card.Title>
-              <LinkOverlay asChild>
-                <NavLink
-                  colorPalette={"gray"}
-                  to={getCompositionDetailPath(id)}
-                >
-                  {name}
-                </NavLink>
-              </LinkOverlay>
-            </Card.Title>
-            <Card.Description>
-              <NavLink to={getComposerDetailPath(id)}>{composer.name}</NavLink>
-            </Card.Description>
-          </Card.Body>
-          <Card.Footer>
-            <Icon color={isFavorite ? "orange" : "fg"}>
-              <LuStar fill={isFavorite ? "orange" : "none"} />
-            </Icon>
-          </Card.Footer>
-        </>
+      renderGridItemContents={(composition) => (
+        <CompositionListGridItemContents composition={composition} />
       )}
     />
   );

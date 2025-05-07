@@ -1,17 +1,11 @@
-import {
-  Card,
-  Checkbox,
-  Flex,
-  Icon,
-  LinkOverlay,
-  Table,
-} from "@chakra-ui/react";
-import { ListViewContainer } from "../components/list";
+import { Checkbox, Table } from "@chakra-ui/react";
+import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
 import { Routine } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getRoutineDetailPath } from "../routes";
 import { formatDate } from "../utils";
-import { LuStar } from "react-icons/lu";
+import { RoutineListGridItemContents } from "../components/routines";
+import { Favorite } from "../components/Favorite";
 
 const routines: Routine[] = [
   { id: "1", created: new Date(), lastModified: new Date(), name: "Warmup" },
@@ -46,13 +40,7 @@ export const RoutineList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.ColumnHeader>
-          <Table.ColumnHeader width={"1"}>
-            <Flex align={"center"}>
-              <Icon>
-                <LuStar fill="white" />
-              </Icon>
-            </Flex>
-          </Table.ColumnHeader>
+          <FavoriteColumnHeader />
           <Table.ColumnHeader>Name</Table.ColumnHeader>
           <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
         </>
@@ -66,11 +54,7 @@ export const RoutineList = () => {
             </Checkbox.Root>
           </Table.Cell>
           <Table.Cell>
-            <Flex align={"center"}>
-              <Icon color={isFavorite ? "orange" : "fg"}>
-                <LuStar fill={isFavorite ? "orange" : "none"} />
-              </Icon>
-            </Flex>
+            <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
             <NavLink to={getRoutineDetailPath(id)}>{name}</NavLink>
@@ -78,16 +62,8 @@ export const RoutineList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
-      renderGridItemContents={({ id, name }) => (
-        <Card.Body>
-          <Card.Title>
-            <LinkOverlay asChild>
-              <NavLink colorPalette={"gray"} to={getRoutineDetailPath(id)}>
-                {name}
-              </NavLink>
-            </LinkOverlay>
-          </Card.Title>
-        </Card.Body>
+      renderGridItemContents={(routine) => (
+        <RoutineListGridItemContents routine={routine} />
       )}
     />
   );

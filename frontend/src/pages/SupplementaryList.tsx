@@ -1,17 +1,12 @@
-import {
-  Card,
-  Checkbox,
-  Flex,
-  Icon,
-  LinkOverlay,
-  Table,
-} from "@chakra-ui/react";
-import { ListViewContainer } from "../components/list";
+import { Checkbox, Flex, Icon, Table } from "@chakra-ui/react";
+import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
 import { Supplementary } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getSupplementaryDetailPath } from "../routes";
 import { formatDate } from "../utils";
-import { LuDownload, LuExpand, LuStar } from "react-icons/lu";
+import { LuDownload, LuExpand } from "react-icons/lu";
+import { SupplementaryListGridItemContents } from "../components/supplementaries";
+import { Favorite } from "../components/Favorite";
 
 const supplementaries: Supplementary[] = [
   {
@@ -46,13 +41,7 @@ export const SupplementaryList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.ColumnHeader>
-          <Table.ColumnHeader width={"1"}>
-            <Flex align={"center"}>
-              <Icon>
-                <LuStar fill="white" />
-              </Icon>
-            </Flex>
-          </Table.ColumnHeader>
+          <FavoriteColumnHeader />
           <Table.ColumnHeader>Name</Table.ColumnHeader>
           <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
           <Table.ColumnHeader width={"1"} />
@@ -67,11 +56,7 @@ export const SupplementaryList = () => {
             </Checkbox.Root>
           </Table.Cell>
           <Table.Cell>
-            <Flex align={"center"}>
-              <Icon color={isFavorite ? "orange" : "fg"}>
-                <LuStar fill={isFavorite ? "orange" : "none"} />
-              </Icon>
-            </Flex>
+            <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
@@ -91,34 +76,8 @@ export const SupplementaryList = () => {
           </Table.Cell>
         </>
       )}
-      renderGridItemContents={({ id, name, isFavorite }) => (
-        <>
-          <Card.Body>
-            <Card.Title>
-              <Flex gap={"0.5em"} align={"center"}>
-                <LinkOverlay asChild>
-                  <NavLink
-                    colorPalette={"gray"}
-                    to={getSupplementaryDetailPath(id)}
-                  >
-                    {name}
-                  </NavLink>
-                </LinkOverlay>
-                <Icon>
-                  <LuExpand />
-                </Icon>
-              </Flex>
-            </Card.Title>
-          </Card.Body>
-          <Card.Footer>
-            <Icon color={isFavorite ? "orange" : "fg"}>
-              <LuStar fill={isFavorite ? "orange" : "none"} />
-            </Icon>
-            <Icon>
-              <LuDownload />
-            </Icon>
-          </Card.Footer>
-        </>
+      renderGridItemContents={(supplementary) => (
+        <SupplementaryListGridItemContents supplementary={supplementary} />
       )}
     />
   );
