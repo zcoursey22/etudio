@@ -68,6 +68,15 @@ const compositions: Composition[] = [
     source: { name: "Yoshi's Island" },
   },
   nocturneOp9,
+  {
+    id: "8",
+    created: new Date(),
+    lastModified: new Date(),
+    title: "Bixby Canyon Bridge",
+    composer: "Death Cab for Cutie",
+    arrangements: 1,
+    collection: { title: "Narrow Stairs", artist: "Death Cab for Cutie" },
+  },
 ];
 const loading = false;
 const error = undefined;
@@ -106,6 +115,7 @@ export const CompositionList = () => {
         composer,
         source,
         partOf,
+        collection,
       }) => (
         <>
           <Table.Cell>
@@ -126,7 +136,13 @@ export const CompositionList = () => {
             <NavLink to={getComposerDetailPath(id)}>{composer}</NavLink>
           </Table.Cell>
           <Table.Cell>
-            {source ? source.name : partOf ? partOf.title : "-"}
+            {partOf
+              ? partOf.title
+              : source
+              ? source.name
+              : collection
+              ? collection.title
+              : "-"}
           </Table.Cell>
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>

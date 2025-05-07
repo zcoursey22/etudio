@@ -10,11 +10,17 @@ export interface Source {
   source?: Source;
 }
 
+export interface Collection {
+  title: string;
+  artist: string; // Composer? Artist and have Composer and Arranger extend from it?
+}
+
 export interface Composition extends Resource {
   composer: string;
   title: string;
-  source?: Source;
   partOf?: Composition;
+  source?: Source;
+  collection?: Collection;
   arrangements: number;
 }
 
