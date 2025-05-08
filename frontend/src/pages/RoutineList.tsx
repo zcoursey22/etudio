@@ -38,7 +38,7 @@ export const RoutineList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell color="fg">
             <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
