@@ -3,6 +3,7 @@ import {
   ArrangementDetail,
   ArrangementList,
   ArrangerDetail,
+  CollectionDetail,
   ComposerDetail,
   CompositionDetail,
   CompositionList,
@@ -15,6 +16,7 @@ import {
   RoutineList,
   Settings,
   Signup,
+  SourceDetail,
   SupplementaryDetail,
   SupplementaryList,
 } from "./pages";
@@ -24,6 +26,8 @@ import { AuthLayout } from "./components/AuthLayout";
 
 const COMPOSITIONS = "compositions";
 const COMPOSERS = "composers";
+const SOURCES = "sources";
+const COLLECTIONS = "collections";
 const ARRANGEMENTS = "arrangements";
 const ARRANGERS = "arrangers";
 const ROUTINES = "routines";
@@ -49,6 +53,8 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
       { path: `${COMPOSERS}/:id`, element: <ComposerDetail /> },
+      { path: `${SOURCES}/:id`, element: <SourceDetail /> },
+      { path: `${COLLECTIONS}/:id`, element: <CollectionDetail /> },
       { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
       { path: `${ARRANGEMENTS}/:id`, element: <ArrangementDetail /> },
       { path: `${ARRANGERS}/:id`, element: <ArrangerDetail /> },
@@ -95,6 +101,14 @@ export const getCompositionDetailPath = (id: string) => {
 
 export const getComposerDetailPath = (id: string) => {
   return `/${COMPOSERS}/${id}`;
+};
+
+export const getSourceDetailPath = (id: string) => {
+  return `/${SOURCES}/${id}`;
+};
+
+export const getCollectionDetailPath = (id: string) => {
+  return `/${COLLECTIONS}/${id}`;
 };
 
 // ARRANGEMENTS

@@ -61,7 +61,7 @@ export const SupplementaryList = () => {
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
               <NavLink to={getSupplementaryDetailPath(id)}>{name}</NavLink>
-              <Icon>
+              <Icon size={"sm"}>
                 <LuExpand />
               </Icon>
             </Flex>
@@ -69,7 +69,7 @@ export const SupplementaryList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
-              <Icon>
+              <Icon size={"sm"}>
                 <LuDownload />
               </Icon>
             </Flex>

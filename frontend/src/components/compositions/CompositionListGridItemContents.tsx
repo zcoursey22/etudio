@@ -1,15 +1,17 @@
-import { Card, LinkOverlay } from "@chakra-ui/react";
+import { Card, LinkOverlay, Text } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Composition } from "../../models";
 import { getComposerDetailPath, getCompositionDetailPath } from "../../routes";
 import { Favorite } from "../Favorite";
+import { CompositionFrom } from "./CompositionFrom";
 
 interface Props {
   composition: Composition;
 }
 
 export const CompositionListGridItemContents = ({ composition }: Props) => {
-  const { name, id, composer, isFavorite } = composition;
+  const { name, id, composer, isFavorite, partOf, source, collection } =
+    composition;
 
   return (
     <>
@@ -22,8 +24,18 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
           </LinkOverlay>
         </Card.Title>
         <Card.Description>
-          Composed by{" "}
-          <NavLink to={getComposerDetailPath(id)}>{composer.name}</NavLink>
+          <Text fontSize={"xs"}>
+            <CompositionFrom
+              partOf={partOf}
+              source={source}
+              collection={collection}
+              emptyText={""}
+            />
+          </Text>
+          <Text>
+            Composed by{" "}
+            <NavLink to={getComposerDetailPath(id)}>{composer.name}</NavLink>
+          </Text>
         </Card.Description>
       </Card.Body>
       <Card.Footer>

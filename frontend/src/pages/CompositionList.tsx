@@ -4,7 +4,10 @@ import { Artist, Composition } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getComposerDetailPath, getCompositionDetailPath } from "../routes";
 import { formatDate } from "../utils";
-import { CompositionListGridItemContents } from "../components/compositions";
+import {
+  CompositionFrom,
+  CompositionListGridItemContents,
+} from "../components/compositions";
 import { Favorite } from "../components/Favorite";
 
 const artists: { [key: string]: Artist } = {
@@ -167,13 +170,11 @@ export const CompositionList = () => {
             <NavLink to={getComposerDetailPath(id)}>{composer.name}</NavLink>
           </Table.Cell>
           <Table.Cell>
-            {partOf
-              ? partOf.name
-              : source
-              ? source.name
-              : collection
-              ? collection.name
-              : "-"}
+            <CompositionFrom
+              partOf={partOf}
+              source={source}
+              collection={collection}
+            />
           </Table.Cell>
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>

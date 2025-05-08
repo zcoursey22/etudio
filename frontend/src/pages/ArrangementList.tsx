@@ -95,7 +95,7 @@ export const ArrangementList = () => {
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
               <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
-              <Icon>
+              <Icon size="sm">
                 <LuExpand />
               </Icon>
             </Flex>
@@ -113,7 +113,7 @@ export const ArrangementList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
-              <Icon>
+              <Icon size={"sm"}>
                 <LuDownload />
               </Icon>
             </Flex>
