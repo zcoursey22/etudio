@@ -1,10 +1,9 @@
 import { Checkbox, Flex, Icon, Table } from "@chakra-ui/react";
 import { ListViewContainer } from "../components/list";
-import { Arrangement, Composition } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import {
   getArrangementDetailPath,
-  getArrangerDetailPath,
+  getArtistDetailPath,
   getCompositionDetailPath,
 } from "../routes";
 import { formatDate } from "../utils";
@@ -12,51 +11,18 @@ import { LuDownload, LuExpand } from "react-icons/lu";
 import { ArrangementListGridItemContents } from "../components/arrangements";
 import { FavoriteColumnHeader } from "../components/list";
 import { Favorite } from "../components/Favorite";
-
-const athleticTheme: Composition = {
-  id: "4",
-  created: new Date(),
-  lastModified: new Date(),
-  name: "Athletic Theme",
-  composer: {
-    id: "1",
-    name: "Koji Kondo",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-  source: {
-    id: "1",
-    name: "Yoshi's Island",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-};
-
-const arrangements: Arrangement[] = [
-  {
-    id: "1",
-    name: "athletic-theme.pdf",
-    composition: athleticTheme,
-    arranger: {
-      id: "2",
-      name: "Sam Griffin",
-      created: new Date(),
-      lastModified: new Date(),
-    },
-    created: new Date(),
-    lastModified: new Date(),
-  },
-];
-
-const loading = false;
-const error = undefined;
+import { useArrangements } from "../hooks/useArrangements";
 
 export const ArrangementList = () => {
+  const { data, isLoading, error } = useArrangements();
+  const arrangements = data || [];
+  console.log(arrangements);
+
   return (
     <ListViewContainer
       title="Scores"
       items={arrangements}
-      loading={loading}
+      loading={isLoading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -77,7 +43,7 @@ export const ArrangementList = () => {
       renderRowContents={({
         id,
         name,
-        arranger,
+        artist,
         composition,
         lastModified,
         isFavorite,
@@ -101,16 +67,16 @@ export const ArrangementList = () => {
             </Flex>
           </Table.Cell>
           <Table.Cell>
-            <NavLink to={getCompositionDetailPath(composition.id)}>
+            {/* <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
-            </NavLink>
+            </NavLink> */}
           </Table.Cell>
           <Table.Cell>
-            <NavLink to={getArrangerDetailPath(arranger.id)}>
-              {arranger.name}
-            </NavLink>
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Table.Cell>
-          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
+          <Table.Cell textAlign="end">
+            {formatDate(new Date(lastModified))}
+          </Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
               <Icon size={"sm"}>

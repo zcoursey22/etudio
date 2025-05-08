@@ -8,6 +8,7 @@ import {
   defineConfig,
 } from "@chakra-ui/react";
 import { ColorModeProvider } from "../components";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const system = createSystem(
   defaultConfig,
@@ -32,13 +33,17 @@ const system = createSystem(
   })
 );
 
+const queryClient = new QueryClient();
+
 export const AppProviders = ({ children }: PropsWithChildren) => {
   return (
     <AuthProvider>
       <SettingsProvider>
-        <ChakraProvider value={system}>
-          <ColorModeProvider>{children}</ColorModeProvider>
-        </ChakraProvider>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider value={system}>
+            <ColorModeProvider>{children}</ColorModeProvider>
+          </ChakraProvider>
+        </QueryClientProvider>
       </SettingsProvider>
     </AuthProvider>
   );

@@ -1,132 +1,25 @@
 import { Checkbox, Table } from "@chakra-ui/react";
 import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
-import { Artist, Composition } from "../models";
 import { NavLink } from "../components/nav/NavLink";
-import { getComposerDetailPath, getCompositionDetailPath } from "../routes";
+import { getArtistDetailPath, getCompositionDetailPath } from "../routes";
 import { formatDate } from "../utils";
 import {
   CompositionFrom,
   CompositionListGridItemContents,
 } from "../components/compositions";
 import { Favorite } from "../components/Favorite";
-
-const artists: { [key: string]: Artist } = {
-  chopin: {
-    id: "1",
-    name: "Frederic Chopin",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-  bach: {
-    id: "2",
-    name: "Johann Sebastian Bach",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-  beethoven: {
-    id: "3",
-    name: "Ludwig van Beethoven",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-  kondo: {
-    id: "4",
-    name: "Koji Kondo",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-  dcfc: {
-    id: "5",
-    name: "Death Cab for Cutie",
-    created: new Date(),
-    lastModified: new Date(),
-  },
-};
-
-const nocturneOp9: Composition = {
-  id: "7",
-  created: new Date(),
-  lastModified: new Date(),
-  name: "Nocturne, Op. 9",
-  composer: artists.chopin,
-};
-
-const compositions: Composition[] = [
-  {
-    id: "1",
-    created: new Date(),
-    lastModified: new Date(),
-    isFavorite: true,
-    name: "Ode to Joy",
-    composer: artists.beethoven,
-    partOf: {
-      composer: artists.beethoven,
-      name: "Symphony No. 9",
-      id: "5",
-      created: new Date(),
-      lastModified: new Date(),
-    },
-  },
-  {
-    id: "2",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "Cello Suite No. 1 - Prelude",
-    composer: artists.bach,
-    partOf: {
-      id: "6",
-      created: new Date(),
-      lastModified: new Date(),
-      name: "Cello Suite No. 1",
-      composer: artists.bach,
-    },
-  },
-  {
-    id: "3",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "Nocturne, Op. 9, No. 2",
-    composer: artists.chopin,
-    partOf: nocturneOp9,
-  },
-  {
-    id: "4",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "Athletic Theme",
-    composer: artists.kondo,
-    source: {
-      id: "6",
-      name: "Yoshi's Island",
-      created: new Date(),
-      lastModified: new Date(),
-    },
-  },
-  nocturneOp9,
-  {
-    id: "8",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "Bixby Canyon Bridge",
-    composer: artists.dcfc,
-    collection: {
-      id: "9",
-      name: "Narrow Stairs",
-      artist: artists.dcfc,
-      created: new Date(),
-      lastModified: new Date(),
-    },
-  },
-];
-const loading = false;
-const error = undefined;
+import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
+  const { data, isLoading, error } = useCompositions();
+  const compositions = data || [];
+  console.log(compositions);
+
   return (
     <ListViewContainer
       title="Compositions"
       items={compositions}
-      loading={loading}
+      loading={isLoading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -148,7 +41,7 @@ export const CompositionList = () => {
         lastModified,
         isFavorite,
         name,
-        composer,
+        artist,
         source,
         partOf,
         collection,
@@ -167,7 +60,7 @@ export const CompositionList = () => {
             <NavLink to={getCompositionDetailPath(id)}>{name}</NavLink>
           </Table.Cell>
           <Table.Cell>
-            <NavLink to={getComposerDetailPath(id)}>{composer.name}</NavLink>
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Table.Cell>
           <Table.Cell>
             <CompositionFrom
@@ -176,7 +69,9 @@ export const CompositionList = () => {
               collection={collection}
             />
           </Table.Cell>
-          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
+          <Table.Cell textAlign="end">
+            {formatDate(new Date(lastModified))}
+          </Table.Cell>
         </>
       )}
       renderGridItemContents={(composition) => (

@@ -1,12 +1,12 @@
 import { Heading } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-export const ComposerDetail = () => {
+export const ArtistDetail = () => {
   const { id } = useParams();
 
   return (
     <>
-      <Heading>Composer {id}</Heading>
+      <Heading>Artist {id}</Heading>
     </>
   );
 };

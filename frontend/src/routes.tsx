@@ -1,10 +1,9 @@
 import { RouteObject } from "react-router-dom";
 import {
+  ArtistDetail,
   ArrangementDetail,
   ArrangementList,
-  ArrangerDetail,
   CollectionDetail,
-  ComposerDetail,
   CompositionDetail,
   CompositionList,
   Home,
@@ -24,12 +23,11 @@ import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 
+const ARTISTS = "artists";
 const COMPOSITIONS = "compositions";
-const COMPOSERS = "composers";
 const SOURCES = "sources";
 const COLLECTIONS = "collections";
 const ARRANGEMENTS = "arrangements";
-const ARRANGERS = "arrangers";
 const ROUTINES = "routines";
 const SUPPLEMENTARIES = "supplementaries";
 
@@ -50,14 +48,13 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const protectedRoutes = {
     element: <RouteGuard redirectTo="/" />,
     children: [
+      { path: `${ARTISTS}/:id`, element: <ArtistDetail /> },
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
-      { path: `${COMPOSERS}/:id`, element: <ComposerDetail /> },
       { path: `${SOURCES}/:id`, element: <SourceDetail /> },
       { path: `${COLLECTIONS}/:id`, element: <CollectionDetail /> },
       { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
       { path: `${ARRANGEMENTS}/:id`, element: <ArrangementDetail /> },
-      { path: `${ARRANGERS}/:id`, element: <ArrangerDetail /> },
       { path: `${ROUTINES}`, element: <RoutineList /> },
       { path: `${ROUTINES}/:id`, element: <RoutineDetail /> },
       { path: `${SUPPLEMENTARIES}`, element: <SupplementaryList /> },
@@ -90,24 +87,24 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   ];
 };
 
+export const getArtistDetailPath = (id: number) => {
+  return `/${ARTISTS}/${id}`;
+};
+
 // COMPOSITIONS
 
 export const getCompositionListPath = () => {
   return `/${COMPOSITIONS}`;
 };
-export const getCompositionDetailPath = (id: string) => {
+export const getCompositionDetailPath = (id: number) => {
   return `${getCompositionListPath()}/${id}`;
 };
 
-export const getComposerDetailPath = (id: string) => {
-  return `/${COMPOSERS}/${id}`;
-};
-
-export const getSourceDetailPath = (id: string) => {
+export const getSourceDetailPath = (id: number) => {
   return `/${SOURCES}/${id}`;
 };
 
-export const getCollectionDetailPath = (id: string) => {
+export const getCollectionDetailPath = (id: number) => {
   return `/${COLLECTIONS}/${id}`;
 };
 
@@ -116,12 +113,8 @@ export const getCollectionDetailPath = (id: string) => {
 export const getArrangementListPath = () => {
   return `/${ARRANGEMENTS}`;
 };
-export const getArrangementDetailPath = (id: string) => {
+export const getArrangementDetailPath = (id: number) => {
   return `${getArrangementListPath()}/${id}`;
-};
-
-export const getArrangerDetailPath = (id: string) => {
-  return `/${ARRANGERS}/${id}`;
 };
 
 // ROUTINES
@@ -129,7 +122,7 @@ export const getArrangerDetailPath = (id: string) => {
 export const getRoutineListPath = () => {
   return `/${ROUTINES}`;
 };
-export const getRoutineDetailPath = (id: string) => {
+export const getRoutineDetailPath = (id: number) => {
   return `${getRoutineListPath()}/${id}`;
 };
 
@@ -138,7 +131,7 @@ export const getRoutineDetailPath = (id: string) => {
 export const getSupplementaryListPath = () => {
   return `/${SUPPLEMENTARIES}`;
 };
-export const getSupplementaryDetailPath = (id: string) => {
+export const getSupplementaryDetailPath = (id: number) => {
   return `${getSupplementaryListPath()}/${id}`;
 };
 

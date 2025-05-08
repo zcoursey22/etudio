@@ -1,0 +1,206 @@
+{
+  "compositions": [
+    {
+      "id": 1,
+      "isFavorite": true,
+      "name": "Ode to Joy",
+      "artistId": 3,
+      "compositionId": 2,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Symphony No. 9",
+      "artistId": 3,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Cello Suite No. 1 - Prelude",
+      "artistId": 2,
+      "compositionId": 4,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Cello Suite No. 1",
+      "artistId": 2,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Nocturne, Op. 9, No. 2",
+      "artistId": 1,
+      "compositionId": 8,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Athletic Theme",
+      "artistId": 4,
+      "sourceId": 1,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "Bixby Canyon Bridge",
+      "artistId": 5,
+      "collectionId": 1,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "name": "Nocturne, Op. 9",
+      "artistId": 1,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "name": "Yoshi's Island",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "collections": [
+    {
+      "id": 1,
+      "name": "Narrow Stairs",
+      "artistId": 5,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "arrangements": [
+    {
+      "id": 1,
+      "name": "athletic-theme.pdf",
+      "compositionId": 1,
+      "artistId": 6,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "pokemon-center.pdf",
+      "compositionId": 2,
+      "artistId": 7,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "parts": [
+    {
+      "id": 1,
+      "name": "Guitar 1",
+      "arrangementId": 1,
+      "tuningId": 1,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "tunings": [
+    {
+      "id": 1,
+      "name": "Standard",
+      "instrumentId": 1,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "instruments": [
+    {
+      "id": 1,
+      "name": "Guitar",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "artists": [
+    {
+      "id": 1,
+      "name": "Frederic Chopin",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Johann Sebastian Bach",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Ludwig van Beethoven",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Koji Kondo",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Death Cab for Cutie",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Sam Griffin",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "Harley Guio",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "routines": [
+    {
+      "id": 1,
+      "name": "Warmup",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "October Recital",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Tremolo Practice",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
+  "supplementaries": [
+    {
+      "id": 1,
+      "name": "instruction-book.pdf",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "recording-reference.wav",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ]
+}

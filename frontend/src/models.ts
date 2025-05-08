@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 
 export interface Base {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -20,7 +20,7 @@ export interface Artist extends Resource {
 // COMPOSITIONS
 
 export interface Composition extends Resource {
-  composer: Artist;
+  artist: Artist;
   partOf?: Composition;
   source?: Source;
   collection?: Collection;
@@ -39,7 +39,7 @@ export interface Collection extends Resource {
 
 export interface Arrangement extends Resource {
   composition: Composition;
-  arranger: Artist;
+  artist: Artist;
   parts?: Part[];
 }
 
@@ -54,10 +54,7 @@ export interface Tuning extends Base {
   instrument: Instrument;
 }
 
-export interface Instrument extends Base {
-  id: string;
-  name: string;
-}
+export interface Instrument extends Base {}
 
 // ROUTINES
 

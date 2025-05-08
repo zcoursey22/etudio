@@ -1,37 +1,23 @@
 import { Checkbox, Flex, Icon, Table } from "@chakra-ui/react";
 import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
-import { Supplementary } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getSupplementaryDetailPath } from "../routes";
 import { formatDate } from "../utils";
 import { LuDownload, LuExpand } from "react-icons/lu";
 import { SupplementaryListGridItemContents } from "../components/supplementaries";
 import { Favorite } from "../components/Favorite";
-
-const supplementaries: Supplementary[] = [
-  {
-    id: "1",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "instruction-book.pdf",
-  },
-  {
-    id: "2",
-    created: new Date(),
-    lastModified: new Date(),
-    isFavorite: true,
-    name: "recording-reference.wav",
-  },
-];
-const loading = false;
-const error = undefined;
+import { useSupplementaries } from "../hooks/useSupplementaries";
 
 export const SupplementaryList = () => {
+  const { data, isLoading, error } = useSupplementaries();
+  const supplementaries = data || [];
+  console.log(supplementaries);
+
   return (
     <ListViewContainer
       title="Supplementaries"
       items={supplementaries}
-      loading={loading}
+      loading={isLoading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -66,7 +52,9 @@ export const SupplementaryList = () => {
               </Icon>
             </Flex>
           </Table.Cell>
-          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
+          <Table.Cell textAlign="end">
+            {formatDate(new Date(lastModified))}
+          </Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
               <Icon size={"sm"}>

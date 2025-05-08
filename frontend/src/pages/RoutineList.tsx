@@ -1,36 +1,22 @@
 import { Checkbox, Table } from "@chakra-ui/react";
 import { FavoriteColumnHeader, ListViewContainer } from "../components/list";
-import { Routine } from "../models";
 import { NavLink } from "../components/nav/NavLink";
 import { getRoutineDetailPath } from "../routes";
 import { formatDate } from "../utils";
 import { RoutineListGridItemContents } from "../components/routines";
 import { Favorite } from "../components/Favorite";
-
-const routines: Routine[] = [
-  { id: "1", created: new Date(), lastModified: new Date(), name: "Warmup" },
-  {
-    id: "2",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "October Recital",
-  },
-  {
-    id: "3",
-    created: new Date(),
-    lastModified: new Date(),
-    name: "Tremolo Practice",
-  },
-];
-const loading = false;
-const error = undefined;
+import { useRoutines } from "../hooks/useRoutines";
 
 export const RoutineList = () => {
+  const { data, isLoading, error } = useRoutines();
+  const routines = data || [];
+  console.log(routines);
+
   return (
     <ListViewContainer
       title="Routines"
       items={routines}
-      loading={loading}
+      loading={isLoading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -59,7 +45,9 @@ export const RoutineList = () => {
           <Table.Cell>
             <NavLink to={getRoutineDetailPath(id)}>{name}</NavLink>
           </Table.Cell>
-          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
+          <Table.Cell textAlign="end">
+            {formatDate(new Date(lastModified))}
+          </Table.Cell>
         </>
       )}
       renderGridItemContents={(routine) => (

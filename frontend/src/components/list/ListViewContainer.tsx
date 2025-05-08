@@ -25,7 +25,7 @@ export interface ListViewContainerProps<T> {
   title: string;
   items: T[];
   loading: boolean;
-  error?: Error;
+  error: Error | null;
   renderHeaderRowContents: () => ReactNode;
   renderRowContents: (item: T) => ReactNode;
   renderGridItemContents: (item: T) => ReactNode;

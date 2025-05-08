@@ -4,8 +4,7 @@ import { Arrangement } from "../../models";
 import { LuDownload, LuExpand } from "react-icons/lu";
 import {
   getArrangementDetailPath,
-  getArrangerDetailPath,
-  getComposerDetailPath,
+  getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../routes";
 import { Favorite } from "../Favorite";
@@ -15,7 +14,7 @@ interface Props {
 }
 
 export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
-  const { name, id, arranger, isFavorite, composition } = arrangement;
+  const { name, id, artist, isFavorite, composition } = arrangement;
 
   return (
     <>
@@ -38,15 +37,13 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
               {composition.name}
             </NavLink>
             {" by "}
-            <NavLink to={getComposerDetailPath(composition.id)}>
-              {composition.composer.name}
+            <NavLink to={getArtistDetailPath(composition.artist.id)}>
+              {composition.artist.name}
             </NavLink>
           </Text>
           <Text>
             Arranged by{" "}
-            <NavLink to={getArrangerDetailPath(arranger.id)}>
-              {arranger.name}
-            </NavLink>
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Text>
         </Card.Description>
       </Card.Body>
