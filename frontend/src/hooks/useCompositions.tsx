@@ -1,5 +1,5 @@
 import { useQuery } from "./useQuery";
-import { Composition, Source } from "../models";
+import { Collection, Composition, Source } from "../models";
 
 interface ApiComposition extends Composition {
   artistId: number;
@@ -30,7 +30,7 @@ export const useCompositions = () => {
     data: collectionsData,
     isLoading: collectionsLoading,
     error: collectionsError,
-  } = useQuery<Source[]>("collections", `/collections`);
+  } = useQuery<Collection[]>("collections", `/collections`);
   const collections = collectionsData || [];
 
   return {

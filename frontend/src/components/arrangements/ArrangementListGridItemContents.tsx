@@ -31,21 +31,19 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             </Icon>
           </Flex>
         </Card.Title>
-        <Card.Description>
-          <Text fontSize={"xs"}>
-            <NavLink to={getCompositionDetailPath(composition.id)}>
-              {composition.name}
-            </NavLink>
-            {" by "}
-            <NavLink to={getArtistDetailPath(composition.artist.id)}>
-              {composition.artist.name}
-            </NavLink>
-          </Text>
-          <Text>
-            Arranged by{" "}
-            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
-          </Text>
-        </Card.Description>
+        <Text fontSize={"xs"}>
+          <NavLink to={getCompositionDetailPath(composition.id)}>
+            {composition.name}
+          </NavLink>
+          {" by "}
+          <NavLink to={getArtistDetailPath(composition.artist.id)}>
+            {composition.artist.name}
+          </NavLink>
+        </Text>
+        <Text>
+          Arranged by{" "}
+          <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+        </Text>
       </Card.Body>
       <Card.Footer>
         <Favorite isFavorite={isFavorite} />
