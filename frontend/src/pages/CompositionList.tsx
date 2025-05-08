@@ -11,15 +11,14 @@ import { Favorite } from "../components/Favorite";
 import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
-  const { data, isLoading, error } = useCompositions();
-  const compositions = data || [];
+  const { compositions, loading, error } = useCompositions();
   console.log(compositions);
 
   return (
     <ListViewContainer
       title="Compositions"
       items={compositions}
-      loading={isLoading}
+      loading={loading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -69,9 +68,7 @@ export const CompositionList = () => {
               collection={collection}
             />
           </Table.Cell>
-          <Table.Cell textAlign="end">
-            {formatDate(new Date(lastModified))}
-          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
       renderGridItemContents={(composition) => (

@@ -14,15 +14,14 @@ import { Favorite } from "../components/Favorite";
 import { useArrangements } from "../hooks/useArrangements";
 
 export const ArrangementList = () => {
-  const { data, isLoading, error } = useArrangements();
-  const arrangements = data || [];
+  const { arrangements, loading, error } = useArrangements();
   console.log(arrangements);
 
   return (
     <ListViewContainer
       title="Scores"
       items={arrangements}
-      loading={isLoading}
+      loading={loading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -67,16 +66,14 @@ export const ArrangementList = () => {
             </Flex>
           </Table.Cell>
           <Table.Cell>
-            {/* <NavLink to={getCompositionDetailPath(composition.id)}>
+            <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
-            </NavLink> */}
+            </NavLink>
           </Table.Cell>
           <Table.Cell>
             <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Table.Cell>
-          <Table.Cell textAlign="end">
-            {formatDate(new Date(lastModified))}
-          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
               <Icon size={"sm"}>

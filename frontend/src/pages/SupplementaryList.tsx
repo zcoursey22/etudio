@@ -9,15 +9,14 @@ import { Favorite } from "../components/Favorite";
 import { useSupplementaries } from "../hooks/useSupplementaries";
 
 export const SupplementaryList = () => {
-  const { data, isLoading, error } = useSupplementaries();
-  const supplementaries = data || [];
+  const { supplementaries, loading, error } = useSupplementaries();
   console.log(supplementaries);
 
   return (
     <ListViewContainer
       title="Supplementaries"
       items={supplementaries}
-      loading={isLoading}
+      loading={loading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -52,9 +51,7 @@ export const SupplementaryList = () => {
               </Icon>
             </Flex>
           </Table.Cell>
-          <Table.Cell textAlign="end">
-            {formatDate(new Date(lastModified))}
-          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
               <Icon size={"sm"}>

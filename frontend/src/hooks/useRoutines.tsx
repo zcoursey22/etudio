@@ -1,8 +1,20 @@
 import { useQuery } from "./useQuery";
 import { Routine } from "../models";
 
-export const useRoutines = () =>
-  useQuery<Routine[]>("compositions", "/compositions?_expand=artist");
+export const useRoutines = () => {
+  const {
+    data,
+    isLoading: loading,
+    error,
+  } = useQuery<Routine[]>("routines", "/routines");
+  return { routines: data || [], loading, error };
+};
 
-export const useRoutine = (id: number) =>
-  useQuery<Routine>("composition", `/compositions/${id}?_expand=artist`);
+export const useRoutine = (id: number) => {
+  const {
+    data: routine,
+    isLoading: loading,
+    error,
+  } = useQuery<Routine>("routine", `/routines/${id}`);
+  return { routine, loading, error };
+};

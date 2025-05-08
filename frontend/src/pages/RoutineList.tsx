@@ -8,15 +8,14 @@ import { Favorite } from "../components/Favorite";
 import { useRoutines } from "../hooks/useRoutines";
 
 export const RoutineList = () => {
-  const { data, isLoading, error } = useRoutines();
-  const routines = data || [];
+  const { routines, loading, error } = useRoutines();
   console.log(routines);
 
   return (
     <ListViewContainer
       title="Routines"
       items={routines}
-      loading={isLoading}
+      loading={loading}
       error={error}
       renderHeaderRowContents={() => (
         <>
@@ -45,9 +44,7 @@ export const RoutineList = () => {
           <Table.Cell>
             <NavLink to={getRoutineDetailPath(id)}>{name}</NavLink>
           </Table.Cell>
-          <Table.Cell textAlign="end">
-            {formatDate(new Date(lastModified))}
-          </Table.Cell>
+          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
         </>
       )}
       renderGridItemContents={(routine) => (
