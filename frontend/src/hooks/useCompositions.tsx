@@ -34,16 +34,19 @@ export const useCompositions = () => {
   const collections = collectionsData || [];
 
   return {
-    compositions: compositions.map((composition) => ({
-      ...composition,
-      partOf: compositions.find(
-        (c) => c.id === composition.partOfCompositionId
-      ),
-      source: sources.find((source) => source.id === composition.sourceId),
-      collection: collections.find(
-        (collection) => collection.id === composition.collectionId
-      ),
-    })),
+    compositions: compositions.map(
+      (composition) =>
+        ({
+          ...composition,
+          partOf: compositions.find(
+            (c) => c.id === composition.partOfCompositionId
+          ),
+          source: sources.find((source) => source.id === composition.sourceId),
+          collection: collections.find(
+            (collection) => collection.id === composition.collectionId
+          ),
+        } as Composition)
+    ),
     loading: loading || sourcesLoading || collectionsLoading,
     error: error || sourcesError || collectionsError,
   };
