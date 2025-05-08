@@ -5,7 +5,7 @@ export const FavoriteColumnHeader = () => {
   return (
     <Table.ColumnHeader width={"1"}>
       <Flex align={"center"}>
-        <Icon color={"fg"} size={"sm"}>
+        <Icon color={"currentcolor"} size={"sm"}>
           <LuStar fill="currentcolor" />
         </Icon>
       </Flex>

@@ -52,7 +52,7 @@ export const CompositionList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell color="fg">
             <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
@@ -66,6 +66,7 @@ export const CompositionList = () => {
               partOf={partOf}
               source={source}
               collection={collection}
+              emptySpanText="-"
             />
           </Table.Cell>
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>

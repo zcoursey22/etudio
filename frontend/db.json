@@ -61,12 +61,26 @@
       "artistId": 1,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 9,
+      "name": "Pokemon Center",
+      "artistId": 8,
+      "sourceId": 2,
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
     }
   ],
   "sources": [
     {
       "id": 1,
       "name": "Yoshi's Island",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Pokemon Red",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     }
@@ -84,7 +98,7 @@
     {
       "id": 1,
       "name": "athletic-theme.pdf",
-      "compositionId": 1,
+      "compositionId": 6,
       "artistId": 6,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
@@ -92,7 +106,7 @@
     {
       "id": 2,
       "name": "pokemon-center.pdf",
-      "compositionId": 2,
+      "compositionId": 9,
       "artistId": 7,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
@@ -165,6 +179,12 @@
     {
       "id": 7,
       "name": "Harley Guio",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "name": "Junichi Masuda",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     }

@@ -1,4 +1,4 @@
-import { Group, Icon, Text } from "@chakra-ui/react";
+import { Group, Icon, Span, Text } from "@chakra-ui/react";
 import { Collection, Composition, Source } from "../../models";
 import { NavLink } from "../nav/NavLink";
 import {
@@ -12,17 +12,21 @@ interface Props {
   partOf?: Composition;
   source?: Source;
   collection?: Collection;
-  emptyText?: string;
+  emptySpanText?: string;
+  prefixSpanText?: string;
+  spanColor?: string;
 }
 
 export const CompositionFrom = ({
   partOf,
   source,
   collection,
-  emptyText = "-",
+  prefixSpanText,
+  emptySpanText,
+  spanColor = "currentcolor",
 }: Props) => {
   const config: { label: string; url?: string; icon: ReactNode } = {
-    label: emptyText,
+    label: "",
     url: undefined,
     icon: undefined,
   };
@@ -39,14 +43,17 @@ export const CompositionFrom = ({
 
   const { label, url, icon } = config;
   if (!url) {
-    return label;
+    return emptySpanText && <Span color={spanColor}>{emptySpanText}</Span>;
   }
   return (
-    <NavLink to={url}>
-      <Group gap={"0.5em"}>
-        {icon && <Icon>{icon}</Icon>}
-        <Text>{label}</Text>
-      </Group>
-    </NavLink>
+    <>
+      {prefixSpanText && <Span color={spanColor}>{prefixSpanText}</Span>}
+      <NavLink to={url}>
+        <Group gap={"0.5em"}>
+          {icon && <Icon>{icon}</Icon>}
+          <Text>{label}</Text>
+        </Group>
+      </NavLink>
+    </>
   );
 };

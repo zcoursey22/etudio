@@ -12,6 +12,7 @@ import { ArrangementListGridItemContents } from "../components/arrangements";
 import { FavoriteColumnHeader } from "../components/list";
 import { Favorite } from "../components/Favorite";
 import { useArrangements } from "../hooks/useArrangements";
+import { CompositionFrom } from "../components/compositions";
 
 export const ArrangementList = () => {
   const { arrangements, loading, error } = useArrangements();
@@ -54,13 +55,13 @@ export const ArrangementList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell color="fg">
             <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
               <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
-              <Icon size="sm">
+              <Icon size="sm" color="fg">
                 <LuExpand />
               </Icon>
             </Flex>
@@ -69,6 +70,12 @@ export const ArrangementList = () => {
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
+            <CompositionFrom
+              partOf={composition.partOf}
+              source={composition.source}
+              collection={composition.collection}
+              prefixSpanText=" from "
+            />
           </Table.Cell>
           <Table.Cell>
             <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
@@ -76,7 +83,7 @@ export const ArrangementList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
-              <Icon size={"sm"}>
+              <Icon size={"sm"} color="fg">
                 <LuDownload />
               </Icon>
             </Flex>

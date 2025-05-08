@@ -20,7 +20,9 @@ export const ListTable = <T extends Resource>({
       </Table.Header>
       <Table.Body>
         {items.map((item) => (
-          <Table.Row key={item.id}>{renderRowContents(item)}</Table.Row>
+          <Table.Row color="fg.muted" key={item.id}>
+            {renderRowContents(item)}
+          </Table.Row>
         ))}
       </Table.Body>
     </Table.Root>

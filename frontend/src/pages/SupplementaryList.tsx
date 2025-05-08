@@ -40,13 +40,13 @@ export const SupplementaryList = () => {
               <Checkbox.Control />
             </Checkbox.Root>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell color="fg">
             <Favorite isFavorite={isFavorite} />
           </Table.Cell>
           <Table.Cell>
             <Flex align={"center"} gap={"0.5em"}>
               <NavLink to={getSupplementaryDetailPath(id)}>{name}</NavLink>
-              <Icon size={"sm"}>
+              <Icon size={"sm"} color="fg">
                 <LuExpand />
               </Icon>
             </Flex>
@@ -54,7 +54,7 @@ export const SupplementaryList = () => {
           <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
           <Table.Cell>
             <Flex align={"center"}>
-              <Icon size={"sm"}>
+              <Icon size={"sm"} color="fg">
                 <LuDownload />
               </Icon>
             </Flex>

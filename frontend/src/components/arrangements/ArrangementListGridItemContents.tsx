@@ -1,4 +1,11 @@
-import { Card, Flex, Icon, LinkOverlay, Span, Text } from "@chakra-ui/react";
+import {
+  Card,
+  Flex,
+  Icon,
+  LinkOverlay,
+  Separator,
+  Text,
+} from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Arrangement } from "../../models";
 import { LuDownload, LuExpand } from "react-icons/lu";
@@ -8,6 +15,7 @@ import {
   getCompositionDetailPath,
 } from "../../routes";
 import { Favorite } from "../Favorite";
+import { CompositionFrom } from "../compositions";
 
 interface Props {
   arrangement: Arrangement;
@@ -36,11 +44,18 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
-            <Span>{" by "}</Span>
+            {CompositionFrom({
+              ...composition,
+              prefixSpanText: " from ",
+            })}
+          </Text>
+          <Text fontSize={"2xs"}>
+            Composed by{" "}
             <NavLink to={getArtistDetailPath(composition.artist.id)}>
               {composition.artist.name}
             </NavLink>
           </Text>
+          <Separator mt={"0.5em"} />
           <Text>
             Arranged by{" "}
             <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>

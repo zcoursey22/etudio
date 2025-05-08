@@ -10,11 +10,11 @@ export const Favorite = ({ isFavorite }: Props) => {
     <IconButton
       unstyled
       cursor={"pointer"}
-      color={isFavorite ? "orange.400" : "fg"}
+      color={isFavorite ? "orange.400" : "currentcolor"}
       fontSize={"xs"}
       zIndex={"1"}
     >
-      <Icon size={"sm"} _hover={{ fill: isFavorite ? "none" : "fg" }}>
+      <Icon size={"sm"} _hover={{ fill: isFavorite ? "none" : "currentcolor" }}>
         <LuStar fill={isFavorite ? "currentcolor" : "none"} />
       </Icon>
     </IconButton>
