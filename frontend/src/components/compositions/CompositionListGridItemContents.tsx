@@ -23,18 +23,20 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
             </NavLink>
           </LinkOverlay>
         </Card.Title>
-        <Text fontSize={"xs"}>
-          <CompositionFrom
-            partOf={partOf}
-            source={source}
-            collection={collection}
-            emptyText={""}
-          />
-        </Text>
-        <Text>
-          Composed by{" "}
-          <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
-        </Text>
+        <Card.Description as={"div"}>
+          <Text fontSize={"xs"}>
+            <CompositionFrom
+              partOf={partOf}
+              source={source}
+              collection={collection}
+              emptyText={""}
+            />
+          </Text>
+          <Text>
+            Composed by{" "}
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+          </Text>
+        </Card.Description>
       </Card.Body>
       <Card.Footer>
         <Favorite isFavorite={isFavorite} />

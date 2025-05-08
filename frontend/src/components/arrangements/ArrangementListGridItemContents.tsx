@@ -1,4 +1,4 @@
-import { Card, Flex, Icon, LinkOverlay, Text } from "@chakra-ui/react";
+import { Card, Flex, Icon, LinkOverlay, Span, Text } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Arrangement } from "../../models";
 import { LuDownload, LuExpand } from "react-icons/lu";
@@ -31,19 +31,21 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             </Icon>
           </Flex>
         </Card.Title>
-        <Text fontSize={"xs"}>
-          <NavLink to={getCompositionDetailPath(composition.id)}>
-            {composition.name}
-          </NavLink>
-          {" by "}
-          <NavLink to={getArtistDetailPath(composition.artist.id)}>
-            {composition.artist.name}
-          </NavLink>
-        </Text>
-        <Text>
-          Arranged by{" "}
-          <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
-        </Text>
+        <Card.Description as={"div"}>
+          <Text fontSize={"xs"}>
+            <NavLink to={getCompositionDetailPath(composition.id)}>
+              {composition.name}
+            </NavLink>
+            <Span>{" by "}</Span>
+            <NavLink to={getArtistDetailPath(composition.artist.id)}>
+              {composition.artist.name}
+            </NavLink>
+          </Text>
+          <Text>
+            Arranged by{" "}
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+          </Text>
+        </Card.Description>
       </Card.Body>
       <Card.Footer>
         <Favorite isFavorite={isFavorite} />
