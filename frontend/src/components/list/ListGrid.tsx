@@ -13,7 +13,10 @@ export const ListGrid = <T extends Resource>({
   renderGridItemContents,
 }: ListGridViewProps<T>) => {
   return (
-    <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }} gap={"0.5em"}>
+    <SimpleGrid
+      columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+      gap={"0.5em"}
+    >
       {items.map((item) => (
         <Flex key={item.id} aspectRatio={"1"}>
           <ListGridItem content={renderGridItemContents(item)} />

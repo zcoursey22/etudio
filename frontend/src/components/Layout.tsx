@@ -5,14 +5,14 @@ import { Nav } from "./nav";
 
 export const Layout = () => {
   return (
-    <Flex direction={"column"} minH={"100vh"}>
-      <Header />
-      <Flex flex={"1"} gap="1em">
-        <Nav />
-        <Box as={"main"} flex={"1"} p="1em" pl={"0"}>
+    <Flex height={"100vh"} overflowY={"hidden"}>
+      <Nav />
+      <Box flex={"1"} overflowY={"auto"} scrollbarGutter={"stable"}>
+        <Header />
+        <Box as={"main"} pr={"1em"} pb={"1em"}>
           <Outlet />
         </Box>
-      </Flex>
+      </Box>
     </Flex>
   );
 };

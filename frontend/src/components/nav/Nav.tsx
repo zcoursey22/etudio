@@ -20,6 +20,7 @@ import {
 import { Footer } from "../footer";
 import { Tools } from "../tools";
 import { useAuth } from "../../hooks/useAuth";
+import { Title } from "../Title";
 
 export const Nav = () => {
   const { logout } = useAuth();
@@ -56,10 +57,9 @@ export const Nav = () => {
       gap={"1em"}
       minWidth={"12em"}
       p="1em"
-      pr="0"
     >
       <Stack gap={"1em"}>
-        {/* <Title /> */}
+        <Title />
         <Stack as={"nav"}>
           {routes.map(({ to, label, icon }) => (
             <NavItem key={to} to={to} label={label} icon={icon} />
