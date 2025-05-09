@@ -14,8 +14,22 @@ export const ListTable = <T extends Resource>({
   renderRowContents,
 }: ListTableViewProps<T>) => {
   return (
-    <Table.Root size="sm" interactive borderRadius={"sm"}>
-      <Table.Header>
+    <Table.Root
+      size="sm"
+      interactive
+      borderRadius={"sm"}
+      borderCollapse={"separate"}
+      borderSpacing={"0"}
+    >
+      <Table.Header
+        position={"sticky"}
+        top={"calc(8.5em + 1px)"}
+        zIndex={"sticky"}
+        pb={"1em"}
+        bg={"bg"}
+        mr={"-1em"}
+        pr={"1em"}
+      >
         <Table.Row>{renderHeaderRowContents()}</Table.Row>
       </Table.Header>
       <Table.Body>
