@@ -9,15 +9,11 @@ import { Favorite } from "../components/Favorite";
 import { useSupplementaries } from "../hooks/useSupplementaries";
 
 export const SupplementaryList = () => {
-  const { resources: supplementaries, loading, error } = useSupplementaries();
-  console.log(supplementaries);
-
+  const listState = useSupplementaries();
   return (
     <ListViewContainer
       title="Supplementaries"
-      items={supplementaries}
-      loading={loading}
-      error={error}
+      useResourcesState={listState}
       renderHeaderRowContents={() => (
         <>
           <Table.ColumnHeader width={"1"}>

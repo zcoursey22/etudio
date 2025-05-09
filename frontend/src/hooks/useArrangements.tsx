@@ -7,14 +7,19 @@ interface ApiArrangement extends Arrangement {
   compositionId?: number;
 }
 
-export const useArrangements = () => {
+type UseArrangementsParams = {
+  compositionId?: number | string;
+};
+export const useArrangements = (params?: UseArrangementsParams) => {
   const {
     data,
     isLoading: loading,
     error,
   } = useQuery<ApiArrangement[]>(
-    "arrangements",
-    "/arrangements?_expand=artist"
+    ["arrangements", params],
+    `/arrangements?_expand=artist${
+      params?.compositionId ? `&compositionId=${params.compositionId}` : ""
+    }`
   );
   const arrangements = data || [];
 

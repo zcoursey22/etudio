@@ -8,15 +8,11 @@ import { Favorite } from "../components/Favorite";
 import { useRoutines } from "../hooks/useRoutines";
 
 export const RoutineList = () => {
-  const { resources: routines, loading, error } = useRoutines();
-  console.log(routines);
-
+  const listState = useRoutines();
   return (
     <ListViewContainer
       title="Routines"
-      items={routines}
-      loading={loading}
-      error={error}
+      useResourcesState={listState}
       renderHeaderRowContents={() => (
         <>
           <Table.ColumnHeader width={"1"}>

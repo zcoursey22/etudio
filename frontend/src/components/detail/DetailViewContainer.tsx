@@ -2,11 +2,10 @@ import { Resource } from "../../models";
 import { LoadingMessage } from "../LoadingMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import { EmptyMessage } from "../EmptyMessage";
-import { useParams } from "react-router-dom";
 import { ReactNode } from "react";
 
 interface DetailViewContainerProps<T> {
-  useResource: (id: string) => {
+  useResourceState: {
     resource: T | undefined;
     loading: boolean;
     error: Error | null;
@@ -16,13 +15,11 @@ interface DetailViewContainerProps<T> {
 }
 
 export const DetailViewContainer = <T extends Resource>({
-  useResource,
+  useResourceState,
   children,
   emptyText,
 }: DetailViewContainerProps<T>) => {
-  const { id } = useParams();
-
-  const { resource, loading, error } = useResource(id!);
+  const { resource, loading, error } = useResourceState;
   console.log(resource);
 
   if (loading) {

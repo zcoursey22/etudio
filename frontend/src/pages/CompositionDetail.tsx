@@ -1,5 +1,5 @@
 import { Box, Heading, Span, Text } from "@chakra-ui/react";
-import { useComposition } from "../hooks";
+import { useArrangements, useComposition } from "../hooks";
 import { CompositionFrom } from "../components/compositions";
 import { NavLink } from "../components/nav/NavLink";
 import { getArrangementDetailPath, getArtistDetailPath } from "../routes";
@@ -7,12 +7,19 @@ import { ListViewContainer } from "../components/list";
 import { Arrangement } from "../models";
 import { formatDate } from "../utils";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { useParams } from "react-router-dom";
 
 export const CompositionDetail = () => {
+  const { id } = useParams();
+  const detailState = useComposition(id);
+  const arrangementsListState = useArrangements({
+    compositionId: detailState?.resource?.id,
+  });
+
   return (
-    <DetailViewContainer useResource={useComposition}>
+    <DetailViewContainer useResourceState={detailState}>
       {(composition) => {
-        const { name, artist, arrangements } = composition;
+        const { name, artist } = composition;
         return (
           <>
             <Box color={"fg.muted"}>
@@ -34,9 +41,7 @@ export const CompositionDetail = () => {
             <br />
             <ListViewContainer
               title={"Scores"}
-              items={arrangements || []}
-              loading={false}
-              error={null}
+              useResourcesState={arrangementsListState}
               renderHeaderRowContents={() => (
                 <>
                   <td>Name</td>

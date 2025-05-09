@@ -11,15 +11,11 @@ import { Favorite } from "../components/Favorite";
 import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
-  const { resources: compositions, loading, error } = useCompositions();
-  console.log(compositions);
-
+  const listState = useCompositions();
   return (
     <ListViewContainer
       title="Compositions"
-      items={compositions}
-      loading={loading}
-      error={error}
+      useResourcesState={listState}
       renderHeaderRowContents={() => (
         <>
           <Table.ColumnHeader width={"1"}>

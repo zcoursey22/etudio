@@ -15,14 +15,17 @@ enum ListViewType {
   GRID = "grid",
 }
 
-export interface ListViewContainerProps<T> {
+interface ListViewContainerProps<T> {
   title: string;
-  items: T[];
-  loading: boolean;
-  error: Error | null;
+  useResourcesState: {
+    resources: T[];
+    loading: boolean;
+    error: Error | null;
+  };
   renderHeaderRowContents: () => ReactNode;
-  renderRowContents: (item: T) => ReactNode;
-  renderGridItemContents: (item: T) => ReactNode;
+  renderRowContents: (resource: T) => ReactNode;
+  renderGridItemContents: (resource: T) => ReactNode;
+  emptyText?: string;
 }
 
 export interface ListViewProps<T> {
@@ -31,13 +34,15 @@ export interface ListViewProps<T> {
 
 export const ListViewContainer = <T extends Resource>({
   title,
-  items,
-  loading,
-  error,
+  useResourcesState,
+  emptyText,
   renderHeaderRowContents,
   renderRowContents,
   renderGridItemContents,
 }: ListViewContainerProps<T>) => {
+  const { resources, loading, error } = useResourcesState;
+  console.log(resources);
+
   const GLOBAL_VIEW_KEY = "etudio_currentView";
   const PAGE_VIEW_KEY = `${GLOBAL_VIEW_KEY}_${title}`;
 
@@ -67,7 +72,7 @@ export const ListViewContainer = <T extends Resource>({
 
   let content = (
     <ListView
-      items={items}
+      items={resources}
       renderHeaderRowContents={renderHeaderRowContents}
       renderRowContents={renderRowContents}
       renderGridItemContents={renderGridItemContents}
@@ -77,8 +82,8 @@ export const ListViewContainer = <T extends Resource>({
     content = <LoadingMessage />;
   } else if (error) {
     content = <ErrorMessage error={error} />;
-  } else if (!items.length) {
-    content = <EmptyMessage />;
+  } else if (!resources.length) {
+    content = <EmptyMessage message={emptyText} />;
   }
 
   return (

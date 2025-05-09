@@ -15,15 +15,11 @@ import { useArrangements } from "../hooks/useArrangements";
 import { CompositionFrom } from "../components/compositions";
 
 export const ArrangementList = () => {
-  const { resources: arrangements, loading, error } = useArrangements();
-  console.log(arrangements);
-
+  const listState = useArrangements();
   return (
     <ListViewContainer
       title="Scores"
-      items={arrangements}
-      loading={loading}
-      error={error}
+      useResourcesState={listState}
       renderHeaderRowContents={() => (
         <>
           <Table.ColumnHeader width={"1"}>

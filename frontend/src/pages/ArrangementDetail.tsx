@@ -4,10 +4,14 @@ import { CompositionFrom } from "../components/compositions";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, getCompositionDetailPath } from "../routes";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { useParams } from "react-router-dom";
 
 export const ArrangementDetail = () => {
+  const { id } = useParams();
+  const detailState = useArrangement(id!);
+
   return (
-    <DetailViewContainer useResource={useArrangement}>
+    <DetailViewContainer useResourceState={detailState}>
       {({ name, artist, composition }) => (
         <Box color={"fg.muted"}>
           <Heading color={"fg"}>{name}</Heading>
