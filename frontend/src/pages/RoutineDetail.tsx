@@ -1,12 +1,15 @@
 import { Heading } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { useRoutine } from "../hooks";
 
 export const RoutineDetail = () => {
-  const { id } = useParams();
-
   return (
-    <>
-      <Heading>Routine {id}</Heading>
-    </>
+    <DetailViewContainer useResource={useRoutine}>
+      {({ name }) => (
+        <>
+          <Heading>{name}</Heading>
+        </>
+      )}
+    </DetailViewContainer>
   );
 };

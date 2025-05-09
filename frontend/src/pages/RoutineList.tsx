@@ -8,7 +8,7 @@ import { Favorite } from "../components/Favorite";
 import { useRoutines } from "../hooks/useRoutines";
 
 export const RoutineList = () => {
-  const { routines, loading, error } = useRoutines();
+  const { resources: routines, loading, error } = useRoutines();
   console.log(routines);
 
   return (

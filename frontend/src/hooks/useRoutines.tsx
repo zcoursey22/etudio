@@ -7,14 +7,14 @@ export const useRoutines = () => {
     isLoading: loading,
     error,
   } = useQuery<Routine[]>("routines", "/routines");
-  return { routines: data || [], loading, error };
+  return { resources: data || [], loading, error };
 };
 
-export const useRoutine = (id: number) => {
+export const useRoutine = (id: string | number) => {
   const {
-    data: routine,
+    data: resource,
     isLoading: loading,
     error,
-  } = useQuery<Routine>("routine", `/routines/${id}`);
-  return { routine, loading, error };
+  } = useQuery<Routine>(["routine", id], `/routines/${id}`);
+  return { resource, loading, error };
 };

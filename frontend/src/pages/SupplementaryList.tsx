@@ -9,7 +9,7 @@ import { Favorite } from "../components/Favorite";
 import { useSupplementaries } from "../hooks/useSupplementaries";
 
 export const SupplementaryList = () => {
-  const { supplementaries, loading, error } = useSupplementaries();
+  const { resources: supplementaries, loading, error } = useSupplementaries();
   console.log(supplementaries);
 
   return (

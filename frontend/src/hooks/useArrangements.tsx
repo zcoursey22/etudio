@@ -1,6 +1,6 @@
 import { useQuery } from "./useQuery";
 import { Arrangement } from "../models";
-import { useCompositions } from "./useCompositions";
+import { useComposition, useCompositions } from "./useCompositions";
 
 interface ApiArrangement extends Arrangement {
   artistId: number;
@@ -14,16 +14,18 @@ export const useArrangements = () => {
     error,
   } = useQuery<ApiArrangement[]>(
     "arrangements",
-    "/arrangements?_expand=artist&_expand=composition"
+    "/arrangements?_expand=artist"
   );
   const arrangements = data || [];
+
   const {
-    compositions,
+    resources: compositions,
     loading: compositionsLoading,
     error: compositionsError,
   } = useCompositions();
+
   return {
-    arrangements: arrangements.map(
+    resources: arrangements.map(
       (arrangement) =>
         ({
           ...arrangement,
@@ -37,14 +39,25 @@ export const useArrangements = () => {
   };
 };
 
-export const useArrangement = (id: number) => {
+export const useArrangement = (id: number | string) => {
   const {
     data: arrangement,
     isLoading: loading,
     error,
-  } = useQuery<Arrangement>(
-    "arrangement",
-    `/arrangements/${id}?_expand=artist&_expand=composition`
+  } = useQuery<ApiArrangement>(
+    ["arrangement", id],
+    `/arrangements/${id}?_expand=artist`
   );
-  return { arrangement, loading, error };
+
+  const {
+    resource: composition,
+    loading: compositionLoading,
+    error: compositionError,
+  } = useComposition(arrangement?.compositionId);
+
+  return {
+    resource: { ...arrangement, composition } as Arrangement,
+    loading: loading || compositionLoading,
+    error: error || compositionError,
+  };
 };

@@ -11,7 +11,7 @@ import { Favorite } from "../components/Favorite";
 import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
-  const { compositions, loading, error } = useCompositions();
+  const { resources: compositions, loading, error } = useCompositions();
   console.log(compositions);
 
   return (

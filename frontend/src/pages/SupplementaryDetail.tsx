@@ -1,12 +1,15 @@
 import { Heading } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { useSupplementary } from "../hooks";
 
 export const SupplementaryDetail = () => {
-  const { id } = useParams();
-
   return (
-    <>
-      <Heading>Supplementary {id}</Heading>
-    </>
+    <DetailViewContainer useResource={useSupplementary}>
+      {({ name }) => (
+        <>
+          <Heading>{name}</Heading>
+        </>
+      )}
+    </DetailViewContainer>
   );
 };

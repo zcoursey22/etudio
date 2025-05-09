@@ -7,14 +7,14 @@ export const useSupplementaries = () => {
     isLoading: loading,
     error,
   } = useQuery<Supplementary[]>("supplementaries", "/supplementaries");
-  return { supplementaries: data || [], loading, error };
+  return { resources: data || [], loading, error };
 };
 
-export const useSupplementary = (id: number) => {
+export const useSupplementary = (id: number | string) => {
   const {
-    data: arrangement,
+    data: resource,
     isLoading: loading,
     error,
-  } = useQuery<Supplementary>("supplementary", `/supplementaries/${id}`);
-  return { arrangement, loading, error };
+  } = useQuery<Supplementary>(["supplementary", id], `/supplementaries/${id}`);
+  return { resource, loading, error };
 };

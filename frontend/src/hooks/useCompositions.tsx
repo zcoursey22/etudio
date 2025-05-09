@@ -34,7 +34,7 @@ export const useCompositions = () => {
   const collections = collectionsData || [];
 
   return {
-    compositions: compositions.map(
+    resources: compositions.map(
       (composition) =>
         ({
           ...composition,
@@ -52,14 +52,58 @@ export const useCompositions = () => {
   };
 };
 
-export const useComposition = (id: number) => {
+export const useComposition = (id?: number | string) => {
   const {
     data: composition,
     isLoading: loading,
     error,
-  } = useQuery<Composition>(
-    "composition",
-    `/compositions/${id}?_expand=artist&_embed=arrangement`
+  } = useQuery<ApiComposition>(
+    ["composition", id],
+    `/compositions/${id}?_expand=artist&_embed=arrangements`,
+    { queryKey: ["composition", id], enabled: !!id }
   );
-  return { composition, loading, error };
+
+  const partOfId = composition?.partOfCompositionId;
+  const {
+    data: partOf,
+    isLoading: partOfLoading,
+    error: partOfError,
+  } = useQuery<ApiComposition>(
+    ["composition", partOfId],
+    `/compositions/${partOfId}?_expand=artist&_embed=arrangements`, // Arrangements not needed here but uses the cache more efficiently, maybe make a CompositionSummary model + hook
+    {
+      queryKey: ["composition", partOfId],
+      enabled: !!partOfId,
+    }
+  );
+
+  const sourceId = composition?.sourceId;
+  const {
+    data: source,
+    isLoading: sourceLoading,
+    error: sourceError,
+  } = useQuery<Source>(["source", sourceId], `/sources/${sourceId}`, {
+    queryKey: ["source", sourceId],
+    enabled: !!sourceId,
+  });
+
+  const collectionId = composition?.collectionId;
+  const {
+    data: collection,
+    isLoading: collectionLoading,
+    error: collectionError,
+  } = useQuery<Collection>(
+    ["collection", collectionId],
+    `/collections/${collectionId}`,
+    {
+      queryKey: ["collection", collectionId],
+      enabled: !!collectionId,
+    }
+  );
+
+  return {
+    resource: { ...composition, partOf, source, collection } as Composition,
+    loading: loading || partOfLoading || sourceLoading || collectionLoading,
+    error: error || partOfError || sourceError || collectionError,
+  };
 };

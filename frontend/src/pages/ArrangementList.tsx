@@ -15,7 +15,7 @@ import { useArrangements } from "../hooks/useArrangements";
 import { CompositionFrom } from "../components/compositions";
 
 export const ArrangementList = () => {
-  const { arrangements, loading, error } = useArrangements();
+  const { resources: arrangements, loading, error } = useArrangements();
   console.log(arrangements);
 
   return (
