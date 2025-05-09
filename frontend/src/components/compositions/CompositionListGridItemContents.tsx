@@ -18,7 +18,12 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
       <Card.Body>
         <Card.Title>
           <LinkOverlay asChild>
-            <NavLink colorPalette={"gray"} to={getCompositionDetailPath(id)}>
+            <NavLink
+              // color={"blue.900"}
+              // _dark={{ color: "blue.100" }}
+              // color={"fg"}
+              to={getCompositionDetailPath(id)}
+            >
               {name}
             </NavLink>
           </LinkOverlay>
@@ -29,12 +34,12 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
               partOf={partOf}
               source={source}
               collection={collection}
-              prefixSpanText="From "
+              prefixSpanText="from "
             />
           </Text>
           <Separator mt={"0.5em"} />
           <Text>
-            Composed by{" "}
+            by{" "}
             <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Text>
         </Card.Description>

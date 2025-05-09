@@ -30,7 +30,12 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
         <Card.Title>
           <Flex gap={"0.5em"} align={"center"}>
             <LinkOverlay asChild>
-              <NavLink colorPalette={"gray"} to={getArrangementDetailPath(id)}>
+              <NavLink
+                // color={"blue.900"}
+                // _dark={{ color: "blue.100" }}
+                // color={"fg"}
+                to={getArrangementDetailPath(id)}
+              >
                 {name}
               </NavLink>
             </LinkOverlay>
@@ -50,14 +55,14 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             })}
           </Text>
           <Text fontSize={"2xs"}>
-            Composed by{" "}
+            composed by{" "}
             <NavLink to={getArtistDetailPath(composition.artist.id)}>
               {composition.artist.name}
             </NavLink>
           </Text>
           <Separator mt={"0.5em"} />
           <Text>
-            Arranged by{" "}
+            arranged by{" "}
             <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Text>
         </Card.Description>

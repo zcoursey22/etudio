@@ -1,20 +1,14 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  ProgressCircle,
-  SegmentGroup,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, IconButton, SegmentGroup } from "@chakra-ui/react";
 import { ListTable } from "./ListTable";
 import { ListGrid } from "./ListGrid";
-import { LuCircleAlert, LuLayoutGrid, LuMenu } from "react-icons/lu";
+import { LuLayoutGrid, LuMenu } from "react-icons/lu";
 import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
 import { Resource } from "../../models";
 import { useSettings } from "../../hooks";
+import { EmptyMessage } from "../EmptyMessage";
+import { ErrorMessage } from "../ErrorMessage";
+import { LoadingMessage } from "../LoadingMessage";
 
 enum ListViewType {
   TABLE = "table",
@@ -79,30 +73,12 @@ export const ListViewContainer = <T extends Resource>({
       renderGridItemContents={renderGridItemContents}
     />
   );
-
   if (loading) {
-    content = (
-      <Flex direction={"column"} align={"center"} gap={"0.5em"}>
-        <ProgressCircle.Root value={null} size="sm">
-          <ProgressCircle.Circle>
-            <ProgressCircle.Track />
-            <ProgressCircle.Range />
-          </ProgressCircle.Circle>
-        </ProgressCircle.Root>
-        <Text>Loading...</Text>
-      </Flex>
-    );
+    content = <LoadingMessage />;
   } else if (error) {
-    content = (
-      <Flex justify={"center"} align={"center"} color={"red.fg"} gap={"0.5em"}>
-        <Icon size="md">
-          <LuCircleAlert />
-        </Icon>
-        <Text>{error.message || "Error"}</Text>
-      </Flex>
-    );
+    content = <ErrorMessage error={error} />;
   } else if (!items.length) {
-    content = <Text>There's nothing here. Want to add some items?</Text>;
+    content = <EmptyMessage />;
   }
 
   return (

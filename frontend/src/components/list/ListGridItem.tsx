@@ -10,10 +10,12 @@ export const ListGridItem = ({ content }: ListGridItemProps) => {
     <Card.Root
       asChild
       size={"sm"}
-      variant={"subtle"}
+      variant={"outline"}
+      bg={"gray.100"}
+      _dark={{ bg: "gray.900" }}
       flex={"1"}
-      shadow={"none"}
-      _hover={{ shadow: "sm" }}
+      shadow={"sm"}
+      _hover={{ shadow: "md" }}
     >
       <LinkBox>{content}</LinkBox>
     </Card.Root>
