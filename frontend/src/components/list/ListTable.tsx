@@ -23,12 +23,14 @@ export const ListTable = <T extends Resource>({
     >
       <Table.Header
         position={"sticky"}
-        top={"calc(8.5em + 1px)"}
+        top={"calc(8.5em + 0.8px)"}
         zIndex={"sticky"}
         pb={"1em"}
         bg={"bg"}
         mr={"-1em"}
         pr={"1em"}
+        ml={"-1em"}
+        pl={"1em"}
       >
         <Table.Row>{renderHeaderRowContents()}</Table.Row>
       </Table.Header>

@@ -91,6 +91,8 @@ export const ListViewContainer = <T extends Resource>({
         pb={"1em"}
         mr={"-1em"}
         pr={"1em"}
+        ml={"-1em"}
+        pl={"1em"}
       >
         <Flex align={"flex-start"} justify={"space-between"}>
           <Heading color={"fg"}>{title}</Heading>

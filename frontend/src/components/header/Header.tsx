@@ -13,11 +13,12 @@ export const Header = () => {
       justify={"space-between"}
       gap={"1em"}
       p={"1em"}
-      pl={"0"}
       background={"bg"}
       position={"sticky"}
       top={"0"}
       zIndex={"sticky"}
+      ml={"-1em"}
+      pl={"1em"}
     >
       {isAuthenticated && (
         <InputGroup flex={"1"} startElement={<LuSearch />}>

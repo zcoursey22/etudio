@@ -11,7 +11,7 @@ export const ErrorMessage = ({
   fallbackMessage = "An error occurred",
 }: Props) => {
   return (
-    <Flex justify={"center"} align={"center"} color={"red.fg"} gap={"0.5em"}>
+    <Flex justify={"center"} align={"center"} color={"fg.error"} gap={"0.5em"}>
       <Icon size="md">
         <LuCircleAlert />
       </Icon>

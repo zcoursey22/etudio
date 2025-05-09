@@ -6,7 +6,7 @@ interface Props {
 
 export const EmptyMessage = ({ message = "No items" }: Props) => {
   return (
-    <Flex justify={"center"} align={"center"}>
+    <Flex color={"fg.muted"} justify={"center"} align={"center"}>
       <Text>{message}</Text>
     </Flex>
   );

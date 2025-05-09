@@ -1,4 +1,4 @@
-import { Flex, ProgressCircle, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 
 interface Props {
   message?: string;
@@ -6,13 +6,8 @@ interface Props {
 
 export const LoadingMessage = ({ message = "Loading..." }: Props) => {
   return (
-    <Flex justify={"center"} align={"center"} gap={"0.5em"}>
-      <ProgressCircle.Root value={null} size={"sm"}>
-        <ProgressCircle.Circle>
-          <ProgressCircle.Track />
-          <ProgressCircle.Range />
-        </ProgressCircle.Circle>
-      </ProgressCircle.Root>
+    <Flex justify={"center"} align={"center"} gap={"0.5em"} color={"fg.muted"}>
+      <Spinner size={"md"} />
       <Text>{message}</Text>
     </Flex>
   );

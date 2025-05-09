@@ -6,7 +6,7 @@ export const Settings = () => {
 
   return (
     <Stack>
-      <Heading>Settings</Heading>
+      <Heading pb={"0.5em"}>Settings</Heading>
       <Stack>
         <Heading size={"md"}>Display</Heading>
         <Flex align={"center"} justify={"space-between"}>

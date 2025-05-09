@@ -10,7 +10,7 @@ export const Favorite = ({ isFavorite }: Props) => {
     <IconButton
       unstyled
       cursor={"pointer"}
-      color={isFavorite ? "orange.400" : "currentcolor"}
+      color={isFavorite ? "orange.focusRing" : "currentcolor"}
       fontSize={"xs"}
       zIndex={"1"}
     >
