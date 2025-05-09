@@ -4,6 +4,7 @@ import {
   Icon,
   LinkOverlay,
   Separator,
+  Span,
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
@@ -45,7 +46,7 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
           </Flex>
         </Card.Title>
         <Card.Description as={"div"}>
-          <Text fontSize={"xs"}>
+          <Span fontSize={"xs"}>
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
@@ -53,7 +54,7 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
               ...composition,
               prefixSpanText: " from ",
             })}
-          </Text>
+          </Span>
           <Text fontSize={"2xs"}>
             composed by{" "}
             <NavLink to={getArtistDetailPath(composition.artist.id)}>

@@ -10,7 +10,7 @@ export const Settings = () => {
       <Stack>
         <Heading size={"md"}>Display</Heading>
         <Flex align={"center"} justify={"space-between"}>
-          <Text color={"fg.muted"}>
+          <Text color={"fg.muted"} fontSize={"sm"}>
             Keep selected view type synced across all lists
           </Text>
           <Switch.Root

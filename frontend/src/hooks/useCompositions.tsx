@@ -15,7 +15,7 @@ export const useCompositions = () => {
     error,
   } = useQuery<ApiComposition[]>(
     "compositions",
-    "/compositions?_expand=artist"
+    "/compositions?_expand=artist&_embed=arrangements"
   );
   const compositions = data || [];
 
@@ -59,7 +59,7 @@ export const useComposition = (id: number) => {
     error,
   } = useQuery<Composition>(
     "composition",
-    `/compositions/${id}?_expand=artist`
+    `/compositions/${id}?_expand=artist&_embed=arrangement`
   );
   return { composition, loading, error };
 };

@@ -56,7 +56,9 @@ export const Nav = () => {
       justify={"space-between"}
       gap={"1em"}
       minWidth={"12em"}
-      p="1em"
+      p={"1em"}
+      pr={"0.5em"}
+      ml={"0.5em"}
     >
       <Stack gap={"1em"}>
         <Title />

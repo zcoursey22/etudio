@@ -93,7 +93,7 @@ export const ListViewContainer = <T extends Resource>({
         pr={"1em"}
       >
         <Flex align={"flex-start"} justify={"space-between"}>
-          <Heading>{title}</Heading>
+          <Heading color={"fg"}>{title}</Heading>
           <SegmentGroup.Root
             value={currentViewType}
             onValueChange={({ value }) =>

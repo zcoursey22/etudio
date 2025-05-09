@@ -10,7 +10,7 @@ export const ListGridItem = ({ content }: ListGridItemProps) => {
     <Card.Root
       asChild
       size={"sm"}
-      variant={"outline"}
+      variant={"subtle"}
       bg={"gray.100"}
       _dark={{ bg: "gray.900" }}
       flex={"1"}
