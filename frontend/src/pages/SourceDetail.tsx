@@ -9,7 +9,10 @@ import {
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/compositions";
-import { sourceColumns } from "../components/sources";
+import {
+  sourceColumns,
+  SourceListGridItemContents,
+} from "../components/sources";
 
 export const SourceDetail = () => {
   const { id } = useParams();
@@ -56,8 +59,7 @@ export const SourceDetail = () => {
                 columnMap={sourceColumns}
                 columnOverrides={{ parent: { visible: false } }}
                 renderGridItemContents={(source) => (
-                  <>{source.name}</>
-                  // <SourceListGridItemContents source={source} />
+                  <SourceListGridItemContents source={source} />
                 )}
               />
             )}
