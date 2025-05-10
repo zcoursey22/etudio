@@ -8,14 +8,23 @@ interface ApiComposition extends Composition {
   collectionId?: number;
 }
 
-export const useCompositions = () => {
+type UseCompositionsParams = {
+  artistId?: number | string;
+  sourceId?: number | string;
+  collectionId?: number | string;
+};
+export const useCompositions = (params?: UseCompositionsParams) => {
   const {
     data,
     isLoading: loading,
     error,
   } = useQuery<ApiComposition[]>(
-    "compositions",
-    "/compositions?_expand=artist&_embed=arrangements"
+    ["compositions", params],
+    `/compositions?_expand=artist&_embed=arrangements${
+      params?.artistId ? `&artistId=${params.artistId}` : ""
+    }${params?.sourceId ? `&sourceId=${params.sourceId}` : ""}${
+      params?.collectionId ? `&collectionId=${params.collectionId}` : ""
+    }`
   );
   const compositions = data || [];
 

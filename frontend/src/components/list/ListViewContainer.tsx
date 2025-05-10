@@ -98,7 +98,7 @@ export const ListViewContainer = <T extends Resource>({
   }
 
   return (
-    <>
+    <Box>
       <Box
         bg={"bg"}
         position={"sticky"}
@@ -154,6 +154,6 @@ export const ListViewContainer = <T extends Resource>({
         </Flex>
       </Box>
       {content}
-    </>
+    </Box>
   );
 };

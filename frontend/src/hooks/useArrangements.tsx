@@ -9,6 +9,7 @@ interface ApiArrangement extends Arrangement {
 
 type UseArrangementsParams = {
   compositionId?: number | string;
+  artistId?: number | string;
 };
 export const useArrangements = (params?: UseArrangementsParams) => {
   const {
@@ -19,7 +20,7 @@ export const useArrangements = (params?: UseArrangementsParams) => {
     ["arrangements", params],
     `/arrangements?_expand=artist${
       params?.compositionId ? `&compositionId=${params.compositionId}` : ""
-    }`
+    }${params?.artistId ? `&artistId=${params.artistId}` : ""}`
   );
   const arrangements = data || [];
 
