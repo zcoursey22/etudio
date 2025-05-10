@@ -24,7 +24,6 @@ export const supplementaryColumns: ColumnMap<Supplementary> = {
     textAlign: "right",
   },
   actions: {
-    header: "",
     width: "1",
     render: () => (
       <Flex align={"center"}>

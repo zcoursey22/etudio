@@ -2,7 +2,7 @@ import { Card, LinkOverlay } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Routine } from "../../models";
 import { getRoutineDetailPath } from "../../routes";
-import { Favorite } from "../Favorite";
+import { Favorite } from "../resources/shared";
 
 interface Props {
   routine: Routine;

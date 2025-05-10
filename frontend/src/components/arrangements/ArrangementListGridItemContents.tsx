@@ -15,8 +15,7 @@ import {
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../routes";
-import { Favorite } from "../Favorite";
-import { CompositionFrom } from "../compositions";
+import { Favorite, ResourceFrom } from "../resources/shared";
 
 interface Props {
   arrangement: Arrangement;
@@ -50,7 +49,7 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
-            {CompositionFrom({
+            {ResourceFrom({
               ...composition,
               prefixSpanText: " from ",
             })}

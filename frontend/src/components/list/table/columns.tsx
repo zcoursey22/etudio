@@ -1,10 +1,10 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import { LuStar } from "react-icons/lu";
 import { Resource } from "../../../models";
-import { Favorite } from "../../Favorite";
+import { Favorite } from "../../resources/shared";
 
 export interface ColumnConfig<T> {
-  header: React.ReactNode;
+  header?: React.ReactNode;
   render: (resource: T) => React.ReactNode;
   textAlign?: "left" | "right" | "center";
   hideOnMobile?: boolean;
@@ -32,13 +32,13 @@ export const resolveColumns = <T,>(
 };
 
 export const favoriteColumnConfig: ColumnConfig<Resource> = {
-  header: (
-    <Flex align={"center"}>
-      <Icon color={"currentcolor"} size={"sm"}>
-        <LuStar fill="currentcolor" />
-      </Icon>
-    </Flex>
-  ),
+  // header: (
+  //   <Flex align={"center"}>
+  //     <Icon color={"currentcolor"} size={"sm"}>
+  //       <LuStar fill="currentcolor" />
+  //     </Icon>
+  //   </Flex>
+  // ),
   render: ({ isFavorite }) => <Favorite isFavorite={isFavorite} />,
   width: "1",
 };

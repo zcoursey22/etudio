@@ -1,11 +1,11 @@
 import { Group, Icon, Span, Text } from "@chakra-ui/react";
-import { Collection, Composition, Source } from "../../models";
-import { NavLink } from "../nav/NavLink";
+import { Collection, Composition, Source } from "../../../models";
+import { NavLink } from "../../nav/NavLink";
 import {
   getCollectionDetailPath,
   getCompositionDetailPath,
   getSourceDetailPath,
-} from "../../routes";
+} from "../../../routes";
 import { ReactNode } from "react";
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
   spanColor?: string;
 }
 
-export const CompositionFrom = ({
+export const ResourceFrom = ({
   partOf,
   source,
   collection,

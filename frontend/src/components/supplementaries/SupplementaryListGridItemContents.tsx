@@ -3,7 +3,7 @@ import { NavLink } from "../nav/NavLink";
 import { Supplementary } from "../../models";
 import { LuDownload, LuExpand } from "react-icons/lu";
 import { getSupplementaryDetailPath } from "../../routes";
-import { Favorite } from "../Favorite";
+import { Favorite } from "../resources/shared";
 
 interface Props {
   supplementary: Supplementary;

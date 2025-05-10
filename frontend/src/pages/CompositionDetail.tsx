@@ -1,6 +1,5 @@
 import { Box, Heading, Span, Text } from "@chakra-ui/react";
 import { useArrangements, useComposition } from "../hooks";
-import { CompositionFrom } from "../components/compositions";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath } from "../routes";
 import { ListViewContainer } from "../components/list";
@@ -10,6 +9,7 @@ import {
   arrangementColumns,
   ArrangementListGridItemContents,
 } from "../components/arrangements";
+import { ResourceFrom } from "../components/resources/shared";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ export const CompositionDetail = () => {
                   {name}
                 </Heading>
                 <Span fontSize={"xs"}>
-                  <CompositionFrom {...composition} prefixSpanText=" from " />
+                  <ResourceFrom {...composition} prefixSpanText=" from " />
                 </Span>
               </Span>
               <Text fontSize={"sm"}>

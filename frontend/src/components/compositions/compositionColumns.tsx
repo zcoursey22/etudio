@@ -3,7 +3,7 @@ import { getArtistDetailPath, getCompositionDetailPath } from "../../routes";
 import { formatDate } from "../../utils";
 import { ColumnMap } from "../list/table/columns";
 import { NavLink } from "../nav/NavLink";
-import { CompositionFrom } from "./CompositionFrom";
+import { ResourceFrom } from "../resources/shared";
 
 export const compositionColumns: ColumnMap<Composition> = {
   name: {
@@ -15,7 +15,7 @@ export const compositionColumns: ColumnMap<Composition> = {
   from: {
     header: "From",
     render: (composition) => (
-      <CompositionFrom {...composition} emptySpanText="-" />
+      <ResourceFrom {...composition} emptySpanText="-" />
     ),
   },
   composer: {

@@ -2,8 +2,7 @@ import { Card, LinkOverlay, Span } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Source } from "../../models";
 import { getSourceDetailPath } from "../../routes";
-import { Favorite } from "../Favorite";
-import { CompositionFrom } from "../compositions";
+import { Favorite, ResourceFrom } from "../resources/shared";
 
 interface Props {
   source: Source;
@@ -22,7 +21,7 @@ export const SourceListGridItemContents = ({ source }: Props) => {
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>
-            <CompositionFrom source={parent} prefixSpanText="from " />
+            <ResourceFrom source={parent} prefixSpanText="from " />
           </Span>
         </Card.Description>
       </Card.Body>

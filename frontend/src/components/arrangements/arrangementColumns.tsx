@@ -6,10 +6,10 @@ import {
   getCompositionDetailPath,
 } from "../../routes";
 import { formatDate } from "../../utils";
-import { CompositionFrom } from "../compositions";
 import { ColumnMap } from "../list/table/columns";
 import { NavLink } from "../nav/NavLink";
 import { LuDownload, LuExpand } from "react-icons/lu";
+import { ResourceFrom } from "../resources/shared";
 
 export const arrangementColumns: ColumnMap<Arrangement> = {
   name: {
@@ -30,7 +30,7 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
         <NavLink to={getCompositionDetailPath(composition.id)}>
           {composition.name}
         </NavLink>
-        <CompositionFrom {...composition} prefixSpanText=" from " />
+        <ResourceFrom {...composition} prefixSpanText=" from " />
       </>
     ),
   },
@@ -46,7 +46,6 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
     textAlign: "right",
   },
   actions: {
-    header: "",
     width: "1",
     render: () => (
       <Flex align={"center"}>

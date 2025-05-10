@@ -2,8 +2,7 @@ import { Card, LinkOverlay, Separator, Span, Text } from "@chakra-ui/react";
 import { NavLink } from "../nav/NavLink";
 import { Composition } from "../../models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../routes";
-import { Favorite } from "../Favorite";
-import { CompositionFrom } from "./CompositionFrom";
+import { Favorite, ResourceFrom } from "../resources/shared";
 
 interface Props {
   composition: Composition;
@@ -30,7 +29,7 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>
-            <CompositionFrom
+            <ResourceFrom
               partOf={partOf}
               source={source}
               collection={collection}

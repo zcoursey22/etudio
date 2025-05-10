@@ -1,10 +1,10 @@
 import { Box, Heading, Span, Text } from "@chakra-ui/react";
 import { useArrangement } from "../hooks";
-import { CompositionFrom } from "../components/compositions";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, getCompositionDetailPath } from "../routes";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
 import { useParams } from "react-router-dom";
+import { ResourceFrom } from "../components/resources/shared";
 
 export const ArrangementDetail = () => {
   const { id } = useParams();
@@ -19,7 +19,7 @@ export const ArrangementDetail = () => {
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
-            <CompositionFrom {...composition} prefixSpanText=" from " />
+            <ResourceFrom {...composition} prefixSpanText=" from " />
           </Span>
           <Text fontSize={"2xs"}>
             composed by{" "}
