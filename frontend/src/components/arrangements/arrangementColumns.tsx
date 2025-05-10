@@ -1,3 +1,4 @@
+import { Flex, Icon } from "@chakra-ui/react";
 import { Arrangement } from "../../models";
 import {
   getArrangementDetailPath,
@@ -8,12 +9,18 @@ import { formatDate } from "../../utils";
 import { CompositionFrom } from "../compositions";
 import { ColumnMap } from "../list/table/columns";
 import { NavLink } from "../nav/NavLink";
+import { LuDownload, LuExpand } from "react-icons/lu";
 
 export const arrangementColumns: ColumnMap<Arrangement> = {
   name: {
     header: "Name",
     render: ({ id, name }) => (
-      <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
+      <Flex align={"center"} gap={"0.5em"}>
+        <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
+        <Icon size={"sm"} color="fg">
+          <LuExpand />
+        </Icon>
+      </Flex>
     ),
   },
   composition: {
@@ -37,5 +44,16 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
     header: "Last modified",
     render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
     textAlign: "right",
+  },
+  actions: {
+    header: "",
+    width: "1",
+    render: () => (
+      <Flex align={"center"}>
+        <Icon size={"sm"} color="fg">
+          <LuDownload />
+        </Icon>
+      </Flex>
+    ),
   },
 };
