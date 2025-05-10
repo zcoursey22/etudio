@@ -7,15 +7,15 @@ import {
   Span,
   Text,
 } from "@chakra-ui/react";
-import { NavLink } from "../nav/NavLink";
-import { Arrangement } from "../../models";
-import { LuDownload, LuExpand } from "react-icons/lu";
+import { NavLink } from "../../nav/NavLink";
+import { Favorite, ResourceFrom } from "../shared";
+import { Arrangement } from "../../../models";
 import {
   getArrangementDetailPath,
   getArtistDetailPath,
   getCompositionDetailPath,
-} from "../../routes";
-import { Favorite, ResourceFrom } from "../resources/shared";
+} from "../../../routes";
+import { LuDownload, LuExpand } from "react-icons/lu";
 
 interface Props {
   arrangement: Arrangement;

@@ -1,8 +1,8 @@
 import { Card, LinkOverlay, Span } from "@chakra-ui/react";
-import { NavLink } from "../nav/NavLink";
-import { Source } from "../../models";
-import { getSourceDetailPath } from "../../routes";
-import { Favorite, ResourceFrom } from "../resources/shared";
+import { NavLink } from "../../nav/NavLink";
+import { Source } from "../../../models";
+import { getSourceDetailPath } from "../../../routes";
+import { Favorite, ResourceFrom } from "../shared";
 
 interface Props {
   source: Source;

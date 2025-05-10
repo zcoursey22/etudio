@@ -1,9 +1,9 @@
-import { Composition } from "../../models";
-import { getArtistDetailPath, getCompositionDetailPath } from "../../routes";
-import { formatDate } from "../../utils";
-import { ColumnMap } from "../list/table/columns";
-import { NavLink } from "../nav/NavLink";
-import { ResourceFrom } from "../resources/shared";
+import { Composition } from "../../../models";
+import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
+import { formatDate } from "../../../utils";
+import { ColumnMap } from "../../list/table/columns";
+import { NavLink } from "../../nav/NavLink";
+import { ResourceFrom } from "../../resources/shared";
 
 export const compositionColumns: ColumnMap<Composition> = {
   name: {

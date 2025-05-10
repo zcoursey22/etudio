@@ -6,11 +6,11 @@ import { ListViewContainer } from "../components/list";
 import {
   arrangementColumns,
   ArrangementListGridItemContents,
-} from "../components/arrangements";
+} from "../components/resources/arrangements";
 import {
   compositionColumns,
   CompositionListGridItemContents,
-} from "../components/compositions";
+} from "../components/resources/compositions";
 
 export const ArtistDetail = () => {
   const { id } = useParams();

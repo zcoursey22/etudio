@@ -1,9 +1,9 @@
 import { Card, Flex, Icon, LinkOverlay } from "@chakra-ui/react";
-import { NavLink } from "../nav/NavLink";
-import { Supplementary } from "../../models";
+import { NavLink } from "../../nav/NavLink";
+import { Favorite } from "../shared";
+import { Supplementary } from "../../../models";
 import { LuDownload, LuExpand } from "react-icons/lu";
-import { getSupplementaryDetailPath } from "../../routes";
-import { Favorite } from "../resources/shared";
+import { getSupplementaryDetailPath } from "../../../routes";
 
 interface Props {
   supplementary: Supplementary;

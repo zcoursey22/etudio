@@ -2,7 +2,7 @@ import { ListViewContainer } from "../components/list";
 import {
   supplementaryColumns,
   SupplementaryListGridItemContents,
-} from "../components/supplementaries";
+} from "../components/resources/supplementaries";
 import { useSupplementaries } from "../hooks/useSupplementaries";
 
 export const SupplementaryList = () => {

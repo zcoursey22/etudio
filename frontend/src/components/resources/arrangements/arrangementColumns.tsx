@@ -1,15 +1,15 @@
 import { Flex, Icon } from "@chakra-ui/react";
-import { Arrangement } from "../../models";
+import { Arrangement } from "../../../models";
 import {
   getArrangementDetailPath,
   getArtistDetailPath,
   getCompositionDetailPath,
-} from "../../routes";
-import { formatDate } from "../../utils";
-import { ColumnMap } from "../list/table/columns";
-import { NavLink } from "../nav/NavLink";
+} from "../../../routes";
+import { formatDate } from "../../../utils";
+import { ColumnMap } from "../../list/table/columns";
+import { NavLink } from "../../nav/NavLink";
 import { LuDownload, LuExpand } from "react-icons/lu";
-import { ResourceFrom } from "../resources/shared";
+import { ResourceFrom } from "../../resources/shared";
 
 export const arrangementColumns: ColumnMap<Arrangement> = {
   name: {

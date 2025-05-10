@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import {
   arrangementColumns,
   ArrangementListGridItemContents,
-} from "../components/arrangements";
+} from "../components/resources/arrangements";
 import { ResourceFrom } from "../components/resources/shared";
 
 export const CompositionDetail = () => {

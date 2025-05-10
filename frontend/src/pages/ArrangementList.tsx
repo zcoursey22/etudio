@@ -2,7 +2,7 @@ import { ListViewContainer } from "../components/list";
 import {
   arrangementColumns,
   ArrangementListGridItemContents,
-} from "../components/arrangements";
+} from "../components/resources/arrangements";
 import { useArrangements } from "../hooks/useArrangements";
 
 export const ArrangementList = () => {

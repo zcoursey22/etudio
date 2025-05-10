@@ -1,9 +1,9 @@
 import { Flex, Icon } from "@chakra-ui/react";
-import { Supplementary } from "../../models";
-import { getSupplementaryDetailPath } from "../../routes";
-import { formatDate } from "../../utils";
-import { ColumnMap } from "../list/table/columns";
-import { NavLink } from "../nav/NavLink";
+import { Supplementary } from "../../../models";
+import { getSupplementaryDetailPath } from "../../../routes";
+import { formatDate } from "../../../utils";
+import { ColumnMap } from "../../list/table/columns";
+import { NavLink } from "../../nav/NavLink";
 import { LuDownload, LuExpand } from "react-icons/lu";
 
 export const supplementaryColumns: ColumnMap<Supplementary> = {

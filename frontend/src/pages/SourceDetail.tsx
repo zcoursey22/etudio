@@ -8,11 +8,11 @@ import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
   CompositionListGridItemContents,
-} from "../components/compositions";
+} from "../components/resources/compositions";
 import {
   sourceColumns,
   SourceListGridItemContents,
-} from "../components/sources";
+} from "../components/resources/sources";
 
 export const SourceDetail = () => {
   const { id } = useParams();

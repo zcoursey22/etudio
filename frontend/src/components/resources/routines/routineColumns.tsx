@@ -1,8 +1,8 @@
-import { Routine } from "../../models";
-import { getRoutineDetailPath } from "../../routes";
-import { formatDate } from "../../utils";
-import { ColumnMap } from "../list/table/columns";
-import { NavLink } from "../nav/NavLink";
+import { Routine } from "../../../models";
+import { getRoutineDetailPath } from "../../../routes";
+import { formatDate } from "../../../utils";
+import { ColumnMap } from "../../list/table/columns";
+import { NavLink } from "../../nav/NavLink";
 
 export const routineColumns: ColumnMap<Routine> = {
   name: {

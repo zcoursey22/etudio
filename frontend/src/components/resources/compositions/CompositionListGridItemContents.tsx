@@ -1,8 +1,8 @@
 import { Card, LinkOverlay, Separator, Span, Text } from "@chakra-ui/react";
-import { NavLink } from "../nav/NavLink";
-import { Composition } from "../../models";
-import { getArtistDetailPath, getCompositionDetailPath } from "../../routes";
-import { Favorite, ResourceFrom } from "../resources/shared";
+import { NavLink } from "../../nav/NavLink";
+import { Favorite, ResourceFrom } from "../shared";
+import { Composition } from "../../../models";
+import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
 
 interface Props {
   composition: Composition;

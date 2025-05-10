@@ -2,7 +2,7 @@ import { ListViewContainer } from "../components/list";
 import {
   routineColumns,
   RoutineListGridItemContents,
-} from "../components/routines";
+} from "../components/resources/routines";
 import { useRoutines } from "../hooks/useRoutines";
 
 export const RoutineList = () => {

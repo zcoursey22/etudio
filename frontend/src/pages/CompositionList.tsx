@@ -2,7 +2,7 @@ import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
   CompositionListGridItemContents,
-} from "../components/compositions";
+} from "../components/resources/compositions";
 import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
