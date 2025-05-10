@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
@@ -9,22 +9,23 @@ import {
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/compositions";
+import { sourceColumns } from "../components/sources";
 
 export const SourceDetail = () => {
   const { id } = useParams();
   const detailState = useSource(id!);
-  const parentSourceDetailState = useSource(detailState?.resource?.sourceId);
-  const parentSource = parentSourceDetailState?.resource;
+  const parentSource = detailState?.resource?.parent;
+  const childSources = detailState?.resource?.children;
   const compositionsListState = useCompositions({
-    sourceId: detailState?.resource?.sourceId,
+    sourceId: detailState?.resource?.id,
   });
 
   return (
     <DetailViewContainer useResourceState={detailState}>
       {({ name }) => {
         return (
-          <>
-            <Box color={"fg.muted"} mb={"1.5em"}>
+          <Stack gap={"2em"}>
+            <Box color={"fg.muted"}>
               <Heading color={"fg"}>{name}</Heading>
               {parentSource && (
                 <Text fontSize={"sm"}>
@@ -39,11 +40,28 @@ export const SourceDetail = () => {
               title={"Compositions"}
               useResourcesState={compositionsListState}
               columnMap={compositionColumns}
+              columnOverrides={{ from: { visible: false } }}
               renderGridItemContents={(composition) => (
                 <CompositionListGridItemContents composition={composition} />
               )}
             />
-          </>
+            {!!childSources?.length && (
+              <ListViewContainer
+                title={"Sources"}
+                useResourcesState={{
+                  resources: childSources,
+                  loading: false,
+                  error: null,
+                }}
+                columnMap={sourceColumns}
+                columnOverrides={{ parent: { visible: false } }}
+                renderGridItemContents={(source) => (
+                  <>{source.name}</>
+                  // <SourceListGridItemContents source={source} />
+                )}
+              />
+            )}
+          </Stack>
         );
       }}
     </DetailViewContainer>

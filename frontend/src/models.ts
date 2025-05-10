@@ -28,7 +28,8 @@ export interface Composition extends Resource {
 }
 
 export interface Source extends Resource {
-  source?: Source;
+  parent?: Source;
+  children?: Source[];
 }
 
 export interface Collection extends Resource {

@@ -22,7 +22,7 @@ export const CollectionDetail = () => {
       {({ name, artist }) => {
         return (
           <>
-            <Box color={"fg.muted"}>
+            <Box color={"fg.muted"} mb={"1.5em"}>
               <Heading color={"fg"}>{name}</Heading>
               {artist && (
                 <Text fontSize={"sm"}>
@@ -34,7 +34,7 @@ export const CollectionDetail = () => {
               )}
             </Box>
             <ListViewContainer
-              title={""}
+              title={"Compositions"}
               useResourcesState={compositionsListState}
               columnMap={compositionColumns}
               columnOverrides={{
