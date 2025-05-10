@@ -2,12 +2,14 @@ import { Box, Heading, Span, Text } from "@chakra-ui/react";
 import { useArrangements, useComposition } from "../hooks";
 import { CompositionFrom } from "../components/compositions";
 import { NavLink } from "../components/nav/NavLink";
-import { getArrangementDetailPath, getArtistDetailPath } from "../routes";
+import { getArtistDetailPath } from "../routes";
 import { ListViewContainer } from "../components/list";
-import { Arrangement } from "../models";
-import { formatDate } from "../utils";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
 import { useParams } from "react-router-dom";
+import {
+  arrangementColumns,
+  ArrangementListGridItemContents,
+} from "../components/arrangements";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
@@ -42,31 +44,10 @@ export const CompositionDetail = () => {
             <ListViewContainer
               title={"Scores"}
               useResourcesState={arrangementsListState}
-              renderHeaderRowContents={() => (
-                <>
-                  <td>Name</td>
-                  <td>Arranger</td>
-                  <td align="right">Last modified</td>
-                </>
-              )}
-              renderRowContents={(arrangement: Arrangement) => (
-                <>
-                  <td>
-                    <NavLink to={getArrangementDetailPath(arrangement.id)}>
-                      {arrangement.name}
-                    </NavLink>
-                  </td>
-                  <td>?</td>
-                  <td align="right">{formatDate(arrangement.lastModified)}</td>
-                </>
-              )}
-              renderGridItemContents={(arrangement: Arrangement) => (
-                <Text>
-                  <NavLink to={getArrangementDetailPath(arrangement.id)}>
-                    {arrangement.name}
-                  </NavLink>{" "}
-                  by ?
-                </Text>
+              columnMap={arrangementColumns}
+              columnOverrides={{ composition: { visible: false } }}
+              renderGridItemContents={(arrangement) => (
+                <ArrangementListGridItemContents arrangement={arrangement} />
               )}
             />
           </>

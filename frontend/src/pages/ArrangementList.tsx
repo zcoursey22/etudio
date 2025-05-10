@@ -1,18 +1,9 @@
-import { Checkbox, Flex, Icon, Table } from "@chakra-ui/react";
 import { ListViewContainer } from "../components/list";
-import { NavLink } from "../components/nav/NavLink";
 import {
-  getArrangementDetailPath,
-  getArtistDetailPath,
-  getCompositionDetailPath,
-} from "../routes";
-import { formatDate } from "../utils";
-import { LuDownload, LuExpand } from "react-icons/lu";
-import { ArrangementListGridItemContents } from "../components/arrangements";
-import { FavoriteColumnHeader } from "../components/list";
-import { Favorite } from "../components/Favorite";
+  arrangementColumns,
+  ArrangementListGridItemContents,
+} from "../components/arrangements";
 import { useArrangements } from "../hooks/useArrangements";
-import { CompositionFrom } from "../components/compositions";
 
 export const ArrangementList = () => {
   const listState = useArrangements();
@@ -20,72 +11,7 @@ export const ArrangementList = () => {
     <ListViewContainer
       title="Scores"
       useResourcesState={listState}
-      renderHeaderRowContents={() => (
-        <>
-          <Table.ColumnHeader width={"1"}>
-            <Checkbox.Root colorPalette={"blue"}>
-              <Checkbox.HiddenInput />
-              <Checkbox.Control />
-            </Checkbox.Root>
-          </Table.ColumnHeader>
-          <FavoriteColumnHeader />
-          <Table.ColumnHeader>Name</Table.ColumnHeader>
-          <Table.ColumnHeader>Composition</Table.ColumnHeader>
-          <Table.ColumnHeader>Arranger</Table.ColumnHeader>
-          <Table.ColumnHeader textAlign="end">Last modified</Table.ColumnHeader>
-          <Table.ColumnHeader width={"1"} />
-        </>
-      )}
-      renderRowContents={({
-        id,
-        name,
-        artist,
-        composition,
-        lastModified,
-        isFavorite,
-      }) => (
-        <>
-          <Table.Cell>
-            <Checkbox.Root colorPalette={"blue"}>
-              <Checkbox.HiddenInput />
-              <Checkbox.Control />
-            </Checkbox.Root>
-          </Table.Cell>
-          <Table.Cell color="fg">
-            <Favorite isFavorite={isFavorite} />
-          </Table.Cell>
-          <Table.Cell>
-            <Flex align={"center"} gap={"0.5em"}>
-              <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
-              <Icon size="sm" color="fg">
-                <LuExpand />
-              </Icon>
-            </Flex>
-          </Table.Cell>
-          <Table.Cell>
-            <NavLink to={getCompositionDetailPath(composition.id)}>
-              {composition.name}
-            </NavLink>
-            <CompositionFrom
-              partOf={composition.partOf}
-              source={composition.source}
-              collection={composition.collection}
-              prefixSpanText=" from "
-            />
-          </Table.Cell>
-          <Table.Cell>
-            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
-          </Table.Cell>
-          <Table.Cell textAlign="end">{formatDate(lastModified)}</Table.Cell>
-          <Table.Cell>
-            <Flex align={"center"}>
-              <Icon size={"sm"} color="fg">
-                <LuDownload />
-              </Icon>
-            </Flex>
-          </Table.Cell>
-        </>
-      )}
+      columnMap={arrangementColumns}
       renderGridItemContents={(arrangement) => (
         <ArrangementListGridItemContents arrangement={arrangement} />
       )}

@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, IconButton, SegmentGroup } from "@chakra-ui/react";
-import { ListTable } from "./ListTable";
-import { ListGrid } from "./ListGrid";
+import { ListTable } from "./table/ListTable";
+import { ListGrid } from "./grid/ListGrid";
 import { LuLayoutGrid, LuMenu } from "react-icons/lu";
 import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
@@ -9,6 +9,11 @@ import { useSettings } from "../../hooks";
 import { EmptyMessage } from "../EmptyMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import { LoadingMessage } from "../LoadingMessage";
+import {
+  ColumnMap,
+  ColumnOverrides,
+  favoriteColumnConfig,
+} from "./table/columns";
 
 enum ListViewType {
   TABLE = "table",
@@ -22,22 +27,25 @@ interface ListViewContainerProps<T> {
     loading: boolean;
     error: Error | null;
   };
-  renderHeaderRowContents: () => ReactNode;
-  renderRowContents: (resource: T) => ReactNode;
+  columnMap: ColumnMap<T>;
+  columnOverrides?: ColumnOverrides<T>;
   renderGridItemContents: (resource: T) => ReactNode;
   emptyText?: string;
+  selectable?: boolean;
+  favoritable?: boolean;
 }
 
 export interface ListViewProps<T> {
-  items: T[];
+  resources: T[];
 }
 
 export const ListViewContainer = <T extends Resource>({
   title,
   useResourcesState,
   emptyText,
-  renderHeaderRowContents,
-  renderRowContents,
+  columnMap,
+  columnOverrides,
+  favoritable = true,
   renderGridItemContents,
 }: ListViewContainerProps<T>) => {
   const { resources, loading, error } = useResourcesState;
@@ -72,9 +80,12 @@ export const ListViewContainer = <T extends Resource>({
 
   let content = (
     <ListView
-      items={resources}
-      renderHeaderRowContents={renderHeaderRowContents}
-      renderRowContents={renderRowContents}
+      resources={resources}
+      columnMap={{
+        ...(favoritable ? { isFavorite: favoriteColumnConfig } : {}),
+        ...columnMap,
+      }}
+      columnOverrides={columnOverrides}
       renderGridItemContents={renderGridItemContents}
     />
   );
