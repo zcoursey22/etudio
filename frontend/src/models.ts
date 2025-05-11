@@ -28,8 +28,17 @@ export interface Composition extends Resource {
 }
 
 export interface Source extends Resource {
+  type: SourceType;
   parent?: Source;
   children?: Source[];
+}
+
+export enum SourceType {
+  FILM = "film",
+  TELEVISION = "television",
+  GAME = "game",
+  THEATRE = "theatre",
+  OTHER = "other",
 }
 
 export interface Collection extends Resource {

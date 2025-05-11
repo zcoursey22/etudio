@@ -30,7 +30,7 @@ export const CompositionDetail = () => {
                   {name}
                 </Heading>
                 <Span fontSize={"xs"}>
-                  <ResourceFrom {...composition} prefixSpanText=" from " />
+                  <ResourceFrom {...composition} prefixPadding="1" />
                 </Span>
               </Span>
               <Text fontSize={"sm"}>

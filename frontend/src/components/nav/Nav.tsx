@@ -9,12 +9,12 @@ import {
 } from "../../routes";
 import { NavItem, NavItemProps } from "./NavItem";
 import {
-  LuGuitar,
+  LuBookOpenText,
+  LuFiles,
   LuHouse,
   LuListOrdered,
   LuMusic,
   LuSettings,
-  LuSquareLibrary,
   LuUser,
 } from "react-icons/lu";
 import { Footer } from "../footer";
@@ -35,13 +35,13 @@ export const Nav = () => {
     {
       to: getArrangementListPath(),
       label: "Scores",
-      icon: LuGuitar,
+      icon: LuBookOpenText,
     },
     { to: getRoutineListPath(), label: "Routines", icon: LuListOrdered },
     {
       to: getSupplementaryListPath(),
       label: "Supplementaries",
-      icon: LuSquareLibrary,
+      icon: LuFiles,
     },
   ];
 

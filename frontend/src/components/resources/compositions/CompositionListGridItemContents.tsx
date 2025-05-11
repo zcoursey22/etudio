@@ -33,7 +33,7 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
               partOf={partOf}
               source={source}
               collection={collection}
-              prefixSpanText="from "
+              prefixPadding="1"
             />
           </Span>
           <Separator mt={"0.5em"} />

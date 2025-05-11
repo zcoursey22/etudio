@@ -30,7 +30,7 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
         <NavLink to={getCompositionDetailPath(composition.id)}>
           {composition.name}
         </NavLink>
-        <ResourceFrom {...composition} prefixSpanText=" from " />
+        <ResourceFrom {...composition} prefixPadding="1" />
       </>
     ),
   },

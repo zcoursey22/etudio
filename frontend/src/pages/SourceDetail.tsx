@@ -2,8 +2,6 @@ import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
 import { DetailViewContainer } from "../components/detail/DetailViewContainer";
-import { getSourceDetailPath } from "../routes";
-import { NavLink } from "../components/nav/NavLink";
 import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
@@ -13,6 +11,7 @@ import {
   sourceColumns,
   SourceListGridItemContents,
 } from "../components/resources/sources";
+import { ResourceFrom } from "../components/resources/shared";
 
 export const SourceDetail = () => {
   const { id } = useParams();
@@ -32,10 +31,7 @@ export const SourceDetail = () => {
               <Heading color={"fg"}>{name}</Heading>
               {parentSource && (
                 <Text fontSize={"sm"}>
-                  from{" "}
-                  <NavLink to={getSourceDetailPath(parentSource?.id)}>
-                    {parentSource?.name}
-                  </NavLink>
+                  <ResourceFrom source={parentSource} prefixPadding="1" />
                 </Text>
               )}
             </Box>

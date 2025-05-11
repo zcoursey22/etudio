@@ -19,7 +19,7 @@ export const ArrangementDetail = () => {
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
             </NavLink>
-            <ResourceFrom {...composition} prefixSpanText=" from " />
+            <ResourceFrom {...composition} prefixPadding="1" />
           </Span>
           <Text fontSize={"2xs"}>
             composed by{" "}

@@ -14,7 +14,14 @@ export const sourceColumns: ColumnMap<Source> = {
   },
   parent: {
     header: "Source",
-    render: ({ parent }) => <ResourceFrom source={parent} emptySpanText="-" />,
+    render: ({ parent }) => (
+      <ResourceFrom
+        source={parent}
+        emptySpanText="-"
+        prefixSpanText=""
+        prefixPadding="1"
+      />
+    ),
   },
   lastModified: {
     header: "Last modified",

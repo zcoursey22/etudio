@@ -15,7 +15,12 @@ export const compositionColumns: ColumnMap<Composition> = {
   from: {
     header: "From",
     render: (composition) => (
-      <ResourceFrom {...composition} emptySpanText="-" />
+      <ResourceFrom
+        {...composition}
+        emptySpanText="-"
+        prefixSpanText=""
+        prefixPadding="1"
+      />
     ),
   },
   composer: {

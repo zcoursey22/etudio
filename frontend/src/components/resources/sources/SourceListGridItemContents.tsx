@@ -21,7 +21,7 @@ export const SourceListGridItemContents = ({ source }: Props) => {
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>
-            <ResourceFrom source={parent} prefixSpanText="from " />
+            <ResourceFrom source={parent} prefixPadding="1" />
           </Span>
         </Card.Description>
       </Card.Body>
