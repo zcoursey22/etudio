@@ -1,7 +1,7 @@
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
-import { DetailViewContainer } from "../components/detail";
+import { BackButton, DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
@@ -26,24 +26,36 @@ export const SourceDetail = () => {
     <DetailViewContainer useResourceState={detailState}>
       {({ name }) => {
         return (
-          <Stack>
-            <Box color={"fg.muted"}>
-              <Heading color={"fg"}>{name}</Heading>
-              {parentSource && (
-                <Text fontSize={"sm"}>
-                  <ResourceFrom source={parentSource} />
+          <Stack color={"fg.muted"}>
+            <Flex gap={"0.5em"}>
+              <BackButton />
+              <Box>
+                <Text>
+                  <Heading display="inline-block" color={"fg"}>
+                    {name}
+                  </Heading>
+                  <Span fontSize={"xs"}>
+                    <ResourceFrom
+                      source={parentSource}
+                      prefixPadding="1"
+                      emptySpanText=""
+                    />
+                  </Span>
                 </Text>
-              )}
-            </Box>
-            <ListViewContainer
-              title={"Compositions"}
-              useResourcesState={compositionsListState}
-              columnMap={compositionColumns}
-              columnOverrides={{ from: { visible: false } }}
-              renderGridItemContents={(composition) => (
-                <CompositionListGridItemContents composition={composition} />
-              )}
-            />
+                <Text fontSize={"sm"}>source</Text>
+              </Box>
+            </Flex>
+            {!!compositionsListState?.resources?.length && (
+              <ListViewContainer
+                title={"Compositions"}
+                useResourcesState={compositionsListState}
+                columnMap={compositionColumns}
+                columnOverrides={{ from: { visible: false } }}
+                renderGridItemContents={(composition) => (
+                  <CompositionListGridItemContents composition={composition} />
+                )}
+              />
+            )}
             {!!childSources?.length && (
               <ListViewContainer
                 title={"Sources"}

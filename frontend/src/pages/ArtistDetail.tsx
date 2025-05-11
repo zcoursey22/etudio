@@ -1,7 +1,7 @@
-import { Heading, Stack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArrangements, useArtist, useCompositions } from "../hooks";
-import { DetailViewContainer } from "../components/detail";
+import { BackButton, DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   arrangementColumns,
@@ -23,9 +23,21 @@ export const ArtistDetail = () => {
     <DetailViewContainer useResourceState={detailState}>
       {({ name }) => {
         return (
-          <>
-            <Heading color={"fg"}>{name}</Heading>
-            <Stack gap={"1.5em"} mt={"1.5em"}>
+          <Stack color={"fg.muted"}>
+            <Flex gap={"0.5em"}>
+              <BackButton />
+              <Box>
+                <Box>
+                  <Text>
+                    <Heading display="inline-block" color={"fg"}>
+                      {name}
+                    </Heading>
+                  </Text>
+                  <Text fontSize={"sm"}>artist</Text>
+                </Box>
+              </Box>
+            </Flex>
+            <Stack>
               {(!!compositionsListState?.resources?.length ||
                 !arrangementsListState?.resources?.length) && (
                 <ListViewContainer
@@ -54,7 +66,7 @@ export const ArtistDetail = () => {
                 />
               )}
             </Stack>
-          </>
+          </Stack>
         );
       }}
     </DetailViewContainer>

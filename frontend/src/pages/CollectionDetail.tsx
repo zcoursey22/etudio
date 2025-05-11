@@ -1,7 +1,7 @@
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCollection, useCompositions } from "../hooks";
-import { DetailViewContainer } from "../components/detail";
+import { BackButton, DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
@@ -21,18 +21,25 @@ export const CollectionDetail = () => {
     <DetailViewContainer useResourceState={detailState}>
       {({ name, artist }) => {
         return (
-          <Stack>
-            <Box color={"fg.muted"}>
-              <Heading color={"fg"}>{name}</Heading>
-              {artist && (
+          <Stack color={"fg.muted"}>
+            <Flex gap={"0.5em"}>
+              <BackButton />
+              <Box>
+                <Heading color={"fg"}>{name}</Heading>
                 <Text fontSize={"sm"}>
-                  by{" "}
-                  <NavLink to={getArtistDetailPath(artist.id)}>
-                    {artist.name}
-                  </NavLink>
+                  {artist ? (
+                    <>
+                      collection by{" "}
+                      <NavLink to={getArtistDetailPath(artist.id)}>
+                        {artist.name}
+                      </NavLink>
+                    </>
+                  ) : (
+                    "collection"
+                  )}
                 </Text>
-              )}
-            </Box>
+              </Box>
+            </Flex>
             <ListViewContainer
               title={"Compositions"}
               useResourcesState={compositionsListState}

@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
-import { useArrangements, useComposition } from "../hooks";
+import { useArrangements, useComposition, useCompositions } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath } from "../routes";
 import { ListViewContainer } from "../components/list";
@@ -10,6 +10,10 @@ import {
   ArrangementListGridItemContents,
 } from "../components/resources/arrangements";
 import { ResourceFrom } from "../components/resources/shared";
+import {
+  compositionColumns,
+  CompositionListGridItemContents,
+} from "../components/resources/compositions";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
@@ -17,34 +21,37 @@ export const CompositionDetail = () => {
   const arrangementsListState = useArrangements({
     compositionId: detailState?.resource?.id,
   });
+  const childCompositionsListState = useCompositions({
+    partOfCompositionId: detailState?.resource?.id,
+  });
 
   return (
     <DetailViewContainer useResourceState={detailState}>
       {(composition) => {
         const { name, artist } = composition;
         return (
-          <Stack>
-            <Flex gap={"0.5em"} align={"center"}>
+          <Stack color={"fg.muted"}>
+            <Flex gap={"0.5em"}>
               <BackButton />
-              <Box>
-                <Flex gap={"0.5em"} align={"center"} color={"fg.muted"}>
-                  <Span fontSize={"xs"} color={"fg.muted"}>
-                    <ResourceFrom {...composition} prefixSpanText="" />
+              <Box color={"fg.muted"}>
+                <Text>
+                  <Heading display="inline-block" color={"fg"}>
+                    {name}
+                  </Heading>
+                  <Span fontSize={"xs"}>
+                    <ResourceFrom
+                      {...composition}
+                      prefixPadding="1"
+                      emptySpanText=""
+                    />
                   </Span>
-                </Flex>
-                <Box color={"fg.muted"}>
-                  <Text>
-                    <Heading display="inline-block" color={"fg"}>
-                      {name}
-                    </Heading>
-                  </Text>
-                  <Text fontSize={"sm"}>
-                    by{" "}
-                    <NavLink to={getArtistDetailPath(artist.id)}>
-                      {artist.name}
-                    </NavLink>
-                  </Text>
-                </Box>
+                </Text>
+                <Text fontSize={"sm"}>
+                  by{" "}
+                  <NavLink to={getArtistDetailPath(artist.id)}>
+                    {artist.name}
+                  </NavLink>
+                </Text>
               </Box>
             </Flex>
             <ListViewContainer
@@ -56,6 +63,20 @@ export const CompositionDetail = () => {
                 <ArrangementListGridItemContents arrangement={arrangement} />
               )}
             />
+            {!!childCompositionsListState?.resources?.length && (
+              <ListViewContainer
+                title={"Compositions"}
+                useResourcesState={childCompositionsListState}
+                columnMap={compositionColumns}
+                columnOverrides={{
+                  from: { visible: false },
+                  composer: { visible: false },
+                }}
+                renderGridItemContents={(composition) => (
+                  <CompositionListGridItemContents composition={composition} />
+                )}
+              />
+            )}
           </Stack>
         );
       }}

@@ -13,37 +13,35 @@ export const ArrangementDetail = () => {
   return (
     <DetailViewContainer useResourceState={detailState}>
       {({ name, artist, composition }) => (
-        <Stack>
-          <Flex gap={"0.5em"} align={"center"}>
+        <Stack color={"fg.muted"}>
+          <Flex gap={"0.5em"}>
             <BackButton />
-            <Box color={"fg.muted"}>
-              <Text fontSize={"xs"}>
-                <ResourceFrom {...composition} prefixSpanText="" />
+            <Box>
+              <Text>
+                <Heading display="inline-block" color={"fg"}>
+                  {name}
+                </Heading>
+                <Span fontSize={"xs"}>
+                  <ResourceFrom {...composition} prefixPadding="1" />
+                </Span>
               </Text>
-              <Box>
-                <Text>
-                  <Heading display="inline-block" color={"fg"}>
-                    <NavLink to={getCompositionDetailPath(composition.id)}>
-                      {composition.name}
-                    </NavLink>
-                  </Heading>
-                  <Span fontSize={"xs"}>
-                    {" by "}
-                    <NavLink to={getArtistDetailPath(composition.artist.id)}>
-                      {composition.artist.name}
-                    </NavLink>
-                  </Span>
-                </Text>
-                <Text fontSize={"sm"}>
-                  arranged by{" "}
-                  <NavLink to={getArtistDetailPath(artist.id)}>
-                    {artist.name}
-                  </NavLink>
-                </Text>
-              </Box>
+              <Text fontSize={"sm"}>
+                {"by "}
+                <NavLink to={getArtistDetailPath(artist.id)}>
+                  {artist.name}
+                </NavLink>
+              </Text>
             </Box>
           </Flex>
-          <Heading>{name}</Heading>
+          <Text fontSize={"sm"}>
+            <NavLink to={getCompositionDetailPath(composition.id)}>
+              {composition.name}
+            </NavLink>
+            {" by "}
+            <NavLink to={getArtistDetailPath(composition.artist.id)}>
+              {composition.artist.name}
+            </NavLink>
+          </Text>
         </Stack>
       )}
     </DetailViewContainer>

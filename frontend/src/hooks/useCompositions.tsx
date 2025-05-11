@@ -10,6 +10,7 @@ interface ApiComposition extends Composition {
 
 type UseCompositionsParams = {
   artistId?: number | string;
+  partOfCompositionId?: number | string;
   sourceId?: number | string;
   collectionId?: number | string;
 };
@@ -22,6 +23,10 @@ export const useCompositions = (params?: UseCompositionsParams) => {
     ["compositions", params],
     `/compositions?_expand=artist&_embed=arrangements${
       params?.artistId ? `&artistId=${params.artistId}` : ""
+    }${
+      params?.partOfCompositionId
+        ? `&partOfCompositionId=${params.partOfCompositionId}`
+        : ""
     }${params?.sourceId ? `&sourceId=${params.sourceId}` : ""}${
       params?.collectionId ? `&collectionId=${params.collectionId}` : ""
     }`
