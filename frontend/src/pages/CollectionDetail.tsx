@@ -1,7 +1,7 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCollection, useCompositions } from "../hooks";
-import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
@@ -21,8 +21,8 @@ export const CollectionDetail = () => {
     <DetailViewContainer useResourceState={detailState}>
       {({ name, artist }) => {
         return (
-          <>
-            <Box color={"fg.muted"} mb={"1.5em"}>
+          <Stack>
+            <Box color={"fg.muted"}>
               <Heading color={"fg"}>{name}</Heading>
               {artist && (
                 <Text fontSize={"sm"}>
@@ -49,7 +49,7 @@ export const CollectionDetail = () => {
                 <CompositionListGridItemContents composition={composition} />
               )}
             />
-          </>
+          </Stack>
         );
       }}
     </DetailViewContainer>

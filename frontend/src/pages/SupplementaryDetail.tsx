@@ -1,5 +1,5 @@
 import { Heading } from "@chakra-ui/react";
-import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { DetailViewContainer } from "../components/detail";
 import { useSupplementary } from "../hooks";
 import { useParams } from "react-router-dom";
 

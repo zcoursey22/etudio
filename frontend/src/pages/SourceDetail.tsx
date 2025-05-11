@@ -1,7 +1,7 @@
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
-import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   compositionColumns,
@@ -26,12 +26,12 @@ export const SourceDetail = () => {
     <DetailViewContainer useResourceState={detailState}>
       {({ name }) => {
         return (
-          <Stack gap={"2em"}>
+          <Stack>
             <Box color={"fg.muted"}>
               <Heading color={"fg"}>{name}</Heading>
               {parentSource && (
                 <Text fontSize={"sm"}>
-                  <ResourceFrom source={parentSource} prefixPadding="1" />
+                  <ResourceFrom source={parentSource} />
                 </Text>
               )}
             </Box>

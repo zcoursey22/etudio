@@ -1,4 +1,4 @@
-import { Group, Link, Span } from "@chakra-ui/react";
+import { Group, Icon, Link, Span } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { NavLink } from "react-router-dom";
 
@@ -15,7 +15,11 @@ export const NavItem = ({ to, label, icon }: NavItemProps) => {
     <Link asChild _currentPage={{ fontWeight: "bold" }}>
       <NavLink to={to}>
         <Group>
-          {NavItemIcon && <NavItemIcon />}
+          {NavItemIcon && (
+            <Icon size={"sm"}>
+              <NavItemIcon />
+            </Icon>
+          )}
           <Span>{label}</Span>
         </Group>
       </NavLink>

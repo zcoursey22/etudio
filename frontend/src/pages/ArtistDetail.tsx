@@ -1,7 +1,7 @@
 import { Heading, Stack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArrangements, useArtist, useCompositions } from "../hooks";
-import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { DetailViewContainer } from "../components/detail";
 import { ListViewContainer } from "../components/list";
 import {
   arrangementColumns,

@@ -1,9 +1,9 @@
-import { Box, Heading, Span, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
 import { useArrangements, useComposition } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath } from "../routes";
 import { ListViewContainer } from "../components/list";
-import { DetailViewContainer } from "../components/detail/DetailViewContainer";
+import { BackButton, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import {
   arrangementColumns,
@@ -23,24 +23,30 @@ export const CompositionDetail = () => {
       {(composition) => {
         const { name, artist } = composition;
         return (
-          <>
-            <Box color={"fg.muted"}>
-              <Span>
-                <Heading display="inline-block" color={"fg"}>
-                  {name}
-                </Heading>
-                <Span fontSize={"xs"}>
-                  <ResourceFrom {...composition} prefixPadding="1" />
-                </Span>
-              </Span>
-              <Text fontSize={"sm"}>
-                by{" "}
-                <NavLink to={getArtistDetailPath(artist.id)}>
-                  {artist.name}
-                </NavLink>
-              </Text>
-            </Box>
-            <br />
+          <Stack>
+            <Flex gap={"0.5em"} align={"center"}>
+              <BackButton />
+              <Box>
+                <Flex gap={"0.5em"} align={"center"} color={"fg.muted"}>
+                  <Span fontSize={"xs"} color={"fg.muted"}>
+                    <ResourceFrom {...composition} prefixSpanText="" />
+                  </Span>
+                </Flex>
+                <Box color={"fg.muted"}>
+                  <Text>
+                    <Heading display="inline-block" color={"fg"}>
+                      {name}
+                    </Heading>
+                  </Text>
+                  <Text fontSize={"sm"}>
+                    by{" "}
+                    <NavLink to={getArtistDetailPath(artist.id)}>
+                      {artist.name}
+                    </NavLink>
+                  </Text>
+                </Box>
+              </Box>
+            </Flex>
             <ListViewContainer
               title={"Scores"}
               useResourcesState={arrangementsListState}
@@ -50,7 +56,7 @@ export const CompositionDetail = () => {
                 <ArrangementListGridItemContents arrangement={arrangement} />
               )}
             />
-          </>
+          </Stack>
         );
       }}
     </DetailViewContainer>
