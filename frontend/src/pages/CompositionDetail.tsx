@@ -12,6 +12,7 @@ import {
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/resources/compositions";
+import { LuBookOpenText, LuMusic } from "react-icons/lu";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
@@ -51,6 +52,7 @@ export const CompositionDetail = () => {
                 {
                   route: "arrangements",
                   title: "Scores",
+                  icon: <LuBookOpenText />,
                   useResourcesState: arrangementsListState,
                   columnMap: arrangementColumns,
                   columnOverrides: { composition: { visible: false } },
@@ -63,6 +65,7 @@ export const CompositionDetail = () => {
                 {
                   route: "compositions",
                   title: "Compositions",
+                  icon: <LuMusic />,
                   useResourcesState: childCompositionsListState,
                   columnMap: compositionColumns,
                   columnOverrides: {

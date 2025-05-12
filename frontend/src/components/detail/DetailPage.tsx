@@ -11,6 +11,7 @@ interface Props<T extends Resource> {
   title: string;
   subtitle?: ReactNode;
   rightOfTitle?: ReactNode;
+  mainContent?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subresourceConfigs?: SubresourceConfig<any>[];
 }
@@ -20,10 +21,11 @@ export const DetailPage = <T extends Resource>({
   title,
   subtitle,
   rightOfTitle,
+  mainContent,
   subresourceConfigs,
 }: Props<T>) => {
   return (
-    <Stack color={"fg.muted"}>
+    <Stack color={"fg.muted"} gap={"1em"}>
       <Flex gap={"0.5em"}>
         <BackButton />
         <Box>
@@ -39,6 +41,7 @@ export const DetailPage = <T extends Resource>({
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Box>
       </Flex>
+      {mainContent && mainContent}
       <Outlet context={{ configs: subresourceConfigs }} />
     </Stack>
   );

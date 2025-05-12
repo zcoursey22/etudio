@@ -1,4 +1,10 @@
-import { Box, Flex, Heading, IconButton, SegmentGroup } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  IconButton,
+  SegmentGroup,
+  Stack,
+} from "@chakra-ui/react";
 import { ListTable } from "./table/ListTable";
 import { ListGrid } from "./grid/ListGrid";
 import { LuLayoutGrid, LuMenu } from "react-icons/lu";
@@ -98,62 +104,50 @@ export const ListViewContainer = <T extends Resource>({
   }
 
   return (
-    <Box>
-      <Box
-        bg={"bg"}
-        position={"sticky"}
-        top={"4.5em"}
-        zIndex={"sticky"}
-        pb={"1em"}
-        mr={"-1em"}
-        pr={"1em"}
-        ml={"-1em"}
-        pl={"1em"}
-      >
-        <Flex align={"flex-start"} justify={"space-between"}>
-          <Heading color={"fg"}>{title}</Heading>
-          <SegmentGroup.Root
-            value={currentViewType}
-            onValueChange={({ value }) =>
-              handleViewTypeChange(value as ListViewType)
-            }
-            size={"sm"}
-          >
-            <SegmentGroup.Indicator />
-            <SegmentGroup.Items
-              padding={"0"}
-              cursor={"pointer"}
-              items={[
-                {
-                  value: ListViewType.TABLE,
-                  label: (
-                    <IconButton
-                      variant={"plain"}
-                      pointerEvents={"none"}
-                      size={"sm"}
-                    >
-                      <LuMenu />
-                    </IconButton>
-                  ),
-                },
-                {
-                  value: ListViewType.GRID,
-                  label: (
-                    <IconButton
-                      variant={"plain"}
-                      pointerEvents={"none"}
-                      size={"sm"}
-                    >
-                      <LuLayoutGrid />
-                    </IconButton>
-                  ),
-                },
-              ]}
-            />
-          </SegmentGroup.Root>
-        </Flex>
-      </Box>
+    <Stack>
+      <Flex align={"flex-start"} justify={"space-between"}>
+        <Heading color={"fg"}>{title}</Heading>
+        <SegmentGroup.Root
+          value={currentViewType}
+          onValueChange={({ value }) =>
+            handleViewTypeChange(value as ListViewType)
+          }
+          size={"sm"}
+        >
+          <SegmentGroup.Indicator />
+          <SegmentGroup.Items
+            padding={"0"}
+            cursor={"pointer"}
+            items={[
+              {
+                value: ListViewType.TABLE,
+                label: (
+                  <IconButton
+                    variant={"plain"}
+                    pointerEvents={"none"}
+                    size={"sm"}
+                  >
+                    <LuMenu />
+                  </IconButton>
+                ),
+              },
+              {
+                value: ListViewType.GRID,
+                label: (
+                  <IconButton
+                    variant={"plain"}
+                    pointerEvents={"none"}
+                    size={"sm"}
+                  >
+                    <LuLayoutGrid />
+                  </IconButton>
+                ),
+              },
+            ]}
+          />
+        </SegmentGroup.Root>
+      </Flex>
       {content}
-    </Box>
+    </Stack>
   );
 };
