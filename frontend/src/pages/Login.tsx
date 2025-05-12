@@ -34,7 +34,7 @@ export const Login = () => {
         </Field.Root>
       </Fieldset.Root>
       <Button onClick={login}>Log in</Button>
-      <Span>
+      <Span color={"fg.muted"}>
         Don't have an account? <NavLink to={getSignupPath()}>Sign up</NavLink>
       </Span>
     </Flex>

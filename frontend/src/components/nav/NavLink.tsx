@@ -4,10 +4,11 @@ import { NavLink as RouterNavLink } from "react-router-dom";
 
 interface NavLinkProps extends PropsWithChildren, LinkProps {
   to: string;
+  replace?: boolean;
 }
 
 export const NavLink = (props: NavLinkProps) => {
-  const { to, children, fontWeight, colorPalette } = props;
+  const { to, children, fontWeight, colorPalette, replace } = props;
   return (
     <Link
       {...props}
@@ -15,7 +16,9 @@ export const NavLink = (props: NavLinkProps) => {
       colorPalette={colorPalette || "blue"}
       asChild
     >
-      <RouterNavLink to={to}>{children}</RouterNavLink>
+      <RouterNavLink to={to} replace={replace}>
+        {children}
+      </RouterNavLink>
     </Link>
   );
 };

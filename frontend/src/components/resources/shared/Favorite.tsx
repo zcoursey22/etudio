@@ -11,7 +11,7 @@ export const Favorite = ({ isFavorite }: Props) => {
       unstyled
       cursor={"pointer"}
       color={isFavorite ? "orange.focusRing" : "fg"}
-      fontSize={"xs"}
+      fontSize={"inherit"}
       zIndex={"1"}
     >
       <Icon size={"sm"} _hover={{ fill: isFavorite ? "none" : "currentcolor" }}>

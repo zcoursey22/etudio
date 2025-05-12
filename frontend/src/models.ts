@@ -8,7 +8,7 @@ export interface Base {
 export interface Resource extends Base {
   created: Date;
   lastModified: Date;
-  isFavorite?: boolean;
+  isFavorite: boolean;
 }
 
 export interface Artist extends Resource {

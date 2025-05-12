@@ -1,9 +1,7 @@
-import { Box, Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
 import { useArrangements, useComposition, useCompositions } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath } from "../routes";
-import { ListViewContainer } from "../components/list";
-import { BackButton, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import {
   arrangementColumns,
@@ -30,54 +28,56 @@ export const CompositionDetail = () => {
       {(composition) => {
         const { name, artist } = composition;
         return (
-          <Stack color={"fg.muted"}>
-            <Flex gap={"0.5em"}>
-              <BackButton />
-              <Box color={"fg.muted"}>
-                <Text>
-                  <Heading display="inline-block" color={"fg"}>
-                    {name}
-                  </Heading>
-                  <Span fontSize={"xs"}>
-                    <ResourceFrom
-                      {...composition}
-                      prefixPadding="1"
-                      emptySpanText=""
-                    />
-                  </Span>
-                </Text>
-                <Text fontSize={"sm"}>
+          <>
+            <DetailPage
+              resource={composition}
+              title={name}
+              subtitle={
+                <>
                   by{" "}
                   <NavLink to={getArtistDetailPath(artist.id)}>
                     {artist.name}
                   </NavLink>
-                </Text>
-              </Box>
-            </Flex>
-            <ListViewContainer
-              title={"Scores"}
-              useResourcesState={arrangementsListState}
-              columnMap={arrangementColumns}
-              columnOverrides={{ composition: { visible: false } }}
-              renderGridItemContents={(arrangement) => (
-                <ArrangementListGridItemContents arrangement={arrangement} />
-              )}
+                </>
+              }
+              rightOfTitle={
+                <ResourceFrom
+                  {...composition}
+                  prefixPadding="1"
+                  emptySpanText=""
+                />
+              }
+              subresourceConfigs={[
+                {
+                  route: "arrangements",
+                  title: "Scores",
+                  useResourcesState: arrangementsListState,
+                  columnMap: arrangementColumns,
+                  columnOverrides: { composition: { visible: false } },
+                  renderGridItemContents: (arrangement) => (
+                    <ArrangementListGridItemContents
+                      arrangement={arrangement}
+                    />
+                  ),
+                },
+                {
+                  route: "compositions",
+                  title: "Compositions",
+                  useResourcesState: childCompositionsListState,
+                  columnMap: compositionColumns,
+                  columnOverrides: {
+                    from: { visible: false },
+                    composer: { visible: false },
+                  },
+                  renderGridItemContents: (composition) => (
+                    <CompositionListGridItemContents
+                      composition={composition}
+                    />
+                  ),
+                },
+              ]}
             />
-            {!!childCompositionsListState?.resources?.length && (
-              <ListViewContainer
-                title={"Compositions"}
-                useResourcesState={childCompositionsListState}
-                columnMap={compositionColumns}
-                columnOverrides={{
-                  from: { visible: false },
-                  composer: { visible: false },
-                }}
-                renderGridItemContents={(composition) => (
-                  <CompositionListGridItemContents composition={composition} />
-                )}
-              />
-            )}
-          </Stack>
+          </>
         );
       }}
     </DetailViewContainer>

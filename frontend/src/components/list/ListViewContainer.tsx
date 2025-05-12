@@ -20,8 +20,8 @@ enum ListViewType {
   GRID = "grid",
 }
 
-interface ListViewContainerProps<T> {
-  title: string;
+export interface ListViewContainerProps<T> {
+  title: string | ReactNode;
   useResourcesState: {
     resources: T[];
     loading: boolean;

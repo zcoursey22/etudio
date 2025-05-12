@@ -7,7 +7,7 @@ export const Landing = () => {
     <Stack align={"center"} maxWidth={"xl"} gap={"1.5em"}>
       <Stack gap={"1.5em"}>
         <Heading size={"5xl"}>A catchy marketing statement goes here.</Heading>
-        <Span>
+        <Span color={"fg.muted"}>
           More marketing stuff goes here to explain why you need to use this
           app. Don't go too in-depth but try to hit the main features.
         </Span>

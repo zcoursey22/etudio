@@ -22,6 +22,8 @@ import {
 import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
+import { Subresource } from "./components/detail";
+import { Arrangement, Composition } from "./models";
 
 const ARTISTS = "artists";
 const COMPOSITIONS = "compositions";
@@ -50,7 +52,22 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
     children: [
       { path: `${ARTISTS}/:id`, element: <ArtistDetail /> },
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
-      { path: `${COMPOSITIONS}/:id`, element: <CompositionDetail /> },
+      {
+        path: `${COMPOSITIONS}/:id`,
+        element: <CompositionDetail />,
+        children: [
+          {
+            index: true,
+            path: "",
+            element: <Subresource<Arrangement> />,
+          },
+          {
+            path: `${ARRANGEMENTS}`,
+            element: <Subresource<Arrangement> />,
+          },
+          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+        ],
+      },
       { path: `${SOURCES}/:id`, element: <SourceDetail /> },
       { path: `${COLLECTIONS}/:id`, element: <CollectionDetail /> },
       { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
