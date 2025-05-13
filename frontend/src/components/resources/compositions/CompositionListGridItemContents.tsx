@@ -9,8 +9,7 @@ interface Props {
 }
 
 export const CompositionListGridItemContents = ({ composition }: Props) => {
-  const { name, id, artist, isFavorite, partOf, source, collection } =
-    composition;
+  const { name, id, artist, isFavorite } = composition;
 
   return (
     <>
@@ -29,12 +28,7 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>
-            <ResourceFrom
-              partOf={partOf}
-              source={source}
-              collection={collection}
-              prefixPadding="1"
-            />
+            <ResourceFrom {...composition} />
           </Span>
           <Separator mt={"0.5em"} />
           <Text>

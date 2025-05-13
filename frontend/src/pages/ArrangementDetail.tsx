@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Span, Stack, Text } from "@chakra-ui/react";
 import { useArrangement } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import {
@@ -22,10 +22,9 @@ export const ArrangementDetail = () => {
           <DetailPage
             resource={arrangement}
             title={name}
-            rightOfTitle={<ResourceFrom {...composition} prefixPadding="1" />}
             subtitle={
               <>
-                {"by "}
+                {"arranged by "}
                 <NavLink
                   to={getArtistDetailPath(
                     artist.id,
@@ -37,20 +36,29 @@ export const ArrangementDetail = () => {
               </>
             }
             mainContent={
-              <Text>
-                <NavLink to={getCompositionDetailPath(composition.id)}>
-                  {composition.name}
-                </NavLink>
-                {" by "}
-                <NavLink
-                  to={getArtistDetailPath(
-                    composition.artist.id,
-                    ROUTE_SEGMENTS.COMPOSITIONS
-                  )}
-                >
-                  {composition.artist.name}
-                </NavLink>
-              </Text>
+              <Stack>
+                <Box>
+                  <Text>
+                    <NavLink to={getCompositionDetailPath(composition.id)}>
+                      {composition.name}
+                    </NavLink>
+                    <Span fontSize={"xs"}>
+                      {<ResourceFrom {...composition} prefixPadding="1" />}
+                    </Span>
+                  </Text>
+                  <Text fontSize={"sm"}>
+                    {"composed by "}
+                    <NavLink
+                      to={getArtistDetailPath(
+                        composition.artist.id,
+                        ROUTE_SEGMENTS.COMPOSITIONS
+                      )}
+                    >
+                      {composition.artist.name}
+                    </NavLink>
+                  </Text>
+                </Box>
+              </Stack>
             }
           />
         );

@@ -1,5 +1,14 @@
 import { ReactNode } from "react";
-import { Box, Flex, Group, Heading, Span, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Group,
+  Heading,
+  Separator,
+  Span,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
 import { Resource } from "../../models";
 import { Favorite } from "../resources/shared";
@@ -41,7 +50,12 @@ export const DetailPage = <T extends Resource>({
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Box>
       </Flex>
-      {mainContent && <Box>{mainContent}</Box>}
+      {mainContent && (
+        <Box>
+          <Separator />
+          <Box padding={"1em 0"}>{mainContent}</Box>
+        </Box>
+      )}
       <Outlet context={{ configs: subresourceConfigs }} />
     </Stack>
   );

@@ -1,4 +1,4 @@
-import { Accordion, Icon, Span } from "@chakra-ui/react";
+import { Accordion, Group, Icon, Span } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
 export interface ToolItemProps {
@@ -12,13 +12,15 @@ export const ToolItem = ({ value, label, icon }: ToolItemProps) => {
 
   return (
     <Accordion.Item value={value}>
-      <Accordion.ItemTrigger>
-        {ToolItemIcon && (
-          <Icon>
-            <ToolItemIcon />
-          </Icon>
-        )}
-        <Span flex={"1"}>{label}</Span>
+      <Accordion.ItemTrigger cursor={"pointer"}>
+        <Group flex={"1"}>
+          {ToolItemIcon && (
+            <Icon>
+              <ToolItemIcon />
+            </Icon>
+          )}
+          <Span>{label}</Span>
+        </Group>
         <Accordion.ItemIndicator />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
