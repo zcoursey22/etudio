@@ -5,6 +5,7 @@ import {
   getCollectionDetailPath,
   getCompositionDetailPath,
   getSourceDetailPath,
+  ROUTE_SEGMENTS,
 } from "../../../routes";
 import { ReactNode } from "react";
 import {
@@ -26,6 +27,7 @@ interface Props {
   spanColor?: string;
   showIcon?: boolean;
   prefixPadding?: string;
+  sourceSubresourceRouteSegment?: string;
 }
 
 const sourceIconMap: { [type in SourceType]: ReactNode } = {
@@ -45,6 +47,7 @@ export const ResourceFrom = ({
   spanColor = "currentcolor",
   showIcon = true,
   prefixPadding,
+  sourceSubresourceRouteSegment,
 }: Props) => {
   const config: { label: string; url?: string; icon: ReactNode } = {
     label: "",
@@ -53,11 +56,14 @@ export const ResourceFrom = ({
   };
   if (partOf) {
     config.label = partOf.name;
-    config.url = getCompositionDetailPath(partOf.id);
+    config.url = getCompositionDetailPath(
+      partOf.id,
+      ROUTE_SEGMENTS.COMPOSITIONS
+    );
     config.icon = <LuMusic />;
   } else if (source) {
     config.label = source.name;
-    config.url = getSourceDetailPath(source.id);
+    config.url = getSourceDetailPath(source.id, sourceSubresourceRouteSegment);
     config.icon = sourceIconMap[source.type];
   } else if (collection) {
     config.label = collection.name;

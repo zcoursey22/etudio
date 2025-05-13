@@ -35,7 +35,12 @@ export const CompositionDetail = () => {
             subtitle={
               <>
                 by{" "}
-                <NavLink to={getArtistDetailPath(artist.id)}>
+                <NavLink
+                  to={getArtistDetailPath(
+                    artist.id,
+                    ROUTE_SEGMENTS.COMPOSITIONS
+                  )}
+                >
                   {artist.name}
                 </NavLink>
               </>

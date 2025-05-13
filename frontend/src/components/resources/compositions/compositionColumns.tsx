@@ -1,5 +1,9 @@
 import { Composition } from "../../../models";
-import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
+import {
+  getArtistDetailPath,
+  getCompositionDetailPath,
+  ROUTE_SEGMENTS,
+} from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
@@ -26,7 +30,11 @@ export const compositionColumns: ColumnMap<Composition> = {
   composer: {
     header: "Composer",
     render: ({ artist }) => (
-      <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+      <NavLink
+        to={`${getArtistDetailPath(artist.id)}/${ROUTE_SEGMENTS.COMPOSITIONS}`}
+      >
+        {artist.name}
+      </NavLink>
     ),
   },
   lastModified: {

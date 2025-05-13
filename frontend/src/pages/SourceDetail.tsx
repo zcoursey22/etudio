@@ -31,7 +31,11 @@ export const SourceDetail = () => {
             resource={source}
             title={name}
             rightOfTitle={
-              <ResourceFrom source={parentSource} prefixPadding="1" />
+              <ResourceFrom
+                source={parentSource}
+                sourceSubresourceRouteSegment={ROUTE_SEGMENTS.SOURCES}
+                prefixPadding="1"
+              />
             }
             subtitle={"source"}
             subresourceConfigs={[

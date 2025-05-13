@@ -57,8 +57,8 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const publicRoutes = {
     element: <RouteGuard redirectTo="/" reversed />,
     children: [
-      { path: `${LOGIN}`, element: <Login /> },
-      { path: `${SIGNUP}`, element: <Signup /> },
+      { path: LOGIN, element: <Login /> },
+      { path: SIGNUP, element: <Signup /> },
     ],
   };
 
@@ -80,7 +80,7 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
           },
         ],
       },
-      { path: `${COMPOSITIONS}`, element: <CompositionList /> },
+      { path: COMPOSITIONS, element: <CompositionList /> },
       {
         path: `${COMPOSITIONS}/:id`,
         element: <CompositionDetail />,
@@ -90,10 +90,10 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             element: <Subresource<Arrangement> />,
           },
           {
-            path: `${ARRANGEMENTS}`,
+            path: ARRANGEMENTS,
             element: <Subresource<Arrangement> />,
           },
-          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
         ],
       },
       {
@@ -104,9 +104,9 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             index: true,
             element: <Subresource<Composition> />,
           },
-          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
           {
-            path: `${SOURCES}`,
+            path: SOURCES,
             element: <Subresource<Source> />,
           },
         ],
@@ -119,26 +119,26 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             index: true,
             element: <Subresource<Composition> />,
           },
-          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
         ],
       },
-      { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
+      { path: ARRANGEMENTS, element: <ArrangementList /> },
       {
         path: `${ARRANGEMENTS}/:id`,
         element: <ArrangementDetail />,
       },
-      { path: `${ROUTINES}`, element: <RoutineList /> },
+      { path: ROUTINES, element: <RoutineList /> },
       {
         path: `${ROUTINES}/:id`,
         element: <RoutineDetail />,
       },
-      { path: `${SUPPLEMENTARIES}`, element: <SupplementaryList /> },
+      { path: SUPPLEMENTARIES, element: <SupplementaryList /> },
       {
         path: `${SUPPLEMENTARIES}/:id`,
         element: <SupplementaryDetail />,
       },
-      { path: `${PROFILE}`, element: <Profile /> },
-      { path: `${SETTINGS}`, element: <Settings /> },
+      { path: PROFILE, element: <Profile /> },
+      { path: SETTINGS, element: <Settings /> },
     ],
   };
 
@@ -165,8 +165,14 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   ];
 };
 
-export const getArtistDetailPath = (id: number) => {
-  return `/${ARTISTS}/${id}`;
+export const getArtistDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `/${ARTISTS}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
 // COMPOSITIONS
@@ -174,16 +180,34 @@ export const getArtistDetailPath = (id: number) => {
 export const getCompositionListPath = () => {
   return `/${COMPOSITIONS}`;
 };
-export const getCompositionDetailPath = (id: number) => {
-  return `${getCompositionListPath()}/${id}`;
+export const getCompositionDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `${getCompositionListPath()}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
-export const getSourceDetailPath = (id: number) => {
-  return `/${SOURCES}/${id}`;
+export const getSourceDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `/${SOURCES}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
-export const getCollectionDetailPath = (id: number) => {
-  return `/${COLLECTIONS}/${id}`;
+export const getCollectionDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `/${COLLECTIONS}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
 // ARRANGEMENTS
@@ -191,8 +215,14 @@ export const getCollectionDetailPath = (id: number) => {
 export const getArrangementListPath = () => {
   return `/${ARRANGEMENTS}`;
 };
-export const getArrangementDetailPath = (id: number) => {
-  return `${getArrangementListPath()}/${id}`;
+export const getArrangementDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `${getArrangementListPath()}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
 // ROUTINES
@@ -200,8 +230,14 @@ export const getArrangementDetailPath = (id: number) => {
 export const getRoutineListPath = () => {
   return `/${ROUTINES}`;
 };
-export const getRoutineDetailPath = (id: number) => {
-  return `${getRoutineListPath()}/${id}`;
+export const getRoutineDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `${getRoutineListPath()}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
 // SUPPLEMENTARIES
@@ -209,8 +245,14 @@ export const getRoutineDetailPath = (id: number) => {
 export const getSupplementaryListPath = () => {
   return `/${SUPPLEMENTARIES}`;
 };
-export const getSupplementaryDetailPath = (id: number) => {
-  return `${getSupplementaryListPath()}/${id}`;
+export const getSupplementaryDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `${getSupplementaryListPath()}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
 };
 
 // ADMIN

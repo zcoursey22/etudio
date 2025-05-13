@@ -4,6 +4,7 @@ import {
   getArrangementDetailPath,
   getArtistDetailPath,
   getCompositionDetailPath,
+  ROUTE_SEGMENTS,
 } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
@@ -37,7 +38,9 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
   arranger: {
     header: "Arranger",
     render: ({ artist }) => (
-      <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+      <NavLink to={getArtistDetailPath(artist.id, ROUTE_SEGMENTS.ARRANGEMENTS)}>
+        {artist.name}
+      </NavLink>
     ),
   },
   lastModified: {

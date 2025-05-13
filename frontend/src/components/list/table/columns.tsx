@@ -1,5 +1,5 @@
-import { Flex, Icon } from "@chakra-ui/react";
-import { LuStar } from "react-icons/lu";
+// import { Flex, Icon } from "@chakra-ui/react";
+// import { LuStar } from "react-icons/lu";
 import { Resource } from "../../../models";
 import { Favorite } from "../../resources/shared";
 
