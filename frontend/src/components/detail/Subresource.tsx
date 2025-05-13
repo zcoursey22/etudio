@@ -1,8 +1,12 @@
-import { useLocation, useOutletContext, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 import { Resource } from "../../models";
 import { ListViewContainer, ListViewContainerProps } from "../list";
-import { Icon, Tabs } from "@chakra-ui/react";
-import { NavLink } from "../nav/NavLink";
+import { Group, Icon, Tabs, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export interface SubresourceConfig<T extends Resource>
@@ -20,34 +24,42 @@ export const Subresource = <T extends Resource>() => {
   const { id } = useParams();
   const { pathname } = useLocation();
 
+  const navigate = useNavigate();
+
   const pathParts = pathname.split("/");
-  const basePath =
-    pathParts[pathParts.length - 1] !== id
-      ? pathParts.slice(0, -1).join("/")
-      : pathname;
+  const isOnSubresource = pathParts[pathParts.length - 1] !== id;
+  const subresourceRoute = isOnSubresource
+    ? pathParts[pathParts.length - 1]
+    : null;
+  const basePath = isOnSubresource
+    ? pathParts.slice(0, -1).join("/")
+    : pathname;
 
   const config =
-    configs.find((c) => c.route === pathParts[pathParts.length - 1]) ??
-    configs[0];
+    configs.find((c) => c.route === subresourceRoute) ?? configs[0];
 
   return (
     <ListViewContainer
       {...config}
       title={
-        <Tabs.Root defaultValue={config.route} variant={"outline"}>
+        <Tabs.Root
+          value={config.route}
+          variant={"outline"}
+          onValueChange={({ value }) =>
+            navigate(`${basePath}/${value}`, { replace: true })
+          }
+        >
           <Tabs.List>
-            {configs?.map(({ route, title, icon }) => (
-              <Tabs.Trigger asChild key={route} value={route}>
-                <NavLink
-                  to={`${basePath}/${route}`}
-                  replace
-                  unstyled
-                  colorPalette={"auto"}
-                  fontSize={"md"}
-                >
+            {configs?.map(({ route, title, icon, useResourcesState }) => (
+              <Tabs.Trigger key={route} value={route}>
+                <Group fontSize={"md"}>
                   {icon && <Icon>{icon}</Icon>}
-                  {title}
-                </NavLink>
+                  <Text>{`${title}${
+                    useResourcesState?.resources
+                      ? ` (${useResourcesState?.resources?.length})`
+                      : ""
+                  }`}</Text>
+                </Group>
               </Tabs.Trigger>
             ))}
           </Tabs.List>

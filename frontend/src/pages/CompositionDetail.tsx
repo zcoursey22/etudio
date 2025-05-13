@@ -1,6 +1,6 @@
 import { useArrangements, useComposition, useCompositions } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
-import { getArtistDetailPath } from "../routes";
+import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import {
@@ -29,58 +29,52 @@ export const CompositionDetail = () => {
       {(composition) => {
         const { name, artist } = composition;
         return (
-          <>
-            <DetailPage
-              resource={composition}
-              title={name}
-              subtitle={
-                <>
-                  by{" "}
-                  <NavLink to={getArtistDetailPath(artist.id)}>
-                    {artist.name}
-                  </NavLink>
-                </>
-              }
-              rightOfTitle={
-                <ResourceFrom
-                  {...composition}
-                  prefixPadding="1"
-                  emptySpanText=""
-                />
-              }
-              subresourceConfigs={[
-                {
-                  route: "arrangements",
-                  title: "Scores",
-                  icon: <LuBookOpenText />,
-                  useResourcesState: arrangementsListState,
-                  columnMap: arrangementColumns,
-                  columnOverrides: { composition: { visible: false } },
-                  renderGridItemContents: (arrangement) => (
-                    <ArrangementListGridItemContents
-                      arrangement={arrangement}
-                    />
-                  ),
+          <DetailPage
+            resource={composition}
+            title={name}
+            subtitle={
+              <>
+                by{" "}
+                <NavLink to={getArtistDetailPath(artist.id)}>
+                  {artist.name}
+                </NavLink>
+              </>
+            }
+            rightOfTitle={
+              <ResourceFrom
+                {...composition}
+                prefixPadding="1"
+                emptySpanText=""
+              />
+            }
+            subresourceConfigs={[
+              {
+                route: ROUTE_SEGMENTS.ARRANGEMENTS,
+                title: "Scores",
+                icon: <LuBookOpenText />,
+                useResourcesState: arrangementsListState,
+                columnMap: arrangementColumns,
+                columnOverrides: { composition: { visible: false } },
+                renderGridItemContents: (a) => (
+                  <ArrangementListGridItemContents arrangement={a} />
+                ),
+              },
+              {
+                route: ROUTE_SEGMENTS.COMPOSITIONS,
+                title: "Compositions",
+                icon: <LuMusic />,
+                useResourcesState: childCompositionsListState,
+                columnMap: compositionColumns,
+                columnOverrides: {
+                  from: { visible: false },
+                  composer: { visible: false },
                 },
-                {
-                  route: "compositions",
-                  title: "Compositions",
-                  icon: <LuMusic />,
-                  useResourcesState: childCompositionsListState,
-                  columnMap: compositionColumns,
-                  columnOverrides: {
-                    from: { visible: false },
-                    composer: { visible: false },
-                  },
-                  renderGridItemContents: (composition) => (
-                    <CompositionListGridItemContents
-                      composition={composition}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </>
+                renderGridItemContents: (c) => (
+                  <CompositionListGridItemContents composition={c} />
+                ),
+              },
+            ]}
+          />
         );
       }}
     </DetailViewContainer>

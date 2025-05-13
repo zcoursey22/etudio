@@ -14,7 +14,7 @@ export const useSources = (params?: UseSourcesParams) => {
     isLoading: loading,
     error,
   } = useQuery<ApiSource[]>(
-    ["source", params],
+    ["sources", params],
     `/sources${params?.parentId ? `?parentId=${params?.parentId}` : ""}`
   );
   return { resources: data || [], loading, error };

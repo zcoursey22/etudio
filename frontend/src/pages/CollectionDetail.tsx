@@ -1,14 +1,13 @@
-import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCollection, useCompositions } from "../hooks";
-import { BackButton, DetailViewContainer } from "../components/detail";
-import { ListViewContainer } from "../components/list";
+import { DetailPage, DetailViewContainer } from "../components/detail";
 import {
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/resources/compositions";
 import { NavLink } from "../components/nav/NavLink";
-import { getArtistDetailPath } from "../routes";
+import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
+import { LuMusic } from "react-icons/lu";
 
 export const CollectionDetail = () => {
   const { id } = useParams();
@@ -19,44 +18,45 @@ export const CollectionDetail = () => {
 
   return (
     <DetailViewContainer useResourceState={detailState}>
-      {({ name, artist }) => {
+      {(collection) => {
+        const { name, artist } = collection;
         return (
-          <Stack color={"fg.muted"}>
-            <Flex gap={"0.5em"}>
-              <BackButton />
-              <Box>
-                <Heading color={"fg"}>{name}</Heading>
-                <Text fontSize={"sm"}>
-                  {artist ? (
-                    <>
-                      collection by{" "}
-                      <NavLink to={getArtistDetailPath(artist.id)}>
-                        {artist.name}
-                      </NavLink>
-                    </>
-                  ) : (
-                    "collection"
-                  )}
-                </Text>
-              </Box>
-            </Flex>
-            <ListViewContainer
-              title={"Compositions"}
-              useResourcesState={compositionsListState}
-              columnMap={compositionColumns}
-              columnOverrides={{
-                from: { visible: false },
-                composer: {
-                  visible: !compositionsListState?.resources?.every(
-                    (composition) => composition.artist.id === artist.id
-                  ),
+          <DetailPage
+            resource={collection}
+            title={name}
+            subtitle={
+              artist ? (
+                <>
+                  by{" "}
+                  <NavLink to={getArtistDetailPath(artist.id)}>
+                    {artist.name}
+                  </NavLink>
+                </>
+              ) : (
+                "collection"
+              )
+            }
+            subresourceConfigs={[
+              {
+                route: ROUTE_SEGMENTS.COMPOSITIONS,
+                title: "Compositions",
+                icon: <LuMusic />,
+                useResourcesState: compositionsListState,
+                columnMap: compositionColumns,
+                columnOverrides: {
+                  from: { visible: false },
+                  composer: {
+                    visible: !compositionsListState?.resources?.every(
+                      (c) => c.artist.id === artist.id
+                    ),
+                  },
                 },
-              }}
-              renderGridItemContents={(composition) => (
-                <CompositionListGridItemContents composition={composition} />
-              )}
-            />
-          </Stack>
+                renderGridItemContents: (c) => (
+                  <CompositionListGridItemContents composition={c} />
+                ),
+              },
+            ]}
+          />
         );
       }}
     </DetailViewContainer>

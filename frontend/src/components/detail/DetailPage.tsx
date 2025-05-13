@@ -41,7 +41,7 @@ export const DetailPage = <T extends Resource>({
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Box>
       </Flex>
-      {mainContent && mainContent}
+      {mainContent && <Box>{mainContent}</Box>}
       <Outlet context={{ configs: subresourceConfigs }} />
     </Stack>
   );

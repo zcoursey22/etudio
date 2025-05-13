@@ -1,5 +1,4 @@
-import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-import { BackButton, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useRoutine } from "../hooks";
 import { useParams } from "react-router-dom";
 
@@ -9,23 +8,12 @@ export const RoutineDetail = () => {
 
   return (
     <DetailViewContainer useResourceState={detailState}>
-      {({ name }) => (
-        <Stack color={"fg.muted"}>
-          <Flex gap={"0.5em"}>
-            <BackButton />
-            <Box>
-              <Box>
-                <Text>
-                  <Heading display="inline-block" color={"fg"}>
-                    {name}
-                  </Heading>
-                </Text>
-                <Text fontSize={"sm"}>routine</Text>
-              </Box>
-            </Box>
-          </Flex>
-        </Stack>
-      )}
+      {(routine) => {
+        const { name } = routine;
+        return (
+          <DetailPage resource={routine} title={name} subtitle={"routine"} />
+        );
+      }}
     </DetailViewContainer>
   );
 };

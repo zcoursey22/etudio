@@ -23,20 +23,35 @@ import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 import { Subresource } from "./components/detail";
-import { Arrangement, Composition } from "./models";
+import { Arrangement, Composition, Source } from "./models";
 
-const ARTISTS = "artists";
-const COMPOSITIONS = "compositions";
-const SOURCES = "sources";
-const COLLECTIONS = "collections";
-const ARRANGEMENTS = "arrangements";
-const ROUTINES = "routines";
-const SUPPLEMENTARIES = "supplementaries";
+export const ROUTE_SEGMENTS = {
+  ARTISTS: "artists",
+  COMPOSITIONS: "compositions",
+  SOURCES: "sources",
+  COLLECTIONS: "collections",
+  ARRANGEMENTS: "arrangements",
+  ROUTINES: "routines",
+  SUPPLEMENTARIES: "supplementaries",
+  PROFILE: "profile",
+  SETTINGS: "settings",
+  LOGIN: "login",
+  SIGNUP: "signup",
+} as const;
 
-const PROFILE = "profile";
-const SETTINGS = "settings";
-const LOGIN = "login";
-const SIGNUP = "signup";
+const {
+  LOGIN,
+  SIGNUP,
+  ARTISTS,
+  COLLECTIONS,
+  COMPOSITIONS,
+  ARRANGEMENTS,
+  SETTINGS,
+  SOURCES,
+  SUPPLEMENTARIES,
+  ROUTINES,
+  PROFILE,
+} = ROUTE_SEGMENTS;
 
 export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const publicRoutes = {
@@ -50,7 +65,21 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const protectedRoutes = {
     element: <RouteGuard redirectTo="/" />,
     children: [
-      { path: `${ARTISTS}/:id`, element: <ArtistDetail /> },
+      {
+        path: `${ARTISTS}/:id`,
+        element: <ArtistDetail />,
+        children: [
+          {
+            index: true,
+            element: <Subresource<Composition> />,
+          },
+          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+          {
+            path: `${ARRANGEMENTS}`,
+            element: <Subresource<Arrangement> />,
+          },
+        ],
+      },
       { path: `${COMPOSITIONS}`, element: <CompositionList /> },
       {
         path: `${COMPOSITIONS}/:id`,
@@ -58,7 +87,6 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         children: [
           {
             index: true,
-            path: "",
             element: <Subresource<Arrangement> />,
           },
           {
@@ -68,14 +96,47 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
           { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
         ],
       },
-      { path: `${SOURCES}/:id`, element: <SourceDetail /> },
-      { path: `${COLLECTIONS}/:id`, element: <CollectionDetail /> },
+      {
+        path: `${SOURCES}/:id`,
+        element: <SourceDetail />,
+        children: [
+          {
+            index: true,
+            element: <Subresource<Composition> />,
+          },
+          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+          {
+            path: `${SOURCES}`,
+            element: <Subresource<Source> />,
+          },
+        ],
+      },
+      {
+        path: `${COLLECTIONS}/:id`,
+        element: <CollectionDetail />,
+        children: [
+          {
+            index: true,
+            element: <Subresource<Composition> />,
+          },
+          { path: `${COMPOSITIONS}`, element: <Subresource<Composition> /> },
+        ],
+      },
       { path: `${ARRANGEMENTS}`, element: <ArrangementList /> },
-      { path: `${ARRANGEMENTS}/:id`, element: <ArrangementDetail /> },
+      {
+        path: `${ARRANGEMENTS}/:id`,
+        element: <ArrangementDetail />,
+      },
       { path: `${ROUTINES}`, element: <RoutineList /> },
-      { path: `${ROUTINES}/:id`, element: <RoutineDetail /> },
+      {
+        path: `${ROUTINES}/:id`,
+        element: <RoutineDetail />,
+      },
       { path: `${SUPPLEMENTARIES}`, element: <SupplementaryList /> },
-      { path: `${SUPPLEMENTARIES}/:id`, element: <SupplementaryDetail /> },
+      {
+        path: `${SUPPLEMENTARIES}/:id`,
+        element: <SupplementaryDetail />,
+      },
       { path: `${PROFILE}`, element: <Profile /> },
       { path: `${SETTINGS}`, element: <Settings /> },
     ],

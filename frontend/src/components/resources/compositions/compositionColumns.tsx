@@ -9,7 +9,7 @@ export const compositionColumns: ColumnMap<Composition> = {
   name: {
     header: "Name",
     render: ({ id, name }) => (
-      <NavLink to={getCompositionDetailPath(id)}>{name}</NavLink>
+      <NavLink to={`${getCompositionDetailPath(id)}`}>{name}</NavLink>
     ),
   },
   from: {

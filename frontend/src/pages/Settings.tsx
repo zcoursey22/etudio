@@ -6,12 +6,12 @@ export const Settings = () => {
 
   return (
     <Stack>
-      <Heading pb={"0.5em"}>Settings</Heading>
+      <Heading>Settings</Heading>
       <Stack>
         <Heading size={"md"}>Display</Heading>
         <Flex align={"center"} justify={"space-between"}>
           <Text color={"fg.muted"} fontSize={"sm"}>
-            Keep selected view type synced across all lists
+            Keep the way you view lists synced across all pages
           </Text>
           <Switch.Root
             checked={settings.syncListViewType}

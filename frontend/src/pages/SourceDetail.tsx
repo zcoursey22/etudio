@@ -1,8 +1,6 @@
-import { Box, Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
-import { BackButton, DetailViewContainer } from "../components/detail";
-import { ListViewContainer } from "../components/list";
+import { DetailPage, DetailViewContainer } from "../components/detail";
 import {
   compositionColumns,
   CompositionListGridItemContents,
@@ -12,6 +10,8 @@ import {
   SourceListGridItemContents,
 } from "../components/resources/sources";
 import { ResourceFrom } from "../components/resources/shared";
+import { LuFolder, LuMusic } from "react-icons/lu";
+import { ROUTE_SEGMENTS } from "../routes";
 
 export const SourceDetail = () => {
   const { id } = useParams();
@@ -24,54 +24,47 @@ export const SourceDetail = () => {
 
   return (
     <DetailViewContainer useResourceState={detailState}>
-      {({ name }) => {
+      {(source) => {
+        const { name } = source;
         return (
-          <Stack color={"fg.muted"}>
-            <Flex gap={"0.5em"}>
-              <BackButton />
-              <Box>
-                <Text>
-                  <Heading display="inline-block" color={"fg"}>
-                    {name}
-                  </Heading>
-                  <Span fontSize={"xs"}>
-                    <ResourceFrom
-                      source={parentSource}
-                      prefixPadding="1"
-                      emptySpanText=""
-                    />
-                  </Span>
-                </Text>
-                <Text fontSize={"sm"}>source</Text>
-              </Box>
-            </Flex>
-            {!!compositionsListState?.resources?.length && (
-              <ListViewContainer
-                title={"Compositions"}
-                useResourcesState={compositionsListState}
-                columnMap={compositionColumns}
-                columnOverrides={{ from: { visible: false } }}
-                renderGridItemContents={(composition) => (
-                  <CompositionListGridItemContents composition={composition} />
-                )}
-              />
-            )}
-            {!!childSources?.length && (
-              <ListViewContainer
-                title={"Sources"}
-                useResourcesState={{
-                  resources: childSources,
+          <DetailPage
+            resource={source}
+            title={name}
+            rightOfTitle={
+              <ResourceFrom source={parentSource} prefixPadding="1" />
+            }
+            subtitle={"source"}
+            subresourceConfigs={[
+              {
+                route: ROUTE_SEGMENTS.COMPOSITIONS,
+                title: "Compositions",
+                icon: <LuMusic />,
+                useResourcesState: compositionsListState,
+                columnMap: compositionColumns,
+                columnOverrides: {
+                  from: { visible: false },
+                },
+                renderGridItemContents: (c) => (
+                  <CompositionListGridItemContents composition={c} />
+                ),
+              },
+              {
+                route: ROUTE_SEGMENTS.SOURCES,
+                title: "Sources",
+                icon: <LuFolder />,
+                useResourcesState: {
+                  resources: childSources || [],
                   loading: false,
                   error: null,
-                }}
-                columnMap={sourceColumns}
-                columnOverrides={{ parent: { visible: false } }}
-                renderGridItemContents={(source) => (
-                  <SourceListGridItemContents source={source} />
-                )}
-              />
-            )}
-          </Stack>
+                },
+                columnMap: sourceColumns,
+                columnOverrides: { parent: { visible: false } },
+                renderGridItemContents: (s) => (
+                  <SourceListGridItemContents source={s} />
+                ),
+              },
+            ]}
+          />
         );
       }}
     </DetailViewContainer>

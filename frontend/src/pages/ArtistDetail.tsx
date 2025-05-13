@@ -1,8 +1,6 @@
-import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArrangements, useArtist, useCompositions } from "../hooks";
-import { BackButton, DetailViewContainer } from "../components/detail";
-import { ListViewContainer } from "../components/list";
+import { DetailPage, DetailViewContainer } from "../components/detail";
 import {
   arrangementColumns,
   ArrangementListGridItemContents,
@@ -11,6 +9,8 @@ import {
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/resources/compositions";
+import { ROUTE_SEGMENTS } from "../routes";
+import { LuBookOpenText, LuMusic } from "react-icons/lu";
 
 export const ArtistDetail = () => {
   const { id } = useParams();
@@ -21,52 +21,40 @@ export const ArtistDetail = () => {
 
   return (
     <DetailViewContainer useResourceState={detailState}>
-      {({ name }) => {
+      {(artist) => {
+        const { name } = artist;
         return (
-          <Stack color={"fg.muted"}>
-            <Flex gap={"0.5em"}>
-              <BackButton />
-              <Box>
-                <Box>
-                  <Text>
-                    <Heading display="inline-block" color={"fg"}>
-                      {name}
-                    </Heading>
-                  </Text>
-                  <Text fontSize={"sm"}>artist</Text>
-                </Box>
-              </Box>
-            </Flex>
-            <Stack>
-              {(!!compositionsListState?.resources?.length ||
-                !arrangementsListState?.resources?.length) && (
-                <ListViewContainer
-                  title={"Compositions"}
-                  useResourcesState={compositionsListState}
-                  columnMap={compositionColumns}
-                  columnOverrides={{ composer: { visible: false } }}
-                  renderGridItemContents={(composition) => (
-                    <CompositionListGridItemContents
-                      composition={composition}
-                    />
-                  )}
-                />
-              )}
-              {!!arrangementsListState?.resources?.length && (
-                <ListViewContainer
-                  title={"Scores"}
-                  useResourcesState={arrangementsListState}
-                  columnMap={arrangementColumns}
-                  columnOverrides={{ arranger: { visible: false } }}
-                  renderGridItemContents={(arrangement) => (
-                    <ArrangementListGridItemContents
-                      arrangement={arrangement}
-                    />
-                  )}
-                />
-              )}
-            </Stack>
-          </Stack>
+          <DetailPage
+            resource={artist}
+            title={name}
+            subtitle={"artist"}
+            subresourceConfigs={[
+              {
+                route: ROUTE_SEGMENTS.COMPOSITIONS,
+                title: "Compositions",
+                icon: <LuMusic />,
+                useResourcesState: compositionsListState,
+                columnMap: compositionColumns,
+                columnOverrides: {
+                  composer: { visible: false },
+                },
+                renderGridItemContents: (c) => (
+                  <CompositionListGridItemContents composition={c} />
+                ),
+              },
+              {
+                route: ROUTE_SEGMENTS.ARRANGEMENTS,
+                title: "Scores",
+                icon: <LuBookOpenText />,
+                useResourcesState: arrangementsListState,
+                columnMap: arrangementColumns,
+                columnOverrides: { arranger: { visible: false } },
+                renderGridItemContents: (a) => (
+                  <ArrangementListGridItemContents arrangement={a} />
+                ),
+              },
+            ]}
+          />
         );
       }}
     </DetailViewContainer>
