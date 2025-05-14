@@ -3,8 +3,11 @@ import { LuGauge, LuHourglass } from "react-icons/lu";
 import { TbMetronome } from "react-icons/tb";
 import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
+import { Metronome } from "./Metronome";
+import { Pomodoro } from "./Pomodoro";
+import { Tuner } from "./Tuner";
 
-export interface ToolItemConfig {
+interface ToolItemConfig {
   value: string;
   label: string;
   element?: ReactNode;
@@ -12,9 +15,19 @@ export interface ToolItemConfig {
 }
 
 const tools: ToolItemConfig[] = [
-  { value: "metronome", label: "Metronome", icon: <TbMetronome /> },
-  { value: "pomodoro", label: "Pomodoro", icon: <LuHourglass /> },
-  { value: "tuner", label: "Tuner", icon: <LuGauge /> },
+  {
+    value: "metronome",
+    label: "Metronome",
+    icon: <TbMetronome />,
+    element: <Metronome />,
+  },
+  {
+    value: "pomodoro",
+    label: "Pomodoro",
+    icon: <LuHourglass />,
+    element: <Pomodoro />,
+  },
+  { value: "tuner", label: "Tuner", icon: <LuGauge />, element: <Tuner /> },
 ];
 
 const KEY = "etudio__open_tools";
@@ -37,7 +50,7 @@ export const Tools = () => {
               <Accordion.ItemTrigger cursor={"pointer"}>
                 <Group flex={"1"}>
                   {icon && (
-                    <Icon color={isOpen ? "fg.success" : "fg.subtle"}>
+                    <Icon color={isOpen ? "green.fg" : "fg.subtle"}>
                       {icon}
                     </Icon>
                   )}
@@ -46,7 +59,9 @@ export const Tools = () => {
                 <Accordion.ItemIndicator />
               </Accordion.ItemTrigger>
               <Accordion.ItemContent>
-                <Accordion.ItemBody>{element}</Accordion.ItemBody>
+                <Accordion.ItemBody color={"fg.muted"}>
+                  {element}
+                </Accordion.ItemBody>
               </Accordion.ItemContent>
             </Accordion.Item>
           );
