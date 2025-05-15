@@ -129,6 +129,7 @@ export const Tuner = () => {
             rounded={"full"}
             asChild
             padding={"0.25em"}
+            disabled={note <= config.note.min && octave <= config.octave.min}
             onClick={() => setNote(note - 1)}
           >
             <LuMinus />
@@ -142,6 +143,7 @@ export const Tuner = () => {
             rounded={"full"}
             asChild
             padding={"0.25em"}
+            disabled={note >= config.note.max && octave >= config.octave.max}
             onClick={() => setNote(note + 1)}
           >
             <LuPlus />
@@ -155,6 +157,7 @@ export const Tuner = () => {
             rounded={"full"}
             asChild
             padding={"0.25em"}
+            disabled={octave <= config.octave.min}
             onClick={() => setOctave(octave - 1)}
           >
             <LuMinus />
@@ -168,6 +171,7 @@ export const Tuner = () => {
             rounded={"full"}
             asChild
             padding={"0.25em"}
+            disabled={octave >= config.octave.max}
             onClick={() => setOctave(octave + 1)}
           >
             <LuPlus />
@@ -184,6 +188,7 @@ export const Tuner = () => {
               rounded={"full"}
               asChild
               padding={"0.25em"}
+              disabled={hz <= config.hz.min}
               onClick={() => setHz(hz - 1)}
             >
               <LuMinus />
@@ -198,6 +203,7 @@ export const Tuner = () => {
               rounded={"full"}
               asChild
               padding={"0.25em"}
+              disabled={hz >= config.hz.max}
               onClick={() => setHz(hz + 1)}
             >
               <LuPlus />
@@ -211,6 +217,7 @@ export const Tuner = () => {
               rounded={"full"}
               asChild
               padding={"0.25em"}
+              disabled={cents <= config.cents.min}
               onClick={() => setCents(cents - 1)}
             >
               <LuMinus />
@@ -233,6 +240,7 @@ export const Tuner = () => {
               rounded={"full"}
               asChild
               padding={"0.25em"}
+              disabled={cents >= config.cents.max}
               onClick={() => setCents(cents + 1)}
             >
               <LuPlus />
