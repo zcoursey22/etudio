@@ -1,24 +1,29 @@
-import {
-  Flex,
-  Group,
-  Heading,
-  IconButton,
-  Span,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Heading, IconButton, Span, Stack, Text } from "@chakra-ui/react";
 import metronomeHigh from "../../assets/audio/metronome-high.wav";
 import metronomeLow from "../../assets/audio/metronome-low.wav";
 import { useEffect, useRef, useState } from "react";
 import { LuMinus, LuPlay, LuPlus, LuSquare } from "react-icons/lu";
-import useLocalStorage from "use-local-storage";
+import { useClampedLocalStorage } from "../../hooks";
+
+const config: { [key: string]: { min: number; initial: number; max: number } } =
+  {
+    bpm: { min: 30, initial: 100, max: 300 },
+    beatsPerMeasure: { min: 1, initial: 4, max: 12 },
+  };
 
 export const Metronome = () => {
-  const [beatsPerMeasure, setBeatsPerMeasure] = useLocalStorage(
-    "etudio_metronome_beatsPerMeasure",
-    4
+  const [bpm, setBpm] = useClampedLocalStorage(
+    "etudio_metronome_bpm",
+    config.bpm.initial,
+    config.bpm.min,
+    config.bpm.max
   );
-  const [bpm, setBpm] = useLocalStorage("etudio_metronome_bpm", 100);
+  const [beatsPerMeasure, setBeatsPerMeasure] = useClampedLocalStorage(
+    "etudio_metronome_beatsPerMeasure",
+    config.beatsPerMeasure.initial,
+    config.beatsPerMeasure.min,
+    config.beatsPerMeasure.max
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const beatRef = useRef(1);
   const intervalRef = useRef<number>(undefined);
@@ -64,18 +69,6 @@ export const Metronome = () => {
     };
   }, [beatsPerMeasure, bpm, isPlaying]);
 
-  const handleBpmChange = (val: number) => {
-    if (val >= 30 && val <= 300 && val != bpm) {
-      setBpm(val);
-    }
-  };
-
-  const handleBeatsPerMeasureChange = (val: number) => {
-    if (val >= 1 && val <= 12 && val != beatsPerMeasure) {
-      setBeatsPerMeasure(val);
-    }
-  };
-
   return (
     <Stack>
       <Flex align={"center"} justify={"space-between"} gap={"1"}>
@@ -85,8 +78,8 @@ export const Metronome = () => {
           rounded={"full"}
           asChild
           padding={"0.25em"}
-          disabled={bpm <= 30}
-          onClick={() => handleBpmChange(bpm - 1)}
+          disabled={bpm <= config.bpm.min}
+          onClick={() => setBpm(bpm - 1)}
         >
           <LuMinus />
         </IconButton>
@@ -102,26 +95,27 @@ export const Metronome = () => {
           rounded={"full"}
           asChild
           padding={"0.25em"}
-          disabled={bpm >= 300}
-          onClick={() => handleBpmChange(bpm + 1)}
+          disabled={bpm >= config.bpm.max}
+          onClick={() => setBpm(bpm + 1)}
         >
           <LuPlus />
         </IconButton>
       </Flex>
-      <Flex align={"center"} justify={"space-between"} gap={"1"}>
-        <Group>
+
+      <Flex align={"flex-end"} gap={"1"}>
+        <Flex align={"center"} justify={"space-between"} gap={"1"} flex={"1"}>
           <IconButton
             variant={"ghost"}
             size={"2xs"}
             rounded={"full"}
             asChild
             padding={"0.25em"}
-            disabled={beatsPerMeasure <= 1}
-            onClick={() => handleBeatsPerMeasureChange(beatsPerMeasure - 1)}
+            disabled={beatsPerMeasure <= config.beatsPerMeasure.min}
+            onClick={() => setBeatsPerMeasure(beatsPerMeasure - 1)}
           >
             <LuMinus />
           </IconButton>
-          <Stack gap={"0"} fontSize={"md"}>
+          <Flex direction={"column"} align={"center"} gap={"0"} fontSize={"md"}>
             <Span
               color={"fg"}
               fontSize={"xl"}
@@ -131,19 +125,20 @@ export const Metronome = () => {
               {beatsPerMeasure}
             </Span>
             <Span>4</Span>
-          </Stack>
+          </Flex>
+
           <IconButton
             variant={"ghost"}
             size={"2xs"}
             rounded={"full"}
-            disabled={beatsPerMeasure >= 12}
+            disabled={beatsPerMeasure >= config.beatsPerMeasure.max}
             asChild
             padding={"0.25em"}
-            onClick={() => handleBeatsPerMeasureChange(beatsPerMeasure + 1)}
+            onClick={() => setBeatsPerMeasure(beatsPerMeasure + 1)}
           >
             <LuPlus />
           </IconButton>
-        </Group>
+        </Flex>
         <IconButton
           variant={"ghost"}
           color={isPlaying ? "red.fg" : "green.fg"}

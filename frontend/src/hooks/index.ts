@@ -9,3 +9,6 @@ export * from "./useSupplementaries";
 export * from "./useArtists";
 export * from "./useSources";
 export * from "./useCollections";
+
+// Utils
+export * from "./useClampedLocalStorage";
