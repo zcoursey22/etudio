@@ -2,7 +2,6 @@ import {
   Flex,
   Group,
   Heading,
-  Icon,
   IconButton,
   Span,
   Stack,
@@ -82,8 +81,10 @@ export const Metronome = () => {
       <Flex align={"center"} justify={"space-between"} gap={"1"}>
         <IconButton
           variant={"ghost"}
-          size={"sm"}
+          size={"2xs"}
           rounded={"full"}
+          asChild
+          padding={"0.25em"}
           disabled={bpm <= 30}
           onClick={() => handleBpmChange(bpm - 1)}
         >
@@ -93,12 +94,14 @@ export const Metronome = () => {
           <Heading color={"fg"} size={"3xl"}>
             {bpm}
           </Heading>
-          <Text fontSize={"md"}>BPM</Text>
+          <Text>BPM</Text>
         </Flex>
         <IconButton
           variant={"ghost"}
-          size={"sm"}
+          size={"2xs"}
           rounded={"full"}
+          asChild
+          padding={"0.25em"}
           disabled={bpm >= 300}
           onClick={() => handleBpmChange(bpm + 1)}
         >
@@ -109,24 +112,33 @@ export const Metronome = () => {
         <Group>
           <IconButton
             variant={"ghost"}
-            size={"sm"}
+            size={"2xs"}
             rounded={"full"}
+            asChild
+            padding={"0.25em"}
             disabled={beatsPerMeasure <= 1}
             onClick={() => handleBeatsPerMeasureChange(beatsPerMeasure - 1)}
           >
             <LuMinus />
           </IconButton>
           <Stack gap={"0"} fontSize={"md"}>
-            <Span color={"fg"} fontWeight={"semibold"} height={"4"}>
+            <Span
+              color={"fg"}
+              fontSize={"xl"}
+              fontWeight={"semibold"}
+              height={"5"}
+            >
               {beatsPerMeasure}
             </Span>
             <Span>4</Span>
           </Stack>
           <IconButton
             variant={"ghost"}
-            size={"sm"}
+            size={"2xs"}
             rounded={"full"}
             disabled={beatsPerMeasure >= 12}
+            asChild
+            padding={"0.25em"}
             onClick={() => handleBeatsPerMeasureChange(beatsPerMeasure + 1)}
           >
             <LuPlus />
@@ -135,16 +147,15 @@ export const Metronome = () => {
         <IconButton
           variant={"ghost"}
           color={isPlaying ? "red.fg" : "green.fg"}
-          size={"xl"}
           onClick={isPlaying ? stop : start}
+          asChild
+          padding={"0.25em"}
         >
-          <Icon size={"2xl"}>
-            {isPlaying ? (
-              <LuSquare fill={"currentcolor"} />
-            ) : (
-              <LuPlay fill={"currentcolor"} />
-            )}
-          </Icon>
+          {isPlaying ? (
+            <LuSquare fill={"currentcolor"} />
+          ) : (
+            <LuPlay fill={"currentcolor"} />
+          )}
         </IconButton>
       </Flex>
     </Stack>

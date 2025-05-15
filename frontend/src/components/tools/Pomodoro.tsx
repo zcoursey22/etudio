@@ -1,3 +1,5 @@
+import { Stack } from "@chakra-ui/react";
+
 export const Pomodoro = () => {
-  return <>P</>;
+  return <Stack>TODO</Stack>;
 };
