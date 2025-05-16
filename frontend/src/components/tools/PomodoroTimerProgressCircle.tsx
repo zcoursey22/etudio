@@ -2,14 +2,14 @@ import { Box, useToken } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
-  value: number;
+  percentFilled: number;
   isPlaying: boolean;
   isWorking: boolean;
   isPaused: boolean;
 }
 
 export const PomodoroTimerProgressCircle = ({
-  value,
+  percentFilled,
   isPlaying,
   isWorking,
   isPaused,
@@ -19,7 +19,7 @@ export const PomodoroTimerProgressCircle = ({
     isPaused ? "orange.fg" : "green.fg",
   ]);
   const [resolvedFillColor] = useToken("colors", [
-    isWorking ? (isPaused ? "red.subtle" : "teal.subtle") : "none",
+    !isWorking ? (isPaused ? "red.subtle" : "teal.subtle") : "none",
   ]);
   const [resolvedTrackColor] = useToken("colors", ["gray.muted"]);
 
@@ -28,7 +28,7 @@ export const PomodoroTimerProgressCircle = ({
   const strokeWidth = 1.2 * 2;
   const radius = 50 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (value / 100) * circumference;
+  const offset = circumference - percentFilled * circumference;
 
   return (
     <Box position="relative" width={size} height={size}>
@@ -42,7 +42,7 @@ export const PomodoroTimerProgressCircle = ({
           cx="50"
           cy="50"
           r={radius}
-          fill={resolvedFillColor}
+          fill={isPlaying ? resolvedFillColor : "none"}
           stroke={resolvedTrackColor}
           strokeWidth={strokeWidth}
         />

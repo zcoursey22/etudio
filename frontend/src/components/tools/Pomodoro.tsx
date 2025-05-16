@@ -1,18 +1,22 @@
 import { Flex, Heading, IconButton, Stack } from "@chakra-ui/react";
 import { useClampedLocalStorage } from "../../hooks";
-import { useEffect, useState } from "react";
-import { LuMinus, LuPause, LuPlay, LuPlus, LuRefreshCcw } from "react-icons/lu";
+import { useEffect, useRef, useState } from "react";
+import { LuMinus, LuPause, LuPlay, LuPlus, LuSquare } from "react-icons/lu";
 import { PomodoroTimerProgressCircle } from "./PomodoroTimerProgressCircle";
+import applauseWav from "../../assets/audio/applause.wav";
+import chimeWav from "../../assets/audio/chime.wav";
+import alarmWav from "../../assets/audio/alarm.wav";
 
 const config: { [key: string]: { min: number; initial: number; max: number } } =
   {
     workDuration: { min: 2, initial: 25, max: 90 },
     breakDuration: { min: 1, initial: 5, max: 30 },
-    sets: { min: 1, initial: 4, max: 12 },
+    sets: { min: 2, initial: 4, max: 12 },
   };
 
 export const Pomodoro = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [workDuration, setWorkDuration] = useClampedLocalStorage(
     "etudio_pomodoro_workDuration",
     config.workDuration.initial,
@@ -31,20 +35,77 @@ export const Pomodoro = () => {
     config.sets.min,
     config.sets.max
   );
+
+  const allDoneSfx = useRef(new Audio(applauseWav));
+  const workDoneSfx = useRef(new Audio(alarmWav));
+  const breakDoneSfx = useRef(new Audio(chimeWav));
+
   const [currentRep, setCurrentRep] = useState(1); // [1, sets * 2]
-  const [secondsLeft, setSecondsLeft] = useState(workDuration * 60);
+  const [secondsLeft, setSecondsLeft] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const start = () => {};
+  const start = () => {
+    breakDoneSfx.current.currentTime = 0;
+    breakDoneSfx.current.play();
+    setCurrentRep(1);
+    setSecondsLeft(workDuration * 60);
+    setIsPlaying(true);
+  };
 
-  const pause = () => {};
+  const pause = () => {
+    setIsPaused(true);
+  };
 
-  const stop = () => {};
+  const unpause = () => {
+    setIsPaused(false);
+  };
+
+  const stop = () => {
+    setIsPaused(false);
+    setIsPlaying(false);
+  };
 
   useEffect(() => {
-    console.log(isPlaying);
-  }, [isPlaying]);
-
-  const [isPaused, setIsPaused] = useState(false);
+    if (isPlaying && !isPaused) {
+      timerRef.current = setInterval(() => {
+        if (secondsLeft > 0) {
+          setSecondsLeft(secondsLeft - 1);
+        } else {
+          if (currentRep % 2) {
+            workDoneSfx.current.currentTime = 0;
+            workDoneSfx.current.play();
+          } else {
+            breakDoneSfx.current.currentTime = 0;
+            breakDoneSfx.current.play();
+          }
+          if (currentRep === sets * 2 - 1) {
+            allDoneSfx.current.currentTime = 0;
+            allDoneSfx.current.play();
+            stop();
+          } else {
+            setCurrentRep(currentRep + 1);
+            setSecondsLeft(
+              (currentRep % 2 ? breakDuration : workDuration) * 60
+            );
+          }
+        }
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = undefined;
+      }
+    };
+  }, [
+    breakDuration,
+    currentRep,
+    isPaused,
+    isPlaying,
+    secondsLeft,
+    sets,
+    workDuration,
+  ]);
 
   const isWorking = isPlaying && !!(currentRep % 2);
 
@@ -52,7 +113,13 @@ export const Pomodoro = () => {
     <Stack>
       <Flex justify={"center"}>
         <PomodoroTimerProgressCircle
-          value={30}
+          percentFilled={
+            isPlaying
+              ? 1 -
+                secondsLeft /
+                  ((currentRep % 2 ? workDuration : breakDuration) * 60)
+              : 0
+          }
           isPlaying={isPlaying}
           isWorking={isWorking}
           isPaused={isPaused}
@@ -69,7 +136,7 @@ export const Pomodoro = () => {
               <Stack align={"center"}>
                 <Flex align={"center"} gap={"1"} flex={"1"} justify={"center"}>
                   <Heading size={"3xl"} color={"fg"}>
-                    {String(secondsLeft / 60).padStart(2, "0")}
+                    {String(Math.floor(secondsLeft / 60)).padStart(2, "0")}
                   </Heading>
                   :
                   <Heading size={"3xl"} color={"fg"}>
@@ -78,7 +145,7 @@ export const Pomodoro = () => {
                 </Flex>
                 <Flex align={"baseline"} gap={"1"}>
                   <Heading color={isPaused ? "orange.fg" : "green.fg"}>
-                    {isWorking ? "Work" : "Break"}
+                    {isWorking ? "Work" : "Relax"}
                   </Heading>
                   {isPaused ? " paused" : ""}
                 </Flex>
@@ -153,28 +220,26 @@ export const Pomodoro = () => {
       </Flex>
 
       <Flex align={"center"} justify={"space-between"} gap={"1"}>
-        <IconButton
-          variant={"ghost"}
-          color={"red.fg"}
-          onClick={() => {
-            setIsPaused(false);
-            setIsPlaying(false);
-          }}
-          asChild
-          padding={"0.25em"}
-        >
-          <LuRefreshCcw />
-        </IconButton>
-
         <Flex align={"center"} justify={"space-between"} flex={"1"}>
           {isPlaying ? (
-            <Flex align={"baseline"} gap={"1"} flex={"1"} justify={"center"}>
-              Set
-              <Heading color={"fg"}>
-                {Math.floor(currentRep / 2) + (currentRep % 2 ? 1 : 0)}
-              </Heading>
-              /<Heading color={"fg"}>{sets}</Heading>
-            </Flex>
+            <>
+              <IconButton
+                variant={"ghost"}
+                color={"red.fg"}
+                onClick={stop}
+                asChild
+                padding={"0.25em"}
+              >
+                <LuSquare fill={"currentcolor"} />
+              </IconButton>
+              <Flex align={"baseline"} gap={"1"} flex={"1"} justify={"center"}>
+                Set
+                <Heading color={"fg"}>
+                  {Math.floor(currentRep / 2) + (currentRep % 2 ? 1 : 0)}
+                </Heading>
+                /<Heading color={"fg"}>{sets}</Heading>
+              </Flex>
+            </>
           ) : (
             <>
               <IconButton
@@ -188,8 +253,9 @@ export const Pomodoro = () => {
               >
                 <LuMinus />
               </IconButton>
-              <Flex align={"baseline"} gap={"0"}>
-                <Heading color={"fg"}>{sets}</Heading>x
+              <Flex align={"baseline"} gap={"1"}>
+                <Heading color={"fg"}>{sets}</Heading>
+                {sets > 1 ? "sets" : "set"}
               </Flex>
               <IconButton
                 variant={"ghost"}
@@ -209,9 +275,17 @@ export const Pomodoro = () => {
         <IconButton
           variant={"ghost"}
           color={isPlaying && !isPaused ? "orange.fg" : "green.fg"}
-          onClick={() =>
-            isPlaying ? setIsPaused(!isPaused) : setIsPlaying(true)
-          }
+          onClick={() => {
+            if (isPlaying) {
+              if (isPaused) {
+                unpause();
+              } else {
+                pause();
+              }
+            } else {
+              start();
+            }
+          }}
           asChild
           padding={"0.25em"}
         >
