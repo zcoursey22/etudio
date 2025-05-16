@@ -12,6 +12,7 @@ const config: { [key: string]: { min: number; initial: number; max: number } } =
   };
 
 export const Metronome = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useClampedLocalStorage(
     "etudio_metronome_bpm",
     config.bpm.initial,
@@ -24,7 +25,6 @@ export const Metronome = () => {
     config.beatsPerMeasure.min,
     config.beatsPerMeasure.max
   );
-  const [isPlaying, setIsPlaying] = useState(false);
   const beatRef = useRef(1);
   const intervalRef = useRef<number>(undefined);
 

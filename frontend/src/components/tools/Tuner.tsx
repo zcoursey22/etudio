@@ -121,7 +121,7 @@ export const Tuner = () => {
 
   return (
     <Stack>
-      <Stack gap={"0"}>
+      <Stack gap={"1"}>
         <Flex align={"center"} justify={"space-between"}>
           <IconButton
             variant={"ghost"}
