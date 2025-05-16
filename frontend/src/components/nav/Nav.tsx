@@ -58,6 +58,8 @@ export const Nav = () => {
       p={"1em"}
       pr={"0.5em"}
       ml={"0.5em"}
+      overflowY={"auto"}
+      scrollbarGutter={"stable"}
     >
       <Stack gap={"1em"}>
         <Title />

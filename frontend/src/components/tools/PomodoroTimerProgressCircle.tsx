@@ -4,15 +4,22 @@ import { PropsWithChildren } from "react";
 interface Props extends PropsWithChildren {
   value: number;
   isPlaying: boolean;
+  isWorking: boolean;
+  isPaused: boolean;
 }
 
 export const PomodoroTimerProgressCircle = ({
   value,
   isPlaying,
+  isWorking,
+  isPaused,
   children,
 }: Props) => {
   const [resolvedColor] = useToken("colors", [
-    isPlaying ? "green.fg" : "orange.fg",
+    isPaused ? "orange.fg" : "green.fg",
+  ]);
+  const [resolvedFillColor] = useToken("colors", [
+    isWorking ? (isPaused ? "red.subtle" : "teal.subtle") : "none",
   ]);
   const [resolvedTrackColor] = useToken("colors", ["gray.muted"]);
 
@@ -35,7 +42,7 @@ export const PomodoroTimerProgressCircle = ({
           cx="50"
           cy="50"
           r={radius}
-          fill="none"
+          fill={resolvedFillColor}
           stroke={resolvedTrackColor}
           strokeWidth={strokeWidth}
         />
