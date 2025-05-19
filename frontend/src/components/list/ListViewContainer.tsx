@@ -55,7 +55,7 @@ export const ListViewContainer = <T extends Resource>({
   renderGridItemContents,
 }: ListViewContainerProps<T>) => {
   const { resources, loading, error } = useResourcesState;
-  console.log(resources);
+  // console.log(resources);
 
   const GLOBAL_VIEW_KEY = "etudio_currentView";
   const PAGE_VIEW_KEY = `${GLOBAL_VIEW_KEY}_${title}`;

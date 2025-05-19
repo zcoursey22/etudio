@@ -20,7 +20,7 @@ export const DetailViewContainer = <T extends Resource>({
   emptyText,
 }: DetailViewContainerProps<T>) => {
   const { resource, loading, error } = useResourceState;
-  console.log(resource);
+  // console.log(resource);
 
   if (loading) {
     return <LoadingMessage />;

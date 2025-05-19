@@ -1,4 +1,4 @@
-import { Button, Flex, Stack } from "@chakra-ui/react";
+import { Button, Flex, Separator, Stack } from "@chakra-ui/react";
 import {
   getArrangementListPath,
   getCompositionListPath,
@@ -6,12 +6,13 @@ import {
   getRoutineListPath,
   getSettingPath,
   getSupplementaryListPath,
+  getTrainingPath,
 } from "../../routes";
 import { NavItem, NavItemProps } from "./NavItem";
 import {
+  LuBicepsFlexed,
   LuBookOpenText,
   LuFiles,
-  LuHouse,
   LuListOrdered,
   LuMusic,
   LuSettings,
@@ -26,7 +27,6 @@ export const Nav = () => {
   const { logout } = useAuth();
 
   const routes: NavItemProps[] = [
-    { to: "/", label: "Home", icon: LuHouse },
     {
       to: getCompositionListPath(),
       label: "Compositions",
@@ -45,7 +45,11 @@ export const Nav = () => {
     },
   ];
 
-  const auxRoutes: NavItemProps[] = [
+  const trainingRoutes: NavItemProps[] = [
+    { to: getTrainingPath(), label: "Training", icon: LuBicepsFlexed },
+  ];
+
+  const adminRoutes: NavItemProps[] = [
     { to: getProfilePath(), label: "Profile", icon: LuUser },
     { to: getSettingPath(), label: "Settings", icon: LuSettings },
   ];
@@ -63,16 +67,24 @@ export const Nav = () => {
     >
       <Stack gap={"1em"}>
         <Title />
-        <Stack as={"nav"}>
-          {routes.map(({ to, label, icon }) => (
-            <NavItem key={to} to={to} label={label} icon={icon} />
-          ))}
+        <Stack>
+          <Stack as={"nav"} gap={"1em"}>
+            <Stack>
+              {routes.map(({ to, label, icon }) => (
+                <NavItem key={to} to={to} label={label} icon={icon} />
+              ))}
+            </Stack>
+            <Separator />
+            {trainingRoutes.map(({ to, label, icon }) => (
+              <NavItem key={to} to={to} label={label} icon={icon} />
+            ))}
+          </Stack>
+          <Tools />
         </Stack>
-        <Tools />
       </Stack>
       <Stack gap={"1em"}>
         <Stack as={"nav"}>
-          {auxRoutes.map(({ to, label, icon }) => (
+          {adminRoutes.map(({ to, label, icon }) => (
             <NavItem key={to} to={to} label={label} icon={icon} />
           ))}
         </Stack>

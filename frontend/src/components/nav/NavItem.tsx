@@ -1,4 +1,4 @@
-import { Group, Icon, Link, Span } from "@chakra-ui/react";
+import { Flex, Group, Icon, Link, Text } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { NavLink } from "react-router-dom";
 
@@ -12,17 +12,21 @@ export const NavItem = ({ to, label, icon }: NavItemProps) => {
   const NavItemIcon = icon;
 
   return (
-    <Link asChild _currentPage={{ fontWeight: "bold" }}>
-      <NavLink to={to}>
-        <Group>
-          {NavItemIcon && (
-            <Icon size={"sm"}>
-              <NavItemIcon />
-            </Icon>
-          )}
-          <Span>{label}</Span>
-        </Group>
-      </NavLink>
-    </Link>
+    <NavLink to={to}>
+      {({ isActive }) => (
+        <Link as="div" fontWeight={isActive ? "bold" : "normal"}>
+          <Group>
+            {NavItemIcon && (
+              <Flex bg={isActive ? "fg" : "none"} p="0.1em" borderRadius="sm">
+                <Icon color={isActive ? "bg" : "fg"} boxSize="1.25em">
+                  <NavItemIcon />
+                </Icon>
+              </Flex>
+            )}
+            <Text>{label}</Text>
+          </Group>
+        </Link>
+      )}
+    </NavLink>
   );
 };

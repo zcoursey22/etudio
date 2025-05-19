@@ -18,6 +18,7 @@ import {
   SourceDetail,
   SupplementaryDetail,
   SupplementaryList,
+  Training,
 } from "./pages";
 import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
@@ -37,6 +38,7 @@ export const ROUTE_SEGMENTS = {
   SETTINGS: "settings",
   LOGIN: "login",
   SIGNUP: "signup",
+  TRAINING: "training",
 } as const;
 
 const {
@@ -51,6 +53,7 @@ const {
   SUPPLEMENTARIES,
   ROUTINES,
   PROFILE,
+  TRAINING,
 } = ROUTE_SEGMENTS;
 
 export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
@@ -137,6 +140,7 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         path: `${SUPPLEMENTARIES}/:id`,
         element: <SupplementaryDetail />,
       },
+      { path: TRAINING, element: <Training /> },
       { path: PROFILE, element: <Profile /> },
       { path: SETTINGS, element: <Settings /> },
     ],
@@ -253,6 +257,12 @@ export const getSupplementaryDetailPath = (
     `${getSupplementaryListPath()}/${id}` +
     (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
   );
+};
+
+// TRAINING
+
+export const getTrainingPath = () => {
+  return `/${TRAINING}`;
 };
 
 // ADMIN
