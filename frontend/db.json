@@ -117,6 +117,7 @@
       "name": "athletic-theme.pdf",
       "compositionId": 6,
       "artistId": 6,
+      "difficulty": 6,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },
@@ -125,6 +126,8 @@
       "name": "pokemon-center.pdf",
       "compositionId": 9,
       "artistId": 7,
+      "difficulty": 3,
+      "isFavorite": true,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },

@@ -1,6 +1,7 @@
-import { Button, Group, Heading, Span, Stack } from "@chakra-ui/react";
+import { Button, Group, Heading, Icon, Span, Stack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { getLoginPath, getSignupPath } from "../routes";
+import { LuLogIn } from "react-icons/lu";
 
 export const Landing = () => {
   return (
@@ -17,7 +18,12 @@ export const Landing = () => {
           <NavLink to={getSignupPath()}>Sign up</NavLink>
         </Button>
         <Button asChild variant={"surface"}>
-          <NavLink to={getLoginPath()}>Log in</NavLink>
+          <NavLink to={getLoginPath()}>
+            <Icon>
+              <LuLogIn />
+            </Icon>
+            Log in
+          </NavLink>
         </Button>
       </Group>
     </Stack>

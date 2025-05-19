@@ -1,5 +1,5 @@
 // import { Flex, Icon } from "@chakra-ui/react";
-// import { LuStar } from "react-icons/lu";
+// import { LuHeart } from "react-icons/lu";
 import { Resource } from "../../../models";
 import { Favorite } from "../../resources/shared";
 
@@ -35,7 +35,7 @@ export const favoriteColumnConfig: ColumnConfig<Resource> = {
   // header: (
   //   <Flex align={"center"}>
   //     <Icon color={"currentcolor"} size={"sm"}>
-  //       <LuStar fill="currentcolor" />
+  //       <LuHeart fill="currentcolor" />
   //     </Icon>
   //   </Flex>
   // ),

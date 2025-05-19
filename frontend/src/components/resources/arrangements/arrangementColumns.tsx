@@ -10,7 +10,7 @@ import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
 import { LuDownload, LuExpand } from "react-icons/lu";
-import { ResourceFrom } from "../../resources/shared";
+import { Difficulty, ResourceFrom } from "../../resources/shared";
 
 export const arrangementColumns: ColumnMap<Arrangement> = {
   name: {
@@ -42,6 +42,10 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
         {artist.name}
       </NavLink>
     ),
+  },
+  difficulty: {
+    header: "Difficulty",
+    render: ({ difficulty }) => <Difficulty oneToFive={difficulty} />,
   },
   lastModified: {
     header: "Last modified",

@@ -50,6 +50,7 @@ export interface Collection extends Resource {
 export interface Arrangement extends Resource {
   composition: Composition;
   artist: Artist;
+  difficulty?: number; // Get rid of this later and use parts[n].difficulty instead
   parts?: Part[];
 }
 

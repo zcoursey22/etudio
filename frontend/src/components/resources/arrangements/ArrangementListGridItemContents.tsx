@@ -1,14 +1,16 @@
 import {
   Card,
   Flex,
+  Group,
   Icon,
   LinkOverlay,
   Separator,
   Span,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Favorite, ResourceFrom } from "../shared";
+import { Difficulty, Favorite, ResourceFrom } from "../shared";
 import { Arrangement } from "../../../models";
 import {
   getArrangementDetailPath,
@@ -22,7 +24,7 @@ interface Props {
 }
 
 export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
-  const { name, id, artist, isFavorite, composition } = arrangement;
+  const { name, id, artist, isFavorite, composition, difficulty } = arrangement;
 
   return (
     <>
@@ -65,10 +67,15 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
         </Card.Description>
       </Card.Body>
       <Card.Footer>
-        <Favorite isFavorite={isFavorite} />
-        <Icon>
-          <LuDownload />
-        </Icon>
+        <Stack>
+          <Difficulty oneToFive={difficulty} />
+          <Group>
+            <Favorite isFavorite={isFavorite} />
+            <Icon>
+              <LuDownload />
+            </Icon>
+          </Group>
+        </Stack>
       </Card.Footer>
     </>
   );

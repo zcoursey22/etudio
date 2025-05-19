@@ -1,4 +1,4 @@
-import { Button, Flex, Separator, Stack } from "@chakra-ui/react";
+import { Button, Flex, Icon, Separator, Stack } from "@chakra-ui/react";
 import {
   getArrangementListPath,
   getCompositionListPath,
@@ -14,6 +14,7 @@ import {
   LuBookOpenText,
   LuFiles,
   LuListOrdered,
+  LuLogOut,
   LuMusic,
   LuSettings,
   LuUser,
@@ -89,7 +90,10 @@ export const Nav = () => {
           ))}
         </Stack>
         <Button variant={"surface"} onClick={logout}>
-          Sign out
+          <Icon>
+            <LuLogOut />
+          </Icon>
+          Log out
         </Button>
         <Footer />
       </Stack>
