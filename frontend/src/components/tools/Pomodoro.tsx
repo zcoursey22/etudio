@@ -41,73 +41,83 @@ export const Pomodoro = () => {
   const breakDoneSfx = useRef(new Audio(chimeWav));
 
   const [currentRep, setCurrentRep] = useState(1); // [1, sets * 2]
-  const [secondsLeft, setSecondsLeft] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const [pauseStartTime, setPauseStartTime] = useState<number | null>(null);
+
+  const [tick, setTick] = useState(0);
+  const tickIntervalTime = 100;
 
   const start = () => {
     breakDoneSfx.current.currentTime = 0;
     breakDoneSfx.current.play();
     setCurrentRep(1);
-    setSecondsLeft(workDuration * 60);
+    setStartTime(Date.now());
+    setEndTime(Date.now() + workDuration * 60000);
     setIsPlaying(true);
   };
 
   const pause = () => {
+    setPauseStartTime(Date.now());
     setIsPaused(true);
   };
 
   const unpause = () => {
+    if (pauseStartTime) {
+      const pauseDuration = Date.now() - pauseStartTime;
+      setEndTime((prev) => prev + pauseDuration);
+      setPauseStartTime(null);
+    }
     setIsPaused(false);
   };
 
   const stop = () => {
     setIsPaused(false);
+    setPauseStartTime(null);
     setIsPlaying(false);
   };
 
   useEffect(() => {
-    if (isPlaying && !isPaused) {
-      timerRef.current = setInterval(() => {
-        if (secondsLeft > 0) {
-          setSecondsLeft(secondsLeft - 1);
+    if (!isPlaying || isPaused) return;
+    const interval = setInterval(() => {
+      const now = Date.now();
+      if (now >= endTime) {
+        if (currentRep % 2) {
+          workDoneSfx.current.currentTime = 0;
+          workDoneSfx.current.play();
         } else {
-          if (currentRep % 2) {
-            workDoneSfx.current.currentTime = 0;
-            workDoneSfx.current.play();
-          } else {
-            breakDoneSfx.current.currentTime = 0;
-            breakDoneSfx.current.play();
-          }
-          if (currentRep === sets * 2 - 1) {
-            allDoneSfx.current.currentTime = 0;
-            allDoneSfx.current.play();
-            stop();
-          } else {
-            setCurrentRep(currentRep + 1);
-            setSecondsLeft(
-              (currentRep % 2 ? breakDuration : workDuration) * 60
-            );
-          }
+          breakDoneSfx.current.currentTime = 0;
+          breakDoneSfx.current.play();
         }
-      }, 1000);
-    }
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = undefined;
+        if (currentRep === sets * 2 - 1) {
+          allDoneSfx.current.currentTime = 0;
+          allDoneSfx.current.play();
+          stop();
+        } else {
+          const nextRep = currentRep + 1;
+          setCurrentRep(nextRep);
+          setStartTime(now);
+          setEndTime(
+            now + (nextRep % 2 ? workDuration : breakDuration) * 60000
+          );
+        }
       }
-    };
+      setTick((t) => t + 1);
+    }, tickIntervalTime);
+    return () => clearInterval(interval);
   }, [
     breakDuration,
     currentRep,
     isPaused,
     isPlaying,
-    secondsLeft,
     sets,
     workDuration,
+    startTime,
+    endTime,
   ]);
 
   const isWorking = isPlaying && !!(currentRep % 2);
+  const secondsLeft: number = Math.ceil((endTime - Date.now()) / 1000);
 
   return (
     <Stack>
@@ -116,8 +126,7 @@ export const Pomodoro = () => {
           percentFilled={
             isPlaying
               ? 1 -
-                secondsLeft /
-                  ((currentRep % 2 ? workDuration : breakDuration) * 60)
+                secondsLeft / ((isWorking ? workDuration : breakDuration) * 60)
               : 0
           }
           isPlaying={isPlaying}
