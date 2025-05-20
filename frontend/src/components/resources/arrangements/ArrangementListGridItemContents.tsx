@@ -2,11 +2,9 @@ import {
   Card,
   Flex,
   Group,
-  Icon,
   LinkOverlay,
   Separator,
   Span,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
@@ -17,7 +15,8 @@ import {
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../../routes";
-import { LuDownload } from "react-icons/lu";
+import { ActionMenu } from "../shared/ActionMenu";
+import { arrangementActions } from "./arrangementActions";
 
 interface Props {
   arrangement: Arrangement;
@@ -65,15 +64,17 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
         </Card.Description>
       </Card.Body>
       <Card.Footer>
-        <Stack>
-          <Difficulty oneToFive={difficulty} />
+        <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Group>
             <Favorite isFavorite={isFavorite} />
-            <Icon>
-              <LuDownload />
-            </Icon>
+            <Difficulty oneToFive={difficulty} />
           </Group>
-        </Stack>
+          <ActionMenu
+            resource={arrangement}
+            actionMap={arrangementActions}
+            isCardView
+          />
+        </Flex>
       </Card.Footer>
     </>
   );

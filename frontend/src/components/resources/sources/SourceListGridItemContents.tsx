@@ -1,8 +1,10 @@
-import { Card, LinkOverlay, Span } from "@chakra-ui/react";
+import { Card, Flex, LinkOverlay, Span } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Source } from "../../../models";
 import { getSourceDetailPath } from "../../../routes";
 import { Favorite, ResourceFrom } from "../shared";
+import { ActionMenu } from "../shared/ActionMenu";
+import { sourceActions } from "./sourceActions";
 
 interface Props {
   source: Source;
@@ -28,7 +30,10 @@ export const SourceListGridItemContents = ({ source }: Props) => {
         </Card.Description>
       </Card.Body>
       <Card.Footer>
-        <Favorite isFavorite={isFavorite} />
+        <Flex w={"100%"} align={"center"} justify={"space-between"}>
+          <Favorite isFavorite={isFavorite} />
+          <ActionMenu resource={source} actionMap={sourceActions} isCardView />
+        </Flex>
       </Card.Footer>
     </>
   );

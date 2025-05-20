@@ -1,9 +1,10 @@
-import { Card, Flex, Icon, LinkOverlay } from "@chakra-ui/react";
+import { Card, Flex, LinkOverlay } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Favorite, PreviewPDF } from "../shared";
 import { Supplementary } from "../../../models";
-import { LuDownload } from "react-icons/lu";
 import { getSupplementaryDetailPath } from "../../../routes";
+import { ActionMenu } from "../shared/ActionMenu";
+import { supplementaryActions } from "./supplementaryActions";
 
 interface Props {
   supplementary: Supplementary;
@@ -30,10 +31,14 @@ export const SupplementaryListGridItemContents = ({ supplementary }: Props) => {
         </Card.Title>
       </Card.Body>
       <Card.Footer>
-        <Favorite isFavorite={isFavorite} />
-        <Icon>
-          <LuDownload />
-        </Icon>
+        <Flex w={"100%"} align={"center"} justify={"space-between"}>
+          <Favorite isFavorite={isFavorite} />
+          <ActionMenu
+            resource={supplementary}
+            actionMap={supplementaryActions}
+            isCardView
+          />
+        </Flex>
       </Card.Footer>
     </>
   );

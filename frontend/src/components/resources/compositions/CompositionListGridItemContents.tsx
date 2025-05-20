@@ -1,8 +1,17 @@
-import { Card, LinkOverlay, Separator, Span, Text } from "@chakra-ui/react";
+import {
+  Card,
+  Flex,
+  LinkOverlay,
+  Separator,
+  Span,
+  Text,
+} from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Favorite, ResourceFrom } from "../shared";
 import { Composition } from "../../../models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
+import { compositionActions } from "./compositionActions";
+import { ActionMenu } from "../shared/ActionMenu";
 
 interface Props {
   composition: Composition;
@@ -38,7 +47,14 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
         </Card.Description>
       </Card.Body>
       <Card.Footer>
-        <Favorite isFavorite={isFavorite} />
+        <Flex w={"100%"} align={"center"} justify={"space-between"}>
+          <Favorite isFavorite={isFavorite} />
+          <ActionMenu
+            resource={composition}
+            actionMap={compositionActions}
+            isCardView
+          />
+        </Flex>
       </Card.Footer>
     </>
   );
