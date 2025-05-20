@@ -1,4 +1,4 @@
-import { Flex, Icon } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Arrangement } from "../../../models";
 import {
   getArrangementDetailPath,
@@ -9,8 +9,9 @@ import {
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
-import { LuDownload, LuExpand } from "react-icons/lu";
-import { Difficulty, ResourceFrom } from "../../resources/shared";
+import { Difficulty, PreviewPDF, ResourceFrom } from "../../resources/shared";
+import { ActionMenu } from "../shared/ActionMenu";
+import { arrangementActions } from "./arrangementActions";
 
 export const arrangementColumns: ColumnMap<Arrangement> = {
   name: {
@@ -18,9 +19,7 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
     render: ({ id, name }) => (
       <Flex align={"center"} gap={"0.5em"}>
         <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
-        <Icon size={"sm"} color="fg">
-          <LuExpand />
-        </Icon>
+        <PreviewPDF pdf={null} />
       </Flex>
     ),
   },
@@ -54,12 +53,8 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
   },
   actions: {
     width: "1",
-    render: () => (
-      <Flex align={"center"}>
-        <Icon size={"sm"} color="fg">
-          <LuDownload />
-        </Icon>
-      </Flex>
+    render: (resource) => (
+      <ActionMenu resource={resource} actionMap={arrangementActions} />
     ),
   },
 };

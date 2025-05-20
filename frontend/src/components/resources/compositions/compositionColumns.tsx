@@ -8,6 +8,8 @@ import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
 import { ResourceFrom } from "../../resources/shared";
+import { ActionMenu } from "../shared/ActionMenu";
+import { compositionActions } from "./compositionActions";
 
 export const compositionColumns: ColumnMap<Composition> = {
   name: {
@@ -41,5 +43,11 @@ export const compositionColumns: ColumnMap<Composition> = {
     header: "Last modified",
     render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
     textAlign: "right",
+  },
+  actions: {
+    width: "1",
+    render: (resource) => (
+      <ActionMenu resource={resource} actionMap={compositionActions} />
+    ),
   },
 };

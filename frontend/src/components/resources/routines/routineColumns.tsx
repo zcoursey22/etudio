@@ -3,6 +3,8 @@ import { getRoutineDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
+import { ActionMenu } from "../shared/ActionMenu";
+import { routineActions } from "./routineActions";
 
 export const routineColumns: ColumnMap<Routine> = {
   name: {
@@ -15,5 +17,11 @@ export const routineColumns: ColumnMap<Routine> = {
     header: "Last modified",
     render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
     textAlign: "right",
+  },
+  actions: {
+    width: "1",
+    render: (resource) => (
+      <ActionMenu resource={resource} actionMap={routineActions} />
+    ),
   },
 };

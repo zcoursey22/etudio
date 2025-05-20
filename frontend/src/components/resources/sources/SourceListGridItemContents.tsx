@@ -16,7 +16,9 @@ export const SourceListGridItemContents = ({ source }: Props) => {
       <Card.Body>
         <Card.Title>
           <LinkOverlay asChild>
-            <NavLink to={getSourceDetailPath(id)}>{name}</NavLink>
+            <NavLink colorPalette={"gray"} to={getSourceDetailPath(id)}>
+              {name}
+            </NavLink>
           </LinkOverlay>
         </Card.Title>
         <Card.Description as={"div"}>

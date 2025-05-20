@@ -4,6 +4,8 @@ import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
 import { ResourceFrom } from "../shared";
+import { ActionMenu } from "../shared/ActionMenu";
+import { sourceActions } from "./sourceActions";
 
 export const sourceColumns: ColumnMap<Source> = {
   name: {
@@ -27,5 +29,11 @@ export const sourceColumns: ColumnMap<Source> = {
     header: "Last modified",
     render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
     textAlign: "right",
+  },
+  actions: {
+    width: "1",
+    render: (resource) => (
+      <ActionMenu resource={resource} actionMap={sourceActions} />
+    ),
   },
 };

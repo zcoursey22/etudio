@@ -17,9 +17,9 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
         <Card.Title>
           <LinkOverlay asChild>
             <NavLink
+              colorPalette={"gray"}
               // color={"blue.900"}
               // _dark={{ color: "blue.100" }}
-              // color={"fg"}
               to={getCompositionDetailPath(id)}
             >
               {name}

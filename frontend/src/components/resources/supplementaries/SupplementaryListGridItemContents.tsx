@@ -1,8 +1,8 @@
 import { Card, Flex, Icon, LinkOverlay } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Favorite } from "../shared";
+import { Favorite, PreviewPDF } from "../shared";
 import { Supplementary } from "../../../models";
-import { LuDownload, LuExpand } from "react-icons/lu";
+import { LuDownload } from "react-icons/lu";
 import { getSupplementaryDetailPath } from "../../../routes";
 
 interface Props {
@@ -25,9 +25,7 @@ export const SupplementaryListGridItemContents = ({ supplementary }: Props) => {
                 {name}
               </NavLink>
             </LinkOverlay>
-            <Icon>
-              <LuExpand />
-            </Icon>
+            <PreviewPDF pdf={null} />
           </Flex>
         </Card.Title>
       </Card.Body>

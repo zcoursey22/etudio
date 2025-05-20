@@ -10,14 +10,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Difficulty, Favorite, ResourceFrom } from "../shared";
+import { Difficulty, Favorite, PreviewPDF, ResourceFrom } from "../shared";
 import { Arrangement } from "../../../models";
 import {
   getArrangementDetailPath,
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../../routes";
-import { LuDownload, LuExpand } from "react-icons/lu";
+import { LuDownload } from "react-icons/lu";
 
 interface Props {
   arrangement: Arrangement;
@@ -33,17 +33,15 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
           <Flex gap={"0.5em"} align={"center"}>
             <LinkOverlay asChild>
               <NavLink
+                colorPalette={"gray"}
                 // color={"blue.900"}
                 // _dark={{ color: "blue.100" }}
-                // color={"fg"}
                 to={getArrangementDetailPath(id)}
               >
                 {name}
               </NavLink>
             </LinkOverlay>
-            <Icon>
-              <LuExpand />
-            </Icon>
+            <PreviewPDF pdf={null} />
           </Flex>
         </Card.Title>
         <Card.Description as={"div"}>
