@@ -11,8 +11,7 @@ export const ListGridItem = ({ content }: ListGridItemProps) => {
       asChild
       size={"sm"}
       variant={"subtle"}
-      bg={"gray.100"}
-      _dark={{ bg: "gray.900" }}
+      bg={"bg.muted"}
       flex={"1"}
       shadow={"sm"}
       _hover={{ shadow: "md" }}

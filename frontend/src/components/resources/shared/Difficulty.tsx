@@ -7,18 +7,23 @@ interface Props {
 }
 
 export const Difficulty = ({ oneToFive = 0 }: Props) => {
+  const difficulty = Math.min(oneToFive, 5);
   const [hoveringOverIndex, setHoveringOverIndex] = useState(-1);
 
   return (
     <Flex>
       {[...Array(5)].map((_, i) => {
-        const isFilledNormally = i < oneToFive;
+        const isFilledNormally = i < difficulty;
         const isFilledByHover =
           hoveringOverIndex > -1
             ? i <= hoveringOverIndex && !isFilledNormally
             : false;
         const isHiddenByHover =
-          hoveringOverIndex > -1
+          difficulty === hoveringOverIndex + 1 &&
+          i <= hoveringOverIndex &&
+          isFilledNormally
+            ? true
+            : hoveringOverIndex > -1
             ? i > hoveringOverIndex && isFilledNormally
             : false;
         return (
@@ -43,7 +48,7 @@ export const Difficulty = ({ oneToFive = 0 }: Props) => {
             <Icon size={"sm"}>
               <LuStar
                 fill={
-                  (isFilledNormally && !isHiddenByHover) || isFilledByHover
+                  (isFilledNormally || isFilledByHover) && !isHiddenByHover
                     ? "currentColor"
                     : "none"
                 }
