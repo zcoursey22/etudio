@@ -7,7 +7,7 @@ import {
   Input,
   Span,
 } from "@chakra-ui/react";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import { getLoginPath } from "../routes";
 

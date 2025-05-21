@@ -3,7 +3,7 @@ import {
   supplementaryColumns,
   SupplementaryListGridItemContents,
 } from "../components/resources/supplementaries";
-import { useSupplementaries } from "../hooks/useSupplementaries";
+import { useSupplementaries } from "../hooks";
 
 export const SupplementaryList = () => {
   const listState = useSupplementaries();

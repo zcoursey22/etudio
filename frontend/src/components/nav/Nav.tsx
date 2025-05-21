@@ -2,6 +2,7 @@ import { Button, Flex, Icon, Separator, Stack } from "@chakra-ui/react";
 import {
   getArrangementListPath,
   getCompositionListPath,
+  getGoalListPath,
   getProfilePath,
   getRoutineListPath,
   getSettingPath,
@@ -17,17 +18,24 @@ import {
   LuLogOut,
   LuMusic,
   LuSettings,
+  LuTarget,
   LuUser,
 } from "react-icons/lu";
 import { Footer } from "../footer";
 import { Tools } from "../tools";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks";
 import { Title } from "../Title";
 
 export const Nav = () => {
   const { logout } = useAuth();
 
   const routes: NavItemProps[] = [
+    {
+      to: getGoalListPath(),
+      label: "Goals",
+      icon: LuTarget,
+    },
+    { to: getRoutineListPath(), label: "Routines", icon: LuListOrdered },
     {
       to: getCompositionListPath(),
       label: "Compositions",
@@ -38,7 +46,6 @@ export const Nav = () => {
       label: "Scores",
       icon: LuBookOpenText,
     },
-    { to: getRoutineListPath(), label: "Routines", icon: LuListOrdered },
     {
       to: getSupplementaryListPath(),
       label: "Supplementaries",

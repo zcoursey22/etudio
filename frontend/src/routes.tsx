@@ -19,6 +19,8 @@ import {
   SupplementaryDetail,
   SupplementaryList,
   Training,
+  GoalList,
+  GoalDetail,
 } from "./pages";
 import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
@@ -39,6 +41,7 @@ export const ROUTE_SEGMENTS = {
   LOGIN: "login",
   SIGNUP: "signup",
   TRAINING: "training",
+  GOALS: "goals",
 } as const;
 
 const {
@@ -54,6 +57,7 @@ const {
   ROUTINES,
   PROFILE,
   TRAINING,
+  GOALS,
 } = ROUTE_SEGMENTS;
 
 export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
@@ -140,6 +144,11 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         path: `${SUPPLEMENTARIES}/:id`,
         element: <SupplementaryDetail />,
       },
+      { path: GOALS, element: <GoalList /> },
+      {
+        path: `${GOALS}/:id`,
+        element: <GoalDetail />,
+      },
       { path: TRAINING, element: <Training /> },
       { path: PROFILE, element: <Profile /> },
       { path: SETTINGS, element: <Settings /> },
@@ -168,6 +177,8 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
     },
   ];
 };
+
+// ARTISTS
 
 export const getArtistDetailPath = (
   id: number,
@@ -255,6 +266,21 @@ export const getSupplementaryDetailPath = (
 ) => {
   return (
     `${getSupplementaryListPath()}/${id}` +
+    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
+  );
+};
+
+// GOALS
+
+export const getGoalListPath = () => {
+  return `/${GOALS}`;
+};
+export const getGoalDetailPath = (
+  id: number,
+  subresourceRouteSegment?: string
+) => {
+  return (
+    `${getGoalListPath()}/${id}` +
     (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
   );
 };

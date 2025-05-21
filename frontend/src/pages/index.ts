@@ -11,6 +11,8 @@ export * from "./RoutineList";
 export * from "./RoutineDetail";
 export * from "./SupplementaryList";
 export * from "./SupplementaryDetail";
+export * from "./GoalList";
+export * from "./GoalDetail";
 export * from "./Profile";
 export * from "./Settings";
 export * from "./Login";

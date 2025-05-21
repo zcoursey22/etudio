@@ -217,6 +217,15 @@
       "lastModified": "2024-10-12T14:30:00.000Z"
     }
   ],
+  "goals": [
+    {
+      "id": 1,
+      "name": "Learn some Sor Op. 60",
+      "description": "Before moving on to more challenging pieces, get through No. 1-10 from Sor's Op. 60.",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    }
+  ],
   "routines": [
     {
       "id": 1,

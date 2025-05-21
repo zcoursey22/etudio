@@ -3,7 +3,7 @@ import {
   arrangementColumns,
   ArrangementListGridItemContents,
 } from "../components/resources/arrangements";
-import { useArrangements } from "../hooks/useArrangements";
+import { useArrangements } from "../hooks";
 
 export const ArrangementList = () => {
   const listState = useArrangements();

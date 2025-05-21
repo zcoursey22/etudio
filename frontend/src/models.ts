@@ -3,6 +3,7 @@
 export interface Base {
   id: number;
   name: string;
+  description?: string;
 }
 
 export interface Resource extends Base {
@@ -66,6 +67,10 @@ export interface Tuning extends Base {
 }
 
 export interface Instrument extends Base {}
+
+// GOALS
+
+export interface Goal extends Resource {}
 
 // ROUTINES
 

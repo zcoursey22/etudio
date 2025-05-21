@@ -3,7 +3,7 @@ import {
   routineColumns,
   RoutineListGridItemContents,
 } from "../components/resources/routines";
-import { useRoutines } from "../hooks/useRoutines";
+import { useRoutines } from "../hooks";
 
 export const RoutineList = () => {
   const listState = useRoutines();

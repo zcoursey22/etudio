@@ -1,6 +1,6 @@
 import { useRoutes } from "react-router-dom";
 import { getRoutes } from "./routes";
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from "./hooks";
 // import { ColorMode, useColorMode } from "./components";
 
 export const App = () => {
