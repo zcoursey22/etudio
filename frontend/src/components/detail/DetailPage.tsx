@@ -11,18 +11,22 @@ import {
 } from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
 import { Resource } from "../../models";
-import { Favorite } from "../resources/shared";
+import { ActionMap, ActionOverrides, Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
 import { SubresourceConfig } from "./Subresource";
+import { ActionMenu } from "../resources/shared/ActionMenu";
 
 interface Props<T extends Resource> {
   resource: T;
   title: string;
   subtitle?: ReactNode;
   rightOfTitle?: ReactNode;
+  belowHeader?: ReactNode;
   mainContent?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subresourceConfigs?: SubresourceConfig<any>[];
+  actionMap?: ActionMap<T>;
+  actionOverrides?: ActionOverrides<T>;
 }
 
 export const DetailPage = <T extends Resource>({
@@ -30,11 +34,14 @@ export const DetailPage = <T extends Resource>({
   title,
   subtitle,
   rightOfTitle,
+  belowHeader,
   mainContent,
   subresourceConfigs,
+  actionMap,
+  actionOverrides,
 }: Props<T>) => {
   return (
-    <Stack color={"fg.muted"} gap={"1em"}>
+    <Stack color={"fg.muted"}>
       <Flex gap={"0.5em"}>
         <BackButton />
         <Box>
@@ -49,14 +56,29 @@ export const DetailPage = <T extends Resource>({
           </Group>
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Box>
+        {actionMap && (
+          <Flex flex={"1"} justify={"flex-end"}>
+            <ActionMenu
+              resource={resource}
+              actionMap={actionMap}
+              actionOverrides={actionOverrides}
+              shouldRenderAsButtons
+            />
+          </Flex>
+        )}
       </Flex>
+      {belowHeader && <Box>{belowHeader}</Box>}
       {mainContent && (
-        <Box>
+        <Stack p={"0.5em 0"}>
           <Separator />
-          <Box padding={"1em 0"}>{mainContent}</Box>
+          {mainContent}
+        </Stack>
+      )}
+      {subresourceConfigs && (
+        <Box pt={"0.5em"}>
+          <Outlet context={{ configs: subresourceConfigs }} />
         </Box>
       )}
-      <Outlet context={{ configs: subresourceConfigs }} />
     </Stack>
   );
 };

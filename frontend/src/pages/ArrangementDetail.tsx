@@ -8,7 +8,8 @@ import {
 } from "../routes";
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
-import { ResourceFrom } from "../components/resources/shared";
+import { Difficulty, ResourceFrom } from "../components/resources/shared";
+import { arrangementActions } from "../components/resources/arrangements";
 
 export const ArrangementDetail = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export const ArrangementDetail = () => {
   return (
     <DetailViewContainer useResourceState={detailState}>
       {(arrangement) => {
-        const { name, artist, composition } = arrangement;
+        const { name, artist, composition, difficulty } = arrangement;
         return (
           <DetailPage
             resource={arrangement}
@@ -35,6 +36,7 @@ export const ArrangementDetail = () => {
                 </NavLink>
               </>
             }
+            belowHeader={<Difficulty oneToFive={difficulty} />}
             mainContent={
               <Stack>
                 <Box>
@@ -60,6 +62,8 @@ export const ArrangementDetail = () => {
                 </Box>
               </Stack>
             }
+            actionMap={arrangementActions}
+            // actionOverrides={{ rename: { visible: false } }}
           />
         );
       }}

@@ -11,6 +11,7 @@ import {
 } from "../components/resources/compositions";
 import { ROUTE_SEGMENTS } from "../routes";
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
+import { artistActions } from "../components/resources/artists";
 
 export const ArtistDetail = () => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ export const ArtistDetail = () => {
             resource={artist}
             title={name}
             subtitle={"artist"}
+            actionMap={artistActions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,

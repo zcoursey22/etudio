@@ -8,6 +8,7 @@ import {
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
 import { LuMusic } from "react-icons/lu";
+import { collectionActions } from "../components/resources/collections";
 
 export const CollectionDetail = () => {
   const { id } = useParams();
@@ -36,6 +37,7 @@ export const CollectionDetail = () => {
                 "collection"
               )
             }
+            actionMap={collectionActions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,

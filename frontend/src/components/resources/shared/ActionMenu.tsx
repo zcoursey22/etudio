@@ -1,4 +1,4 @@
-import { Icon, Menu, Portal } from "@chakra-ui/react";
+import { Button, Group, Icon, Menu, Portal } from "@chakra-ui/react";
 import { Resource } from "../../../models";
 import { ActionMap, ActionOverrides, resolveActions } from "./actions";
 import { LuEllipsisVertical } from "react-icons/lu";
@@ -8,6 +8,7 @@ export interface Props<T extends Resource> {
   actionMap: ActionMap<T>;
   actionOverrides?: ActionOverrides<T>;
   isCardView?: boolean;
+  shouldRenderAsButtons?: boolean;
 }
 
 export const ActionMenu = <T extends Resource>({
@@ -15,10 +16,28 @@ export const ActionMenu = <T extends Resource>({
   actionMap,
   actionOverrides,
   isCardView,
+  shouldRenderAsButtons,
 }: Props<T>) => {
   const actions = resolveActions(actionMap, actionOverrides);
 
-  return (
+  return shouldRenderAsButtons ? (
+    <Group>
+      {actions.map(({ label, onClick, icon, destructive }) => (
+        <Button
+          key={label}
+          value={label}
+          cursor={"pointer"}
+          onClick={() => onClick(resource)}
+          variant={"surface"}
+          color={destructive ? "fg.error" : "auto"}
+          size={"xs"}
+        >
+          {icon && <Icon size={"sm"} as={icon} />}
+          {label}
+        </Button>
+      ))}
+    </Group>
+  ) : (
     <Menu.Root
       positioning={{ placement: isCardView ? "top-end" : "left-start" }}
     >
@@ -30,13 +49,13 @@ export const ActionMenu = <T extends Resource>({
       <Portal>
         <Menu.Positioner>
           <Menu.Content fontWeight={"semibold"}>
-            {actions.map(({ label, onClick, icon, color }) => (
+            {actions.map(({ label, onClick, icon, destructive }) => (
               <Menu.Item
                 key={label}
                 value={label}
                 cursor={"pointer"}
                 onClick={() => onClick(resource)}
-                color={color || "fg"}
+                color={destructive ? "fg.error" : "fg"}
               >
                 {icon && <Icon size={"sm"} as={icon} />}
                 {label}

@@ -1,4 +1,5 @@
 import { DetailPage, DetailViewContainer } from "../components/detail";
+import { supplementaryActions } from "../components/resources/supplementaries";
 import { useSupplementary } from "../hooks";
 import { useParams } from "react-router-dom";
 
@@ -15,6 +16,7 @@ export const SupplementaryDetail = () => {
             resource={supplementary}
             title={name}
             subtitle={"supplementary"}
+            actionMap={supplementaryActions}
           />
         );
       }}

@@ -9,6 +9,7 @@ import {
 } from "../components/resources/arrangements";
 import { ResourceFrom } from "../components/resources/shared";
 import {
+  compositionActions,
   compositionColumns,
   CompositionListGridItemContents,
 } from "../components/resources/compositions";
@@ -52,6 +53,7 @@ export const CompositionDetail = () => {
                 emptySpanText=""
               />
             }
+            actionMap={compositionActions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,

@@ -6,6 +6,7 @@ import {
   CompositionListGridItemContents,
 } from "../components/resources/compositions";
 import {
+  sourceActions,
   sourceColumns,
   SourceListGridItemContents,
 } from "../components/resources/sources";
@@ -38,6 +39,7 @@ export const SourceDetail = () => {
               />
             }
             subtitle={"source"}
+            actionMap={sourceActions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,

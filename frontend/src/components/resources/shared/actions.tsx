@@ -7,7 +7,7 @@ export interface ActionConfig<T> {
   icon?: IconType;
   visible?: boolean;
   bulkable?: boolean;
-  color?: string;
+  destructive?: boolean;
 }
 
 export type ActionMap<T> = Record<string, ActionConfig<T>>;
@@ -63,7 +63,7 @@ export const deleteActionConfigMap = <T,>(
       label: "Delete",
       icon: LuTrash2,
       onClick,
-      color: "fg.error",
+      destructive: true,
     },
   };
 };
