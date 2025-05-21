@@ -70,7 +70,9 @@ export interface Instrument extends Base {}
 
 // GOALS
 
-export interface Goal extends Resource {}
+export interface Goal extends Resource {
+  status: string;
+}
 
 // ROUTINES
 

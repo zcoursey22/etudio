@@ -1,11 +1,20 @@
+import { useDeleteGoal } from "../../../hooks";
 import { Goal } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const goalActions: ActionMap<Goal> = {
-  ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
-  ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+export const useGoalActions = (overrides?: ActionOverrides<Goal>) => {
+  const { deleteResource } = useDeleteGoal();
+
+  return resolveActions<Goal>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
+    },
+    overrides
+  );
 };

@@ -4,7 +4,7 @@ import { Favorite } from "../shared";
 import { Goal } from "../../../models";
 import { getGoalDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { goalActions } from "./goalActions";
+import { useGoalActions } from "./goalActions";
 
 interface Props {
   goal: Goal;
@@ -12,6 +12,7 @@ interface Props {
 
 export const GoalListGridItemContents = ({ goal }: Props) => {
   const { name, id, isFavorite, description } = goal;
+  const actions = useGoalActions();
 
   return (
     <>
@@ -35,7 +36,7 @@ export const GoalListGridItemContents = ({ goal }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite isFavorite={isFavorite} />
-          <ActionMenu resource={goal} actionMap={goalActions} isCardView />
+          <ActionMenu resource={goal} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

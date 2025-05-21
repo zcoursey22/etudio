@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
 import { Resource } from "../../models";
-import { ActionMap, ActionOverrides, Favorite } from "../resources/shared";
+import { ActionConfig, Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
 import { SubresourceConfig } from "./Subresource";
 import { ActionMenu } from "../resources/shared/ActionMenu";
@@ -25,8 +25,7 @@ interface Props<T extends Resource> {
   mainContent?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subresourceConfigs?: SubresourceConfig<any>[];
-  actionMap?: ActionMap<T>;
-  actionOverrides?: ActionOverrides<T>;
+  actions?: ActionConfig<T>[];
 }
 
 export const DetailPage = <T extends Resource>({
@@ -37,8 +36,7 @@ export const DetailPage = <T extends Resource>({
   belowHeader,
   mainContent,
   subresourceConfigs,
-  actionMap,
-  actionOverrides,
+  actions,
 }: Props<T>) => {
   return (
     <Stack color={"fg.muted"}>
@@ -56,12 +54,11 @@ export const DetailPage = <T extends Resource>({
           </Group>
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Box>
-        {actionMap && (
+        {actions && (
           <Flex flex={"1"} justify={"flex-end"}>
             <ActionMenu
               resource={resource}
-              actionMap={actionMap}
-              actionOverrides={actionOverrides}
+              actions={actions}
               shouldRenderAsButtons
             />
           </Flex>

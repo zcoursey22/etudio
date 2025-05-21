@@ -1,25 +1,24 @@
 import { Button, Group, Icon, Menu, Portal } from "@chakra-ui/react";
 import { Resource } from "../../../models";
-import { ActionMap, ActionOverrides, resolveActions } from "./actions";
+import { ActionConfig } from "./actions";
 import { LuEllipsisVertical } from "react-icons/lu";
 
 export interface Props<T extends Resource> {
   resource: T;
-  actionMap: ActionMap<T>;
-  actionOverrides?: ActionOverrides<T>;
+  actions: ActionConfig<T>[];
   isCardView?: boolean;
   shouldRenderAsButtons?: boolean;
 }
 
 export const ActionMenu = <T extends Resource>({
   resource,
-  actionMap,
-  actionOverrides,
+  actions,
   isCardView,
   shouldRenderAsButtons,
 }: Props<T>) => {
-  const actions = resolveActions(actionMap, actionOverrides);
-
+  if (actions.length === 0) {
+    return;
+  }
   return shouldRenderAsButtons ? (
     <Group>
       {actions.map(({ label, onClick, icon, destructive }) => (
