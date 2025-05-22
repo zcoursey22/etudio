@@ -1,8 +1,6 @@
-import { useQuery } from "./useQuery";
+import { useQuery, useDelete } from "./useCRUD";
 import { Arrangement } from "../models";
 import { useComposition, useCompositions } from "./useCompositions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE } from "../constants";
 
 const ARRANGEMENTS = "arrangements";
 
@@ -73,19 +71,10 @@ export const useArrangement = (id: number | string) => {
 };
 
 export const useDeleteArrangement = () => {
-  const queryClient = useQueryClient();
-  const { mutate: deleteResource } = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await fetch(`${API_BASE}/${ARRANGEMENTS}/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to delete");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [ARRANGEMENTS] });
-    },
-  });
-  return { deleteResource };
+  const {
+    mutate: deleteResource,
+    isPending: loading,
+    error,
+  } = useDelete(ARRANGEMENTS, `/${ARRANGEMENTS}`);
+  return { deleteResource, loading, error };
 };

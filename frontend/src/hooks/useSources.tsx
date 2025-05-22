@@ -1,7 +1,5 @@
-import { useQuery } from "./useQuery";
+import { useQuery, useDelete } from "./useCRUD";
 import { Source } from "../models";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE } from "../constants";
 
 const SOURCES = "SOURCES";
 
@@ -61,19 +59,10 @@ export const useSource = (id?: string | number) => {
 };
 
 export const useDeleteSource = () => {
-  const queryClient = useQueryClient();
-  const { mutate: deleteResource } = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await fetch(`${API_BASE}/${SOURCES}/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to delete");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [SOURCES] });
-    },
-  });
-  return { deleteResource };
+  const {
+    mutate: deleteResource,
+    isPending: loading,
+    error,
+  } = useDelete(SOURCES, `/${SOURCES}`);
+  return { deleteResource, loading, error };
 };

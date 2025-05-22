@@ -1,7 +1,5 @@
-import { useQuery } from "./useQuery";
+import { useQuery, useDelete } from "./useCRUD";
 import { Collection } from "../models";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE } from "../constants";
 
 const COLLECTIONS = "collections";
 
@@ -27,19 +25,10 @@ export const useCollection = (id: string | number) => {
 };
 
 export const useDeleteCollection = () => {
-  const queryClient = useQueryClient();
-  const { mutate: deleteResource } = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await fetch(`${API_BASE}/${COLLECTIONS}/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to delete");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [COLLECTIONS] });
-    },
-  });
-  return { deleteResource };
+  const {
+    mutate: deleteResource,
+    isPending: loading,
+    error,
+  } = useDelete(COLLECTIONS, `/${COLLECTIONS}`);
+  return { deleteResource, loading, error };
 };

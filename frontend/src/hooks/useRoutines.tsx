@@ -1,7 +1,5 @@
-import { useQuery } from "./useQuery";
+import { useDelete, useQuery } from "./useCRUD";
 import { Routine } from "../models";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE } from "../constants";
 
 const ROUTINES = "routines";
 
@@ -24,19 +22,10 @@ export const useRoutine = (id: string | number) => {
 };
 
 export const useDeleteRoutine = () => {
-  const queryClient = useQueryClient();
-  const { mutate: deleteResource } = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await fetch(`${API_BASE}/${ROUTINES}/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to delete");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [ROUTINES] });
-    },
-  });
-  return { deleteResource };
+  const {
+    mutate: deleteResource,
+    isPending: loading,
+    error,
+  } = useDelete(ROUTINES, `/${ROUTINES}`);
+  return { deleteResource, loading, error };
 };

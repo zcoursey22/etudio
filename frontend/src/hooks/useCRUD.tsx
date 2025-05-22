@@ -1,0 +1,47 @@
+import {
+  useQuery as useReactQuery,
+  UseQueryOptions,
+  useQueryClient,
+  useMutation,
+  UseMutationOptions,
+} from "@tanstack/react-query";
+import { API_BASE } from "../constants";
+
+export const useQuery = <T,>(
+  key: string | [string, ...unknown[]],
+  endpoint: string,
+  options?: UseQueryOptions<T>
+) => {
+  return useReactQuery<T>({
+    queryKey: Array.isArray(key) ? key : [key],
+    queryFn: async () => {
+      const res = await fetch(`${API_BASE}${endpoint}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${endpoint}`);
+      return res.json();
+    },
+    ...options,
+  });
+};
+
+export const useDelete = (
+  key: string | [string, ...unknown[]],
+  endpoint: string,
+  options?: UseMutationOptions<void, Error, string | number>
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, string | number>({
+    mutationFn: async (id) => {
+      const res = await fetch(`${API_BASE}${endpoint}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error(`Failed to delete: ${endpoint}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: Array.isArray(key) ? key : [key],
+      });
+    },
+    ...options,
+  });
+};
