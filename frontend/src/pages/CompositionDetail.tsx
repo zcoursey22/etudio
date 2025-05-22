@@ -4,23 +4,27 @@ import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import {
-  arrangementColumns,
+  getArrangementColumns,
   ArrangementListGridItemContents,
+  useArrangementActions,
 } from "../components/resources/arrangements";
 import { ResourceFrom } from "../components/resources/shared";
 import {
-  compositionActions,
-  compositionColumns,
+  getCompositionColumns,
   CompositionListGridItemContents,
+  useCompositionActions,
 } from "../components/resources/compositions";
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
   const detailState = useComposition(id);
+  const actions = useCompositionActions();
+
   const arrangementsListState = useArrangements({
     compositionId: detailState?.resource?.id,
   });
+  const arrangementActions = useArrangementActions();
   const childCompositionsListState = useCompositions({
     partOfCompositionId: detailState?.resource?.id,
   });
@@ -53,14 +57,14 @@ export const CompositionDetail = () => {
                 emptySpanText=""
               />
             }
-            actionMap={compositionActions}
+            actions={actions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,
                 title: "Scores",
                 icon: <LuBookOpenText />,
                 useResourcesState: arrangementsListState,
-                columnMap: arrangementColumns,
+                columnMap: getArrangementColumns(arrangementActions),
                 columnOverrides: { composition: { visible: false } },
                 renderGridItemContents: (a) => (
                   <ArrangementListGridItemContents arrangement={a} />
@@ -71,7 +75,7 @@ export const CompositionDetail = () => {
                 title: "Compositions",
                 icon: <LuMusic />,
                 useResourcesState: childCompositionsListState,
-                columnMap: compositionColumns,
+                columnMap: getCompositionColumns(actions),
                 columnOverrides: {
                   from: { visible: false },
                   composer: { visible: false },

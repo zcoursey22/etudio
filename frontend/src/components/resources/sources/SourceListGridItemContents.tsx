@@ -4,7 +4,7 @@ import { Source } from "../../../models";
 import { getSourceDetailPath } from "../../../routes";
 import { Favorite, ResourceFrom } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";
-import { sourceActions } from "./sourceActions";
+import { useSourceActions } from "./sourceActions";
 
 interface Props {
   source: Source;
@@ -12,6 +12,7 @@ interface Props {
 
 export const SourceListGridItemContents = ({ source }: Props) => {
   const { name, id, isFavorite, parent } = source;
+  const actions = useSourceActions();
 
   return (
     <>
@@ -32,7 +33,7 @@ export const SourceListGridItemContents = ({ source }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite isFavorite={isFavorite} />
-          <ActionMenu resource={source} actionMap={sourceActions} isCardView />
+          <ActionMenu resource={source} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

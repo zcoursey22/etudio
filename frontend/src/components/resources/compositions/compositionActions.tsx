@@ -1,11 +1,19 @@
 import { Composition } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const compositionActions: ActionMap<Composition> = {
-  ...renameActionConfigMap((c) => console.log(`Rename ${c.name}`)),
-  ...deleteActionConfigMap((c) => console.log(`Delete ${c.name}`)),
+export const useCompositionActions = (
+  overrides?: ActionOverrides<Composition>
+) => {
+  return resolveActions<Composition>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+    },
+    overrides
+  );
 };

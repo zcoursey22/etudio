@@ -1,11 +1,17 @@
 import { Routine } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const routineActions: ActionMap<Routine> = {
-  ...renameActionConfigMap((r) => console.log(`Rename ${r.name}`)),
-  ...deleteActionConfigMap((r) => console.log(`Delete ${r.name}`)),
+export const useRoutineActions = (overrides?: ActionOverrides<Routine>) => {
+  return resolveActions<Routine>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+    },
+    overrides
+  );
 };

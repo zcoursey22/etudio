@@ -9,11 +9,17 @@ import {
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
-import { Difficulty, PreviewPDF, ResourceFrom } from "../../resources/shared";
+import {
+  ActionConfig,
+  Difficulty,
+  PreviewPDF,
+  ResourceFrom,
+} from "../../resources/shared";
 import { ActionMenu } from "../shared/ActionMenu";
-import { arrangementActions } from "./arrangementActions";
 
-export const arrangementColumns: ColumnMap<Arrangement> = {
+export const getArrangementColumns = (
+  actions: ActionConfig<Arrangement>[]
+): ColumnMap<Arrangement> => ({
   name: {
     header: "Name",
     render: ({ id, name }) => (
@@ -53,8 +59,6 @@ export const arrangementColumns: ColumnMap<Arrangement> = {
   },
   actions: {
     width: "1",
-    render: (resource) => (
-      <ActionMenu resource={resource} actionMap={arrangementActions} />
-    ),
+    render: (resource) => <ActionMenu resource={resource} actions={actions} />,
   },
-};
+});

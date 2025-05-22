@@ -1,13 +1,21 @@
 import { Arrangement } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   downloadActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const arrangementActions: ActionMap<Arrangement> = {
-  ...renameActionConfigMap((a) => console.log(`Rename ${a.name}`)),
-  ...downloadActionConfigMap((a) => console.log(`Download ${a.name}`)),
-  ...deleteActionConfigMap((a) => console.log(`Delete ${a.name}`)),
+export const useArrangementActions = (
+  overrides?: ActionOverrides<Arrangement>
+) => {
+  return resolveActions<Arrangement>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
+      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+    },
+    overrides
+  );
 };

@@ -7,7 +7,7 @@ import { ActionConfig } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";
 
 export const getGoalColumns = (
-  actions?: ActionConfig<Goal>[]
+  actions: ActionConfig<Goal>[]
 ): ColumnMap<Goal> => ({
   name: {
     header: "Name",
@@ -27,7 +27,7 @@ export const getGoalColumns = (
   actions: {
     width: "1",
     render: (resource) => {
-      return <ActionMenu resource={resource} actions={actions || []} />;
+      return <ActionMenu resource={resource} actions={actions} />;
     },
   },
 });

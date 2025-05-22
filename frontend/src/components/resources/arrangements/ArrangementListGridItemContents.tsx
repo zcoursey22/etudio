@@ -16,7 +16,7 @@ import {
   getCompositionDetailPath,
 } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { arrangementActions } from "./arrangementActions";
+import { useArrangementActions } from "./arrangementActions";
 
 interface Props {
   arrangement: Arrangement;
@@ -24,6 +24,7 @@ interface Props {
 
 export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
   const { name, id, artist, isFavorite, composition, difficulty } = arrangement;
+  const actions = useArrangementActions();
 
   return (
     <>
@@ -69,11 +70,7 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
             <Favorite isFavorite={isFavorite} />
             <Difficulty oneToFive={difficulty} />
           </Group>
-          <ActionMenu
-            resource={arrangement}
-            actionMap={arrangementActions}
-            isCardView
-          />
+          <ActionMenu resource={arrangement} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

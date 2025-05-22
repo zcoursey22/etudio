@@ -4,7 +4,7 @@ import { Favorite } from "../shared";
 import { Routine } from "../../../models";
 import { getRoutineDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { routineActions } from "./routineActions";
+import { useRoutineActions } from "./routineActions";
 
 interface Props {
   routine: Routine;
@@ -12,6 +12,7 @@ interface Props {
 
 export const RoutineListGridItemContents = ({ routine }: Props) => {
   const { name, id, isFavorite } = routine;
+  const actions = useRoutineActions();
 
   return (
     <>
@@ -27,11 +28,7 @@ export const RoutineListGridItemContents = ({ routine }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite isFavorite={isFavorite} />
-          <ActionMenu
-            resource={routine}
-            actionMap={routineActions}
-            isCardView
-          />
+          <ActionMenu resource={routine} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

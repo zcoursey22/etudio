@@ -9,11 +9,12 @@ import {
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import { Difficulty, ResourceFrom } from "../components/resources/shared";
-import { arrangementActions } from "../components/resources/arrangements";
+import { useArrangementActions } from "../components/resources/arrangements";
 
 export const ArrangementDetail = () => {
   const { id } = useParams();
   const detailState = useArrangement(id!);
+  const actions = useArrangementActions();
 
   return (
     <DetailViewContainer useResourceState={detailState}>
@@ -62,8 +63,7 @@ export const ArrangementDetail = () => {
                 </Box>
               </Stack>
             }
-            actionMap={arrangementActions}
-            // actionOverrides={{ rename: { visible: false } }}
+            actions={actions}
           />
         );
       }}

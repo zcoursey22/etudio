@@ -7,11 +7,12 @@ import {
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
-import { ResourceFrom } from "../../resources/shared";
+import { ActionConfig, ResourceFrom } from "../../resources/shared";
 import { ActionMenu } from "../shared/ActionMenu";
-import { compositionActions } from "./compositionActions";
 
-export const compositionColumns: ColumnMap<Composition> = {
+export const getCompositionColumns = (
+  actions: ActionConfig<Composition>[]
+): ColumnMap<Composition> => ({
   name: {
     header: "Name",
     render: ({ id, name }) => (
@@ -46,8 +47,6 @@ export const compositionColumns: ColumnMap<Composition> = {
   },
   actions: {
     width: "1",
-    render: (resource) => (
-      <ActionMenu resource={resource} actionMap={compositionActions} />
-    ),
+    render: (resource) => <ActionMenu resource={resource} actions={actions} />,
   },
-};
+});

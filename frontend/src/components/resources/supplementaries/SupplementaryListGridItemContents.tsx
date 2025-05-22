@@ -4,7 +4,7 @@ import { Favorite, PreviewPDF } from "../shared";
 import { Supplementary } from "../../../models";
 import { getSupplementaryDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { supplementaryActions } from "./supplementaryActions";
+import { useSupplementaryActions } from "./supplementaryActions";
 
 interface Props {
   supplementary: Supplementary;
@@ -12,6 +12,7 @@ interface Props {
 
 export const SupplementaryListGridItemContents = ({ supplementary }: Props) => {
   const { name, id, isFavorite } = supplementary;
+  const actions = useSupplementaryActions();
 
   return (
     <>
@@ -33,11 +34,7 @@ export const SupplementaryListGridItemContents = ({ supplementary }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite isFavorite={isFavorite} />
-          <ActionMenu
-            resource={supplementary}
-            actionMap={supplementaryActions}
-            isCardView
-          />
+          <ActionMenu resource={supplementary} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

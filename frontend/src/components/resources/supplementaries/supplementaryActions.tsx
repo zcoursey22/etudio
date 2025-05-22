@@ -1,13 +1,21 @@
 import { Supplementary } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   downloadActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const supplementaryActions: ActionMap<Supplementary> = {
-  ...renameActionConfigMap((s) => console.log(`Rename ${s.name}`)),
-  ...downloadActionConfigMap((s) => console.log(`Download ${s.name}`)),
-  ...deleteActionConfigMap((s) => console.log(`Delete ${s.name}`)),
+export const useSupplementaryActions = (
+  overrides?: ActionOverrides<Supplementary>
+) => {
+  return resolveActions<Supplementary>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
+      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+    },
+    overrides
+  );
 };

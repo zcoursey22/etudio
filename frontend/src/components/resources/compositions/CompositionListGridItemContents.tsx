@@ -10,7 +10,7 @@ import { NavLink } from "../../nav/NavLink";
 import { Favorite, ResourceFrom } from "../shared";
 import { Composition } from "../../../models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
-import { compositionActions } from "./compositionActions";
+import { useCompositionActions } from "./compositionActions";
 import { ActionMenu } from "../shared/ActionMenu";
 
 interface Props {
@@ -19,6 +19,7 @@ interface Props {
 
 export const CompositionListGridItemContents = ({ composition }: Props) => {
   const { name, id, artist, isFavorite } = composition;
+  const actions = useCompositionActions();
 
   return (
     <>
@@ -49,11 +50,7 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite isFavorite={isFavorite} />
-          <ActionMenu
-            resource={composition}
-            actionMap={compositionActions}
-            isCardView
-          />
+          <ActionMenu resource={composition} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
     </>

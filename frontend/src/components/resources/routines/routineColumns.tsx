@@ -3,10 +3,12 @@ import { getRoutineDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
+import { ActionConfig } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";
-import { routineActions } from "./routineActions";
 
-export const routineColumns: ColumnMap<Routine> = {
+export const getRoutineColumns = (
+  actions: ActionConfig<Routine>[]
+): ColumnMap<Routine> => ({
   name: {
     header: "Name",
     render: ({ id, name }) => (
@@ -20,8 +22,6 @@ export const routineColumns: ColumnMap<Routine> = {
   },
   actions: {
     width: "1",
-    render: (resource) => (
-      <ActionMenu resource={resource} actionMap={routineActions} />
-    ),
+    render: (resource) => <ActionMenu resource={resource} actions={actions} />,
   },
-};
+});

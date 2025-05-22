@@ -1,11 +1,12 @@
 import { DetailPage, DetailViewContainer } from "../components/detail";
-import { routineActions } from "../components/resources/routines";
+import { useRoutineActions } from "../components/resources/routines";
 import { useRoutine } from "../hooks";
 import { useParams } from "react-router-dom";
 
 export const RoutineDetail = () => {
   const { id } = useParams();
   const detailState = useRoutine(id!);
+  const actions = useRoutineActions();
 
   return (
     <DetailViewContainer useResourceState={detailState}>
@@ -16,7 +17,7 @@ export const RoutineDetail = () => {
             resource={routine}
             title={name}
             subtitle={"routine"}
-            actionMap={routineActions}
+            actions={actions}
           />
         );
       }}

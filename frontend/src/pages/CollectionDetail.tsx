@@ -2,20 +2,24 @@ import { useParams } from "react-router-dom";
 import { useCollection, useCompositions } from "../hooks";
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import {
-  compositionColumns,
+  getCompositionColumns,
   CompositionListGridItemContents,
+  useCompositionActions,
 } from "../components/resources/compositions";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
 import { LuMusic } from "react-icons/lu";
-import { collectionActions } from "../components/resources/collections";
+import { useCollectionActions } from "../components/resources/collections";
 
 export const CollectionDetail = () => {
   const { id } = useParams();
   const detailState = useCollection(id!);
+  const actions = useCollectionActions();
+
   const compositionsListState = useCompositions({
     collectionId: detailState?.resource?.id,
   });
+  const compositionActions = useCompositionActions();
 
   return (
     <DetailViewContainer useResourceState={detailState}>
@@ -37,14 +41,14 @@ export const CollectionDetail = () => {
                 "collection"
               )
             }
-            actionMap={collectionActions}
+            actions={actions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
                 useResourcesState: compositionsListState,
-                columnMap: compositionColumns,
+                columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
                   from: { visible: false },
                   composer: {

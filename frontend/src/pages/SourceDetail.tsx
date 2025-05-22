@@ -2,13 +2,14 @@ import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
 import { DetailPage, DetailViewContainer } from "../components/detail";
 import {
-  compositionColumns,
+  getCompositionColumns,
   CompositionListGridItemContents,
+  useCompositionActions,
 } from "../components/resources/compositions";
 import {
-  sourceActions,
-  sourceColumns,
+  getSourceColumns,
   SourceListGridItemContents,
+  useSourceActions,
 } from "../components/resources/sources";
 import { ResourceFrom } from "../components/resources/shared";
 import { LuFolder, LuMusic } from "react-icons/lu";
@@ -19,9 +20,12 @@ export const SourceDetail = () => {
   const detailState = useSource(id!);
   const parentSource = detailState?.resource?.parent;
   const childSources = detailState?.resource?.children;
+  const actions = useSourceActions();
+
   const compositionsListState = useCompositions({
     sourceId: detailState?.resource?.id,
   });
+  const compositionActions = useCompositionActions();
 
   return (
     <DetailViewContainer useResourceState={detailState}>
@@ -39,14 +43,14 @@ export const SourceDetail = () => {
               />
             }
             subtitle={"source"}
-            actionMap={sourceActions}
+            actions={actions}
             subresourceConfigs={[
               {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
                 useResourcesState: compositionsListState,
-                columnMap: compositionColumns,
+                columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
                   from: { visible: false },
                 },
@@ -63,7 +67,7 @@ export const SourceDetail = () => {
                   loading: false,
                   error: null,
                 },
-                columnMap: sourceColumns,
+                columnMap: getSourceColumns(actions),
                 columnOverrides: { parent: { visible: false } },
                 renderGridItemContents: (s) => (
                   <SourceListGridItemContents source={s} />

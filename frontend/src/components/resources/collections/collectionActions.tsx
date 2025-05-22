@@ -1,11 +1,19 @@
 import { Collection } from "../../../models";
 import {
-  ActionMap,
+  ActionOverrides,
   deleteActionConfigMap,
   renameActionConfigMap,
+  resolveActions,
 } from "../shared";
 
-export const collectionActions: ActionMap<Collection> = {
-  ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
-  ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+export const useCollectionActions = (
+  overrides?: ActionOverrides<Collection>
+) => {
+  return resolveActions<Collection>(
+    {
+      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+    },
+    overrides
+  );
 };

@@ -4,11 +4,12 @@ import { getSupplementaryDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
-import { PreviewPDF } from "../shared";
+import { ActionConfig, PreviewPDF } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";
-import { supplementaryActions } from "./supplementaryActions";
 
-export const supplementaryColumns: ColumnMap<Supplementary> = {
+export const getSupplementaryColumns = (
+  actions: ActionConfig<Supplementary>[]
+): ColumnMap<Supplementary> => ({
   name: {
     header: "Name",
     render: ({ id, name }) => (
@@ -25,8 +26,6 @@ export const supplementaryColumns: ColumnMap<Supplementary> = {
   },
   actions: {
     width: "1",
-    render: (resource) => (
-      <ActionMenu resource={resource} actionMap={supplementaryActions} />
-    ),
+    render: (resource) => <ActionMenu resource={resource} actions={actions} />,
   },
-};
+});
