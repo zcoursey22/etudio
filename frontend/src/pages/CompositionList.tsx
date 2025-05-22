@@ -5,19 +5,23 @@ import {
   useCompositionActions,
 } from "../components/resources/compositions";
 import { useCompositions } from "../hooks";
+import { getTitle } from "../utils";
 
 export const CompositionList = () => {
   const listState = useCompositions();
   const actions = useCompositionActions();
 
   return (
-    <ListViewContainer
-      title="Compositions"
-      useResourcesState={listState}
-      columnMap={getCompositionColumns(actions)}
-      renderGridItemContents={(composition) => (
-        <CompositionListGridItemContents composition={composition} />
-      )}
-    />
+    <>
+      <title>{getTitle("Compositions")}</title>
+      <ListViewContainer
+        title="Compositions"
+        useResourcesState={listState}
+        columnMap={getCompositionColumns(actions)}
+        renderGridItemContents={(composition) => (
+          <CompositionListGridItemContents composition={composition} />
+        )}
+      />
+    </>
   );
 };

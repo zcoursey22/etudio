@@ -15,6 +15,7 @@ import { ActionConfig, Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
 import { SubresourceConfig } from "./Subresource";
 import { ActionMenu } from "../resources/shared/ActionMenu";
+import { getTitle } from "../../utils";
 
 interface Props<T extends Resource> {
   resource: T;
@@ -39,43 +40,46 @@ export const DetailPage = <T extends Resource>({
   actions,
 }: Props<T>) => {
   return (
-    <Stack color={"fg.muted"}>
-      <Flex gap={"0.5em"}>
-        <BackButton />
-        <Box>
-          <Group>
-            <Favorite isFavorite={resource.isFavorite} />
-            <Span>
-              <Heading display="inline-block" color={"fg"}>
-                {title}
-              </Heading>
-              {rightOfTitle && <Span fontSize={"xs"}>{rightOfTitle}</Span>}
-            </Span>
-          </Group>
-          {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
-        </Box>
-        {actions && (
-          <Flex flex={"1"} justify={"flex-end"}>
-            <ActionMenu
-              resource={resource}
-              actions={actions}
-              shouldRenderAsButtons
-            />
-          </Flex>
+    <>
+      <title>{getTitle(title)}</title>
+      <Stack color={"fg.muted"}>
+        <Flex gap={"0.5em"}>
+          <BackButton />
+          <Box>
+            <Group>
+              <Favorite isFavorite={resource.isFavorite} />
+              <Span>
+                <Heading display="inline-block" color={"fg"}>
+                  {title}
+                </Heading>
+                {rightOfTitle && <Span fontSize={"xs"}>{rightOfTitle}</Span>}
+              </Span>
+            </Group>
+            {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
+          </Box>
+          {actions && (
+            <Flex flex={"1"} justify={"flex-end"}>
+              <ActionMenu
+                resource={resource}
+                actions={actions}
+                shouldRenderAsButtons
+              />
+            </Flex>
+          )}
+        </Flex>
+        {belowHeader && <Box>{belowHeader}</Box>}
+        {mainContent && (
+          <Stack p={"0.5em 0"}>
+            <Separator />
+            {mainContent}
+          </Stack>
         )}
-      </Flex>
-      {belowHeader && <Box>{belowHeader}</Box>}
-      {mainContent && (
-        <Stack p={"0.5em 0"}>
-          <Separator />
-          {mainContent}
-        </Stack>
-      )}
-      {subresourceConfigs && (
-        <Box pt={"0.5em"}>
-          <Outlet context={{ configs: subresourceConfigs }} />
-        </Box>
-      )}
-    </Stack>
+        {subresourceConfigs && (
+          <Box pt={"0.5em"}>
+            <Outlet context={{ configs: subresourceConfigs }} />
+          </Box>
+        )}
+      </Stack>
+    </>
   );
 };
