@@ -1,3 +1,4 @@
+import { useDeleteArrangement } from "../../../hooks";
 import { Arrangement } from "../../../models";
 import {
   ActionOverrides,
@@ -10,11 +11,13 @@ import {
 export const useArrangementActions = (
   overrides?: ActionOverrides<Arrangement>
 ) => {
+  const { deleteResource } = useDeleteArrangement();
+
   return resolveActions<Arrangement>(
     {
       ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
       ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
-      ...deleteActionConfigMap(({ name }) => console.log(`Delete ${name}`)),
+      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
     },
     overrides
   );

@@ -1,6 +1,10 @@
 import { useQuery } from "./useQuery";
 import { Arrangement } from "../models";
 import { useComposition, useCompositions } from "./useCompositions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "../constants";
+
+const ARRANGEMENTS = "arrangements";
 
 interface ApiArrangement extends Arrangement {
   artistId: number;
@@ -17,8 +21,8 @@ export const useArrangements = (params?: UseArrangementsParams) => {
     isLoading: loading,
     error,
   } = useQuery<ApiArrangement[]>(
-    ["arrangements", params],
-    `/arrangements?_expand=artist${
+    [ARRANGEMENTS, params],
+    `/${ARRANGEMENTS}?_expand=artist${
       params?.compositionId ? `&compositionId=${params.compositionId}` : ""
     }${params?.artistId ? `&artistId=${params.artistId}` : ""}`
   );
@@ -51,8 +55,8 @@ export const useArrangement = (id: number | string) => {
     isLoading: loading,
     error,
   } = useQuery<ApiArrangement>(
-    ["arrangement", id],
-    `/arrangements/${id}?_expand=artist`
+    [ARRANGEMENTS, id],
+    `/${ARRANGEMENTS}/${id}?_expand=artist`
   );
 
   const {
@@ -66,4 +70,22 @@ export const useArrangement = (id: number | string) => {
     loading: loading || compositionLoading,
     error: error || compositionError,
   };
+};
+
+export const useDeleteArrangement = () => {
+  const queryClient = useQueryClient();
+  const { mutate: deleteResource } = useMutation({
+    mutationFn: async (id: string | number) => {
+      const res = await fetch(`${API_BASE}/${ARRANGEMENTS}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [ARRANGEMENTS] });
+    },
+  });
+  return { deleteResource };
 };

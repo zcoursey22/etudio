@@ -1,13 +1,16 @@
 import { useQuery } from "./useQuery";
 import { Goal } from "../models";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "../constants";
+
+const GOALS = "goals";
 
 export const useGoals = () => {
   const {
     data,
     isLoading: loading,
     error,
-  } = useQuery<Goal[]>("goals", "/goals");
+  } = useQuery<Goal[]>(GOALS, `/${GOALS}`);
   return { resources: data || [], loading, error };
 };
 
@@ -16,7 +19,7 @@ export const useGoal = (id: string | number) => {
     data: resource,
     isLoading: loading,
     error,
-  } = useQuery<Goal>(["goal", id], `/goals/${id}`);
+  } = useQuery<Goal>([GOALS, id], `/${GOALS}/${id}`);
   return { resource, loading, error };
 };
 
@@ -24,15 +27,15 @@ export const useDeleteGoal = () => {
   const queryClient = useQueryClient();
   const { mutate: deleteResource } = useMutation({
     mutationFn: async (id: string | number) => {
-      const res = await fetch(`http://localhost:3000/goals/${id}`, {
+      const res = await fetch(`${API_BASE}/${GOALS}/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) {
-        throw new Error("Failed to delete goal");
+        throw new Error("Failed to delete");
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["goals"] });
+      queryClient.invalidateQueries({ queryKey: [GOALS] });
     },
   });
   return { deleteResource };

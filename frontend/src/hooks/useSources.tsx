@@ -1,5 +1,9 @@
 import { useQuery } from "./useQuery";
 import { Source } from "../models";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "../constants";
+
+const SOURCES = "SOURCES";
 
 interface ApiSource extends Source {
   parentId: number;
@@ -14,8 +18,8 @@ export const useSources = (params?: UseSourcesParams) => {
     isLoading: loading,
     error,
   } = useQuery<ApiSource[]>(
-    ["sources", params],
-    `/sources${params?.parentId ? `?parentId=${params?.parentId}` : ""}`
+    [SOURCES, params],
+    `/${SOURCES}${params?.parentId ? `?parentId=${params?.parentId}` : ""}`
   );
   return { resources: data || [], loading, error };
 };
@@ -25,8 +29,8 @@ export const useSource = (id?: string | number) => {
     data: source,
     isLoading: loading,
     error,
-  } = useQuery<ApiSource>(["source", id], `/sources/${id}`, {
-    queryKey: ["source", id],
+  } = useQuery<ApiSource>([SOURCES, id], `/${SOURCES}/${id}`, {
+    queryKey: [SOURCES, id],
     enabled: !!id,
   });
 
@@ -35,10 +39,10 @@ export const useSource = (id?: string | number) => {
     isLoading: parentLoading,
     error: parentError,
   } = useQuery<ApiSource>(
-    ["source", source?.parentId],
-    `/sources/${source?.parentId}`,
+    [SOURCES, source?.parentId],
+    `/${SOURCES}/${source?.parentId}`,
     {
-      queryKey: ["source", source?.parentId],
+      queryKey: [SOURCES, source?.parentId],
       enabled: !!source?.parentId,
     }
   );
@@ -54,4 +58,22 @@ export const useSource = (id?: string | number) => {
     loading: loading || parentLoading || childrenLoading,
     error: error || parentError || childrenError,
   };
+};
+
+export const useDeleteSource = () => {
+  const queryClient = useQueryClient();
+  const { mutate: deleteResource } = useMutation({
+    mutationFn: async (id: string | number) => {
+      const res = await fetch(`${API_BASE}/${SOURCES}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [SOURCES] });
+    },
+  });
+  return { deleteResource };
 };

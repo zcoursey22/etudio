@@ -1,5 +1,11 @@
 import { useQuery } from "./useQuery";
 import { Collection, Composition, Source } from "../models";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "../constants";
+
+const COMPOSITIONS = "compositions";
+const SOURCES = "SOURCES";
+const COLLECTIONS = "collections";
 
 interface ApiComposition extends Composition {
   artistId: number;
@@ -20,8 +26,8 @@ export const useCompositions = (params?: UseCompositionsParams) => {
     isLoading: loading,
     error,
   } = useQuery<ApiComposition[]>(
-    ["compositions", params],
-    `/compositions?_expand=artist&_embed=arrangements${
+    [COMPOSITIONS, params],
+    `/${COMPOSITIONS}?_expand=artist&_embed=arrangements${
       params?.artistId ? `&artistId=${params.artistId}` : ""
     }${
       params?.partOfCompositionId
@@ -37,14 +43,14 @@ export const useCompositions = (params?: UseCompositionsParams) => {
     data: sourcesData,
     isLoading: sourcesLoading,
     error: sourcesError,
-  } = useQuery<Source[]>("sources", `/sources`);
+  } = useQuery<Source[]>(SOURCES, `/${SOURCES}`);
   const sources = sourcesData || [];
 
   const {
     data: collectionsData,
     isLoading: collectionsLoading,
     error: collectionsError,
-  } = useQuery<Collection[]>("collections", `/collections`);
+  } = useQuery<Collection[]>(COLLECTIONS, `/${COLLECTIONS}`);
   const collections = collectionsData || [];
 
   return {
@@ -72,9 +78,9 @@ export const useComposition = (id?: number | string) => {
     isLoading: loading,
     error,
   } = useQuery<ApiComposition>(
-    ["composition", id],
-    `/compositions/${id}?_expand=artist&_embed=arrangements`,
-    { queryKey: ["composition", id], enabled: !!id }
+    [COMPOSITIONS, id],
+    `/${COMPOSITIONS}/${id}?_expand=artist&_embed=arrangements`,
+    { queryKey: [COMPOSITIONS, id], enabled: !!id }
   );
 
   const partOfId = composition?.partOfCompositionId;
@@ -83,10 +89,10 @@ export const useComposition = (id?: number | string) => {
     isLoading: partOfLoading,
     error: partOfError,
   } = useQuery<ApiComposition>(
-    ["composition", partOfId],
-    `/compositions/${partOfId}?_expand=artist&_embed=arrangements`, // Arrangements not needed here but uses the cache more efficiently, maybe make a CompositionSummary model + hook
+    [COMPOSITIONS, partOfId],
+    `/${COMPOSITIONS}/${partOfId}?_expand=artist&_embed=arrangements`, // Arrangements not needed here but uses the cache more efficiently, maybe make a CompositionSummary model + hook
     {
-      queryKey: ["composition", partOfId],
+      queryKey: [COMPOSITIONS, partOfId],
       enabled: !!partOfId,
     }
   );
@@ -96,8 +102,8 @@ export const useComposition = (id?: number | string) => {
     data: source,
     isLoading: sourceLoading,
     error: sourceError,
-  } = useQuery<Source>(["source", sourceId], `/sources/${sourceId}`, {
-    queryKey: ["source", sourceId],
+  } = useQuery<Source>([SOURCES, sourceId], `/${SOURCES}/${sourceId}`, {
+    queryKey: [SOURCES, sourceId],
     enabled: !!sourceId,
   });
 
@@ -107,10 +113,10 @@ export const useComposition = (id?: number | string) => {
     isLoading: collectionLoading,
     error: collectionError,
   } = useQuery<Collection>(
-    ["collection", collectionId],
-    `/collections/${collectionId}`,
+    [COLLECTIONS, collectionId],
+    `/${COLLECTIONS}/${collectionId}`,
     {
-      queryKey: ["collection", collectionId],
+      queryKey: [COLLECTIONS, collectionId],
       enabled: !!collectionId,
     }
   );
@@ -120,4 +126,22 @@ export const useComposition = (id?: number | string) => {
     loading: loading || partOfLoading || sourceLoading || collectionLoading,
     error: error || partOfError || sourceError || collectionError,
   };
+};
+
+export const useDeleteComposition = () => {
+  const queryClient = useQueryClient();
+  const { mutate: deleteResource } = useMutation({
+    mutationFn: async (id: string | number) => {
+      const res = await fetch(`${API_BASE}/${COMPOSITIONS}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [COMPOSITIONS] });
+    },
+  });
+  return { deleteResource };
 };

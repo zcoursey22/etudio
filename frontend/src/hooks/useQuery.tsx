@@ -2,8 +2,7 @@ import {
   useQuery as useReactQuery,
   UseQueryOptions,
 } from "@tanstack/react-query";
-
-const API_BASE = "http://localhost:3000";
+import { API_BASE } from "../constants";
 
 export function useQuery<TData = unknown>(
   key: string | [string, ...unknown[]],
