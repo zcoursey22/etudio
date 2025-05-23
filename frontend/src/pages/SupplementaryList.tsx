@@ -1,4 +1,4 @@
-import { ListViewContainer } from "../components/list";
+import { ListViewContent } from "../components/list";
 import {
   getSupplementaryColumns,
   SupplementaryListGridItemContents,
@@ -14,7 +14,7 @@ export const SupplementaryList = () => {
   return (
     <>
       <title>{getTitle("Supplementaries")}</title>
-      <ListViewContainer
+      <ListViewContent
         title="Supplementaries"
         useResourcesState={listState}
         columnMap={getSupplementaryColumns(actions)}

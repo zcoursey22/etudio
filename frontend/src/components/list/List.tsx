@@ -12,50 +12,34 @@ import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
 import { Resource } from "../../models";
 import { useSettings } from "../../hooks";
-import { EmptyMessage } from "../EmptyMessage";
-import { ErrorMessage } from "../ErrorMessage";
-import { LoadingMessage } from "../LoadingMessage";
 import {
   ColumnMap,
   ColumnOverrides,
   favoriteColumnConfig,
 } from "./table/columns";
 
-enum ListViewType {
+enum ListType {
   TABLE = "table",
   GRID = "grid",
 }
 
-export interface ListViewContainerProps<T> {
+export interface ListProps<T> {
   title: string | ReactNode;
-  useResourcesState: {
-    resources: T[];
-    loading: boolean;
-    error: Error | null;
-  };
+  resources: T[];
+  emptyText?: string;
+  loading: boolean;
+  loadingText?: string;
+  error: Error | null;
+  errorText?: string;
   columnMap: ColumnMap<T>;
   columnOverrides?: ColumnOverrides<T>;
   renderGridItemContents: (resource: T) => ReactNode;
-  emptyText?: string;
   selectable?: boolean;
   favoritable?: boolean;
 }
 
-export interface ListViewProps<T> {
-  resources: T[];
-}
-
-export const ListViewContainer = <T extends Resource>({
-  title,
-  useResourcesState,
-  emptyText,
-  columnMap,
-  columnOverrides,
-  favoritable = true,
-  renderGridItemContents,
-}: ListViewContainerProps<T>) => {
-  const { resources, loading, error } = useResourcesState;
-  // console.log(resources);
+export const List = <T extends Resource>(props: ListProps<T>) => {
+  const { title, columnMap, favoritable } = props;
 
   const GLOBAL_VIEW_KEY = "etudio_currentView";
   const PAGE_VIEW_KEY = `${GLOBAL_VIEW_KEY}_${title}`;
@@ -66,7 +50,7 @@ export const ListViewContainer = <T extends Resource>({
 
   const [globalViewType, setGlobalViewType] = useLocalStorage(
     GLOBAL_VIEW_KEY,
-    ListViewType.TABLE
+    ListType.TABLE
   );
 
   const [pageViewType, setPageViewType] = useLocalStorage(
@@ -74,34 +58,15 @@ export const ListViewContainer = <T extends Resource>({
     globalViewType
   );
 
-  const handleViewTypeChange = (viewType: ListViewType) => {
+  const handleViewTypeChange = (viewType: ListType) => {
     setGlobalViewType(viewType);
     setPageViewType(viewType);
   };
 
   const currentViewType = syncListViewType ? globalViewType : pageViewType;
 
-  const ListView =
-    currentViewType === ListViewType.TABLE ? ListTable : ListGrid;
-
-  let content = (
-    <ListView
-      resources={resources}
-      columnMap={{
-        ...(favoritable ? { isFavorite: favoriteColumnConfig } : {}),
-        ...columnMap,
-      }}
-      columnOverrides={columnOverrides}
-      renderGridItemContents={renderGridItemContents}
-    />
-  );
-  if (loading) {
-    content = <LoadingMessage />;
-  } else if (error) {
-    content = <ErrorMessage error={error} />;
-  } else if (!resources.length) {
-    content = <EmptyMessage message={emptyText} />;
-  }
+  const ListItemContainer =
+    currentViewType === ListType.TABLE ? ListTable : ListGrid;
 
   return (
     <Stack>
@@ -109,9 +74,7 @@ export const ListViewContainer = <T extends Resource>({
         <Heading color={"fg"}>{title}</Heading>
         <SegmentGroup.Root
           value={currentViewType}
-          onValueChange={({ value }) =>
-            handleViewTypeChange(value as ListViewType)
-          }
+          onValueChange={({ value }) => handleViewTypeChange(value as ListType)}
           size={"sm"}
         >
           <SegmentGroup.Indicator />
@@ -120,7 +83,7 @@ export const ListViewContainer = <T extends Resource>({
             cursor={"pointer"}
             items={[
               {
-                value: ListViewType.TABLE,
+                value: ListType.TABLE,
                 label: (
                   <IconButton
                     variant={"plain"}
@@ -132,7 +95,7 @@ export const ListViewContainer = <T extends Resource>({
                 ),
               },
               {
-                value: ListViewType.GRID,
+                value: ListType.GRID,
                 label: (
                   <IconButton
                     variant={"plain"}
@@ -147,7 +110,14 @@ export const ListViewContainer = <T extends Resource>({
           />
         </SegmentGroup.Root>
       </Flex>
-      {content}
+      <ListItemContainer
+        {...props}
+        emptyText={props.emptyText ?? "No items"}
+        columnMap={{
+          ...(favoritable ? { isFavorite: favoriteColumnConfig } : {}),
+          ...columnMap,
+        }}
+      />
     </Stack>
   );
 };

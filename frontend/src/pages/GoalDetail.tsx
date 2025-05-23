@@ -1,4 +1,4 @@
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useGoalActions } from "../components/resources/goals";
 import { useGoal } from "../hooks";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ export const GoalDetail = () => {
   const actions = useGoalActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(goal) => {
         const { name, description, status } = goal;
         return (
@@ -22,6 +22,6 @@ export const GoalDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

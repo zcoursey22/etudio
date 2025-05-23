@@ -1,4 +1,4 @@
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useRoutineActions } from "../components/resources/routines";
 import { useRoutine } from "../hooks";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ export const RoutineDetail = () => {
   const actions = useRoutineActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(routine) => {
         const { name } = routine;
         return (
@@ -21,6 +21,6 @@ export const RoutineDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

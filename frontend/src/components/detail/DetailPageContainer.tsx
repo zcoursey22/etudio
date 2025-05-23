@@ -4,7 +4,7 @@ import { ErrorMessage } from "../ErrorMessage";
 import { EmptyMessage } from "../EmptyMessage";
 import { ReactNode } from "react";
 
-interface DetailViewContainerProps<T> {
+interface Props<T> {
   useResourceState: {
     resource: T | undefined;
     loading: boolean;
@@ -14,11 +14,11 @@ interface DetailViewContainerProps<T> {
   emptyText?: string;
 }
 
-export const DetailViewContainer = <T extends Resource>({
+export const DetailPageContainer = <T extends Resource>({
   useResourceState,
   children,
   emptyText,
-}: DetailViewContainerProps<T>) => {
+}: Props<T>) => {
   const { resource, loading, error } = useResourceState;
   // console.log(resource);
 

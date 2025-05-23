@@ -5,12 +5,12 @@ import {
   useParams,
 } from "react-router-dom";
 import { Resource } from "../../models";
-import { ListViewContainer, ListViewContainerProps } from "../list";
+import { ListViewContent, ListViewContentProps } from "../list";
 import { Group, Icon, Tabs, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export interface SubresourceConfig<T extends Resource>
-  extends ListViewContainerProps<T> {
+  extends ListViewContentProps<T> {
   route: string;
   icon?: ReactNode;
 }
@@ -39,7 +39,7 @@ export const Subresource = <T extends Resource>() => {
     configs.find((c) => c.route === subresourceRoute) ?? configs[0];
 
   return (
-    <ListViewContainer
+    <ListViewContent
       {...config}
       title={
         <Tabs.Root

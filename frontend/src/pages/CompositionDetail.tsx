@@ -1,7 +1,7 @@
 import { useArrangements, useComposition, useCompositions } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import {
   getArrangementColumns,
@@ -30,7 +30,7 @@ export const CompositionDetail = () => {
   });
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(composition) => {
         const { name, artist } = composition;
         return (
@@ -88,6 +88,6 @@ export const CompositionDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

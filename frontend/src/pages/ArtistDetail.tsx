@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useArrangements, useArtist, useCompositions } from "../hooks";
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import {
   getArrangementColumns,
   ArrangementListGridItemContents,
@@ -28,7 +28,7 @@ export const ArtistDetail = () => {
   const arrangementActions = useArrangementActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(artist) => {
         const { name } = artist;
         return (
@@ -66,6 +66,6 @@ export const ArtistDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

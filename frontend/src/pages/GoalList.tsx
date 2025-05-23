@@ -1,4 +1,4 @@
-import { ListViewContainer } from "../components/list";
+import { ListViewContent } from "../components/list";
 import { GoalListGridItemContents } from "../components/resources/goals";
 import { getGoalColumns, useGoalActions } from "../components/resources/goals";
 import { useGoals } from "../hooks";
@@ -11,7 +11,7 @@ export const GoalList = () => {
   return (
     <>
       <title>{getTitle("Goals")}</title>
-      <ListViewContainer
+      <ListViewContent
         title="Goals"
         useResourcesState={listState}
         columnMap={getGoalColumns(actions)}

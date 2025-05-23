@@ -1,10 +1,11 @@
-import { Table } from "@chakra-ui/react";
-import { ListViewProps } from "../ListViewContainer";
+import { Table, Text } from "@chakra-ui/react";
 import { Resource } from "../../../models";
 import { ColumnMap, ColumnOverrides, resolveColumns } from "./columns";
+import { ListProps } from "../List";
+import { LoadingMessage } from "../../LoadingMessage";
+import { ErrorMessage } from "../../ErrorMessage";
 
-export interface ListTableViewProps<T extends Resource>
-  extends ListViewProps<T> {
+export interface ListTableProps<T extends Resource> extends ListProps<T> {
   columnMap: ColumnMap<T>;
   columnOverrides?: ColumnOverrides<T>;
 }
@@ -13,7 +14,12 @@ export const ListTable = <T extends Resource>({
   resources,
   columnMap,
   columnOverrides,
-}: ListTableViewProps<T>) => {
+  loading,
+  error,
+  loadingText,
+  errorText,
+  emptyText,
+}: ListTableProps<T>) => {
   const columns = resolveColumns(columnMap, columnOverrides);
 
   return (
@@ -34,15 +40,29 @@ export const ListTable = <T extends Resource>({
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {resources.map((resource, i) => (
-          <Table.Row color="fg.muted" key={i}>
-            {columns.map(({ render, textAlign }, j) => (
-              <Table.Cell textAlign={textAlign} key={j}>
-                {render(resource)}
-              </Table.Cell>
-            ))}
+        {error || loading || !resources?.length ? (
+          <Table.Row>
+            <Table.Cell colSpan={columns.length} textAlign={"center"}>
+              {loading ? (
+                <LoadingMessage message={loadingText} />
+              ) : error ? (
+                <ErrorMessage error={error} message={errorText} />
+              ) : (
+                <Text textAlign={"center"}>{emptyText}</Text>
+              )}
+            </Table.Cell>
           </Table.Row>
-        ))}
+        ) : (
+          resources.map((resource, i) => (
+            <Table.Row color="fg.muted" key={i}>
+              {columns.map(({ render, textAlign }, j) => (
+                <Table.Cell textAlign={textAlign} key={j}>
+                  {render(resource)}
+                </Table.Cell>
+              ))}
+            </Table.Row>
+          ))
+        )}
       </Table.Body>
     </Table.Root>
   );

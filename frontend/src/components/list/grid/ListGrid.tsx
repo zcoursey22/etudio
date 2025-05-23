@@ -1,19 +1,33 @@
-import { Flex, SimpleGrid } from "@chakra-ui/react";
-import { ListViewProps } from "../ListViewContainer";
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { Resource } from "../../../models";
 import { ListGridItem } from "./ListGridItem";
+import { LoadingMessage } from "../../LoadingMessage";
+import { ErrorMessage } from "../../ErrorMessage";
+import { ListProps } from "../List";
 
-export interface ListGridViewProps<T extends Resource>
-  extends ListViewProps<T> {
+export interface ListGridProps<T extends Resource> extends ListProps<T> {
   renderGridItemContents: (resource: T) => ReactNode;
 }
 
 export const ListGrid = <T extends Resource>({
   resources,
+  loading,
+  error,
+  loadingText,
+  errorText,
+  emptyText,
   renderGridItemContents,
-}: ListGridViewProps<T>) => {
-  return (
+}: ListGridProps<T>) => {
+  return error || loading || !resources?.length ? (
+    loading ? (
+      <LoadingMessage message={loadingText} />
+    ) : error ? (
+      <ErrorMessage error={error} message={errorText} />
+    ) : (
+      <Text textAlign={"center"}>{emptyText}</Text>
+    )
+  ) : (
     <SimpleGrid
       columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
       gap={"1em"}

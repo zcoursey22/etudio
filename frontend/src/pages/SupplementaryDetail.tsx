@@ -1,4 +1,4 @@
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useSupplementaryActions } from "../components/resources/supplementaries";
 import { useSupplementary } from "../hooks";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ export const SupplementaryDetail = () => {
   const actions = useSupplementaryActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(supplementary) => {
         const { name } = supplementary;
         return (
@@ -21,6 +21,6 @@ export const SupplementaryDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

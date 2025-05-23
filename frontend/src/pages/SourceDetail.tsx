@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useCompositions, useSource } from "../hooks";
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import {
   getCompositionColumns,
   CompositionListGridItemContents,
@@ -28,7 +28,7 @@ export const SourceDetail = () => {
   const compositionActions = useCompositionActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(source) => {
         const { name } = source;
         return (
@@ -77,6 +77,6 @@ export const SourceDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { ListViewContainer } from "../components/list";
+import { ListViewContent } from "../components/list";
 import {
   getRoutineColumns,
   RoutineListGridItemContents,
@@ -14,7 +14,7 @@ export const RoutineList = () => {
   return (
     <>
       <title>{getTitle("Routines")}</title>
-      <ListViewContainer
+      <ListViewContent
         title="Routines"
         useResourcesState={listState}
         columnMap={getRoutineColumns(actions)}

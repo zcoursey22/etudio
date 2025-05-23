@@ -1,4 +1,4 @@
-import { ListViewContainer } from "../components/list";
+import { ListViewContent } from "../components/list";
 import {
   CompositionListGridItemContents,
   getCompositionColumns,
@@ -14,7 +14,7 @@ export const CompositionList = () => {
   return (
     <>
       <title>{getTitle("Compositions")}</title>
-      <ListViewContainer
+      <ListViewContent
         title="Compositions"
         useResourcesState={listState}
         columnMap={getCompositionColumns(actions)}

@@ -6,7 +6,7 @@ import {
   getCompositionDetailPath,
   ROUTE_SEGMENTS,
 } from "../routes";
-import { DetailPage, DetailViewContainer } from "../components/detail";
+import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import { Difficulty, ResourceFrom } from "../components/resources/shared";
 import { useArrangementActions } from "../components/resources/arrangements";
@@ -17,7 +17,7 @@ export const ArrangementDetail = () => {
   const actions = useArrangementActions();
 
   return (
-    <DetailViewContainer useResourceState={detailState}>
+    <DetailPageContainer useResourceState={detailState}>
       {(arrangement) => {
         const { name, artist, composition, difficulty } = arrangement;
         return (
@@ -67,6 +67,6 @@ export const ArrangementDetail = () => {
           />
         );
       }}
-    </DetailViewContainer>
+    </DetailPageContainer>
   );
 };

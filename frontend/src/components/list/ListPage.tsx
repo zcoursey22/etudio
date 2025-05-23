@@ -1,26 +1,26 @@
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { Resource } from "../../models";
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { getTitle } from "../../utils";
+import { ListProps } from "./List";
 
-interface Props<T extends Resource> {
-  resources: T[];
+interface Props<T> {
   title: string;
   subtitle?: ReactNode;
   description?: ReactNode;
-  listContent?: ReactNode;
+  children: ReactElement<ListProps<T>>;
 }
 
 export const ListPage = <T extends Resource>({
   title,
   subtitle,
   description,
-  listContent,
+  children,
 }: Props<T>) => {
   return (
     <>
       <title>{getTitle(title)}</title>
-      <Stack color={"fg.muted"}>
+      <Stack color={"fg.muted"} fontSize={"md"}>
         <Stack gap={"0"}>
           <Heading color={"fg"} size={"3xl"}>
             {title}
@@ -28,7 +28,7 @@ export const ListPage = <T extends Resource>({
           {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
         </Stack>
         {description && <Box>{description}</Box>}
-        {listContent && <Box>{listContent}</Box>}
+        {children}
       </Stack>
     </>
   );

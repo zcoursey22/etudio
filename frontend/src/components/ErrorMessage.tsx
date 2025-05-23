@@ -3,11 +3,13 @@ import { LuCircleAlert } from "react-icons/lu";
 
 interface Props {
   error?: Error | string;
+  message?: string;
   fallbackMessage?: string;
 }
 
 export const ErrorMessage = ({
   error,
+  message,
   fallbackMessage = "An error occurred",
 }: Props) => {
   return (
@@ -16,7 +18,9 @@ export const ErrorMessage = ({
         <LuCircleAlert />
       </Icon>
       <Text>
-        {error instanceof Error
+        {message
+          ? message
+          : error instanceof Error
           ? error.message || fallbackMessage
           : error || fallbackMessage}
       </Text>
