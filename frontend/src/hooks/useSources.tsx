@@ -28,7 +28,7 @@ export const useSource = (id?: string | number) => {
     isLoading: loading,
     error,
   } = useQuery<ApiSource>([SOURCES, id], `/${SOURCES}/${id}`, {
-    queryKey: [SOURCES, id],
+    queryKey: [SOURCES, id || "fail"],
     enabled: !!id,
   });
 
@@ -40,7 +40,7 @@ export const useSource = (id?: string | number) => {
     [SOURCES, source?.parentId],
     `/${SOURCES}/${source?.parentId}`,
     {
-      queryKey: [SOURCES, source?.parentId],
+      queryKey: [SOURCES, source?.parentId || "fail"],
       enabled: !!source?.parentId,
     }
   );

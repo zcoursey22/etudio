@@ -78,7 +78,7 @@ export const useComposition = (id?: number | string) => {
   } = useQuery<ApiComposition>(
     [COMPOSITIONS, id],
     `/${COMPOSITIONS}/${id}?_expand=artist&_embed=arrangements`,
-    { queryKey: [COMPOSITIONS, id], enabled: !!id }
+    { queryKey: [COMPOSITIONS, id || "fail"], enabled: !!id }
   );
 
   const partOfId = composition?.partOfCompositionId;
@@ -90,7 +90,7 @@ export const useComposition = (id?: number | string) => {
     [COMPOSITIONS, partOfId],
     `/${COMPOSITIONS}/${partOfId}?_expand=artist&_embed=arrangements`, // Arrangements not needed here but uses the cache more efficiently, maybe make a CompositionSummary model + hook
     {
-      queryKey: [COMPOSITIONS, partOfId],
+      queryKey: [COMPOSITIONS, partOfId || "fail"],
       enabled: !!partOfId,
     }
   );
@@ -101,7 +101,7 @@ export const useComposition = (id?: number | string) => {
     isLoading: sourceLoading,
     error: sourceError,
   } = useQuery<Source>([SOURCES, sourceId], `/${SOURCES}/${sourceId}`, {
-    queryKey: [SOURCES, sourceId],
+    queryKey: [SOURCES, sourceId || "fail"],
     enabled: !!sourceId,
   });
 
@@ -114,7 +114,7 @@ export const useComposition = (id?: number | string) => {
     [COLLECTIONS, collectionId],
     `/${COLLECTIONS}/${collectionId}`,
     {
-      queryKey: [COLLECTIONS, collectionId],
+      queryKey: [COLLECTIONS, collectionId || "fail"],
       enabled: !!collectionId,
     }
   );

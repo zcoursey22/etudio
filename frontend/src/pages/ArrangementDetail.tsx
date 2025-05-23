@@ -41,14 +41,14 @@ export const ArrangementDetail = () => {
             mainContent={
               <Stack>
                 <Box>
-                  <Text>
+                  <Box>
                     <NavLink to={getCompositionDetailPath(composition.id)}>
                       {composition.name}
                     </NavLink>
                     <Span fontSize={"xs"}>
                       {<ResourceFrom {...composition} prefixPadding="1" />}
                     </Span>
-                  </Text>
+                  </Box>
                   <Text fontSize={"sm"}>
                     {"composed by "}
                     <NavLink
