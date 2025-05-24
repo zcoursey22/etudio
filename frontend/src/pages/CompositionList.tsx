@@ -1,27 +1,22 @@
-import { ListViewContent } from "../components/list";
+import { List, ListPage } from "../components/list";
 import {
   CompositionListGridItemContents,
   getCompositionColumns,
   useCompositionActions,
 } from "../components/resources/compositions";
 import { useCompositions } from "../hooks";
-import { getTitle } from "../utils";
 
 export const CompositionList = () => {
-  const listState = useCompositions();
-  const actions = useCompositionActions();
-
   return (
-    <>
-      <title>{getTitle("Compositions")}</title>
-      <ListViewContent
-        title="Compositions"
-        useResourcesState={listState}
-        columnMap={getCompositionColumns(actions)}
+    <ListPage title={"Compositions"} subtitle={"Works of music"}>
+      <List
+        title={"Compositions"}
+        {...useCompositions()}
+        columnMap={getCompositionColumns(useCompositionActions())}
         renderGridItemContents={(composition) => (
           <CompositionListGridItemContents composition={composition} />
         )}
       />
-    </>
+    </ListPage>
   );
 };

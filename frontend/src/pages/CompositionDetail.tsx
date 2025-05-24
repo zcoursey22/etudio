@@ -63,7 +63,7 @@ export const CompositionDetail = () => {
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,
                 title: "Scores",
                 icon: <LuBookOpenText />,
-                useResourcesState: arrangementsListState,
+                ...arrangementsListState,
                 columnMap: getArrangementColumns(arrangementActions),
                 columnOverrides: { composition: { visible: false } },
                 renderGridItemContents: (a) => (
@@ -74,7 +74,7 @@ export const CompositionDetail = () => {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
-                useResourcesState: childCompositionsListState,
+                ...childCompositionsListState,
                 columnMap: getCompositionColumns(actions),
                 columnOverrides: {
                   from: { visible: false },

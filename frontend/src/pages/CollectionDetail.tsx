@@ -47,7 +47,7 @@ export const CollectionDetail = () => {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
-                useResourcesState: compositionsListState,
+                ...compositionsListState,
                 columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
                   from: { visible: false },

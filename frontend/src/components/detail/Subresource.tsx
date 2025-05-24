@@ -5,12 +5,11 @@ import {
   useParams,
 } from "react-router-dom";
 import { Resource } from "../../models";
-import { ListViewContent, ListViewContentProps } from "../list";
+import { List, ListProps } from "../list";
 import { Group, Icon, Tabs, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-export interface SubresourceConfig<T extends Resource>
-  extends ListViewContentProps<T> {
+export interface SubresourceConfig<T extends Resource> extends ListProps<T> {
   route: string;
   icon?: ReactNode;
 }
@@ -38,8 +37,10 @@ export const Subresource = <T extends Resource>() => {
   const config =
     configs.find((c) => c.route === subresourceRoute) ?? configs[0];
 
+  const showIcons = false;
+
   return (
-    <ListViewContent
+    <List
       {...config}
       title={
         <Tabs.Root
@@ -48,16 +49,15 @@ export const Subresource = <T extends Resource>() => {
           onValueChange={({ value }) =>
             navigate(`${basePath}/${value}`, { replace: true })
           }
+          size={"md"}
         >
           <Tabs.List>
-            {configs?.map(({ route, title, icon, useResourcesState }) => (
+            {configs?.map(({ route, title, icon, resources }) => (
               <Tabs.Trigger key={route} value={route}>
                 <Group fontSize={"md"}>
-                  {icon && <Icon>{icon}</Icon>}
+                  {showIcons && icon && <Icon size={"sm"}>{icon}</Icon>}
                   <Text>{`${title}${
-                    useResourcesState?.resources
-                      ? ` (${useResourcesState?.resources?.length})`
-                      : ""
+                    resources ? ` (${resources?.length})` : "0"
                   }`}</Text>
                 </Group>
               </Tabs.Trigger>

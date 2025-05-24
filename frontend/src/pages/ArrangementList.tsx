@@ -13,7 +13,7 @@ export const ArrangementList = () => {
       subtitle={"Arrangements or original compositions of works of music"}
     >
       <List
-        title=""
+        title={"Scores"}
         {...useArrangements()}
         columnMap={getArrangementColumns(useArrangementActions())}
         renderGridItemContents={(arrangement) => (

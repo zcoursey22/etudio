@@ -1,27 +1,22 @@
-import { ListViewContent } from "../components/list";
+import { List, ListPage } from "../components/list";
 import {
   getRoutineColumns,
   RoutineListGridItemContents,
   useRoutineActions,
 } from "../components/resources/routines";
 import { useRoutines } from "../hooks";
-import { getTitle } from "../utils";
 
 export const RoutineList = () => {
-  const listState = useRoutines();
-  const actions = useRoutineActions();
-
   return (
-    <>
-      <title>{getTitle("Routines")}</title>
-      <ListViewContent
+    <ListPage title={"Routines"}>
+      <List
         title="Routines"
-        useResourcesState={listState}
-        columnMap={getRoutineColumns(actions)}
+        {...useRoutines()}
+        columnMap={getRoutineColumns(useRoutineActions())}
         renderGridItemContents={(routine) => (
           <RoutineListGridItemContents routine={routine} />
         )}
       />
-    </>
+    </ListPage>
   );
 };

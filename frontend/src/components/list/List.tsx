@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Heading,
-  IconButton,
-  SegmentGroup,
-  Stack,
-} from "@chakra-ui/react";
+import { Flex, Heading, Icon, Stack, Tabs } from "@chakra-ui/react";
 import { ListTable } from "./table/ListTable";
 import { ListGrid } from "./grid/ListGrid";
 import { LuLayoutGrid, LuMenu } from "react-icons/lu";
@@ -39,7 +33,7 @@ export interface ListProps<T> {
 }
 
 export const List = <T extends Resource>(props: ListProps<T>) => {
-  const { title, columnMap, favoritable } = props;
+  const { title, columnMap, favoritable = true } = props;
 
   const GLOBAL_VIEW_KEY = "etudio_currentView";
   const PAGE_VIEW_KEY = `${GLOBAL_VIEW_KEY}_${title}`;
@@ -72,43 +66,25 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
     <Stack>
       <Flex align={"flex-start"} justify={"space-between"}>
         <Heading color={"fg"}>{title}</Heading>
-        <SegmentGroup.Root
+        <Tabs.Root
           value={currentViewType}
           onValueChange={({ value }) => handleViewTypeChange(value as ListType)}
-          size={"sm"}
+          variant={"outline"}
+          size={"md"}
         >
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items
-            padding={"0"}
-            cursor={"pointer"}
-            items={[
-              {
-                value: ListType.TABLE,
-                label: (
-                  <IconButton
-                    variant={"plain"}
-                    pointerEvents={"none"}
-                    size={"sm"}
-                  >
-                    <LuMenu />
-                  </IconButton>
-                ),
-              },
-              {
-                value: ListType.GRID,
-                label: (
-                  <IconButton
-                    variant={"plain"}
-                    pointerEvents={"none"}
-                    size={"sm"}
-                  >
-                    <LuLayoutGrid />
-                  </IconButton>
-                ),
-              },
-            ]}
-          />
-        </SegmentGroup.Root>
+          <Tabs.List>
+            <Tabs.Trigger value={"table"}>
+              <Icon size={"sm"}>
+                <LuMenu />
+              </Icon>
+            </Tabs.Trigger>
+            <Tabs.Trigger value={"grid"}>
+              <Icon size={"sm"}>
+                <LuLayoutGrid />
+              </Icon>
+            </Tabs.Trigger>
+          </Tabs.List>
+        </Tabs.Root>
       </Flex>
       <ListItemContainer
         {...props}

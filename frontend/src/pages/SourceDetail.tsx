@@ -27,6 +27,12 @@ export const SourceDetail = () => {
   });
   const compositionActions = useCompositionActions();
 
+  const childSourcesListState = {
+    resources: childSources || [],
+    loading: false,
+    error: null,
+  };
+
   return (
     <DetailPageContainer useResourceState={detailState}>
       {(source) => {
@@ -49,7 +55,7 @@ export const SourceDetail = () => {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
-                useResourcesState: compositionsListState,
+                ...compositionsListState,
                 columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
                   from: { visible: false },
@@ -62,11 +68,7 @@ export const SourceDetail = () => {
                 route: ROUTE_SEGMENTS.SOURCES,
                 title: "Sources",
                 icon: <LuFolder />,
-                useResourcesState: {
-                  resources: childSources || [],
-                  loading: false,
-                  error: null,
-                },
+                ...childSourcesListState,
                 columnMap: getSourceColumns(actions),
                 columnOverrides: { parent: { visible: false } },
                 renderGridItemContents: (s) => (

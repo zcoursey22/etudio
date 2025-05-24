@@ -42,7 +42,7 @@ export const ArtistDetail = () => {
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
-                useResourcesState: compositionsListState,
+                ...compositionsListState,
                 columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
                   composer: { visible: false },
@@ -55,7 +55,7 @@ export const ArtistDetail = () => {
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,
                 title: "Scores",
                 icon: <LuBookOpenText />,
-                useResourcesState: arrangementsListState,
+                ...arrangementsListState,
                 columnMap: getArrangementColumns(arrangementActions),
                 columnOverrides: { arranger: { visible: false } },
                 renderGridItemContents: (a) => (
