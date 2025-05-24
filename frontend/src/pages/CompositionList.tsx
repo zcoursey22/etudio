@@ -4,13 +4,17 @@ import {
   getCompositionColumns,
   useCompositionActions,
 } from "../components/resources/compositions";
+import { ListId } from "../constants";
 import { useCompositions } from "../hooks";
 
 export const CompositionList = () => {
   return (
-    <ListPage title={"Compositions"} subtitle={"Works of music"}>
+    <ListPage
+      title={"Compositions"}
+      subtitle={"Works of music"}
+      id={ListId.COMPOSITIONS}
+    >
       <List
-        title={"Compositions"}
         {...useCompositions()}
         columnMap={getCompositionColumns(useCompositionActions())}
         renderGridItemContents={(composition) => (

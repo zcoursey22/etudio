@@ -5,8 +5,8 @@ import {
   useParams,
 } from "react-router-dom";
 import { Resource } from "../../models";
-import { List, ListProps } from "../list";
-import { Group, Icon, Tabs, Text } from "@chakra-ui/react";
+import { List, ListProps, ListTypeSwitcher } from "../list";
+import { Flex, Group, Icon, Tabs, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export interface SubresourceConfig<T extends Resource> extends ListProps<T> {
@@ -41,29 +41,33 @@ export const Subresource = <T extends Resource>() => {
 
   return (
     <List
+      key={config.id}
       {...config}
       title={
-        <Tabs.Root
-          value={config.route}
-          variant={"outline"}
-          onValueChange={({ value }) =>
-            navigate(`${basePath}/${value}`, { replace: true })
-          }
-          size={"md"}
-        >
-          <Tabs.List>
-            {configs?.map(({ route, title, icon, resources }) => (
-              <Tabs.Trigger key={route} value={route}>
-                <Group fontSize={"md"}>
-                  {showIcons && icon && <Icon size={"sm"}>{icon}</Icon>}
-                  <Text>{`${title}${
-                    resources ? ` (${resources?.length})` : "0"
-                  }`}</Text>
-                </Group>
-              </Tabs.Trigger>
-            ))}
-          </Tabs.List>
-        </Tabs.Root>
+        <Flex justify={"space-between"}>
+          <Tabs.Root
+            value={config.route}
+            variant={"outline"}
+            onValueChange={({ value }) =>
+              navigate(`${basePath}/${value}`, { replace: true })
+            }
+            size={"md"}
+          >
+            <Tabs.List>
+              {configs?.map(({ route, title, icon, resources }) => (
+                <Tabs.Trigger key={route} value={route}>
+                  <Group fontSize={"md"}>
+                    {showIcons && icon && <Icon size={"sm"}>{icon}</Icon>}
+                    <Text>{`${title}${
+                      resources ? ` (${resources?.length})` : "0"
+                    }`}</Text>
+                  </Group>
+                </Tabs.Trigger>
+              ))}
+            </Tabs.List>
+          </Tabs.Root>
+          <ListTypeSwitcher listTypeKey={config.id} />
+        </Flex>
       }
     />
   );

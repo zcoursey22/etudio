@@ -1,10 +1,12 @@
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { Resource } from "../../models";
-import { ReactElement, ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import { getTitle } from "../../utils";
 import { ListProps } from "./List";
+import { ListTypeSwitcher } from "./ListTypeSwitcher";
 
 interface Props<T> {
+  id: string;
   title: string;
   subtitle?: ReactNode;
   description?: ReactNode;
@@ -12,23 +14,30 @@ interface Props<T> {
 }
 
 export const ListPage = <T extends Resource>({
+  id,
   title,
   subtitle,
   description,
   children,
 }: Props<T>) => {
+  const listWithId = cloneElement(children, { id });
   return (
     <>
       <title>{getTitle(title)}</title>
-      <Stack color={"fg.muted"} fontSize={"md"}>
-        <Stack gap={"0"}>
-          <Heading color={"fg"} size={"3xl"}>
-            {title}
-          </Heading>
-          {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
-        </Stack>
-        {description && <Box>{description}</Box>}
-        {children}
+      <Stack color={"fg.muted"} fontSize={"md"} gap={"0"}>
+        <Flex align={"flex-end"} justify={"space-between"} gap={"0.5em"}>
+          <Stack mb={"0.5em"}>
+            <Stack gap={"0"}>
+              <Heading color={"fg"} size={"3xl"}>
+                {title}
+              </Heading>
+              {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
+            </Stack>
+            {description && <Box>{description}</Box>}
+          </Stack>
+          <ListTypeSwitcher listTypeKey={id} />
+        </Flex>
+        {listWithId}
       </Stack>
     </>
   );

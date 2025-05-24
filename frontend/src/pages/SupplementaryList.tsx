@@ -4,13 +4,17 @@ import {
   SupplementaryListGridItemContents,
   useSupplementaryActions,
 } from "../components/resources/supplementaries";
+import { ListId } from "../constants";
 import { useSupplementaries } from "../hooks";
 
 export const SupplementaryList = () => {
   return (
-    <ListPage title={"Supplementaries"}>
+    <ListPage
+      title={"Supplementaries"}
+      subtitle={"Additional materials"}
+      id={ListId.SUPPLEMENTARIES}
+    >
       <List
-        title="Supplementaries"
         {...useSupplementaries()}
         columnMap={getSupplementaryColumns(useSupplementaryActions())}
         renderGridItemContents={(supplementary) => (

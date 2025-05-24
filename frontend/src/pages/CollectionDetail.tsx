@@ -10,6 +10,7 @@ import { NavLink } from "../components/nav/NavLink";
 import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
 import { LuMusic } from "react-icons/lu";
 import { useCollectionActions } from "../components/resources/collections";
+import { ListId } from "../constants";
 
 export const CollectionDetail = () => {
   const { id } = useParams();
@@ -44,6 +45,7 @@ export const CollectionDetail = () => {
             actions={actions}
             subresourceConfigs={[
               {
+                id: ListId.COMPOSITIONS,
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,

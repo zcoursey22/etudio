@@ -14,6 +14,7 @@ import {
 import { ROUTE_SEGMENTS } from "../routes";
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
 import { useArtistActions } from "../components/resources/artists";
+import { ListId } from "../constants";
 
 export const ArtistDetail = () => {
   const { id } = useParams();
@@ -39,6 +40,7 @@ export const ArtistDetail = () => {
             actions={actions}
             subresourceConfigs={[
               {
+                id: ListId.COMPOSITIONS,
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
@@ -52,6 +54,7 @@ export const ArtistDetail = () => {
                 ),
               },
               {
+                id: ListId.ARRANGEMENTS,
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,
                 title: "Scores",
                 icon: <LuBookOpenText />,

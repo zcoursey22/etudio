@@ -14,6 +14,7 @@ import {
 import { ResourceFrom } from "../components/resources/shared";
 import { LuFolder, LuMusic } from "react-icons/lu";
 import { ROUTE_SEGMENTS } from "../routes";
+import { ListId } from "../constants";
 
 export const SourceDetail = () => {
   const { id } = useParams();
@@ -52,6 +53,7 @@ export const SourceDetail = () => {
             actions={actions}
             subresourceConfigs={[
               {
+                id: ListId.COMPOSITIONS,
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,
@@ -65,6 +67,7 @@ export const SourceDetail = () => {
                 ),
               },
               {
+                id: ListId.SOURCES,
                 route: ROUTE_SEGMENTS.SOURCES,
                 title: "Sources",
                 icon: <LuFolder />,

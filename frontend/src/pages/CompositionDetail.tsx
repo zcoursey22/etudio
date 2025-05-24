@@ -15,6 +15,7 @@ import {
   useCompositionActions,
 } from "../components/resources/compositions";
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
+import { ListId } from "../constants";
 
 export const CompositionDetail = () => {
   const { id } = useParams();
@@ -60,6 +61,7 @@ export const CompositionDetail = () => {
             actions={actions}
             subresourceConfigs={[
               {
+                id: ListId.ARRANGEMENTS,
                 route: ROUTE_SEGMENTS.ARRANGEMENTS,
                 title: "Scores",
                 icon: <LuBookOpenText />,
@@ -71,6 +73,7 @@ export const CompositionDetail = () => {
                 ),
               },
               {
+                id: ListId.COMPOSITIONS,
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,

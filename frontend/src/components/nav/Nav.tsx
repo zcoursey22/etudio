@@ -17,6 +17,7 @@ import {
   LuListOrdered,
   LuLogOut,
   LuMusic,
+  LuPlus,
   LuSettings,
   LuTarget,
   LuUser,
@@ -76,6 +77,9 @@ export const Nav = () => {
       <Stack gap={"1em"}>
         <Title />
         <Stack>
+          <Button mb={"0.5em"} variant={"solid"} colorPalette={"gray"}>
+            <LuPlus /> New
+          </Button>
           <Stack as={"nav"} gap={"1em"}>
             <Stack>
               {routes.map(({ to, label, icon }) => (
