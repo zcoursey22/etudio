@@ -20,7 +20,9 @@ export const CollectionDetail = () => {
   const compositionsListState = useCompositions({
     collectionId: detailState?.resource?.id,
   });
-  const compositionActions = useCompositionActions();
+  const compositionActions = useCompositionActions({
+    create: { visible: false },
+  });
 
   return (
     <DetailPageContainer useResourceState={detailState}>

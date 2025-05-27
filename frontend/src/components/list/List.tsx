@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { ListTable } from "./table/ListTable";
 import { ListGrid } from "./grid/ListGrid";
 import useLocalStorage from "use-local-storage";
@@ -27,6 +27,7 @@ export interface ListProps<T> {
   renderGridItemContents: (resource: T) => ReactNode;
   selectable?: boolean;
   favoritable?: boolean;
+  createButtonLabel?: string;
 }
 
 export const List = <T extends Resource>(props: ListProps<T>) => {
@@ -46,7 +47,7 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
   }
 
   return (
-    <>
+    <Flex direction={"column"} gap={"0.5em"}>
       <Heading color={"fg"}>{title}</Heading>
       <ListItemContainer
         {...props}
@@ -56,6 +57,6 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
           ...columnMap,
         }}
       />
-    </>
+    </Flex>
   );
 };

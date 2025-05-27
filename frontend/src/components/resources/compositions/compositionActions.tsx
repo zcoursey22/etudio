@@ -2,8 +2,9 @@ import { useDeleteComposition } from "../../../hooks";
 import { Composition } from "../../../models";
 import {
   ActionOverrides,
+  createActionConfigMap,
   deleteActionConfigMap,
-  renameActionConfigMap,
+  editActionConfigMap,
   resolveActions,
 } from "../shared";
 
@@ -14,7 +15,12 @@ export const useCompositionActions = (
 
   return resolveActions<Composition>(
     {
-      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...createActionConfigMap(({ name }) =>
+        console.log(
+          `This should open a menu to create one of the subresources for ${name}`
+        )
+      ),
+      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
       ...deleteActionConfigMap(({ id }) => deleteResource(id)),
     },
     overrides

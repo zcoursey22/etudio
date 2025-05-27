@@ -11,6 +11,7 @@ import { ReactNode } from "react";
 
 export interface SubresourceConfig<T extends Resource> extends ListProps<T> {
   route: string;
+  createLabel?: string;
   icon?: ReactNode;
 }
 

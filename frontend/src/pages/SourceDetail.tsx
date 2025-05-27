@@ -26,13 +26,18 @@ export const SourceDetail = () => {
   const compositionsListState = useCompositions({
     sourceId: detailState?.resource?.id,
   });
-  const compositionActions = useCompositionActions();
+  const compositionActions = useCompositionActions({
+    create: { visible: false },
+  });
 
   const childSourcesListState = {
     resources: childSources || [],
     loading: false,
     error: null,
   };
+  const childSourceActions = useSourceActions({
+    create: { visible: false },
+  });
 
   return (
     <DetailPageContainer useResourceState={detailState}>
@@ -72,7 +77,7 @@ export const SourceDetail = () => {
                 title: "Sources",
                 icon: <LuFolder />,
                 ...childSourcesListState,
-                columnMap: getSourceColumns(actions),
+                columnMap: getSourceColumns(childSourceActions),
                 columnOverrides: { parent: { visible: false } },
                 renderGridItemContents: (s) => (
                   <SourceListGridItemContents source={s} />

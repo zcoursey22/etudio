@@ -1,13 +1,15 @@
 import { IconType } from "react-icons";
-import { LuDownload, LuPencilLine, LuTrash2 } from "react-icons/lu";
+import { LuDownload, LuPencilLine, LuPlus, LuTrash2 } from "react-icons/lu";
 
 export interface ActionConfig<T> {
-  label: string;
+  key: string;
+  label?: string;
   onClick: (resource: T) => unknown;
   icon?: IconType;
   visible?: boolean;
   bulkable?: boolean;
   destructive?: boolean;
+  primary?: boolean;
 }
 
 export type ActionMap<T> = Record<string, ActionConfig<T>>;
@@ -31,12 +33,26 @@ export const resolveActions = <T,>(
 
 // shared/default config builders
 
-export const renameActionConfigMap = <T,>(
+export const createActionConfigMap = <T,>(
   onClick: (resource: T) => unknown
 ): ActionMap<T> => {
   return {
-    rename: {
-      label: "Rename",
+    create: {
+      key: "create",
+      icon: LuPlus,
+      onClick,
+      primary: true,
+    },
+  };
+};
+
+export const editActionConfigMap = <T,>(
+  onClick: (resource: T) => unknown
+): ActionMap<T> => {
+  return {
+    edit: {
+      key: "edit",
+      label: "Edit",
       icon: LuPencilLine,
       onClick,
     },
@@ -48,6 +64,7 @@ export const downloadActionConfigMap = <T,>(
 ): ActionMap<T> => {
   return {
     download: {
+      key: "download",
       label: "Download",
       icon: LuDownload,
       onClick,
@@ -60,6 +77,7 @@ export const deleteActionConfigMap = <T,>(
 ): ActionMap<T> => {
   return {
     delete: {
+      key: "delete",
       label: "Delete",
       icon: LuTrash2,
       onClick,

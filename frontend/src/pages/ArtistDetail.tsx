@@ -23,10 +23,14 @@ export const ArtistDetail = () => {
   const actions = useArtistActions();
 
   const compositionsListState = useCompositions({ artistId });
-  const compositionActions = useCompositionActions();
+  const compositionActions = useCompositionActions({
+    create: { visible: false },
+  });
 
   const arrangementsListState = useArrangements({ artistId });
-  const arrangementActions = useArrangementActions();
+  const arrangementActions = useArrangementActions({
+    create: { visible: false },
+  });
 
   return (
     <DetailPageContainer useResourceState={detailState}>

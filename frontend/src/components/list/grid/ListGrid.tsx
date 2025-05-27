@@ -31,7 +31,7 @@ export const ListGrid = <T extends Resource>({
     <SimpleGrid
       columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
       gap={"1em"}
-      pt={"1em"}
+      pt={"0.5em"}
     >
       {resources.map((resource) => (
         <Flex key={resource.id} aspectRatio={"1"}>

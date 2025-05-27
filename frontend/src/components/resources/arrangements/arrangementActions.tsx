@@ -4,7 +4,7 @@ import {
   ActionOverrides,
   deleteActionConfigMap,
   downloadActionConfigMap,
-  renameActionConfigMap,
+  editActionConfigMap,
   resolveActions,
 } from "../shared";
 
@@ -15,8 +15,8 @@ export const useArrangementActions = (
 
   return resolveActions<Arrangement>(
     {
-      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
       ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
+      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
       ...deleteActionConfigMap(({ id }) => deleteResource(id)),
     },
     overrides

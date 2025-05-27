@@ -16,7 +16,9 @@ export const CompositionList = () => {
     >
       <List
         {...useCompositions()}
-        columnMap={getCompositionColumns(useCompositionActions())}
+        columnMap={getCompositionColumns(
+          useCompositionActions({ create: { visible: false } })
+        )}
         renderGridItemContents={(composition) => (
           <CompositionListGridItemContents composition={composition} />
         )}

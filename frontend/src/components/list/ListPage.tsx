@@ -1,15 +1,25 @@
-import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { Resource } from "../../models";
 import { cloneElement, ReactElement, ReactNode } from "react";
 import { getTitle } from "../../utils";
 import { ListProps } from "./List";
 import { ListTypeSwitcher } from "./ListTypeSwitcher";
+import { LuPlus } from "react-icons/lu";
 
 interface Props<T> {
   id: string;
   title: string;
   subtitle?: ReactNode;
   description?: ReactNode;
+  createLabel?: string;
   children: ReactElement<ListProps<T>>;
 }
 
@@ -35,7 +45,14 @@ export const ListPage = <T extends Resource>({
             </Stack>
             {description && <Box>{description}</Box>}
           </Stack>
-          <ListTypeSwitcher listTypeKey={id} />
+          <Flex align={"center"} gap={"1em"}>
+            <IconButton size={"xs"}>
+              <Icon size={"sm"}>
+                <LuPlus />
+              </Icon>
+            </IconButton>
+            <ListTypeSwitcher listTypeKey={id} />
+          </Flex>
         </Flex>
         {listWithId}
       </Stack>

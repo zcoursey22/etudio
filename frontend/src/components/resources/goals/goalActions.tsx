@@ -3,7 +3,7 @@ import { Goal } from "../../../models";
 import {
   ActionOverrides,
   deleteActionConfigMap,
-  renameActionConfigMap,
+  editActionConfigMap,
   resolveActions,
 } from "../shared";
 
@@ -12,7 +12,7 @@ export const useGoalActions = (overrides?: ActionOverrides<Goal>) => {
 
   return resolveActions<Goal>(
     {
-      ...renameActionConfigMap(({ name }) => console.log(`Rename ${name}`)),
+      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
       ...deleteActionConfigMap(({ id }) => deleteResource(id)),
     },
     overrides

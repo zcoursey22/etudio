@@ -25,9 +25,15 @@ export const CompositionDetail = () => {
   const arrangementsListState = useArrangements({
     compositionId: detailState?.resource?.id,
   });
-  const arrangementActions = useArrangementActions();
+  const arrangementActions = useArrangementActions({
+    create: { visible: false },
+  });
+
   const childCompositionsListState = useCompositions({
     partOfCompositionId: detailState?.resource?.id,
+  });
+  const childCompositionActions = useCompositionActions({
+    create: { visible: false },
   });
 
   return (
@@ -78,7 +84,7 @@ export const CompositionDetail = () => {
                 title: "Compositions",
                 icon: <LuMusic />,
                 ...childCompositionsListState,
-                columnMap: getCompositionColumns(actions),
+                columnMap: getCompositionColumns(childCompositionActions),
                 columnOverrides: {
                   from: { visible: false },
                   composer: { visible: false },

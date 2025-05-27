@@ -1,4 +1,11 @@
-import { Button, Group, Icon, Menu, Portal } from "@chakra-ui/react";
+import {
+  Button,
+  Group,
+  Icon,
+  IconButton,
+  Menu,
+  Portal,
+} from "@chakra-ui/react";
 import { Resource } from "../../../models";
 import { ActionConfig } from "./actions";
 import { LuEllipsisVertical } from "react-icons/lu";
@@ -21,20 +28,34 @@ export const ActionMenu = <T extends Resource>({
   }
   return shouldRenderAsButtons ? (
     <Group>
-      {actions.map(({ label, onClick, icon, destructive }) => (
-        <Button
-          key={label}
-          value={label}
-          cursor={"pointer"}
-          onClick={() => onClick(resource)}
-          variant={"surface"}
-          color={destructive ? "fg.error" : "auto"}
-          size={"xs"}
-        >
-          {icon && <Icon size={"sm"} as={icon} />}
-          {label}
-        </Button>
-      ))}
+      {actions.map(({ label, onClick, icon, destructive, primary }) =>
+        label ? (
+          <Button
+            key={label}
+            value={label}
+            cursor={"pointer"}
+            onClick={() => onClick(resource)}
+            variant={primary ? "solid" : "surface"}
+            color={destructive ? "fg.error" : "auto"}
+            size={"xs"}
+          >
+            {icon && <Icon size={"sm"} as={icon} />}
+            {label}
+          </Button>
+        ) : (
+          <IconButton
+            key={label}
+            value={label}
+            cursor={"pointer"}
+            onClick={() => onClick(resource)}
+            variant={primary ? "solid" : "surface"}
+            color={destructive ? "fg.error" : "auto"}
+            size={"xs"}
+          >
+            {icon && <Icon size={"sm"} as={icon} />}
+          </IconButton>
+        )
+      )}
     </Group>
   ) : (
     <Menu.Root
@@ -48,10 +69,10 @@ export const ActionMenu = <T extends Resource>({
       <Portal>
         <Menu.Positioner>
           <Menu.Content fontWeight={"semibold"}>
-            {actions.map(({ label, onClick, icon, destructive }) => (
+            {actions.map(({ key, label, onClick, icon, destructive }) => (
               <Menu.Item
-                key={label}
-                value={label}
+                key={key}
+                value={key}
                 cursor={"pointer"}
                 onClick={() => onClick(resource)}
                 color={destructive ? "fg.error" : "fg"}
