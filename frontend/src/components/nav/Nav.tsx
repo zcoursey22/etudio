@@ -17,7 +17,6 @@ import {
   LuListOrdered,
   LuLogOut,
   LuMusic,
-  LuPlus,
   LuSettings,
   LuTarget,
   LuUser,
@@ -26,6 +25,7 @@ import { Footer } from "../footer";
 import { Tools } from "../tools";
 import { useAuth } from "../../hooks";
 import { Title } from "../Title";
+import { CreateButton } from "../CreateButton";
 
 export const Nav = () => {
   const { logout } = useAuth();
@@ -77,9 +77,7 @@ export const Nav = () => {
       <Stack gap={"1em"}>
         <Title />
         <Stack>
-          <Button mb={"0.5em"} variant={"solid"} colorPalette={"gray"}>
-            <LuPlus /> New
-          </Button>
+          <CreateButton />
           <Stack as={"nav"} gap={"1em"}>
             <Stack>
               {routes.map(({ to, label, icon }) => (
