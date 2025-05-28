@@ -5,13 +5,14 @@ import { Goal } from "../../../models";
 import { getGoalDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
 import { useGoalActions } from "./goalActions";
+import { GoalStatusBadge } from "./GoalStatusBadge";
 
 interface Props {
   goal: Goal;
 }
 
 export const GoalListGridItemContents = ({ goal }: Props) => {
-  const { name, id, isFavorite, description } = goal;
+  const { name, id, isFavorite, description, status } = goal;
   const actions = useGoalActions();
 
   return (
@@ -25,6 +26,7 @@ export const GoalListGridItemContents = ({ goal }: Props) => {
           </LinkOverlay>
         </Card.Title>
         <Card.Description as={"div"}>
+          <GoalStatusBadge status={status} />
           {description && (
             <>
               <Separator mt={"0.5em"} />

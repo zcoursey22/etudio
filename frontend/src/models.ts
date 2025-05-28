@@ -71,7 +71,14 @@ export interface Instrument extends Base {}
 // GOALS
 
 export interface Goal extends Resource {
-  status: string;
+  status: GoalStatus;
+}
+
+export enum GoalStatus {
+  NOT_STARTED = "not_started",
+  IN_PROGRESS = "in_progress",
+  PAUSED = "paused",
+  DONE = "done",
 }
 
 // ROUTINES

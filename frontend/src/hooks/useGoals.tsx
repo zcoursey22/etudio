@@ -1,11 +1,11 @@
 import { useCreate, useDelete, useQuery } from "./useCRUD";
-import { Goal } from "../models";
+import { Goal, GoalStatus } from "../models";
 
 const GOALS = "goals";
 
-type CreateGoalPayload = {
+export type CreateGoalPayload = {
   name: string;
-  status: string;
+  status: GoalStatus;
   description?: string;
 };
 

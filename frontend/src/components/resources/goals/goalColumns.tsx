@@ -5,6 +5,7 @@ import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";
 import { ActionConfig } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";
+import { GoalStatusBadge } from "./GoalStatusBadge";
 
 export const getGoalColumns = (
   actions: ActionConfig<Goal>[]
@@ -17,7 +18,7 @@ export const getGoalColumns = (
   },
   status: {
     header: "Status",
-    render: ({ status }) => <>{status}</>,
+    render: ({ status }) => <GoalStatusBadge status={status} />,
   },
   lastModified: {
     header: "Last modified",

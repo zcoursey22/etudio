@@ -1,5 +1,5 @@
 import { DetailPage, DetailPageContainer } from "../components/detail";
-import { useGoalActions } from "../components/resources/goals";
+import { GoalStatusBadge, useGoalActions } from "../components/resources/goals";
 import { useGoal } from "../hooks";
 import { useParams } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export const GoalDetail = () => {
           <DetailPage
             resource={goal}
             title={name}
-            subtitle={status}
+            subtitle={<GoalStatusBadge status={status} />}
             actions={actions}
             mainContent={description}
           />
