@@ -1,7 +1,13 @@
-import { useDelete, useQuery } from "./useCRUD";
+import { useCreate, useDelete, useQuery } from "./useCRUD";
 import { Goal } from "../models";
 
 const GOALS = "goals";
+
+type CreateGoalPayload = {
+  name: string;
+  status: string;
+  description?: string;
+};
 
 export const useGoals = () => {
   const {
@@ -19,6 +25,15 @@ export const useGoal = (id: string | number) => {
     error,
   } = useQuery<Goal>([GOALS, id], `/${GOALS}/${id}`);
   return { resource, loading, error };
+};
+
+export const useCreateGoal = () => {
+  const {
+    mutateAsync: createResource,
+    isPending: loading,
+    error,
+  } = useCreate<CreateGoalPayload>(GOALS, `/${GOALS}`);
+  return { createResource, loading, error };
 };
 
 export const useDeleteGoal = () => {

@@ -23,6 +23,36 @@ export const useQuery = <T,>(
   });
 };
 
+export const useCreate = <T extends Record<string, unknown>>(
+  key: string | [string, ...unknown[]],
+  endpoint: string,
+  options?: UseMutationOptions<void, Error, T>
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, T>({
+    mutationFn: async (payload: T) => {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          created: new Date(),
+          lastModified: new Date(),
+          isFavorite: false,
+        }),
+      });
+      if (!res.ok) throw new Error(`Failed to create: ${endpoint}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: Array.isArray(key) ? key : [key],
+      });
+    },
+    ...options,
+  });
+};
+
 export const useDelete = (
   key: string | [string, ...unknown[]],
   endpoint: string,

@@ -17,7 +17,7 @@ export const useArrangementActions = (
     {
       ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
       ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
-      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
+      ...deleteActionConfigMap(async ({ id }) => deleteResource(id)),
     },
     overrides
   );
