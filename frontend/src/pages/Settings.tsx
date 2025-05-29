@@ -15,7 +15,7 @@ export const Settings = () => {
           <Heading size={"md"}>Display</Heading>
           <Flex align={"center"} justify={"space-between"}>
             <Text color={"fg.muted"} fontSize={"sm"}>
-              Remember which way you like to view different resource lists?
+              Sync the list viewing type (table or grid) of all resources?
             </Text>
             <Switch.Root
               checked={settings.syncListViewType}

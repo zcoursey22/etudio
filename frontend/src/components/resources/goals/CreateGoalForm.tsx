@@ -26,6 +26,7 @@ type FieldConfig<T> = {
   type: FieldType;
   required?: boolean;
   showRequiredIndicator?: boolean;
+  maxLength?: number;
   defaultValue?: T[keyof T];
   values?: readonly { value: T[keyof T]; label: string }[];
 };
@@ -40,9 +41,15 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<CreateGoalPayload>();
 
   const submit: SubmitHandler<CreateGoalPayload> = (payload) => {
+    payload = {
+      ...payload,
+      name: payload.name.trim(),
+      description: payload.description?.trim(),
+    };
     console.log(payload);
     createResource(payload)
       .catch((err) => {
@@ -60,12 +67,14 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
       type: FieldType.INPUT,
       required: true,
       showRequiredIndicator: true,
+      maxLength: 50,
     },
     {
       name: "description",
       label: "Description",
       type: FieldType.TEXTAREA,
       showRequiredIndicator: true,
+      maxLength: 250,
     },
     {
       name: "status",
@@ -98,67 +107,88 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
               showRequiredIndicator,
               defaultValue,
               values,
-            }) => (
-              <Field.Root
-                key={name}
-                invalid={!!errors[name]}
-                required={required}
-              >
-                <Field.Label>
-                  {label}
-                  {showRequiredIndicator && (
-                    <Field.RequiredIndicator
-                      fallback={
-                        !required && (
-                          <Badge
-                            size={"xs"}
-                            fontStyle={"italic"}
-                            variant={"plain"}
-                            color={"fg.subtle"}
-                          >
-                            optional
-                          </Badge>
-                        )
-                      }
-                    />
-                  )}
-                </Field.Label>
-                {type === FieldType.INPUT ? (
-                  <Input
-                    {...register(
-                      name,
-                      required ? { required: "This field is required" } : {}
+              maxLength,
+            }) => {
+              const value = watch(name as keyof CreateGoalPayload) || ""; // fallback to empty string
+              const charCount =
+                typeof value === "string" ? value.trim().length : 0;
+              const isOverCharacterLimit =
+                maxLength !== undefined && charCount > maxLength;
+
+              return (
+                <Field.Root
+                  key={name}
+                  invalid={!!errors[name] || isOverCharacterLimit}
+                  required={required}
+                >
+                  <Field.Label>
+                    {label}
+                    {showRequiredIndicator && (
+                      <Field.RequiredIndicator
+                        fallback={
+                          !required && (
+                            <Badge
+                              size={"xs"}
+                              fontStyle={"italic"}
+                              variant={"plain"}
+                              color={"fg.subtle"}
+                            >
+                              optional
+                            </Badge>
+                          )
+                        }
+                      />
                     )}
-                    defaultValue={defaultValue}
-                  />
-                ) : type === FieldType.TEXTAREA ? (
-                  <Textarea
-                    {...register(
-                      name,
-                      required ? { required: "This field is required" } : {}
-                    )}
-                    defaultValue={defaultValue}
-                  />
-                ) : (
-                  <NativeSelect.Root>
-                    <NativeSelect.Field
-                      {...register(
-                        name,
-                        required ? { required: "This field is required" } : {}
-                      )}
+                    <Field.ErrorText>
+                      {isOverCharacterLimit
+                        ? `${charCount}/${maxLength} characters`
+                        : errors[name]?.message}
+                    </Field.ErrorText>
+                  </Field.Label>
+                  {type === FieldType.INPUT ? (
+                    <Input
+                      {...register(name, {
+                        required: required ? "" : false,
+                        validate: (v) =>
+                          required ? (v?.trim().length ?? 0) > 0 || "" : true,
+                        maxLength: {
+                          value: maxLength || Infinity,
+                          message: "",
+                        },
+                      })}
                       defaultValue={defaultValue}
-                    >
-                      {values?.map(({ value, label }) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
-                    </NativeSelect.Field>
-                    <NativeSelect.Indicator />
-                  </NativeSelect.Root>
-                )}
-              </Field.Root>
-            )
+                    />
+                  ) : type === FieldType.TEXTAREA ? (
+                    <Textarea
+                      {...register(name, {
+                        required: required ? "" : false,
+                        validate: (v) =>
+                          required ? (v?.trim().length ?? 0) > 0 || "" : true,
+                        maxLength: {
+                          value: maxLength || Infinity,
+                          message: "",
+                        },
+                      })}
+                      defaultValue={defaultValue}
+                    />
+                  ) : (
+                    <NativeSelect.Root>
+                      <NativeSelect.Field
+                        {...register(name, { required: required ? "" : false })}
+                        defaultValue={defaultValue}
+                      >
+                        {values?.map(({ value, label }) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ))}
+                      </NativeSelect.Field>
+                      <NativeSelect.Indicator />
+                    </NativeSelect.Root>
+                  )}
+                </Field.Root>
+              );
+            }
           )}
 
           <Flex mt={"1em"} gap={"0.5em"} justifyContent={"flex-end"}>
