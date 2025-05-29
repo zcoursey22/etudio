@@ -1,4 +1,4 @@
-import { useCreate, useDelete, useQuery } from "./useCRUD";
+import { useCreate, useDelete, useQuery, useUpdate } from "./useCRUD";
 import { Goal, GoalStatus } from "../models";
 
 const GOALS = "goals";
@@ -34,6 +34,15 @@ export const useCreateGoal = () => {
     error,
   } = useCreate<CreateGoalPayload>(GOALS, `/${GOALS}`);
   return { createResource, loading, error };
+};
+
+export const useUpdateGoal = () => {
+  const {
+    mutateAsync: updateResource,
+    isPending: loading,
+    error,
+  } = useUpdate(GOALS, `/${GOALS}`);
+  return { updateResource, loading, error };
 };
 
 export const useDeleteGoal = () => {

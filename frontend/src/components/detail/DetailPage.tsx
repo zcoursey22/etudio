@@ -27,6 +27,7 @@ interface Props<T extends Resource> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subresourceConfigs?: SubresourceConfig<any>[];
   actions?: ActionConfig<T>[];
+  favoriteToggleHandler?: () => void;
 }
 
 export const DetailPage = <T extends Resource>({
@@ -38,6 +39,7 @@ export const DetailPage = <T extends Resource>({
   mainContent,
   subresourceConfigs,
   actions,
+  favoriteToggleHandler,
 }: Props<T>) => {
   return (
     <>
@@ -47,7 +49,10 @@ export const DetailPage = <T extends Resource>({
           <BackButton />
           <Box>
             <Group>
-              <Favorite isFavorite={resource.isFavorite} />
+              <Favorite
+                isFavorite={resource.isFavorite}
+                toggleHandler={favoriteToggleHandler}
+              />
               <Span>
                 <Heading display="inline-block" color={"fg"}>
                   {title}

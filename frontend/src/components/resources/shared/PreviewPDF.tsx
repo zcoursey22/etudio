@@ -7,17 +7,20 @@ interface Props {
 
 export const PreviewPDF = ({ pdf }: Props) => {
   return (
-    <IconButton
-      unstyled
-      cursor={"pointer"}
-      color={"fg"}
-      fontSize={"inherit"}
-      zIndex={"1"}
-      onClick={() => console.log("PDF preview")}
-    >
-      <Icon size={"sm"} color="fg">
-        <LuExpand />
-      </Icon>
-    </IconButton>
+    pdf && (
+      <IconButton
+        unstyled
+        cursor={"pointer"}
+        color={"fg"}
+        fontSize={"inherit"}
+        zIndex={"1"}
+        onClick={() => console.log("PDF preview")}
+        disabled={true}
+      >
+        <Icon size={"sm"}>
+          <LuExpand />
+        </Icon>
+      </IconButton>
+    )
   );
 };

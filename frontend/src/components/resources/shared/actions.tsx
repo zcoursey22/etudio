@@ -10,6 +10,7 @@ export interface ActionConfig<T> {
   bulkable?: boolean;
   destructive?: boolean;
   primary?: boolean;
+  disabled?: boolean;
 }
 
 export type ActionMap<T> = Record<string, ActionConfig<T>>;
@@ -55,6 +56,7 @@ export const editActionConfigMap = <T,>(
       label: "Edit",
       icon: LuPencilLine,
       onClick,
+      disabled: true,
     },
   };
 };
@@ -68,6 +70,7 @@ export const downloadActionConfigMap = <T,>(
       label: "Download",
       icon: LuDownload,
       onClick,
+      disabled: true,
     },
   };
 };

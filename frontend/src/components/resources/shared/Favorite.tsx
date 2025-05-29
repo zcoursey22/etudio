@@ -2,10 +2,11 @@ import { Icon, IconButton } from "@chakra-ui/react";
 import { LuHeart } from "react-icons/lu";
 
 interface Props {
+  toggleHandler?: () => void;
   isFavorite?: boolean;
 }
 
-export const Favorite = ({ isFavorite }: Props) => {
+export const Favorite = ({ isFavorite, toggleHandler }: Props) => {
   return (
     <IconButton
       unstyled
@@ -13,6 +14,7 @@ export const Favorite = ({ isFavorite }: Props) => {
       color={isFavorite ? "red.focusRing" : "fg.subtle"}
       fontSize={"inherit"}
       zIndex={"1"}
+      onClick={() => toggleHandler && toggleHandler()}
     >
       <Icon
         size={"sm"}

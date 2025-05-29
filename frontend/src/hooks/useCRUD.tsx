@@ -53,6 +53,39 @@ export const useCreate = <T extends Record<string, unknown>>(
   });
 };
 
+export type UpdateParams<T> = {
+  id: string | number;
+  payload: T;
+};
+
+export const useUpdate = <T extends Record<string, unknown>>(
+  key: string | [string, ...unknown[]],
+  endpoint: string,
+  options?: UseMutationOptions<void, Error, UpdateParams<T>>
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, UpdateParams<T>>({
+    mutationFn: async ({ id, payload }: UpdateParams<T>) => {
+      const res = await fetch(`${API_BASE}${endpoint}/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          lastModified: new Date(),
+        }),
+      });
+      if (!res.ok) throw new Error(`Failed to update: ${endpoint}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: Array.isArray(key) ? key : [key],
+      });
+    },
+    ...options,
+  });
+};
+
 export const useDelete = (
   key: string | [string, ...unknown[]],
   endpoint: string,

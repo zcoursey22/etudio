@@ -28,16 +28,17 @@ export const ActionMenu = <T extends Resource>({
   }
   return shouldRenderAsButtons ? (
     <Group>
-      {actions.map(({ label, onClick, icon, destructive, primary }) =>
+      {actions.map(({ label, onClick, icon, destructive, primary, disabled }) =>
         label ? (
           <Button
             key={label}
             value={label}
-            cursor={"pointer"}
+            cursor={disabled ? "disabled" : "pointer"}
             onClick={() => onClick(resource)}
             variant={primary ? "solid" : "surface"}
             color={destructive ? "fg.error" : "auto"}
             size={"xs"}
+            disabled={disabled}
           >
             {icon && <Icon size={"sm"} as={icon} />}
             {label}
@@ -46,11 +47,12 @@ export const ActionMenu = <T extends Resource>({
           <IconButton
             key={label}
             value={label}
-            cursor={"pointer"}
+            cursor={disabled ? "disabled" : "pointer"}
             onClick={() => onClick(resource)}
             variant={primary ? "solid" : "surface"}
             color={destructive ? "fg.error" : "auto"}
             size={"xs"}
+            disabled={disabled}
           >
             {icon && <Icon size={"sm"} as={icon} />}
           </IconButton>
@@ -69,18 +71,21 @@ export const ActionMenu = <T extends Resource>({
       <Portal>
         <Menu.Positioner>
           <Menu.Content fontWeight={"semibold"}>
-            {actions.map(({ key, label, onClick, icon, destructive }) => (
-              <Menu.Item
-                key={key}
-                value={key}
-                cursor={"pointer"}
-                onClick={() => onClick(resource)}
-                color={destructive ? "fg.error" : "fg"}
-              >
-                {icon && <Icon size={"sm"} as={icon} />}
-                {label}
-              </Menu.Item>
-            ))}
+            {actions.map(
+              ({ key, label, onClick, icon, destructive, disabled }) => (
+                <Menu.Item
+                  key={key}
+                  value={key}
+                  cursor={disabled ? "disabled" : "pointer"}
+                  onClick={() => onClick(resource)}
+                  color={destructive ? "fg.error" : "fg"}
+                  disabled={disabled}
+                >
+                  {icon && <Icon size={"sm"} as={icon} />}
+                  {label}
+                </Menu.Item>
+              )
+            )}
           </Menu.Content>
         </Menu.Positioner>
       </Portal>
