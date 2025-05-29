@@ -1,5 +1,5 @@
 import { useDeleteRoutine } from "../../../hooks";
-import { Routine } from "../../../models";
+import { Routine } from "../../../resources/models";
 import {
   ActionOverrides,
   deleteActionConfigMap,

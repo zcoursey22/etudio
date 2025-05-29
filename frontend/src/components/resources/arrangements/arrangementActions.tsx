@@ -1,5 +1,5 @@
 import { useDeleteArrangement } from "../../../hooks";
-import { Arrangement } from "../../../models";
+import { Arrangement } from "../../../resources/models";
 import {
   ActionOverrides,
   deleteActionConfigMap,

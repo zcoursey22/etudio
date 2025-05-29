@@ -1,5 +1,5 @@
 import { useDelete, useQuery } from "./useCRUD";
-import { Routine } from "../models";
+import { Routine } from "../resources/models";
 
 const ROUTINES = "routines";
 

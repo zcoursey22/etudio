@@ -1,5 +1,5 @@
 import { useQuery, useDelete } from "./useCRUD";
-import { Arrangement } from "../models";
+import { Arrangement } from "../resources/models";
 import { useComposition, useCompositions } from "./useCompositions";
 
 const ARRANGEMENTS = "arrangements";

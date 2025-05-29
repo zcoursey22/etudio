@@ -12,6 +12,11 @@ export interface Resource extends Base {
   isFavorite: boolean;
 }
 
+export type ResourcePayload<T extends Resource> = Omit<
+  T,
+  "id" | "dateCreated" | "lastModified"
+>;
+
 export interface Artist extends Resource {
   firstName?: string;
   lastName?: string;

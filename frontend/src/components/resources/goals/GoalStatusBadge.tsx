@@ -1,5 +1,5 @@
 import { Badge, ColorPalette, Icon } from "@chakra-ui/react";
-import { GoalStatus } from "../../../models";
+import { GoalStatus } from "../../../resources/models";
 import { getStatusLabel } from "./goalUtils";
 import {
   LuCircleArrowRight,

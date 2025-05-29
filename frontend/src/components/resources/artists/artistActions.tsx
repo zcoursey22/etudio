@@ -1,5 +1,5 @@
 import { useDeleteArtist } from "../../../hooks";
-import { Artist } from "../../../models";
+import { Artist } from "../../../resources/models";
 import {
   ActionOverrides,
   createActionConfigMap,

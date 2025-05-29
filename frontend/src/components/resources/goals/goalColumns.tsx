@@ -1,4 +1,4 @@
-import { Goal } from "../../../models";
+import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";

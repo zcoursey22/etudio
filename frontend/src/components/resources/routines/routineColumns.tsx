@@ -1,4 +1,4 @@
-import { Routine } from "../../../models";
+import { Routine } from "../../../resources/models";
 import { getRoutineDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";

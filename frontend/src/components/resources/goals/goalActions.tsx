@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDeleteGoal } from "../../../hooks";
-import { Goal } from "../../../models";
+import { Goal } from "../../../resources/models";
 import {
   ActionOverrides,
   deleteActionConfigMap,

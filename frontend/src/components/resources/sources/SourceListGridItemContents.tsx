@@ -1,6 +1,6 @@
 import { Card, Flex, LinkOverlay, Span } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Source } from "../../../models";
+import { Source } from "../../../resources/models";
 import { getSourceDetailPath } from "../../../routes";
 import { Favorite, ResourceFrom } from "../shared";
 import { ActionMenu } from "../shared/ActionMenu";

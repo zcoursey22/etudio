@@ -1,5 +1,5 @@
 import { useQuery, useDelete } from "./useCRUD";
-import { Artist } from "../models";
+import { Artist } from "../resources/models";
 
 const ARTISTS = "artists";
 

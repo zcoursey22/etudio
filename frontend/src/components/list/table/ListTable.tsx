@@ -1,26 +1,31 @@
 import { Table, Text } from "@chakra-ui/react";
-import { Resource } from "../../../models";
+import { Resource } from "../../../resources/models";
 import { ColumnMap, ColumnOverrides, resolveColumns } from "./columns";
 import { ListProps } from "../List";
 import { LoadingMessage } from "../../LoadingMessage";
 import { ErrorMessage } from "../../ErrorMessage";
+import { useResourceContext } from "../../../hooks";
+import { ResourceListState } from "../../../hooks/types";
 
-export interface ListTableProps<T extends Resource> extends ListProps<T> {
-  columnMap: ColumnMap<T>;
+export interface ListTableProps<T> extends ListProps<T> {
   columnOverrides?: ColumnOverrides<T>;
 }
 
 export const ListTable = <T extends Resource>({
   resources,
-  columnMap,
   columnOverrides,
   loading,
   error,
   loadingText,
   errorText,
   emptyText,
-}: ListTableProps<T>) => {
-  const columns = resolveColumns(columnMap, columnOverrides);
+}: ListTableProps<T> & ResourceListState<T>) => {
+  const { getColumns, useActions } = useResourceContext();
+
+  const columns = resolveColumns(
+    getColumns(useActions()) as ColumnMap<unknown>,
+    columnOverrides as ColumnOverrides<unknown>
+  );
 
   return (
     <Table.Root

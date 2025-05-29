@@ -1,4 +1,4 @@
-import { Resource } from "../../models";
+import { Resource } from "../../resources/models";
 import { LoadingMessage } from "../LoadingMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import { EmptyMessage } from "../EmptyMessage";

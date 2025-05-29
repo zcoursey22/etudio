@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { Arrangement } from "../../../models";
+import { Arrangement } from "../../../resources/models";
 import {
   getArrangementDetailPath,
   getArtistDetailPath,

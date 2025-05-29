@@ -1,5 +1,5 @@
 import { useQuery, useDelete } from "./useCRUD";
-import { Collection } from "../models";
+import { Collection } from "../resources/models";
 
 const COLLECTIONS = "collections";
 

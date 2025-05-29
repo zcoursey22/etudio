@@ -1,4 +1,4 @@
-import { Source } from "../../../models";
+import { Source } from "../../../resources/models";
 import { getSourceDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";

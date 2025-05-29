@@ -1,5 +1,5 @@
 import { useQuery, useDelete } from "./useCRUD";
-import { Collection, Composition, Source } from "../models";
+import { Collection, Composition, Source } from "../resources/models";
 
 const COMPOSITIONS = "compositions";
 const SOURCES = "SOURCES";

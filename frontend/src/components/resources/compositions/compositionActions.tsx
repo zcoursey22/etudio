@@ -1,5 +1,5 @@
 import { useDeleteComposition } from "../../../hooks";
-import { Composition } from "../../../models";
+import { Composition } from "../../../resources/models";
 import {
   ActionOverrides,
   createActionConfigMap,

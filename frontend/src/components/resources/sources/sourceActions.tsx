@@ -1,5 +1,5 @@
 import { useDeleteSource } from "../../../hooks";
-import { Source } from "../../../models";
+import { Source } from "../../../resources/models";
 import {
   ActionOverrides,
   createActionConfigMap,

@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
-import { Resource } from "../../models";
+import { Resource } from "../../resources/models";
 import { ActionConfig, Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
 import { SubresourceConfig } from "./Subresource";

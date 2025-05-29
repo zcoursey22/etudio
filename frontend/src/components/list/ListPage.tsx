@@ -7,7 +7,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Resource } from "../../models";
+import { Resource } from "../../resources/models";
 import { cloneElement, ReactElement, ReactNode, useState } from "react";
 import { getTitle } from "../../utils";
 import { ListProps } from "./List";

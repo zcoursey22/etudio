@@ -1,7 +1,7 @@
 import { Card, Flex, LinkOverlay } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Favorite } from "../shared";
-import { Routine } from "../../../models";
+import { Routine } from "../../../resources/models";
 import { getRoutineDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
 import { useRoutineActions } from "./routineActions";

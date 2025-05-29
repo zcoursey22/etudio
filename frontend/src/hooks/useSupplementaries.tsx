@@ -1,5 +1,5 @@
 import { useQuery, useDelete } from "./useCRUD";
-import { Supplementary } from "../models";
+import { Supplementary } from "../resources/models";
 
 const SUPPLEMENTARIES = "supplementaries";
 

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { CreateGoalPayload, useCreateGoal } from "../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { GoalStatus } from "../../../models";
+import { GoalStatus } from "../../../resources/models";
 import { getStatusLabel } from "./goalUtils";
 
 enum FieldType {

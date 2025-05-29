@@ -4,7 +4,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import { Resource } from "../../models";
+import { Resource } from "../../resources/models";
 import { List, ListProps, ListTypeSwitcher } from "../list";
 import { Flex, Group, Icon, Tabs, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";

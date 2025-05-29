@@ -1,5 +1,5 @@
 import { useDeleteCollection } from "../../../hooks";
-import { Collection } from "../../../models";
+import { Collection } from "../../../resources/models";
 import {
   ActionOverrides,
   createActionConfigMap,

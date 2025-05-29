@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Favorite, ResourceFrom } from "../shared";
-import { Composition } from "../../../models";
+import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
 import { useCompositionActions } from "./compositionActions";
 import { ActionMenu } from "../shared/ActionMenu";

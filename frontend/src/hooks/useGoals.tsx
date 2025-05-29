@@ -1,15 +1,15 @@
 import { useCreate, useDelete, useQuery, useUpdate } from "./useCRUD";
-import { Goal, GoalStatus } from "../models";
+import { Goal, ResourcePayload } from "../resources/models";
+import {
+  ResourceCreateState,
+  ResourceDetailState,
+  ResourceListState,
+  ResourceUpdateState,
+} from "./types";
 
 const GOALS = "goals";
 
-export type CreateGoalPayload = {
-  name: string;
-  status: GoalStatus;
-  description?: string;
-};
-
-export const useGoals = () => {
+export const useGoals = (): ResourceListState<Goal> => {
   const {
     data,
     isLoading: loading,
@@ -18,7 +18,7 @@ export const useGoals = () => {
   return { resources: data || [], loading, error };
 };
 
-export const useGoal = (id: string | number) => {
+export const useGoal = (id: string | number): ResourceDetailState<Goal> => {
   const {
     data: resource,
     isLoading: loading,
@@ -27,16 +27,16 @@ export const useGoal = (id: string | number) => {
   return { resource, loading, error };
 };
 
-export const useCreateGoal = () => {
+export const useCreateGoal = (): ResourceCreateState<ResourcePayload<Goal>> => {
   const {
     mutateAsync: createResource,
     isPending: loading,
     error,
-  } = useCreate<CreateGoalPayload>(GOALS, `/${GOALS}`);
+  } = useCreate<ResourcePayload<Goal>>(GOALS, `/${GOALS}`);
   return { createResource, loading, error };
 };
 
-export const useUpdateGoal = () => {
+export const useUpdateGoal = (): ResourceUpdateState<ResourcePayload<Goal>> => {
   const {
     mutateAsync: updateResource,
     isPending: loading,

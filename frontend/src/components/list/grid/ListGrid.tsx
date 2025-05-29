@@ -1,14 +1,11 @@
 import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { Resource } from "../../../models";
+import { Resource } from "../../../resources/models";
 import { ListGridItem } from "./ListGridItem";
 import { LoadingMessage } from "../../LoadingMessage";
 import { ErrorMessage } from "../../ErrorMessage";
 import { ListProps } from "../List";
-
-export interface ListGridProps<T extends Resource> extends ListProps<T> {
-  renderGridItemContents: (resource: T) => ReactNode;
-}
+import { useResourceContext } from "../../../hooks";
+import { ResourceListState } from "../../../hooks/types";
 
 export const ListGrid = <T extends Resource>({
   resources,
@@ -17,8 +14,9 @@ export const ListGrid = <T extends Resource>({
   loadingText,
   errorText,
   emptyText,
-  renderGridItemContents,
-}: ListGridProps<T>) => {
+}: ListProps<T> & ResourceListState<T>) => {
+  const { renderGridItemContents } = useResourceContext();
+
   return error || loading || !resources?.length ? (
     loading ? (
       <LoadingMessage message={loadingText} />

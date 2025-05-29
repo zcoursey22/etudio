@@ -1,6 +1,6 @@
 // import { Flex, Icon } from "@chakra-ui/react";
 // import { LuHeart } from "react-icons/lu";
-import { Resource } from "../../../models";
+import { Resource } from "../../../resources/models";
 import { Favorite } from "../../resources/shared";
 
 export interface ColumnConfig<T> {

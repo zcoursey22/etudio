@@ -13,3 +13,5 @@ export * from "./useGoals";
 
 // Utils
 export * from "./useClampedLocalStorage";
+
+export * from "./useResourceContext";

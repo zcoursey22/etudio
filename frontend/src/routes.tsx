@@ -26,7 +26,7 @@ import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 import { Subresource } from "./components/detail";
-import { Arrangement, Composition, Source } from "./models";
+import { Arrangement, Composition, Source } from "./resources/models";
 
 export const ROUTE_SEGMENTS = {
   ARTISTS: "artists",

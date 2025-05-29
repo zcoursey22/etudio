@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { Supplementary } from "../../../models";
+import { Supplementary } from "../../../resources/models";
 import { getSupplementaryDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";

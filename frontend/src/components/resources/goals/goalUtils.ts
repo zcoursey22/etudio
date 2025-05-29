@@ -1,4 +1,4 @@
-import { GoalStatus } from "../../../models";
+import { GoalStatus } from "../../../resources/models";
 
 const statusLabelMap: Record<GoalStatus, string> = {
   [GoalStatus.NOT_STARTED]: "Not started",

@@ -1,5 +1,5 @@
 import { useDeleteSupplementary } from "../../../hooks";
-import { Supplementary } from "../../../models";
+import { Supplementary } from "../../../resources/models";
 import {
   ActionOverrides,
   deleteActionConfigMap,

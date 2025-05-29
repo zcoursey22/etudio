@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
 import { Difficulty, Favorite, PreviewPDF, ResourceFrom } from "../shared";
-import { Arrangement } from "../../../models";
+import { Arrangement } from "../../../resources/models";
 import {
   getArrangementDetailPath,
   getArtistDetailPath,

@@ -6,7 +6,7 @@ import {
   Menu,
   Portal,
 } from "@chakra-ui/react";
-import { Resource } from "../../../models";
+import { Resource } from "../../../resources/models";
 import { ActionConfig } from "./actions";
 import { LuEllipsisVertical } from "react-icons/lu";
 

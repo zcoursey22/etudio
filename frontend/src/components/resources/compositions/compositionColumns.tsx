@@ -1,4 +1,4 @@
-import { Composition } from "../../../models";
+import { Composition } from "../../../resources/models";
 import {
   getArtistDetailPath,
   getCompositionDetailPath,

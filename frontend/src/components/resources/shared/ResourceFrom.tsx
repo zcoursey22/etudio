@@ -1,5 +1,10 @@
 import { Flex, Icon, Span } from "@chakra-ui/react";
-import { Collection, Composition, Source, SourceType } from "../../../models";
+import {
+  Collection,
+  Composition,
+  Source,
+  SourceType,
+} from "../../../resources/models";
 import { NavLink } from "../../nav/NavLink";
 import {
   getCollectionDetailPath,
