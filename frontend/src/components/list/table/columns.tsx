@@ -39,6 +39,6 @@ export const favoriteColumnConfig: ColumnConfig<Resource> = {
   //     </Icon>
   //   </Flex>
   // ),
-  render: ({ isFavorite }) => <Favorite isFavorite={isFavorite} />,
+  render: ({ id, isFavorite }) => <Favorite id={id} isFavorite={isFavorite} />,
   width: "1",
 };

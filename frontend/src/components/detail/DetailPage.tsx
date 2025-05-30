@@ -11,11 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
 import { Resource } from "../../resources/models";
-import { ActionConfig, Favorite } from "../resources/shared";
+import { Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
 import { SubresourceConfig } from "./Subresource";
 import { ActionMenu } from "../resources/shared/ActionMenu";
 import { getTitle } from "../../utils";
+import { useResourceContext } from "../../hooks";
 
 interface Props<T extends Resource> {
   resource: T;
@@ -26,8 +27,6 @@ interface Props<T extends Resource> {
   mainContent?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subresourceConfigs?: SubresourceConfig<any>[];
-  actions?: ActionConfig<T>[];
-  favoriteToggleHandler?: () => void;
 }
 
 export const DetailPage = <T extends Resource>({
@@ -38,9 +37,10 @@ export const DetailPage = <T extends Resource>({
   belowHeader,
   mainContent,
   subresourceConfigs,
-  actions,
-  favoriteToggleHandler,
 }: Props<T>) => {
+  const { useActions } = useResourceContext();
+  const actions = useActions();
+
   return (
     <>
       <title>{getTitle(title)}</title>
@@ -49,10 +49,7 @@ export const DetailPage = <T extends Resource>({
           <BackButton />
           <Box>
             <Group>
-              <Favorite
-                isFavorite={resource.isFavorite}
-                toggleHandler={favoriteToggleHandler}
-              />
+              <Favorite id={resource.id} isFavorite={resource.isFavorite} />
               <Span>
                 <Heading display="inline-block" color={"fg"}>
                   {title}

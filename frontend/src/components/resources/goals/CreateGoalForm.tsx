@@ -9,9 +9,9 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import { CreateGoalPayload, useCreateGoal } from "../../../hooks";
+import { useCreateGoal } from "../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { GoalStatus } from "../../../resources/models";
+import { Goal, GoalStatus, ResourcePayload } from "../../../resources/models";
 import { getStatusLabel } from "./goalUtils";
 
 enum FieldType {
@@ -34,6 +34,8 @@ type FieldConfig<T> = {
 interface Props {
   handleClose: () => void;
 }
+
+type CreateGoalPayload = ResourcePayload<Goal>;
 
 export const CreateGoalForm = ({ handleClose }: Props) => {
   const { createResource } = useCreateGoal();
@@ -150,35 +152,39 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
                       {...register(name, {
                         required: required ? "" : false,
                         validate: (v) =>
-                          required ? (v?.trim().length ?? 0) > 0 || "" : true,
+                          required
+                            ? (v?.toString()?.trim().length ?? 0) > 0 || ""
+                            : true,
                         maxLength: {
                           value: maxLength || Infinity,
                           message: "",
                         },
                       })}
-                      defaultValue={defaultValue}
+                      defaultValue={defaultValue as string}
                     />
                   ) : type === FieldType.TEXTAREA ? (
                     <Textarea
                       {...register(name, {
                         required: required ? "" : false,
                         validate: (v) =>
-                          required ? (v?.trim().length ?? 0) > 0 || "" : true,
+                          required
+                            ? (v?.toString()?.trim().length ?? 0) > 0 || ""
+                            : true,
                         maxLength: {
                           value: maxLength || Infinity,
                           message: "",
                         },
                       })}
-                      defaultValue={defaultValue}
+                      defaultValue={defaultValue as string}
                     />
                   ) : (
                     <NativeSelect.Root>
                       <NativeSelect.Field
                         {...register(name, { required: required ? "" : false })}
-                        defaultValue={defaultValue}
+                        defaultValue={defaultValue as string}
                       >
                         {values?.map(({ value, label }) => (
-                          <option key={value} value={value}>
+                          <option key={value as string} value={value as string}>
                             {label}
                           </option>
                         ))}

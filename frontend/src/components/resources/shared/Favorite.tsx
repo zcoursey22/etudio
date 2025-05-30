@@ -1,12 +1,16 @@
 import { Icon, IconButton } from "@chakra-ui/react";
 import { LuHeart } from "react-icons/lu";
+import { useResourceContext } from "../../../hooks";
 
 interface Props {
-  toggleHandler?: () => void;
-  isFavorite?: boolean;
+  id: number;
+  isFavorite: boolean;
 }
 
-export const Favorite = ({ isFavorite, toggleHandler }: Props) => {
+export const Favorite = ({ id, isFavorite }: Props) => {
+  const { useUpdate } = useResourceContext();
+  const { updateResource } = useUpdate();
+
   return (
     <IconButton
       unstyled
@@ -14,7 +18,9 @@ export const Favorite = ({ isFavorite, toggleHandler }: Props) => {
       color={isFavorite ? "red.focusRing" : "fg.subtle"}
       fontSize={"inherit"}
       zIndex={"1"}
-      onClick={() => toggleHandler && toggleHandler()}
+      onClick={() =>
+        updateResource({ id, payload: { isFavorite: !isFavorite } })
+      }
     >
       <Icon
         size={"sm"}

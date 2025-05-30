@@ -3,23 +3,21 @@ import { LoadingMessage } from "../LoadingMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import { EmptyMessage } from "../EmptyMessage";
 import { ReactNode } from "react";
+import { useResourceContext } from "../../hooks";
+import { useParams } from "react-router-dom";
 
 interface Props<T> {
-  useResourceState: {
-    resource: T | undefined;
-    loading: boolean;
-    error: Error | null;
-  };
   children: (resource: T) => ReactNode;
   emptyText?: string;
 }
 
 export const DetailPageContainer = <T extends Resource>({
-  useResourceState,
   children,
   emptyText,
 }: Props<T>) => {
-  const { resource, loading, error } = useResourceState;
+  const { id } = useParams();
+  const { useDetail } = useResourceContext<T>();
+  const { resource, loading, error } = useDetail(id!);
   // console.log(resource);
 
   if (loading) {

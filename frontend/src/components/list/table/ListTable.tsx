@@ -1,6 +1,11 @@
 import { Table, Text } from "@chakra-ui/react";
 import { Resource } from "../../../resources/models";
-import { ColumnMap, ColumnOverrides, resolveColumns } from "./columns";
+import {
+  ColumnMap,
+  ColumnOverrides,
+  favoriteColumnConfig,
+  resolveColumns,
+} from "./columns";
 import { ListProps } from "../List";
 import { LoadingMessage } from "../../LoadingMessage";
 import { ErrorMessage } from "../../ErrorMessage";
@@ -23,7 +28,7 @@ export const ListTable = <T extends Resource>({
   const { getColumns, useActions } = useResourceContext();
 
   const columns = resolveColumns(
-    getColumns(useActions()) as ColumnMap<unknown>,
+    { favoriteColumnConfig, ...getColumns(useActions()) } as ColumnMap<unknown>,
     columnOverrides as ColumnOverrides<unknown>
   );
 
