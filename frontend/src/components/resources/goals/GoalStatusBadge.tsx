@@ -61,6 +61,7 @@ export const GoalStatusBadge = ({ id, status }: Props) => {
               <Menu.Item
                 key={option}
                 value={option}
+                cursor={"pointer"}
                 onClick={() => {
                   if (id) updateResource({ id, payload: { status: option } });
                 }}
