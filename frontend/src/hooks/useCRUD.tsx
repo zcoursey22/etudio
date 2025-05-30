@@ -39,7 +39,6 @@ export const useCreate = <T extends Record<string, unknown>>(
           ...payload,
           created: new Date(),
           lastModified: new Date(),
-          isFavorite: false,
         }),
       });
       if (!res.ok) throw new Error(`Failed to create: ${endpoint}`);

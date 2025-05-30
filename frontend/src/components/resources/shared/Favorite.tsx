@@ -3,11 +3,18 @@ import { LuHeart } from "react-icons/lu";
 import { useResourceContext } from "../../../hooks";
 
 interface Props {
-  id: number;
   isFavorite: boolean;
+  id?: number;
+  controlledOnClick?: () => void;
+  color?: string;
 }
 
-export const Favorite = ({ id, isFavorite }: Props) => {
+export const Favorite = ({
+  id,
+  isFavorite,
+  controlledOnClick,
+  color = "red.focusRing",
+}: Props) => {
   const { useUpdate } = useResourceContext();
   const { updateResource } = useUpdate();
 
@@ -15,12 +22,14 @@ export const Favorite = ({ id, isFavorite }: Props) => {
     <IconButton
       unstyled
       cursor={"pointer"}
-      color={isFavorite ? "red.focusRing" : "fg.subtle"}
+      color={isFavorite ? color : "fg.subtle"}
       fontSize={"inherit"}
       zIndex={"1"}
-      onClick={() =>
-        updateResource({ id, payload: { isFavorite: !isFavorite } })
-      }
+      onClick={() => {
+        if (controlledOnClick) controlledOnClick();
+        else if (id)
+          updateResource({ id, payload: { isFavorite: !isFavorite } });
+      }}
     >
       <Icon
         size={"sm"}

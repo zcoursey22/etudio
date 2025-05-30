@@ -18,7 +18,7 @@ export const getGoalColumns = (
   },
   status: {
     header: "Status",
-    render: ({ status }) => <GoalStatusBadge status={status} />,
+    render: ({ id, status }) => <GoalStatusBadge id={id} status={status} />,
   },
   lastModified: {
     header: "Last modified",

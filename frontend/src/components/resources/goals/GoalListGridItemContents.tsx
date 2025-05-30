@@ -26,7 +26,7 @@ export const GoalListGridItemContents = ({ goal }: Props) => {
           </LinkOverlay>
         </Card.Title>
         <Card.Description as={"div"}>
-          <GoalStatusBadge status={status} />
+          <GoalStatusBadge id={id} status={status} />
           {description && (
             <>
               <Separator mt={"0.5em"} />
@@ -37,7 +37,7 @@ export const GoalListGridItemContents = ({ goal }: Props) => {
       </Card.Body>
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
-          <Favorite isFavorite={isFavorite} />
+          <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={goal} actions={actions} isCardView />
         </Flex>
       </Card.Footer>
