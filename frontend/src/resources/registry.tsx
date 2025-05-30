@@ -32,7 +32,7 @@ export interface ResourceRegistryEntry<
   useUpdate: () => ResourceUpdateState<TPayload>;
   useDelete: () => ResourceDeleteState;
   getColumns: (actions: ActionConfig<T>[]) => ColumnMap<T>;
-  useActions: () => ActionConfig<T>[];
+  useActions: () => { actions: ActionConfig<T>[]; modal: React.ReactNode };
   renderGridItemContents: (resource: T) => ReactElement;
 }
 

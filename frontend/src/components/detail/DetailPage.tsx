@@ -39,11 +39,12 @@ export const DetailPage = <T extends Resource>({
   subresourceConfigs,
 }: Props<T>) => {
   const { useActions } = useResourceContext();
-  const actions = useActions();
+  const { actions, modal } = useActions();
 
   return (
     <>
       <title>{getTitle(title)}</title>
+      {modal}
       <Stack color={"fg.muted"}>
         <Flex gap={"0.5em"}>
           <BackButton />

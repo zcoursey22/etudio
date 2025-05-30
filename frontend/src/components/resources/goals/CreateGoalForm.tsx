@@ -36,20 +36,22 @@ type FieldConfig<T> = {
 
 interface Props {
   handleClose: () => void;
+  goal?: Goal;
 }
 
 type CreateGoalPayload = ResourcePayload<Goal>;
 
-export const CreateGoalForm = ({ handleClose }: Props) => {
-  const { useCreate } = useResourceContext();
+export const CreateGoalForm = ({ handleClose, goal }: Props) => {
+  const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
+  const { updateResource } = useUpdate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
     control,
-  } = useForm<CreateGoalPayload>();
+  } = useForm<CreateGoalPayload>({ defaultValues: goal });
 
   const submit: SubmitHandler<CreateGoalPayload> = (payload) => {
     payload = {
@@ -58,7 +60,10 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
       description: payload.description?.trim(),
     };
     console.log(payload);
-    createResource(payload)
+    const apiCall = goal
+      ? updateResource({ id: goal.id, payload })
+      : createResource(payload);
+    apiCall
       .catch((err) => {
         console.error(err);
       })
@@ -242,7 +247,7 @@ export const CreateGoalForm = ({ handleClose }: Props) => {
             <Button variant={"surface"} onClick={handleClose}>
               Cancel
             </Button>
-            <Button type={"submit"}>Create</Button>
+            <Button type={"submit"}>{goal ? "Update" : "Create"}</Button>
           </Flex>
         </Stack>
       </form>

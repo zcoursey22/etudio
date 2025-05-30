@@ -13,7 +13,7 @@ interface Props {
 
 export const GoalListGridItemContents = ({ goal }: Props) => {
   const { name, id, isFavorite, description, status } = goal;
-  const actions = useGoalActions();
+  const { actions } = useGoalActions();
 
   return (
     <>

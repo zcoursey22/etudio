@@ -26,54 +26,58 @@ export const ListTable = <T extends Resource>({
   emptyText,
 }: ListTableProps<T> & ResourceListState<T>) => {
   const { getColumns, useActions } = useResourceContext();
+  const { actions, modal } = useActions();
 
   const columns = resolveColumns(
-    { favoriteColumnConfig, ...getColumns(useActions()) } as ColumnMap<unknown>,
+    { favoriteColumnConfig, ...getColumns(actions) } as ColumnMap<unknown>,
     columnOverrides as ColumnOverrides<unknown>
   );
 
   return (
-    <Table.Root
-      size="sm"
-      interactive
-      borderRadius={"sm"}
-      borderCollapse={"separate"}
-      borderSpacing={"0"}
-    >
-      <Table.Header>
-        <Table.Row>
-          {columns.map(({ header, textAlign, width }, i) => (
-            <Table.ColumnHeader width={width} textAlign={textAlign} key={i}>
-              {header}
-            </Table.ColumnHeader>
-          ))}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {error || loading || !resources?.length ? (
+    <>
+      {modal}
+      <Table.Root
+        size="sm"
+        interactive
+        borderRadius={"sm"}
+        borderCollapse={"separate"}
+        borderSpacing={"0"}
+      >
+        <Table.Header>
           <Table.Row>
-            <Table.Cell colSpan={columns.length} textAlign={"center"}>
-              {loading ? (
-                <LoadingMessage message={loadingText} />
-              ) : error ? (
-                <ErrorMessage error={error} message={errorText} />
-              ) : (
-                <Text textAlign={"center"}>{emptyText}</Text>
-              )}
-            </Table.Cell>
+            {columns.map(({ header, textAlign, width }, i) => (
+              <Table.ColumnHeader width={width} textAlign={textAlign} key={i}>
+                {header}
+              </Table.ColumnHeader>
+            ))}
           </Table.Row>
-        ) : (
-          resources.map((resource, i) => (
-            <Table.Row color="fg.muted" key={i}>
-              {columns.map(({ render, textAlign }, j) => (
-                <Table.Cell textAlign={textAlign} key={j}>
-                  {render(resource)}
-                </Table.Cell>
-              ))}
+        </Table.Header>
+        <Table.Body>
+          {error || loading || !resources?.length ? (
+            <Table.Row>
+              <Table.Cell colSpan={columns.length} textAlign={"center"}>
+                {loading ? (
+                  <LoadingMessage message={loadingText} />
+                ) : error ? (
+                  <ErrorMessage error={error} message={errorText} />
+                ) : (
+                  <Text textAlign={"center"}>{emptyText}</Text>
+                )}
+              </Table.Cell>
             </Table.Row>
-          ))
-        )}
-      </Table.Body>
-    </Table.Root>
+          ) : (
+            resources.map((resource, i) => (
+              <Table.Row color="fg.muted" key={i}>
+                {columns.map(({ render, textAlign }, j) => (
+                  <Table.Cell textAlign={textAlign} key={j}>
+                    {render(resource)}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))
+          )}
+        </Table.Body>
+      </Table.Root>
+    </>
   );
 };

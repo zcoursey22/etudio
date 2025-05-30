@@ -56,7 +56,6 @@ export const editActionConfigMap = <T,>(
       label: "Edit",
       icon: LuPencilLine,
       onClick,
-      disabled: true,
     },
   };
 };
