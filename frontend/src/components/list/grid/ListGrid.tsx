@@ -15,7 +15,8 @@ export const ListGrid = <T extends Resource>({
   errorText,
   emptyText,
 }: ListProps<T> & ResourceListState<T>) => {
-  const { renderGridItemContents } = useResourceContext();
+  const { renderGridItemContents, useActions } = useResourceContext();
+  const { actions, modal } = useActions();
 
   return error || loading || !resources?.length ? (
     loading ? (
@@ -26,16 +27,19 @@ export const ListGrid = <T extends Resource>({
       <Text textAlign={"center"}>{emptyText}</Text>
     )
   ) : (
-    <SimpleGrid
-      columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
-      gap={"1em"}
-      pt={"0.5em"}
-    >
-      {resources.map((resource) => (
-        <Flex key={resource.id} aspectRatio={"1"}>
-          <ListGridItem content={renderGridItemContents(resource)} />
-        </Flex>
-      ))}
-    </SimpleGrid>
+    <>
+      {modal}
+      <SimpleGrid
+        columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+        gap={"1em"}
+        pt={"0.5em"}
+      >
+        {resources.map((resource) => (
+          <Flex key={resource.id} aspectRatio={"1"}>
+            <ListGridItem content={renderGridItemContents(resource, actions)} />
+          </Flex>
+        ))}
+      </SimpleGrid>
+    </>
   );
 };

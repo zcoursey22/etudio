@@ -33,7 +33,10 @@ export interface ResourceRegistryEntry<
   useDelete: () => ResourceDeleteState;
   getColumns: (actions: ActionConfig<T>[]) => ColumnMap<T>;
   useActions: () => { actions: ActionConfig<T>[]; modal: React.ReactNode };
-  renderGridItemContents: (resource: T) => ReactElement;
+  renderGridItemContents: (
+    resource: T,
+    actions: ActionConfig<T>[]
+  ) => ReactElement;
 }
 
 type ResourceRegistry = {
@@ -49,6 +52,8 @@ export const registry: ResourceRegistry = {
     useDelete: useDeleteGoal,
     getColumns: getGoalColumns,
     useActions: useGoalActions,
-    renderGridItemContents: (goal) => <GoalListGridItemContents goal={goal} />,
+    renderGridItemContents: (goal, actions) => (
+      <GoalListGridItemContents goal={goal} actions={actions} />
+    ),
   },
 };

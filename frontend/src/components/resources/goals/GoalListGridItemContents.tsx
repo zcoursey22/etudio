@@ -1,19 +1,18 @@
 import { Card, Flex, LinkOverlay, Separator, Text } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Favorite } from "../shared";
+import { ActionConfig, Favorite } from "../shared";
 import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { useGoalActions } from "./goalActions";
 import { GoalStatusBadge } from "./GoalStatusBadge";
 
 interface Props {
   goal: Goal;
+  actions: ActionConfig<Goal>[];
 }
 
-export const GoalListGridItemContents = ({ goal }: Props) => {
+export const GoalListGridItemContents = ({ goal, actions }: Props) => {
   const { name, id, isFavorite, description, status } = goal;
-  const { actions } = useGoalActions();
 
   return (
     <>
