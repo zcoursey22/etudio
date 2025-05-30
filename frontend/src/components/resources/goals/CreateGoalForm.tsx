@@ -32,6 +32,7 @@ type FieldConfig<T> = {
   maxLength?: number;
   defaultValue?: T[keyof T];
   values?: readonly { value: T[keyof T]; label: string }[];
+  autoFocus?: boolean;
 };
 
 interface Props {
@@ -82,6 +83,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
         required: true,
         showRequiredIndicator: true,
         maxLength: 50,
+        autoFocus: true,
       },
     ],
     [
@@ -150,6 +152,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
                   defaultValue,
                   values,
                   maxLength,
+                  autoFocus,
                 } = field;
                 const value = watch(name as keyof CreateGoalPayload) || "";
                 const charCount =
@@ -201,6 +204,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
                           },
                         })}
                         defaultValue={defaultValue as string}
+                        autoFocus={autoFocus}
                       />
                     ) : type === FieldType.TEXTAREA ? (
                       <Textarea
@@ -216,6 +220,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
                           },
                         })}
                         defaultValue={defaultValue as string}
+                        autoFocus={autoFocus}
                       />
                     ) : (
                       <NativeSelect.Root>
@@ -224,6 +229,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
                             required: required ? "" : false,
                           })}
                           defaultValue={defaultValue as string}
+                          autoFocus={autoFocus}
                         >
                           {values?.map(({ value, label }) => (
                             <option
