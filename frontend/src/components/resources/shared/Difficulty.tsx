@@ -1,12 +1,18 @@
 import { Flex, Icon, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { LuStar } from "react-icons/lu";
+import { useResourceContext } from "../../../hooks";
+import { Arrangement } from "../../../resources/models";
 
 interface Props {
+  id: number;
   oneToFive?: number;
 }
 
-export const Difficulty = ({ oneToFive = 0 }: Props) => {
+export const Difficulty = ({ oneToFive = 0, id }: Props) => {
+  const { useUpdate } = useResourceContext<Arrangement>();
+  const { updateResource } = useUpdate();
+
   const difficulty = Math.min(oneToFive, 5);
   const [hoveringOverIndex, setHoveringOverIndex] = useState(-1);
 
@@ -44,6 +50,18 @@ export const Difficulty = ({ oneToFive = 0 }: Props) => {
             }
             fontSize={"inherit"}
             zIndex={"1"}
+            onClick={() => {
+              updateResource({
+                id,
+                payload: {
+                  difficulty:
+                    hoveringOverIndex + 1 === difficulty
+                      ? 0
+                      : hoveringOverIndex + 1,
+                },
+                method: "PATCH",
+              });
+            }}
           >
             <Icon size={"sm"}>
               <LuStar

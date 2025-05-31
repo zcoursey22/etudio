@@ -34,7 +34,7 @@ export const ArrangementDetail = () => {
                 </NavLink>
               </>
             }
-            belowHeader={<Difficulty oneToFive={difficulty} />}
+            belowHeader={<Difficulty id={Number(id!)} oneToFive={difficulty} />}
             mainContent={
               <Stack>
                 <Box>

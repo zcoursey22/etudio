@@ -50,7 +50,9 @@ export const getArrangementColumns = (
   },
   difficulty: {
     header: "Difficulty",
-    render: ({ difficulty }) => <Difficulty oneToFive={difficulty} />,
+    render: ({ id, difficulty }) => (
+      <Difficulty id={id} oneToFive={difficulty} />
+    ),
   },
   lastModified: {
     header: "Last modified",

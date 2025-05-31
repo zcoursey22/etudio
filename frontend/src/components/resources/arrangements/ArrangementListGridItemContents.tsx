@@ -76,7 +76,7 @@ export const ArrangementListGridItemContents = ({
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Group>
             <Favorite id={id} isFavorite={isFavorite} />
-            <Difficulty oneToFive={difficulty} />
+            <Difficulty id={id} oneToFive={difficulty} />
           </Group>
           <ActionMenu resource={arrangement} actions={actions} isCardView />
         </Flex>
