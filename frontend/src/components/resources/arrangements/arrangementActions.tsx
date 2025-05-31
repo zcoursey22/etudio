@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDeleteArrangement } from "../../../hooks";
 import { Arrangement } from "../../../resources/models";
 import {
@@ -12,13 +13,20 @@ export const useArrangementActions = (
   overrides?: ActionOverrides<Arrangement>
 ) => {
   const { deleteResource } = useDeleteArrangement();
+  const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const closeModal = () => setModal(null);
 
-  return resolveActions<Arrangement>(
-    {
-      ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
-      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
-      ...deleteActionConfigMap(async ({ id }) => deleteResource(id)),
-    },
-    overrides
-  );
+  return {
+    modal,
+    actions: resolveActions<Arrangement>(
+      {
+        ...downloadActionConfigMap(({ name }) =>
+          console.log(`Download ${name}`)
+        ),
+        ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
+        ...deleteActionConfigMap(async ({ id }) => deleteResource(id)),
+      },
+      overrides
+    ),
+  };
 };

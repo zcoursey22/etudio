@@ -14,9 +14,10 @@ export const ListGrid = <T extends Resource>({
   loadingText,
   errorText,
   emptyText,
+  actionOverrides,
 }: ListProps<T> & ResourceListState<T>) => {
   const { renderGridItemContents, useActions } = useResourceContext();
-  const { actions, modal } = useActions();
+  const { actions, modal } = useActions(actionOverrides);
 
   return error || loading || !resources?.length ? (
     loading ? (

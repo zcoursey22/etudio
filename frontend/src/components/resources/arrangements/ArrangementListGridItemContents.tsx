@@ -8,7 +8,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Difficulty, Favorite, PreviewPDF, ResourceFrom } from "../shared";
+import {
+  ActionConfig,
+  Difficulty,
+  Favorite,
+  PreviewPDF,
+  ResourceFrom,
+} from "../shared";
 import { Arrangement } from "../../../resources/models";
 import {
   getArrangementDetailPath,
@@ -16,15 +22,17 @@ import {
   getCompositionDetailPath,
 } from "../../../routes";
 import { ActionMenu } from "../shared/ActionMenu";
-import { useArrangementActions } from "./arrangementActions";
 
 interface Props {
   arrangement: Arrangement;
+  actions: ActionConfig<Arrangement>[];
 }
 
-export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
+export const ArrangementListGridItemContents = ({
+  arrangement,
+  actions,
+}: Props) => {
   const { name, id, artist, isFavorite, composition, difficulty } = arrangement;
-  const actions = useArrangementActions();
 
   return (
     <>
@@ -67,7 +75,7 @@ export const ArrangementListGridItemContents = ({ arrangement }: Props) => {
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Group>
-            <Favorite isFavorite={isFavorite} />
+            <Favorite id={id} isFavorite={isFavorite} />
             <Difficulty oneToFive={difficulty} />
           </Group>
           <ActionMenu resource={arrangement} actions={actions} isCardView />

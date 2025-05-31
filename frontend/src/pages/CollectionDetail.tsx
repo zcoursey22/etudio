@@ -7,10 +7,10 @@ import {
   useCompositionActions,
 } from "../components/resources/compositions";
 import { NavLink } from "../components/nav/NavLink";
-import { getArtistDetailPath, ROUTE_SEGMENTS } from "../routes";
+import { getArtistDetailPath } from "../routes";
 import { LuMusic } from "react-icons/lu";
 import { useCollectionActions } from "../components/resources/collections";
-import { ListId } from "../constants";
+import { ListId, ROUTE_SEGMENTS } from "../constants";
 
 export const CollectionDetail = () => {
   const { id } = useParams();

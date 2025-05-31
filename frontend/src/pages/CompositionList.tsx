@@ -1,4 +1,4 @@
-import { List, ListPage } from "../components/list";
+import { List, ListContainer, ListPage } from "../components/list";
 import { CreateCompositionForm } from "../components/resources/compositions/CreateCompositionForm";
 import { ResourceModal } from "../components/resources/shared";
 import { ListId } from "../constants";
@@ -21,7 +21,15 @@ export const CompositionList = () => {
           </ResourceModal>
         )}
       >
-        <List />
+        <ListContainer>
+          {({ listState }) => (
+            <List
+              id={ListId.COMPOSITIONS}
+              listState={listState}
+              actionOverrides={{ create: { visible: false } }}
+            />
+          )}
+        </ListContainer>
       </ListPage>
     </ResourceProvider>
   );

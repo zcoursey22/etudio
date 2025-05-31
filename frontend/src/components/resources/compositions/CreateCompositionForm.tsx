@@ -49,13 +49,18 @@ type FieldConfig<T> = {
 interface Props {
   handleClose: () => void;
   composition?: Composition;
+  partOfCompositionId?: number;
 }
 
 type Payload = ResourcePayload<ApiComposition> & {
   from: "none" | "collection" | "source" | "partOf";
 };
 
-export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
+export const CreateCompositionForm = ({
+  handleClose,
+  composition,
+  partOfCompositionId,
+}: Props) => {
   const { resources: artists, loading: artistsLoading } = useArtists();
   const { resources: sources, loading: sourcesLoading } = useSources();
   const { resources: compositions, loading: compositionsLoading } =
@@ -76,20 +81,22 @@ export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
   } = useForm<Payload>({
     defaultValues: {
       ...composition,
-      from: composition?.partOf
-        ? "partOf"
-        : composition?.source
-        ? "source"
-        : composition?.collection
-        ? "collection"
-        : "none",
+      partOfCompositionId,
+      from:
+        composition?.partOf || partOfCompositionId
+          ? "partOf"
+          : composition?.source
+          ? "source"
+          : composition?.collection
+          ? "collection"
+          : "none",
     },
   });
 
   const initialized = useRef(false);
 
   const fromType = watch("from");
-  const partOfCompositionId = watch("partOfCompositionId");
+  const partOfCompositionIdField = watch("partOfCompositionId");
 
   const submit: SubmitHandler<Payload> = ({
     name,
@@ -147,7 +154,7 @@ export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
           value: String(artist.id),
           label: artist.name,
         })),
-        disabled: !!partOfCompositionId,
+        disabled: !!partOfCompositionIdField,
       },
     ],
     [
@@ -156,6 +163,7 @@ export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
         label: "From",
         type: FieldType.SELECT,
         showRequiredIndicator: true,
+        disabled: !!partOfCompositionId,
         values: [
           {
             value: "none",
@@ -210,6 +218,7 @@ export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
                   label: name,
                 })),
               hidden: fromType === "none",
+              disabled: !!partOfCompositionId,
             }),
       },
     ],
@@ -268,17 +277,17 @@ export const CreateCompositionForm = ({ handleClose, composition }: Props) => {
   }, [fromType, setValue, watch]);
 
   useEffect(() => {
-    if (!initialized.current || !partOfCompositionId) return;
+    if (!initialized.current || !partOfCompositionIdField) return;
 
     const parent = compositions.find(
-      ({ id }) => id === Number(partOfCompositionId)
+      ({ id }) => id === Number(partOfCompositionIdField)
     );
     const parentArtistId = parent?.artist?.id;
 
     if (parentArtistId && watch("artistId") !== parentArtistId) {
       setValue("artistId", parentArtistId);
     }
-  }, [partOfCompositionId, compositions, setValue, watch]);
+  }, [partOfCompositionIdField, compositions, setValue, watch]);
 
   if (
     artistsLoading ||

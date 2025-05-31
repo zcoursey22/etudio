@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Composition } from "../../../resources/models";
 import {
   ActionOverrides,
+  createActionConfigMap,
   deleteActionConfigMap,
   editActionConfigMap,
   resolveActions,
@@ -20,6 +21,20 @@ export const useCompositionActions = (
     modal,
     actions: resolveActions<Composition>(
       {
+        ...createActionConfigMap(({ id }) =>
+          setModal(
+            <ResourceModal
+              title="Create composition"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <CreateCompositionForm
+                handleClose={closeModal}
+                partOfCompositionId={id}
+              />
+            </ResourceModal>
+          )
+        ),
         ...editActionConfigMap((composition) =>
           setModal(
             <ResourceModal

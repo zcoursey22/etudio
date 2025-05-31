@@ -1,4 +1,4 @@
-import { List, ListPage } from "../components/list";
+import { List, ListContainer, ListPage } from "../components/list";
 import { CreateGoalForm } from "../components/resources/goals";
 import { ResourceModal } from "../components/resources/shared";
 import { ListId } from "../constants";
@@ -21,7 +21,9 @@ export const GoalList = () => {
           </ResourceModal>
         )}
       >
-        <List />
+        <ListContainer>
+          {({ listState }) => <List id={ListId.GOALS} listState={listState} />}
+        </ListContainer>
       </ListPage>
     </ResourceProvider>
   );

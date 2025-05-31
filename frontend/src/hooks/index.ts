@@ -15,3 +15,4 @@ export * from "./useGoals";
 export * from "./useClampedLocalStorage";
 
 export * from "./useResourceContext";
+export * from "./useAllSubresourceLists";

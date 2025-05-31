@@ -1,6 +1,7 @@
-import { useQuery, useDelete } from "./useCRUD";
-import { Arrangement } from "../resources/models";
+import { useQuery, useDelete, useUpdate, useCreate } from "./useCRUD";
+import { Arrangement, ResourcePayload } from "../resources/models";
 import { useComposition, useCompositions } from "./useCompositions";
+import { ResourceCreateState, ResourceUpdateState } from "./types";
 
 const ARRANGEMENTS = "arrangements";
 
@@ -70,9 +71,31 @@ export const useArrangement = (id: number | string) => {
   };
 };
 
+export const useCreateArrangement = (): ResourceCreateState<
+  ResourcePayload<Arrangement>
+> => {
+  const {
+    mutateAsync: createResource,
+    isPending: loading,
+    error,
+  } = useCreate<ResourcePayload<Arrangement>>(ARRANGEMENTS, `/${ARRANGEMENTS}`);
+  return { createResource, loading, error };
+};
+
+export const useUpdateArrangement = (): ResourceUpdateState<
+  ResourcePayload<Arrangement>
+> => {
+  const {
+    mutateAsync: updateResource,
+    isPending: loading,
+    error,
+  } = useUpdate(ARRANGEMENTS, `/${ARRANGEMENTS}`);
+  return { updateResource, loading, error };
+};
+
 export const useDeleteArrangement = () => {
   const {
-    mutate: deleteResource,
+    mutateAsync: deleteResource,
     isPending: loading,
     error,
   } = useDelete(ARRANGEMENTS, `/${ARRANGEMENTS}`);

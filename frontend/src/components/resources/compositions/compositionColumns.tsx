@@ -1,9 +1,6 @@
+import { ROUTE_SEGMENTS } from "../../../constants";
 import { Composition } from "../../../resources/models";
-import {
-  getArtistDetailPath,
-  getCompositionDetailPath,
-  ROUTE_SEGMENTS,
-} from "../../../routes";
+import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav/NavLink";

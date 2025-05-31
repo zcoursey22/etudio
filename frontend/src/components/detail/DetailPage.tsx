@@ -13,7 +13,6 @@ import { BackButton } from "./BackButton";
 import { Resource } from "../../resources/models";
 import { Favorite } from "../resources/shared";
 import { Outlet } from "react-router-dom";
-import { SubresourceConfig } from "./Subresource";
 import { ActionMenu } from "../resources/shared/ActionMenu";
 import { getTitle } from "../../utils";
 import { useResourceContext } from "../../hooks";
@@ -25,8 +24,6 @@ interface Props<T extends Resource> {
   rightOfTitle?: ReactNode;
   belowHeader?: ReactNode;
   mainContent?: ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  subresourceConfigs?: SubresourceConfig<any>[];
 }
 
 export const DetailPage = <T extends Resource>({
@@ -36,10 +33,9 @@ export const DetailPage = <T extends Resource>({
   rightOfTitle,
   belowHeader,
   mainContent,
-  subresourceConfigs,
 }: Props<T>) => {
-  const { useActions } = useResourceContext();
-  const { actions, modal } = useActions();
+  const { useActions, detailPageActionOverrides } = useResourceContext();
+  const { actions, modal } = useActions(detailPageActionOverrides);
 
   return (
     <>
@@ -77,11 +73,9 @@ export const DetailPage = <T extends Resource>({
             {mainContent}
           </Stack>
         )}
-        {subresourceConfigs && (
-          <Box pt={"0.5em"}>
-            <Outlet context={{ configs: subresourceConfigs }} />
-          </Box>
-        )}
+        <Box pt={"0.5em"}>
+          <Outlet context={{ resource }} />
+        </Box>
       </Stack>
     </>
   );

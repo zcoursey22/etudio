@@ -8,19 +8,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Resource } from "../../resources/models";
-import { cloneElement, ReactElement, ReactNode, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import { getTitle } from "../../utils";
-import { ListProps } from "./List";
 import { ListTypeSwitcher } from "./ListTypeSwitcher";
 import { LuPlus } from "react-icons/lu";
+import { ListContainerProps } from "./ListContainer";
 
-interface Props<T> {
+interface Props<T extends Resource> {
   id: string;
   title: string;
   subtitle?: ReactNode;
   description?: ReactNode;
   renderCreateModal?: (isOpen: boolean, onClose: () => void) => React.ReactNode;
-  children: ReactElement<ListProps<T>>;
+  children: ReactElement<ListContainerProps<T>>;
 }
 
 export const ListPage = <T extends Resource>({
@@ -32,8 +32,6 @@ export const ListPage = <T extends Resource>({
   renderCreateModal,
 }: Props<T>) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-
-  const listWithId = cloneElement(children, { id });
   return (
     <>
       <title>{getTitle(title)}</title>
@@ -67,7 +65,7 @@ export const ListPage = <T extends Resource>({
             <ListTypeSwitcher listTypeKey={id} />
           </Flex>
         </Flex>
-        {listWithId}
+        {children}
       </Stack>
     </>
   );

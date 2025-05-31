@@ -19,6 +19,7 @@ export interface ListTableProps<T> extends ListProps<T> {
 export const ListTable = <T extends Resource>({
   resources,
   columnOverrides,
+  actionOverrides,
   loading,
   error,
   loadingText,
@@ -26,7 +27,7 @@ export const ListTable = <T extends Resource>({
   emptyText,
 }: ListTableProps<T> & ResourceListState<T>) => {
   const { getColumns, useActions } = useResourceContext();
-  const { actions, modal } = useActions();
+  const { actions, modal } = useActions(actionOverrides);
 
   const columns = resolveColumns(
     { favoriteColumnConfig, ...getColumns(actions) } as ColumnMap<unknown>,

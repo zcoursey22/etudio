@@ -13,8 +13,7 @@ import {
 } from "../components/resources/sources";
 import { ResourceFrom } from "../components/resources/shared";
 import { LuFolder, LuMusic } from "react-icons/lu";
-import { ROUTE_SEGMENTS } from "../routes";
-import { ListId } from "../constants";
+import { ListId, ROUTE_SEGMENTS } from "../constants";
 
 export const SourceDetail = () => {
   const { id } = useParams();

@@ -1,15 +1,12 @@
 import { Box, Span, Stack, Text } from "@chakra-ui/react";
 import { useArrangement } from "../hooks";
 import { NavLink } from "../components/nav/NavLink";
-import {
-  getArtistDetailPath,
-  getCompositionDetailPath,
-  ROUTE_SEGMENTS,
-} from "../routes";
+import { getArtistDetailPath, getCompositionDetailPath } from "../routes";
 import { DetailPage, DetailPageContainer } from "../components/detail";
 import { useParams } from "react-router-dom";
 import { Difficulty, ResourceFrom } from "../components/resources/shared";
 import { useArrangementActions } from "../components/resources/arrangements";
+import { ROUTE_SEGMENTS } from "../constants";
 
 export const ArrangementDetail = () => {
   const { id } = useParams();

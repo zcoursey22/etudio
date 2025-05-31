@@ -5,9 +5,11 @@ import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
 import { ListType } from "./ListType";
 import { LIST_TYPE_KEY } from "../../constants";
-import { useResourceContext, useSettings } from "../../hooks";
+import { useSettings } from "../../hooks";
 import { ColumnOverrides } from "./table/columns";
 import { Resource } from "../../resources/models";
+import { ResourceListState } from "../../hooks/types";
+import { ActionOverrides } from "../resources/shared";
 
 export interface ListProps<T> {
   id?: string;
@@ -19,12 +21,11 @@ export interface ListProps<T> {
   favoritable?: boolean;
   createButtonLabel?: string;
   columnOverrides?: ColumnOverrides<T>;
+  actionOverrides?: ActionOverrides<T>;
+  listState: ResourceListState<T>;
 }
 
 export const List = <T extends Resource>(props: ListProps<T>) => {
-  const { useList } = useResourceContext<T>();
-  const listState = useList();
-
   const {
     title,
     id,
@@ -32,6 +33,8 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
     columnOverrides,
     loadingText,
     errorText,
+    listState,
+    actionOverrides,
   } = props;
 
   const { settings } = useSettings();
@@ -51,18 +54,22 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
       <Heading color={"fg"}>{title}</Heading>
       {listType === ListType.TABLE ? (
         <ListTable
+          listState={listState}
           {...listState}
           loadingText={loadingText}
           errorText={errorText}
           emptyText={emptyText}
           columnOverrides={columnOverrides}
+          actionOverrides={actionOverrides}
         />
       ) : (
         <ListGrid
+          listState={listState}
           {...listState}
           loadingText={loadingText}
           errorText={errorText}
           emptyText={emptyText}
+          actionOverrides={actionOverrides}
         />
       )}
     </Flex>

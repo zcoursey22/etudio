@@ -12,3 +12,19 @@ export enum ListId {
   ARTISTS = "artists",
   COLLECTIONS = "collections",
 }
+
+export const ROUTE_SEGMENTS = {
+  ARTISTS: "artists",
+  COMPOSITIONS: "compositions",
+  SOURCES: "sources",
+  COLLECTIONS: "collections",
+  ARRANGEMENTS: "arrangements",
+  ROUTINES: "routines",
+  SUPPLEMENTARIES: "supplementaries",
+  PROFILE: "profile",
+  SETTINGS: "settings",
+  LOGIN: "login",
+  SIGNUP: "signup",
+  TRAINING: "training",
+  GOALS: "goals",
+} as const;

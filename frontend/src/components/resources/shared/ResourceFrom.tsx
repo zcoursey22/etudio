@@ -10,7 +10,6 @@ import {
   getCollectionDetailPath,
   getCompositionDetailPath,
   getSourceDetailPath,
-  ROUTE_SEGMENTS,
 } from "../../../routes";
 import { ReactNode } from "react";
 import {
@@ -22,6 +21,7 @@ import {
   LuMusic,
   LuTv,
 } from "react-icons/lu";
+import { ROUTE_SEGMENTS } from "../../../constants";
 
 interface Props {
   partOf?: Composition;

@@ -11,10 +11,9 @@ import {
   CompositionListGridItemContents,
   useCompositionActions,
 } from "../components/resources/compositions";
-import { ROUTE_SEGMENTS } from "../routes";
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
 import { useArtistActions } from "../components/resources/artists";
-import { ListId } from "../constants";
+import { ListId, ROUTE_SEGMENTS } from "../constants";
 
 export const ArtistDetail = () => {
   const { id } = useParams();

@@ -27,22 +27,7 @@ import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 import { Subresource } from "./components/detail";
 import { Arrangement, Composition, Source } from "./resources/models";
-
-export const ROUTE_SEGMENTS = {
-  ARTISTS: "artists",
-  COMPOSITIONS: "compositions",
-  SOURCES: "sources",
-  COLLECTIONS: "collections",
-  ARRANGEMENTS: "arrangements",
-  ROUTINES: "routines",
-  SUPPLEMENTARIES: "supplementaries",
-  PROFILE: "profile",
-  SETTINGS: "settings",
-  LOGIN: "login",
-  SIGNUP: "signup",
-  TRAINING: "training",
-  GOALS: "goals",
-} as const;
+import { ROUTE_SEGMENTS } from "./constants";
 
 const {
   LOGIN,
@@ -94,13 +79,16 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         children: [
           {
             index: true,
-            element: <Subresource<Arrangement> />,
+            element: <Subresource<Arrangement> resourceType={"composition"} />,
           },
           {
             path: ARRANGEMENTS,
-            element: <Subresource<Arrangement> />,
+            element: <Subresource<Arrangement> resourceType={"composition"} />,
           },
-          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
+          {
+            path: COMPOSITIONS,
+            element: <Subresource<Composition> resourceType={"composition"} />,
+          },
         ],
       },
       {
