@@ -62,7 +62,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
     };
     console.log(payload);
     const apiCall = goal
-      ? updateResource({ id: goal.id, payload })
+      ? updateResource({ id: goal.id, payload, method: "PUT" })
       : createResource(payload);
     apiCall
       .catch((err) => {

@@ -1,20 +1,21 @@
 {
   "compositions": [
     {
-      "id": 1,
-      "isFavorite": true,
       "name": "Ode to Joy",
+      "description": "",
+      "isFavorite": true,
       "artistId": 3,
       "partOfCompositionId": 2,
-      "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-05-31T04:06:55.682Z",
+      "id": 1
     },
     {
       "id": 2,
       "name": "Symphony No. 9",
       "artistId": 3,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-05-31T01:49:55.992Z",
+      "isFavorite": false
     },
     {
       "id": 3,
@@ -29,7 +30,8 @@
       "name": "Cello Suite No. 1",
       "artistId": 2,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-05-31T01:50:16.393Z",
+      "isFavorite": false
     },
     {
       "id": 5,

@@ -14,7 +14,7 @@ export interface Resource extends Base {
 
 export type ResourcePayload<T extends Resource> = Omit<
   T,
-  "id" | "dateCreated" | "lastModified"
+  "id" | "created" | "lastModified"
 >;
 
 export interface Artist extends Resource {

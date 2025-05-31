@@ -1,11 +1,17 @@
-import { useQuery, useDelete } from "./useCRUD";
-import { Collection, Composition, Source } from "../resources/models";
+import { useQuery, useDelete, useCreate, useUpdate } from "./useCRUD";
+import {
+  Collection,
+  Composition,
+  ResourcePayload,
+  Source,
+} from "../resources/models";
+import { ResourceCreateState, ResourceUpdateState } from "./types";
 
 const COMPOSITIONS = "compositions";
 const SOURCES = "SOURCES";
 const COLLECTIONS = "collections";
 
-interface ApiComposition extends Composition {
+export interface ApiComposition extends Composition {
   artistId: number;
   partOfCompositionId?: number;
   sourceId?: number;
@@ -126,9 +132,31 @@ export const useComposition = (id?: number | string) => {
   };
 };
 
+export const useCreateComposition = (): ResourceCreateState<
+  ResourcePayload<Composition>
+> => {
+  const {
+    mutateAsync: createResource,
+    isPending: loading,
+    error,
+  } = useCreate<ResourcePayload<Composition>>(COMPOSITIONS, `/${COMPOSITIONS}`);
+  return { createResource, loading, error };
+};
+
+export const useUpdateComposition = (): ResourceUpdateState<
+  ResourcePayload<Composition>
+> => {
+  const {
+    mutateAsync: updateResource,
+    isPending: loading,
+    error,
+  } = useUpdate(COMPOSITIONS, `/${COMPOSITIONS}`);
+  return { updateResource, loading, error };
+};
+
 export const useDeleteComposition = () => {
   const {
-    mutate: deleteResource,
+    mutateAsync: deleteResource,
     isPending: loading,
     error,
   } = useDelete(COMPOSITIONS, `/${COMPOSITIONS}`);

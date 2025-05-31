@@ -7,19 +7,21 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { NavLink } from "../../nav/NavLink";
-import { Favorite, ResourceFrom } from "../shared";
+import { ActionConfig, Favorite, ResourceFrom } from "../shared";
 import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
-import { useCompositionActions } from "./compositionActions";
 import { ActionMenu } from "../shared/ActionMenu";
 
 interface Props {
   composition: Composition;
+  actions: ActionConfig<Composition>[];
 }
 
-export const CompositionListGridItemContents = ({ composition }: Props) => {
+export const CompositionListGridItemContents = ({
+  composition,
+  actions,
+}: Props) => {
   const { name, id, artist, isFavorite } = composition;
-  const actions = useCompositionActions();
 
   return (
     <>
@@ -49,7 +51,7 @@ export const CompositionListGridItemContents = ({ composition }: Props) => {
       </Card.Body>
       <Card.Footer>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
-          <Favorite isFavorite={isFavorite} />
+          <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={composition} actions={actions} isCardView />
         </Flex>
       </Card.Footer>

@@ -63,7 +63,12 @@ export const GoalStatusBadge = ({ id, status }: Props) => {
                 value={option}
                 cursor={"pointer"}
                 onClick={() => {
-                  if (id) updateResource({ id, payload: { status: option } });
+                  if (id)
+                    updateResource({
+                      id,
+                      payload: { status: option },
+                      method: "PATCH",
+                    });
                 }}
               >
                 {getStatusLabel(option)}

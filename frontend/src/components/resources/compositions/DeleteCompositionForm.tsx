@@ -1,27 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import { useDeleteGoal } from "../../../hooks";
-import { getGoalListPath } from "../../../routes";
-import { Goal } from "../../../resources/models";
+import { useDeleteComposition } from "../../../hooks";
+import { getCompositionListPath } from "../../../routes";
+import { Composition } from "../../../resources/models";
 import { Box, Button, Flex, Span, Stack } from "@chakra-ui/react";
 
 interface Props {
   handleClose: () => void;
-  goal: Goal;
+  composition: Composition;
 }
 
-export const DeleteGoalForm = ({ goal, handleClose }: Props) => {
-  const { id, name } = goal;
-  const { deleteResource } = useDeleteGoal();
+export const DeleteCompositionForm = ({ composition, handleClose }: Props) => {
+  const { id, name } = composition;
+  const { deleteResource } = useDeleteComposition();
   const navigate = useNavigate();
-  const listPath = getGoalListPath();
+  const listPath = getCompositionListPath();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    deleteResource(id);
-    if (location.pathname.startsWith(`${listPath}/`)) {
-      navigate(listPath, { replace: true });
-    }
-    handleClose();
+    deleteResource(id)
+      .then(() => {
+        if (location.pathname.startsWith(`${listPath}/`)) {
+          navigate(listPath, { replace: true });
+        }
+        handleClose();
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

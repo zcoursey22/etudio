@@ -1,15 +1,24 @@
 import { ColumnMap } from "../components/list/table/columns";
 import {
+  CompositionListGridItemContents,
+  getCompositionColumns,
+  useCompositionActions,
+} from "../components/resources/compositions";
+import {
   getGoalColumns,
   GoalListGridItemContents,
   useGoalActions,
 } from "../components/resources/goals";
 import { ActionConfig } from "../components/resources/shared";
 import {
+  useComposition,
+  useCompositions,
+  useCreateComposition,
   useCreateGoal,
   useDeleteGoal,
   useGoal,
   useGoals,
+  useUpdateComposition,
   useUpdateGoal,
 } from "../hooks";
 import {
@@ -19,7 +28,7 @@ import {
   ResourceListState,
   ResourceUpdateState,
 } from "../hooks/types";
-import { Goal, Resource, ResourcePayload } from "./models";
+import { Composition, Goal, Resource, ResourcePayload } from "./models";
 import { ReactElement } from "react";
 
 export interface ResourceRegistryEntry<
@@ -41,6 +50,7 @@ export interface ResourceRegistryEntry<
 
 type ResourceRegistry = {
   goal: ResourceRegistryEntry<Goal, ResourcePayload<Goal>>;
+  composition: ResourceRegistryEntry<Composition, ResourcePayload<Composition>>;
 };
 
 export const registry: ResourceRegistry = {
@@ -54,6 +64,21 @@ export const registry: ResourceRegistry = {
     useActions: useGoalActions,
     renderGridItemContents: (goal, actions) => (
       <GoalListGridItemContents goal={goal} actions={actions} />
+    ),
+  },
+  composition: {
+    useList: useCompositions,
+    useDetail: useComposition,
+    useCreate: useCreateComposition,
+    useUpdate: useUpdateComposition,
+    useDelete: useDeleteGoal,
+    getColumns: getCompositionColumns,
+    useActions: useCompositionActions,
+    renderGridItemContents: (composition, actions) => (
+      <CompositionListGridItemContents
+        composition={composition}
+        actions={actions}
+      />
     ),
   },
 };

@@ -19,14 +19,15 @@ export interface ResourceCreateState<T> {
 export interface ResourceUpdateState<T> {
   updateResource: (params: {
     id: string | number;
-    payload: Partial<T>;
+    payload: T | Partial<T>;
+    method: "PUT" | "PATCH";
   }) => Promise<void>;
   loading: boolean;
   error: Error | null;
 }
 
 export interface ResourceDeleteState {
-  deleteResource: (id: string | number) => void;
+  deleteResource: (id: string | number) => Promise<void>;
   loading: boolean;
   error: Error | null;
 }

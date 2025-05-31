@@ -1,28 +1,55 @@
-import { useDeleteComposition } from "../../../hooks";
+import { useState } from "react";
 import { Composition } from "../../../resources/models";
 import {
   ActionOverrides,
-  createActionConfigMap,
   deleteActionConfigMap,
   editActionConfigMap,
   resolveActions,
+  ResourceModal,
 } from "../shared";
+import { CreateCompositionForm } from "./CreateCompositionForm";
+import { DeleteCompositionForm } from "./DeleteCompositionForm";
 
 export const useCompositionActions = (
   overrides?: ActionOverrides<Composition>
 ) => {
-  const { deleteResource } = useDeleteComposition();
+  const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const closeModal = () => setModal(null);
 
-  return resolveActions<Composition>(
-    {
-      ...createActionConfigMap(({ name }) =>
-        console.log(
-          `This should open a menu to create one of the subresources for ${name}`
-        )
-      ),
-      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
-      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
-    },
-    overrides
-  );
+  return {
+    modal,
+    actions: resolveActions<Composition>(
+      {
+        ...editActionConfigMap((composition) =>
+          setModal(
+            <ResourceModal
+              title="Edit composition"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <CreateCompositionForm
+                handleClose={closeModal}
+                composition={composition}
+              />
+            </ResourceModal>
+          )
+        ),
+        ...deleteActionConfigMap((composition) =>
+          setModal(
+            <ResourceModal
+              title="Delete composition"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <DeleteCompositionForm
+                handleClose={closeModal}
+                composition={composition}
+              />
+            </ResourceModal>
+          )
+        ),
+      },
+      overrides
+    ),
+  };
 };

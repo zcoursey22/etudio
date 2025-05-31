@@ -1,28 +1,28 @@
 import { List, ListPage } from "../components/list";
-import {
-  CompositionListGridItemContents,
-  getCompositionColumns,
-  useCompositionActions,
-} from "../components/resources/compositions";
+import { CreateCompositionForm } from "../components/resources/compositions/CreateCompositionForm";
+import { ResourceModal } from "../components/resources/shared";
 import { ListId } from "../constants";
-import { useCompositions } from "../hooks";
+import { ResourceProvider } from "../providers";
 
 export const CompositionList = () => {
   return (
-    <ListPage
-      title={"Compositions"}
-      subtitle={"Works of music"}
-      id={ListId.COMPOSITIONS}
-    >
-      <List
-        {...useCompositions()}
-        columnMap={getCompositionColumns(
-          useCompositionActions({ create: { visible: false } })
+    <ResourceProvider type={"composition"}>
+      <ListPage
+        title={"Compositions"}
+        subtitle={"Works of music"}
+        id={ListId.COMPOSITIONS}
+        renderCreateModal={(isOpen, handleClose) => (
+          <ResourceModal
+            title="Create new composition"
+            handleClose={handleClose}
+            isOpen={isOpen}
+          >
+            <CreateCompositionForm handleClose={handleClose} />
+          </ResourceModal>
         )}
-        renderGridItemContents={(composition) => (
-          <CompositionListGridItemContents composition={composition} />
-        )}
-      />
-    </ListPage>
+      >
+        <List />
+      </ListPage>
+    </ResourceProvider>
   );
 };

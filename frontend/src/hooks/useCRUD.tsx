@@ -54,7 +54,8 @@ export const useCreate = <T extends Record<string, unknown>>(
 
 export type UpdateParams<T> = {
   id: string | number;
-  payload: T;
+  payload: T | Partial<T>;
+  method: "PUT" | "PATCH";
 };
 
 export const useUpdate = <T extends Record<string, unknown>>(
@@ -65,9 +66,9 @@ export const useUpdate = <T extends Record<string, unknown>>(
   const queryClient = useQueryClient();
 
   return useMutation<void, Error, UpdateParams<T>>({
-    mutationFn: async ({ id, payload }: UpdateParams<T>) => {
+    mutationFn: async ({ id, payload, method }: UpdateParams<T>) => {
       const res = await fetch(`${API_BASE}${endpoint}/${id}`, {
-        method: "PATCH",
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...payload,

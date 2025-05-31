@@ -47,7 +47,7 @@ export const useUpdateGoal = (): ResourceUpdateState<ResourcePayload<Goal>> => {
 
 export const useDeleteGoal = () => {
   const {
-    mutate: deleteResource,
+    mutateAsync: deleteResource,
     isPending: loading,
     error,
   } = useDelete(GOALS, `/${GOALS}`);

@@ -16,7 +16,7 @@ export const GoalDetail = () => {
             <DetailPage
               resource={goal}
               title={name}
-              subtitle={<GoalStatusBadge id={Number(id!)} status={status} />}
+              subtitle={<GoalStatusBadge id={Number(id)} status={status} />}
               mainContent={description}
             />
           );

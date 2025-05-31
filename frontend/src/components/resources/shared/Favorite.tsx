@@ -28,7 +28,11 @@ export const Favorite = ({
       onClick={() => {
         if (controlledOnClick) controlledOnClick();
         else if (id)
-          updateResource({ id, payload: { isFavorite: !isFavorite } });
+          updateResource({
+            id,
+            payload: { isFavorite: !isFavorite },
+            method: "PATCH",
+          });
       }}
     >
       <Icon
