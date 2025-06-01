@@ -53,7 +53,7 @@ export interface ResourceRegistryEntry<
   T extends Resource,
   TPayload extends ResourcePayload<T>
 > {
-  useList: () => ResourceListState<T>;
+  useList: (queryParams?: Record<string, unknown>) => ResourceListState<T>;
   useDetail: (id: string | number) => ResourceDetailState<T>;
   useCreate: () => ResourceCreateState<TPayload>;
   useUpdate: () => ResourceUpdateState<TPayload>;
@@ -73,7 +73,7 @@ export interface ResourceRegistryEntry<
     route: string;
     title: string;
     icon?: React.ReactNode;
-    queryParams: (parent: T) => Record<string, unknown>;
+    getQueryParams: (parent: T) => Record<string, unknown>;
     columnOverrides?: ColumnOverrides<unknown>;
     actionOverrides?: ActionOverrides<unknown>;
   }>;
@@ -120,7 +120,7 @@ export const registry: ResourceRegistry = {
         route: ROUTE_SEGMENTS.ARRANGEMENTS,
         title: "Scores",
         icon: <LuBookOpenText />,
-        queryParams: (composition) => ({ compositionId: composition.id }),
+        getQueryParams: (composition) => ({ compositionId: composition.id }),
         columnOverrides: { composition: { visible: false } },
         actionOverrides: {
           create: { visible: false },
@@ -131,7 +131,9 @@ export const registry: ResourceRegistry = {
         route: ROUTE_SEGMENTS.COMPOSITIONS,
         title: "Compositions",
         icon: <LuMusic />,
-        queryParams: (composition) => ({ partOfCompositionId: composition.id }),
+        getQueryParams: (composition) => ({
+          partOfCompositionId: composition.id,
+        }),
         columnOverrides: {
           from: { visible: false },
           composer: { visible: false },

@@ -15,13 +15,13 @@ export interface ListContainerProps<T extends Resource> {
 }
 
 export function ListContainer<T extends Resource>({
-  // queryParams,
+  queryParams,
   columnOverrides,
   actionOverrides,
   children,
 }: ListContainerProps<T>) {
   const { useList } = useResourceContext<T>();
-  const listState = useList();
+  const listState = useList(queryParams);
 
   return (
     <>

@@ -25,7 +25,7 @@ import { Footer } from "../footer";
 import { Tools } from "../tools";
 import { useAuth } from "../../hooks";
 import { Title } from "../Title";
-import { CreateButton } from "../CreateButton";
+// import { CreateButton } from "../CreateButton";
 
 export const Nav = () => {
   const { logout } = useAuth();
@@ -77,7 +77,7 @@ export const Nav = () => {
       <Stack gap={"1em"}>
         <Title />
         <Stack>
-          <CreateButton />
+          {/* <CreateButton /> */}
           <Stack as={"nav"} gap={"1em"}>
             <Stack>
               {routes.map(({ to, label, icon }) => (

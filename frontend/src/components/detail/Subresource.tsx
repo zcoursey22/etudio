@@ -37,7 +37,10 @@ export const Subresource = <T extends Resource>({
 
   const subresources = registry[resourceType!].subresources ?? [];
   const subresourceListStates = useAllSubresourceLists(
-    subresources.map((s) => s.type)
+    subresources.map((s) => ({
+      type: s.type,
+      queryParams: s.getQueryParams?.(resource) ?? {},
+    }))
   );
   const activeSubresource =
     subresources.find(({ route }) => route === activeSubresourceRouteSegment) ??
@@ -63,6 +66,7 @@ export const Subresource = <T extends Resource>({
       <ListContainer
         columnOverrides={activeSubresource.columnOverrides}
         actionOverrides={activeSubresource.actionOverrides}
+        queryParams={activeSubresource.getQueryParams(resource)}
       >
         {({ listState, columnOverrides, actionOverrides }) => (
           <List

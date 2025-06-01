@@ -1,11 +1,18 @@
-import { registry } from "../resources/registry";
+import { Resource } from "../resources/models";
+import { registry, ResourceRegistry } from "../resources/registry";
 import { ResourceListState } from "./types";
 
-export const useAllSubresourceLists = <K extends keyof typeof registry>(
-  types: K[]
+type UseAllSubresourceListsParams = {
+  type: keyof ResourceRegistry;
+  queryParams?: Record<string, unknown>;
+}[];
+
+export const useAllSubresourceLists = (
+  entries: UseAllSubresourceListsParams
 ) => {
-  return types.reduce((acc, type) => {
-    acc[type] = registry[type].useList();
+  return entries.reduce((acc, { type, queryParams }) => {
+    const list = registry[type].useList(queryParams);
+    acc[type] = list;
     return acc;
-  }, {} as Record<K, ResourceListState<unknown>>);
+  }, {} as Record<keyof ResourceRegistry, ResourceListState<Resource>>);
 };
