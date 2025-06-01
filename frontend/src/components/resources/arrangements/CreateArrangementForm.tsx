@@ -11,8 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useResourceContext } from "../../../hooks";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Goal, GoalStatus, ResourcePayload } from "../../../resources/models";
-import { getStatusLabel } from "./goalUtils";
+import { Arrangement, ResourcePayload } from "../../../resources/models";
 import { Favorite } from "../shared";
 
 enum FieldType {
@@ -37,12 +36,12 @@ type FieldConfig<T> = {
 
 interface Props {
   handleClose: () => void;
-  goal?: Goal;
+  arrangement?: Arrangement;
 }
 
-type Payload = ResourcePayload<Goal>;
+type Payload = ResourcePayload<Arrangement>;
 
-export const CreateGoalForm = ({ handleClose, goal }: Props) => {
+export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
   const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
   const { updateResource } = useUpdate();
@@ -52,7 +51,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
     formState: { errors },
     watch,
     control,
-  } = useForm<Payload>({ defaultValues: goal });
+  } = useForm<Payload>({ defaultValues: arrangement });
 
   const submit: SubmitHandler<Payload> = (payload) => {
     payload = {
@@ -61,8 +60,8 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
       description: payload.description?.trim(),
     };
     console.log(payload);
-    const apiCall = goal
-      ? updateResource({ id: goal.id, payload, method: "PUT" })
+    const apiCall = arrangement
+      ? updateResource({ id: arrangement.id, payload, method: "PUT" })
       : createResource(payload);
     apiCall
       .catch((err) => {
@@ -93,24 +92,6 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
         type: FieldType.TEXTAREA,
         showRequiredIndicator: true,
         maxLength: 250,
-      },
-    ],
-    [
-      {
-        name: "status",
-        label: "Status",
-        type: FieldType.SELECT,
-        required: true,
-        defaultValue: GoalStatus.NOT_STARTED,
-        values: [
-          GoalStatus.NOT_STARTED,
-          GoalStatus.IN_PROGRESS,
-          GoalStatus.PAUSED,
-          GoalStatus.DONE,
-        ].map((status) => ({
-          value: status,
-          label: getStatusLabel(status),
-        })),
       },
     ],
   ];
@@ -253,7 +234,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
             <Button variant={"surface"} onClick={handleClose}>
               Cancel
             </Button>
-            <Button type={"submit"}>{goal ? "Update" : "Create"}</Button>
+            <Button type={"submit"}>{arrangement ? "Update" : "Create"}</Button>
           </Flex>
         </Stack>
       </form>

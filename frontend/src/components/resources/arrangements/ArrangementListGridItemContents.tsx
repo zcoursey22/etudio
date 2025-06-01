@@ -7,9 +7,10 @@ import {
   Span,
   Text,
 } from "@chakra-ui/react";
-import { NavLink } from "../../nav/NavLink";
+import { NavLink } from "../../nav";
 import {
   ActionConfig,
+  ActionMenu,
   Difficulty,
   Favorite,
   PreviewPDF,
@@ -21,7 +22,6 @@ import {
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../../routes";
-import { ActionMenu } from "../shared/ActionMenu";
 
 interface Props {
   arrangement: Arrangement;

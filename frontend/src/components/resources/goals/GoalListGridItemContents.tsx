@@ -1,9 +1,8 @@
 import { Card, Flex, LinkOverlay, Separator, Text } from "@chakra-ui/react";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig, Favorite } from "../shared";
+import { NavLink } from "../../nav";
+import { ActionConfig, Favorite, ActionMenu } from "../shared";
 import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
-import { ActionMenu } from "../shared/ActionMenu";
 import { GoalStatusBadge } from "./GoalStatusBadge";
 
 interface Props {

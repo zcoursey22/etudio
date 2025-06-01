@@ -1,9 +1,8 @@
 import { Card, Flex, LinkOverlay } from "@chakra-ui/react";
-import { NavLink } from "../../nav/NavLink";
-import { Favorite } from "../shared";
+import { NavLink } from "../../nav";
+import { Favorite, ActionMenu } from "../shared";
 import { Routine } from "../../../resources/models";
 import { getRoutineDetailPath } from "../../../routes";
-import { ActionMenu } from "../shared/ActionMenu";
 import { useRoutineActions } from "./routineActions";
 
 interface Props {

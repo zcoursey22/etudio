@@ -1,5 +1,5 @@
 import { Flex, Heading, Span, Stack, Text } from "@chakra-ui/react";
-import { NavLink } from "../components/nav/NavLink";
+import { NavLink } from "../components/nav";
 import { BackButton } from "../components/detail";
 import { getTitle } from "../utils";
 

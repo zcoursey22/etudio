@@ -1,17 +1,15 @@
-import { useParams } from "react-router-dom";
 import { DetailPage, DetailPageContainer } from "../components/detail";
 import { GoalStatusBadge } from "../components/resources/goals";
 import { ResourceProvider } from "../providers";
 import { Goal } from "../resources/models";
+import { ResourceType } from "../constants";
 
 export const GoalDetail = () => {
-  const { id } = useParams();
-
   return (
-    <ResourceProvider type={"goal"}>
-      <DetailPageContainer id={Number(id!)}>
+    <ResourceProvider type={ResourceType.GOAL}>
+      <DetailPageContainer>
         {(goal: Goal) => {
-          const { name, description, status } = goal;
+          const { id, name, description, status } = goal;
           return (
             <DetailPage
               resource={goal}

@@ -11,9 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { BackButton } from "./BackButton";
 import { Resource } from "../../resources/models";
-import { Favorite } from "../resources/shared";
+import { Favorite, ActionMenu } from "../resources/shared";
 import { Outlet } from "react-router-dom";
-import { ActionMenu } from "../resources/shared/ActionMenu";
 import { getTitle } from "../../utils";
 import { useResourceContext } from "../../hooks";
 

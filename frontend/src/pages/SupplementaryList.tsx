@@ -4,7 +4,7 @@ import {
   SupplementaryListGridItemContents,
   useSupplementaryActions,
 } from "../components/resources/supplementaries";
-import { ListId } from "../constants";
+import { ResourceType } from "../constants";
 import { useSupplementaries } from "../hooks";
 
 export const SupplementaryList = () => {
@@ -12,7 +12,7 @@ export const SupplementaryList = () => {
     <ListPage
       title={"Supplementaries"}
       subtitle={"Additional materials"}
-      id={ListId.SUPPLEMENTARIES}
+      id={ResourceType.SUPPLEMENTARY}
     >
       <List
         {...useSupplementaries()}

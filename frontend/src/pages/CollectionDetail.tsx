@@ -6,11 +6,11 @@ import {
   CompositionListGridItemContents,
   useCompositionActions,
 } from "../components/resources/compositions";
-import { NavLink } from "../components/nav/NavLink";
+import { NavLink } from "../components/nav";
 import { getArtistDetailPath } from "../routes";
 import { LuMusic } from "react-icons/lu";
 import { useCollectionActions } from "../components/resources/collections";
-import { ListId, ROUTE_SEGMENTS } from "../constants";
+import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 
 export const CollectionDetail = () => {
   const { id } = useParams();
@@ -47,7 +47,7 @@ export const CollectionDetail = () => {
             actions={actions}
             subresourceConfigs={[
               {
-                id: ListId.COMPOSITIONS,
+                id: ResourceType.COMPOSITION,
                 route: ROUTE_SEGMENTS.COMPOSITIONS,
                 title: "Compositions",
                 icon: <LuMusic />,

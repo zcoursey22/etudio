@@ -7,14 +7,14 @@ import {
 } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
+import { NavLink } from "../../nav";
 import {
   ActionConfig,
   Difficulty,
   PreviewPDF,
   ResourceFrom,
+  ActionMenu,
 } from "../../resources/shared";
-import { ActionMenu } from "../shared/ActionMenu";
 import { ROUTE_SEGMENTS } from "../../../constants";
 
 export const getArrangementColumns = (

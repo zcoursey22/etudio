@@ -13,9 +13,9 @@ import { getTitle } from "../../utils";
 import { ListTypeSwitcher } from "./ListTypeSwitcher";
 import { LuPlus } from "react-icons/lu";
 import { ListContainerProps } from "./ListContainer";
+import { useResourceContext } from "../../hooks";
 
 interface Props<T extends Resource> {
-  id: string;
   title: string;
   subtitle?: ReactNode;
   description?: ReactNode;
@@ -24,13 +24,14 @@ interface Props<T extends Resource> {
 }
 
 export const ListPage = <T extends Resource>({
-  id,
   title,
   subtitle,
   description,
   children,
   renderCreateModal,
 }: Props<T>) => {
+  const { resourceType } = useResourceContext();
+
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   return (
     <>
@@ -62,7 +63,7 @@ export const ListPage = <T extends Resource>({
                 )}
               </>
             )}
-            <ListTypeSwitcher listTypeKey={id} />
+            <ListTypeSwitcher listTypeKey={resourceType} />
           </Flex>
         </Flex>
         {children}

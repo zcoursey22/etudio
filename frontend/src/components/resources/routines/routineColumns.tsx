@@ -2,9 +2,8 @@ import { Routine } from "../../../resources/models";
 import { getRoutineDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig } from "../shared";
-import { ActionMenu } from "../shared/ActionMenu";
+import { NavLink } from "../../nav";
+import { ActionConfig, ActionMenu } from "../shared";
 
 export const getRoutineColumns = (
   actions: ActionConfig<Routine>[]

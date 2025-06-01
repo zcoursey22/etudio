@@ -4,7 +4,7 @@ import {
   RoutineListGridItemContents,
   useRoutineActions,
 } from "../components/resources/routines";
-import { ListId } from "../constants";
+import { ResourceType } from "../constants";
 import { useRoutines } from "../hooks";
 
 export const RoutineList = () => {
@@ -12,7 +12,7 @@ export const RoutineList = () => {
     <ListPage
       title={"Routines"}
       subtitle={"Streamlined practice sessions"}
-      id={ListId.ROUTINES}
+      id={ResourceType.ROUTINE}
     >
       <List
         {...useRoutines()}

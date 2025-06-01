@@ -2,15 +2,15 @@ export const API_BASE = "http://localhost:3000";
 
 export const LIST_TYPE_KEY = "etudio_listType";
 
-export enum ListId {
-  COMPOSITIONS = "compositions",
-  ARRANGEMENTS = "arrangements",
-  GOALS = "goals",
-  ROUTINES = "routines",
-  SUPPLEMENTARIES = "supplementaries",
-  SOURCES = "sources",
-  ARTISTS = "artists",
-  COLLECTIONS = "collections",
+export enum ResourceType {
+  COMPOSITION = "composition",
+  ARRANGEMENT = "arrangement",
+  GOAL = "goal",
+  ROUTINE = "routine",
+  SUPPLEMENTARY = "supplementary",
+  SOURCE = "source",
+  ARTIST = "artist",
+  COLLECTION = "collection",
 }
 
 export const ROUTE_SEGMENTS = {

@@ -2,9 +2,8 @@ import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig } from "../shared";
-import { ActionMenu } from "../shared/ActionMenu";
+import { NavLink } from "../../nav";
+import { ActionConfig, ActionMenu } from "../shared";
 import { GoalStatusBadge } from "./GoalStatusBadge";
 
 export const getGoalColumns = (

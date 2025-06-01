@@ -3,9 +3,8 @@ import { Supplementary } from "../../../resources/models";
 import { getSupplementaryDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig, PreviewPDF } from "../shared";
-import { ActionMenu } from "../shared/ActionMenu";
+import { NavLink } from "../../nav";
+import { ActionConfig, PreviewPDF, ActionMenu } from "../shared";
 
 export const getSupplementaryColumns = (
   actions: ActionConfig<Supplementary>[]

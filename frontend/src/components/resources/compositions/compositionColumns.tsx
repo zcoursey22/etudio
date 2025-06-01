@@ -3,9 +3,8 @@ import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig, ResourceFrom } from "../../resources/shared";
-import { ActionMenu } from "../shared/ActionMenu";
+import { NavLink } from "../../nav";
+import { ActionConfig, ResourceFrom, ActionMenu } from "../../resources/shared";
 
 export const getCompositionColumns = (
   actions: ActionConfig<Composition>[]

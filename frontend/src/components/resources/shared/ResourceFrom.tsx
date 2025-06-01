@@ -5,7 +5,7 @@ import {
   Source,
   SourceType,
 } from "../../../resources/models";
-import { NavLink } from "../../nav/NavLink";
+import { NavLink } from "../../nav";
 import {
   getCollectionDetailPath,
   getCompositionDetailPath,

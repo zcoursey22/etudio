@@ -2,9 +2,8 @@ import { Source } from "../../../resources/models";
 import { getSourceDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig, ResourceFrom } from "../shared";
-import { ActionMenu } from "../shared/ActionMenu";
+import { NavLink } from "../../nav";
+import { ActionConfig, ResourceFrom, ActionMenu } from "../shared";
 
 export const getSourceColumns = (
   actions: ActionConfig<Source>[]

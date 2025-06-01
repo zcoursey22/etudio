@@ -4,20 +4,20 @@ import { ErrorMessage } from "../ErrorMessage";
 import { EmptyMessage } from "../EmptyMessage";
 import { ReactNode } from "react";
 import { useResourceContext } from "../../hooks";
+import { useParams } from "react-router-dom";
 
 interface Props<T> {
-  id: number;
   children: (resource: T) => ReactNode;
   emptyText?: string;
 }
 
 export const DetailPageContainer = <T extends Resource>({
-  id,
   children,
   emptyText,
 }: Props<T>) => {
+  const { id } = useParams();
   const { useDetail } = useResourceContext<T>();
-  const { resource, loading, error } = useDetail(id);
+  const { resource, loading, error } = useDetail(id!);
   // console.log(resource);
 
   if (loading) {

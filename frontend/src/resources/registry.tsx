@@ -42,7 +42,7 @@ import {
   ResourcePayload,
 } from "./models";
 import { ReactElement } from "react";
-import { ROUTE_SEGMENTS } from "../constants";
+import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import {
   ArrangementListGridItemContents,
   getArrangementColumns,
@@ -77,12 +77,19 @@ export interface ResourceRegistryEntry<
     columnOverrides?: ColumnOverrides<unknown>;
     actionOverrides?: ActionOverrides<unknown>;
   }>;
+  resourceType: ResourceType;
 }
 
 export type ResourceRegistry = {
-  goal: ResourceRegistryEntry<Goal, ResourcePayload<Goal>>;
-  composition: ResourceRegistryEntry<Composition, ResourcePayload<Composition>>;
-  arrangement: ResourceRegistryEntry<Arrangement, ResourcePayload<Arrangement>>;
+  [ResourceType.GOAL]: ResourceRegistryEntry<Goal, ResourcePayload<Goal>>;
+  [ResourceType.COMPOSITION]: ResourceRegistryEntry<
+    Composition,
+    ResourcePayload<Composition>
+  >;
+  [ResourceType.ARRANGEMENT]: ResourceRegistryEntry<
+    Arrangement,
+    ResourcePayload<Arrangement>
+  >;
 };
 
 export const registry: ResourceRegistry = {
@@ -98,6 +105,7 @@ export const registry: ResourceRegistry = {
       <GoalListGridItemContents goal={goal} actions={actions} />
     ),
     detailPageActionOverrides: { create: { visible: false } },
+    resourceType: ResourceType.GOAL,
   },
   composition: {
     useList: useCompositions,
@@ -114,9 +122,10 @@ export const registry: ResourceRegistry = {
       />
     ),
     detailPageActionOverrides: { create: { visible: false } },
+    resourceType: ResourceType.COMPOSITION,
     subresources: [
       {
-        type: "arrangement",
+        type: ResourceType.ARRANGEMENT,
         route: ROUTE_SEGMENTS.ARRANGEMENTS,
         title: "Scores",
         icon: <LuBookOpenText />,
@@ -127,7 +136,7 @@ export const registry: ResourceRegistry = {
         },
       },
       {
-        type: "composition",
+        type: ResourceType.COMPOSITION,
         route: ROUTE_SEGMENTS.COMPOSITIONS,
         title: "Compositions",
         icon: <LuMusic />,
@@ -156,5 +165,6 @@ export const registry: ResourceRegistry = {
         actions={actions}
       />
     ),
+    resourceType: ResourceType.ARRANGEMENT,
   },
 };

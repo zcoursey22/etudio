@@ -1,7 +1,7 @@
 import { Flex, Heading, Stack, Switch, Text } from "@chakra-ui/react";
 import { useSettings } from "../hooks";
 import { getTitle } from "../utils";
-import { LIST_TYPE_KEY, ListId } from "../constants";
+import { LIST_TYPE_KEY, ResourceType } from "../constants";
 
 export const Settings = () => {
   const { settings, updateSettings } = useSettings();
@@ -22,9 +22,9 @@ export const Settings = () => {
               onCheckedChange={({ checked }) => {
                 updateSettings({ syncListViewType: checked });
                 if (!checked) {
-                  Object.values(ListId).forEach((listId) => {
+                  Object.values(ResourceType).forEach((resourceType) => {
                     localStorage.setItem(
-                      `${LIST_TYPE_KEY}_${listId}`,
+                      `${LIST_TYPE_KEY}_${resourceType}`,
                       localStorage.getItem(LIST_TYPE_KEY) || ""
                     );
                   });

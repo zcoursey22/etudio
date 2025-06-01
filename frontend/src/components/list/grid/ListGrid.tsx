@@ -5,19 +5,18 @@ import { LoadingMessage } from "../../LoadingMessage";
 import { ErrorMessage } from "../../ErrorMessage";
 import { ListProps } from "../List";
 import { useResourceContext } from "../../../hooks";
-import { ResourceListState } from "../../../hooks/types";
 
 export const ListGrid = <T extends Resource>({
-  resources,
-  loading,
-  error,
+  listState,
   loadingText,
   errorText,
   emptyText,
   actionOverrides,
-}: ListProps<T> & ResourceListState<T>) => {
+}: ListProps<T>) => {
   const { renderGridItemContents, useActions } = useResourceContext();
   const { actions, modal } = useActions(actionOverrides);
+
+  const { resources, loading, error } = listState;
 
   return error || loading || !resources?.length ? (
     loading ? (

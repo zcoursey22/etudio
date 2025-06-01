@@ -5,14 +5,13 @@ import useLocalStorage from "use-local-storage";
 import { ReactNode } from "react";
 import { ListType } from "./ListType";
 import { LIST_TYPE_KEY } from "../../constants";
-import { useSettings } from "../../hooks";
+import { useResourceContext, useSettings } from "../../hooks";
 import { ColumnOverrides } from "./table/columns";
 import { Resource } from "../../resources/models";
 import { ResourceListState } from "../../hooks/types";
 import { ActionOverrides } from "../resources/shared";
 
 export interface ListProps<T> {
-  id?: string;
   title?: string | ReactNode;
   emptyText?: string;
   loadingText?: string;
@@ -28,7 +27,6 @@ export interface ListProps<T> {
 export const List = <T extends Resource>(props: ListProps<T>) => {
   const {
     title,
-    id,
     emptyText = "No items",
     columnOverrides,
     loadingText,
@@ -37,17 +35,17 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
     actionOverrides,
   } = props;
 
+  const { resourceType } = useResourceContext();
+
   const { settings } = useSettings();
 
   const [globalListType] = useLocalStorage(LIST_TYPE_KEY, ListType.TABLE);
   const [listType] = useLocalStorage(
-    settings.syncListViewType ? LIST_TYPE_KEY : `${LIST_TYPE_KEY}_${id}`,
+    settings.syncListViewType
+      ? LIST_TYPE_KEY
+      : `${LIST_TYPE_KEY}_${resourceType}`,
     globalListType
   );
-
-  if (id === undefined) {
-    throw Error("list id must be defined");
-  }
 
   return (
     <Flex direction={"column"} gap={"0.5em"}>
@@ -55,7 +53,6 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
       {listType === ListType.TABLE ? (
         <ListTable
           listState={listState}
-          {...listState}
           loadingText={loadingText}
           errorText={errorText}
           emptyText={emptyText}
@@ -65,7 +62,6 @@ export const List = <T extends Resource>(props: ListProps<T>) => {
       ) : (
         <ListGrid
           listState={listState}
-          {...listState}
           loadingText={loadingText}
           errorText={errorText}
           emptyText={emptyText}

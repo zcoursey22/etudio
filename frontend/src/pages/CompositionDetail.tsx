@@ -1,18 +1,15 @@
-import { NavLink } from "../components/nav/NavLink";
+import { NavLink } from "../components/nav";
 import { getArtistDetailPath } from "../routes";
 import { DetailPage, DetailPageContainer } from "../components/detail";
-import { useParams } from "react-router-dom";
 import { ResourceFrom } from "../components/resources/shared";
 import { ResourceProvider } from "../providers";
 import { Composition } from "../resources/models";
-import { ROUTE_SEGMENTS } from "../constants";
+import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 
 export const CompositionDetail = () => {
-  const { id } = useParams();
-
   return (
-    <ResourceProvider type={"composition"}>
-      <DetailPageContainer id={Number(id)}>
+    <ResourceProvider type={ResourceType.COMPOSITION}>
+      <DetailPageContainer>
         {(composition: Composition) => {
           const { name, artist } = composition;
           return (

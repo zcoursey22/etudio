@@ -10,22 +10,19 @@ import { ListProps } from "../List";
 import { LoadingMessage } from "../../LoadingMessage";
 import { ErrorMessage } from "../../ErrorMessage";
 import { useResourceContext } from "../../../hooks";
-import { ResourceListState } from "../../../hooks/types";
 
 export interface ListTableProps<T> extends ListProps<T> {
   columnOverrides?: ColumnOverrides<T>;
 }
 
 export const ListTable = <T extends Resource>({
-  resources,
+  listState,
   columnOverrides,
   actionOverrides,
-  loading,
-  error,
   loadingText,
   errorText,
   emptyText,
-}: ListTableProps<T> & ResourceListState<T>) => {
+}: ListTableProps<T>) => {
   const { getColumns, useActions } = useResourceContext();
   const { actions, modal } = useActions(actionOverrides);
 
@@ -33,6 +30,8 @@ export const ListTable = <T extends Resource>({
     { favoriteColumnConfig, ...getColumns(actions) } as ColumnMap<unknown>,
     columnOverrides as ColumnOverrides<unknown>
   );
+
+  const { resources, loading, error } = listState;
 
   return (
     <>

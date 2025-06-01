@@ -6,11 +6,10 @@ import {
   Span,
   Text,
 } from "@chakra-ui/react";
-import { NavLink } from "../../nav/NavLink";
-import { ActionConfig, Favorite, ResourceFrom } from "../shared";
+import { NavLink } from "../../nav";
+import { ActionConfig, Favorite, ActionMenu, ResourceFrom } from "../shared";
 import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
-import { ActionMenu } from "../shared/ActionMenu";
 
 interface Props {
   composition: Composition;
