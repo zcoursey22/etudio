@@ -4,9 +4,12 @@ import {
   Button,
   Field,
   Flex,
+  Group,
+  IconButton,
   Input,
   NativeSelect,
   Stack,
+  Text,
   Textarea,
 } from "@chakra-ui/react";
 import {
@@ -16,11 +19,23 @@ import {
   useResourceContext,
   useSources,
 } from "../../../hooks";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Composition, ResourcePayload } from "../../../resources/models";
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
+import {
+  CatalogType,
+  Composition,
+  CompositionType,
+  ResourcePayload,
+} from "../../../resources/models";
 import { Favorite } from "../shared";
 import { useEffect, useRef } from "react";
 import { LoadingMessage } from "../../LoadingMessage";
+import { getCatalogTypeLabel } from "./compositionUtils";
+import { LuPlus, LuX } from "react-icons/lu";
 
 enum FieldType {
   INPUT,
@@ -28,7 +43,7 @@ enum FieldType {
   SELECT,
 }
 
-type FieldRow<T> = (FieldConfig<T> | "favorite")[];
+type FieldRow<T> = (FieldConfig<T> | "favorite" | "catalogEntries")[];
 
 type FieldConfig<T> = {
   name: keyof T;
@@ -64,6 +79,12 @@ export const CreateCompositionForm = ({
   const { resources: sources, loading: sourcesLoading } = useSources();
   const { resources: compositions, loading: compositionsLoading } =
     useCompositions();
+  const compositionTypes = Object.keys(CompositionType) as Array<
+    keyof typeof CompositionType
+  >;
+  const catalogTypes = Object.keys(CatalogType) as Array<
+    keyof typeof CatalogType
+  >;
 
   const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
@@ -92,6 +113,7 @@ export const CreateCompositionForm = ({
 
   const fromType = watch("from");
   const partOfCompositionIdField = watch("partOfCompositionId");
+  const catalogEntriesValue = watch("catalogEntries");
 
   const submit: SubmitHandler<Payload> = ({
     name,
@@ -100,6 +122,8 @@ export const CreateCompositionForm = ({
     isFavorite,
     partOfCompositionId,
     sourceId,
+    catalogEntries,
+    type,
   }) => {
     const payload = {
       name: name.trim(),
@@ -108,8 +132,10 @@ export const CreateCompositionForm = ({
       artistId: Number(artistId),
       partOfCompositionId: Number(partOfCompositionId) || undefined,
       sourceId: Number(sourceId) || undefined,
+      catalogEntries,
+      type,
     };
-    console.log(payload);
+    console.log(composition, payload);
     const apiCall = composition
       ? updateResource({ id: composition.id, payload, method: "PUT" })
       : createResource(payload);
@@ -136,6 +162,19 @@ export const CreateCompositionForm = ({
       },
     ],
     [
+      {
+        name: "type",
+        label: "Type",
+        type: FieldType.SELECT,
+        placeholder: "Select a type",
+        required: true,
+        showRequiredIndicator: true,
+        defaultValue: CompositionType.WORK,
+        values: compositionTypes.map((type) => ({
+          value: CompositionType[type],
+          label: CompositionType[type],
+        })),
+      },
       {
         name: "artistId",
         label: "Composer",
@@ -200,6 +239,7 @@ export const CreateCompositionForm = ({
             }),
       },
     ],
+    ["catalogEntries"],
     [
       {
         name: "description",
@@ -257,6 +297,11 @@ export const CreateCompositionForm = ({
     }
   }, [partOfCompositionIdField, compositions, setValue, watch]);
 
+  const catalogEntriesFields = useFieldArray({
+    control,
+    name: "catalogEntries",
+  });
+
   if (artistsLoading || sourcesLoading || compositionsLoading) {
     return <LoadingMessage />;
   }
@@ -285,6 +330,46 @@ export const CreateCompositionForm = ({
                           />
                         )}
                       />
+                    </Field.Root>
+                  );
+                }
+
+                if (field === "catalogEntries") {
+                  return (
+                    <Field.Root key={field}>
+                      <Field.Label>Catalog entries</Field.Label>
+                      {catalogEntriesFields.fields.map((row, i) => (
+                        <Flex key={i} w={"100%"} gap={"1em"} align={"center"}>
+                          <NativeSelect.Root>
+                            <NativeSelect.Field
+                              {...register(`catalogEntries.${i}.type`)}
+                              placeholder="Select catalog"
+                            >
+                              {catalogTypes.map((t) => (
+                                <option key={t} value={CatalogType[t]}>
+                                  {getCatalogTypeLabel(CatalogType[t])}
+                                </option>
+                              ))}
+                            </NativeSelect.Field>
+                            <NativeSelect.Indicator />
+                          </NativeSelect.Root>
+                          <Input {...register(`catalogEntries.${i}.number`)} />
+                          {catalogEntriesValue?.[i].type === CatalogType.OP && (
+                            <Group>
+                              <Text>No.</Text>
+                              <Input
+                                {...register(`catalogEntries.${i}.subNumber`)}
+                              />
+                            </Group>
+                          )}
+                          <IconButton size={"xs"} variant={"ghost"}>
+                            <LuX />
+                          </IconButton>
+                        </Flex>
+                      ))}
+                      <IconButton size={"xs"}>
+                        <LuPlus />
+                      </IconButton>
                     </Field.Root>
                   );
                 }
