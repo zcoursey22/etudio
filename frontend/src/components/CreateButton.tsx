@@ -28,7 +28,6 @@ export const CreateButton = () => {
             <Menu.Separator />
             <Menu.Item value="artist">Artist</Menu.Item>
             <Menu.Item value="source">Source</Menu.Item>
-            <Menu.Item value="collection">Collection</Menu.Item>
           </Menu.Content>
         </Menu.Positioner>
       </Portal>

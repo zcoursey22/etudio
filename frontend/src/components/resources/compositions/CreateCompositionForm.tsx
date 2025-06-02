@@ -12,7 +12,6 @@ import {
 import {
   ApiComposition,
   useArtists,
-  useCollections,
   useCompositions,
   useResourceContext,
   useSources,
@@ -53,7 +52,7 @@ interface Props {
 }
 
 type Payload = ResourcePayload<ApiComposition> & {
-  from: "none" | "collection" | "source" | "partOf";
+  from: "none" | "source" | "partOf";
 };
 
 export const CreateCompositionForm = ({
@@ -65,8 +64,6 @@ export const CreateCompositionForm = ({
   const { resources: sources, loading: sourcesLoading } = useSources();
   const { resources: compositions, loading: compositionsLoading } =
     useCompositions();
-  const { resources: collections, loading: collectionsLoading } =
-    useCollections();
 
   const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
@@ -87,8 +84,6 @@ export const CreateCompositionForm = ({
           ? "partOf"
           : composition?.source
           ? "source"
-          : composition?.collection
-          ? "collection"
           : "none",
     },
   });
@@ -105,7 +100,6 @@ export const CreateCompositionForm = ({
     isFavorite,
     partOfCompositionId,
     sourceId,
-    collectionId,
   }) => {
     const payload = {
       name: name.trim(),
@@ -114,7 +108,6 @@ export const CreateCompositionForm = ({
       artistId: Number(artistId),
       partOfCompositionId: Number(partOfCompositionId) || undefined,
       sourceId: Number(sourceId) || undefined,
-      collectionId: Number(collectionId) || undefined,
     };
     console.log(payload);
     const apiCall = composition
@@ -174,10 +167,6 @@ export const CreateCompositionForm = ({
             label: "Source",
           },
           {
-            value: "collection",
-            label: "Collection",
-          },
-          {
             value: "partOf",
             label: "Composition",
           },
@@ -191,17 +180,6 @@ export const CreateCompositionForm = ({
               type: FieldType.SELECT,
               placeholder: "Select a source",
               values: sources.map(({ id, name }) => ({
-                value: String(id),
-                label: name,
-              })),
-            }
-          : fromType === "collection"
-          ? {
-              name: "collectionId",
-              label: "",
-              type: FieldType.SELECT,
-              placeholder: "Select a collection",
-              values: collections.map(({ id, name }) => ({
                 value: String(id),
                 label: name,
               })),
@@ -239,39 +217,29 @@ export const CreateCompositionForm = ({
     if (composition?.source) {
       setValue("sourceId", composition.source.id);
       setValue("from", "source");
-    } else if (composition?.collection) {
-      setValue("collectionId", composition.collection.id);
-      setValue("from", "collection");
     } else if (composition?.partOf) {
       setValue("partOfCompositionId", composition.partOf.id);
       setValue("from", "partOf");
     }
 
     initialized.current = true;
-  }, [composition, sources, collections, compositions, setValue]);
+  }, [composition, sources, compositions, setValue]);
 
   useEffect(() => {
     if (
       !initialized.current ||
       (fromType === "source" && watch("sourceId") === undefined) ||
-      (fromType === "collection" && watch("collectionId") === undefined) ||
       (fromType === "partOf" && watch("partOfCompositionId") === undefined)
     ) {
       return;
     }
 
     if (fromType === "source") {
-      setValue("collectionId", undefined);
-      setValue("partOfCompositionId", undefined);
-    } else if (fromType === "collection") {
-      setValue("sourceId", undefined);
       setValue("partOfCompositionId", undefined);
     } else if (fromType === "partOf") {
       setValue("sourceId", undefined);
-      setValue("collectionId", undefined);
     } else {
       setValue("sourceId", undefined);
-      setValue("collectionId", undefined);
       setValue("partOfCompositionId", undefined);
     }
   }, [fromType, setValue, watch]);
@@ -289,12 +257,7 @@ export const CreateCompositionForm = ({
     }
   }, [partOfCompositionIdField, compositions, setValue, watch]);
 
-  if (
-    artistsLoading ||
-    sourcesLoading ||
-    compositionsLoading ||
-    collectionsLoading
-  ) {
+  if (artistsLoading || sourcesLoading || compositionsLoading) {
     return <LoadingMessage />;
   }
 

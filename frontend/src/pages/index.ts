@@ -4,7 +4,6 @@ export * from "./ArtistDetail";
 export * from "./CompositionList";
 export * from "./CompositionDetail";
 export * from "./SourceDetail";
-export * from "./CollectionDetail";
 export * from "./ArrangementList";
 export * from "./ArrangementDetail";
 export * from "./RoutineList";

@@ -10,6 +10,7 @@ import { NavLink } from "../../nav";
 import { ActionConfig, Favorite, ActionMenu, ResourceFrom } from "../shared";
 import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
+import { CompositionCatalogEntriesDisplay } from "./CompositionCatalogEntriesDisplay";
 
 interface Props {
   composition: Composition;
@@ -20,7 +21,7 @@ export const CompositionListGridItemContents = ({
   composition,
   actions,
 }: Props) => {
-  const { name, id, artist, isFavorite } = composition;
+  const { name, id, artist, isFavorite, type, catalogEntries } = composition;
 
   return (
     <>
@@ -36,10 +37,19 @@ export const CompositionListGridItemContents = ({
               {name}
             </NavLink>
           </LinkOverlay>
+          {catalogEntries && (
+            <Span fontWeight={"normal"} color={"fg.muted"} fontSize={"xs"}>
+              {", "}
+              <CompositionCatalogEntriesDisplay entries={catalogEntries} />
+            </Span>
+          )}
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>
-            <ResourceFrom {...composition} />
+            <Flex align={"center"} gap={"1"}>
+              {type}
+              <ResourceFrom {...composition} />
+            </Flex>
           </Span>
           <Separator mt={"0.5em"} />
           <Text>

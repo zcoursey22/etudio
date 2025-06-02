@@ -27,28 +27,67 @@ export interface Artist extends Resource {
 
 export interface Composition extends Resource {
   artist: Artist;
+  type: CompositionType;
   partOf?: Composition;
   source?: Source;
-  collection?: Collection;
   arrangements?: Arrangement[];
+  catalogEntries?: CatalogEntry[];
+}
+
+export enum CompositionType {
+  WORK = "work",
+  SYMPHONY = "symphony",
+  OPERA = "opera",
+  BALLET = "ballet",
+  MUSICAL = "musical",
+  SUITE = "suite",
+  SONATA = "sonata",
+  CONCERTO = "concerto",
+  MOVEMENT = "movement",
+  SONG = "song",
+  EXCERPT = "excerpt",
+}
+
+export interface CatalogEntry {
+  type: CatalogType;
+  number: string;
+  subNumber?: string; // For defining no. in op.
+}
+
+export enum CatalogType {
+  OP = "opus",
+  BWV = "bach_werke_verzeichnis",
+  K = "mozart_koechel",
+  WOO = "works_without_opus",
+  HWV = "handel_werke_verzeichnis",
+  S = "liszt_searle",
+  B_BURGHAUSER = "dvorak_burghauser",
+  B_BROWN = "chopin_brown",
+  D = "schubert_deutsch",
+  HOB = "haydn_hoboken",
+  RV = "vivaldi_ryom",
+  TWV = "telemann_twv",
+  BUXWV = "buxtehude_buxwv",
+  SZ = "bartok_szolloesy",
+  A = "chopin_chominski",
+  KK = "chopin_kobylanska",
+  FP = "poulenc_schmidt",
+  GWV = "graupner_gwv",
+  MWV = "mendelssohn_mwv",
 }
 
 export interface Source extends Resource {
   type: SourceType;
+  artist?: Artist;
   parent?: Source;
   children?: Source[];
 }
 
 export enum SourceType {
+  ALBUM = "album",
   FILM = "film",
   TELEVISION = "television",
   GAME = "game",
-  THEATRE = "theatre",
-  OTHER = "other",
-}
-
-export interface Collection extends Resource {
-  artist: Artist;
 }
 
 // ARRANGEMENTS
@@ -56,6 +95,7 @@ export interface Collection extends Resource {
 export interface Arrangement extends Resource {
   composition: Composition;
   artist: Artist;
+  excerpt?: boolean;
   difficulty?: number; // Get rid of this later and use parts[n].difficulty instead
   parts?: Part[];
 }

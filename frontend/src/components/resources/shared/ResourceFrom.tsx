@@ -1,22 +1,17 @@
 import { Flex, Icon, Span } from "@chakra-ui/react";
 import {
-  Collection,
   Composition,
+  CompositionType,
   Source,
   SourceType,
 } from "../../../resources/models";
 import { NavLink } from "../../nav";
-import {
-  getCollectionDetailPath,
-  getCompositionDetailPath,
-  getSourceDetailPath,
-} from "../../../routes";
+import { getCompositionDetailPath, getSourceDetailPath } from "../../../routes";
 import { ReactNode } from "react";
 import {
   LuClapperboard,
   LuDisc3,
   LuDrama,
-  LuFolder,
   LuGamepad2,
   LuMusic,
   LuTv,
@@ -26,7 +21,6 @@ import { ROUTE_SEGMENTS } from "../../../constants";
 interface Props {
   partOf?: Composition;
   source?: Source;
-  collection?: Collection;
   emptySpanText?: string;
   prefixSpanText?: string;
   spanColor?: string;
@@ -35,18 +29,29 @@ interface Props {
   sourceSubresourceRouteSegment?: string;
 }
 
+const compositionIconMap: { [type in CompositionType]: ReactNode } = {
+  [CompositionType.OPERA]: <LuDrama />,
+  [CompositionType.MUSICAL]: <LuDrama />,
+  [CompositionType.BALLET]: <LuDrama />,
+  [CompositionType.WORK]: <LuMusic />,
+  [CompositionType.SYMPHONY]: <LuMusic />,
+  [CompositionType.SUITE]: <LuMusic />,
+  [CompositionType.SONATA]: <LuMusic />,
+  [CompositionType.CONCERTO]: <LuMusic />,
+  [CompositionType.MOVEMENT]: <LuMusic />,
+  [CompositionType.SONG]: <LuMusic />,
+};
+
 const sourceIconMap: { [type in SourceType]: ReactNode } = {
+  [SourceType.ALBUM]: <LuDisc3 />,
   [SourceType.FILM]: <LuClapperboard />,
   [SourceType.GAME]: <LuGamepad2 />,
   [SourceType.TELEVISION]: <LuTv />,
-  [SourceType.THEATRE]: <LuDrama />,
-  [SourceType.OTHER]: <LuFolder />,
 };
 
 export const ResourceFrom = ({
   partOf,
   source,
-  collection,
   prefixSpanText = "from",
   emptySpanText,
   spanColor = "currentcolor",
@@ -65,15 +70,11 @@ export const ResourceFrom = ({
       partOf.id,
       ROUTE_SEGMENTS.COMPOSITIONS
     );
-    config.icon = <LuMusic />;
+    config.icon = partOf.type ? compositionIconMap[partOf.type] : <LuMusic />;
   } else if (source) {
     config.label = source.name;
     config.url = getSourceDetailPath(source.id, sourceSubresourceRouteSegment);
     config.icon = sourceIconMap[source.type];
-  } else if (collection) {
-    config.label = collection.name;
-    config.url = getCollectionDetailPath(collection.id);
-    config.icon = <LuDisc3 />;
   }
 
   const { label, url, icon } = config;

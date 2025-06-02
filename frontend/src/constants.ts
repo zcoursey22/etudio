@@ -10,14 +10,12 @@ export enum ResourceType {
   SUPPLEMENTARY = "supplementary",
   SOURCE = "source",
   ARTIST = "artist",
-  COLLECTION = "collection",
 }
 
 export const ROUTE_SEGMENTS = {
   ARTISTS: "artists",
   COMPOSITIONS: "compositions",
   SOURCES: "sources",
-  COLLECTIONS: "collections",
   ARRANGEMENTS: "arrangements",
   ROUTINES: "routines",
   SUPPLEMENTARIES: "supplementaries",

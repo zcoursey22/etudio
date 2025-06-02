@@ -64,7 +64,8 @@ export const SourceDetail = () => {
                 ...compositionsListState,
                 columnMap: getCompositionColumns(compositionActions),
                 columnOverrides: {
-                  from: { visible: false },
+                  type: { visible: false },
+                  form: { visible: true },
                 },
                 renderGridItemContents: (c) => (
                   <CompositionListGridItemContents composition={c} />

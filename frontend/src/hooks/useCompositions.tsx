@@ -1,28 +1,20 @@
 import { useQuery, useDelete, useCreate, useUpdate } from "./useCRUD";
-import {
-  Collection,
-  Composition,
-  ResourcePayload,
-  Source,
-} from "../resources/models";
+import { Composition, ResourcePayload, Source } from "../resources/models";
 import { ResourceCreateState, ResourceUpdateState } from "./types";
 
 const COMPOSITIONS = "compositions";
 const SOURCES = "SOURCES";
-const COLLECTIONS = "collections";
 
 export interface ApiComposition extends Composition {
   artistId: number;
   partOfCompositionId?: number;
   sourceId?: number;
-  collectionId?: number;
 }
 
 type UseCompositionsParams = {
   artistId?: number | string;
   partOfCompositionId?: number | string;
   sourceId?: number | string;
-  collectionId?: number | string;
 };
 export const useCompositions = (params?: UseCompositionsParams) => {
   const {
@@ -37,9 +29,7 @@ export const useCompositions = (params?: UseCompositionsParams) => {
       params?.partOfCompositionId
         ? `&partOfCompositionId=${params.partOfCompositionId}`
         : ""
-    }${params?.sourceId ? `&sourceId=${params.sourceId}` : ""}${
-      params?.collectionId ? `&collectionId=${params.collectionId}` : ""
-    }`
+    }${params?.sourceId ? `&sourceId=${params.sourceId}` : ""}`
   );
   const compositions = data || [];
 
@@ -50,13 +40,6 @@ export const useCompositions = (params?: UseCompositionsParams) => {
   } = useQuery<Source[]>(SOURCES, `/${SOURCES}`);
   const sources = sourcesData || [];
 
-  const {
-    data: collectionsData,
-    isLoading: collectionsLoading,
-    error: collectionsError,
-  } = useQuery<Collection[]>(COLLECTIONS, `/${COLLECTIONS}`);
-  const collections = collectionsData || [];
-
   return {
     resources: compositions.map(
       (composition) =>
@@ -66,13 +49,10 @@ export const useCompositions = (params?: UseCompositionsParams) => {
             (c) => c.id === composition.partOfCompositionId
           ),
           source: sources.find((source) => source.id === composition.sourceId),
-          collection: collections.find(
-            (collection) => collection.id === composition.collectionId
-          ),
         } as Composition)
     ),
-    loading: loading || sourcesLoading || collectionsLoading,
-    error: error || sourcesError || collectionsError,
+    loading: loading || sourcesLoading,
+    error: error || sourcesError,
   };
 };
 
@@ -111,24 +91,10 @@ export const useComposition = (id?: number | string) => {
     enabled: !!sourceId,
   });
 
-  const collectionId = composition?.collectionId;
-  const {
-    data: collection,
-    isLoading: collectionLoading,
-    error: collectionError,
-  } = useQuery<Collection>(
-    [COLLECTIONS, collectionId],
-    `/${COLLECTIONS}/${collectionId}`,
-    {
-      queryKey: [COLLECTIONS, collectionId || "fail"],
-      enabled: !!collectionId,
-    }
-  );
-
   return {
-    resource: { ...composition, partOf, source, collection } as Composition,
-    loading: loading || partOfLoading || sourceLoading || collectionLoading,
-    error: error || partOfError || sourceError || collectionError,
+    resource: { ...composition, partOf, source } as Composition,
+    loading: loading || partOfLoading || sourceLoading,
+    error: error || partOfError || sourceError,
   };
 };
 

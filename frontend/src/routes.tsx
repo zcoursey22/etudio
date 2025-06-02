@@ -3,7 +3,6 @@ import {
   ArtistDetail,
   ArrangementDetail,
   ArrangementList,
-  CollectionDetail,
   CompositionDetail,
   CompositionList,
   Home,
@@ -33,7 +32,6 @@ const {
   LOGIN,
   SIGNUP,
   ARTISTS,
-  COLLECTIONS,
   COMPOSITIONS,
   ARRANGEMENTS,
   SETTINGS,
@@ -104,17 +102,6 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             path: SOURCES,
             element: <Subresource<Source> />,
           },
-        ],
-      },
-      {
-        path: `${COLLECTIONS}/:id`,
-        element: <CollectionDetail />,
-        children: [
-          {
-            index: true,
-            element: <Subresource<Composition> />,
-          },
-          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
         ],
       },
       { path: ARRANGEMENTS, element: <ArrangementList /> },
@@ -199,16 +186,6 @@ export const getSourceDetailPath = (
 ) => {
   return (
     `/${SOURCES}/${id}` +
-    (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
-  );
-};
-
-export const getCollectionDetailPath = (
-  id: number,
-  subresourceRouteSegment?: string
-) => {
-  return (
-    `/${COLLECTIONS}/${id}` +
     (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
   );
 };

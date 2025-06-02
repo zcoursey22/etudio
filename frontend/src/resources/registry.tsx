@@ -144,7 +144,8 @@ export const registry: ResourceRegistry = {
           partOfCompositionId: composition.id,
         }),
         columnOverrides: {
-          from: { visible: false },
+          type: { visible: false },
+          form: { visible: true },
           composer: { visible: false },
         },
         actionOverrides: { create: { visible: false } },

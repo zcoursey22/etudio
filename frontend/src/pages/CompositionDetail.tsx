@@ -5,20 +5,21 @@ import { ResourceFrom } from "../components/resources/shared";
 import { ResourceProvider } from "../providers";
 import { Composition } from "../resources/models";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
+import { CompositionCatalogEntriesDisplay } from "../components/resources/compositions/CompositionCatalogEntriesDisplay";
 
 export const CompositionDetail = () => {
   return (
     <ResourceProvider type={ResourceType.COMPOSITION}>
       <DetailPageContainer>
         {(composition: Composition) => {
-          const { name, artist } = composition;
+          const { name, artist, type, catalogEntries } = composition;
           return (
             <DetailPage
               resource={composition}
               title={name}
               subtitle={
                 <>
-                  by{" "}
+                  {type} by{" "}
                   <NavLink
                     to={getArtistDetailPath(
                       artist.id,
@@ -27,6 +28,12 @@ export const CompositionDetail = () => {
                   >
                     {artist.name}
                   </NavLink>
+                  {catalogEntries && (
+                    <CompositionCatalogEntriesDisplay
+                      entries={catalogEntries}
+                      prefixSpanText=", "
+                    />
+                  )}
                 </>
               }
               rightOfTitle={
