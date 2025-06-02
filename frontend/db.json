@@ -157,7 +157,7 @@
         }
       ],
       "type": "ballet",
-      "lastModified": "2025-06-02T18:15:34.804Z",
+      "lastModified": "2025-06-02T22:33:02.640Z",
       "id": 14
     },
     {
@@ -168,7 +168,14 @@
       "partOfCompositionId": 14,
       "type": "work",
       "lastModified": "2025-06-02T17:27:11.973Z",
-      "id": 15
+      "id": 15,
+      "catalogEntries": [
+        {
+          "type": "opus",
+          "number": "20",
+          "subNumber": "10"
+        }
+      ]
     }
   ],
   "sources": [

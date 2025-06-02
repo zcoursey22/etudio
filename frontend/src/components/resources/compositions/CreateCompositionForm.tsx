@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Field,
+  Fieldset,
   Flex,
   Group,
   IconButton,
@@ -132,7 +133,11 @@ export const CreateCompositionForm = ({
       artistId: Number(artistId),
       partOfCompositionId: Number(partOfCompositionId) || undefined,
       sourceId: Number(sourceId) || undefined,
-      catalogEntries,
+      catalogEntries: catalogEntries?.map((entry) => ({
+        ...entry,
+        number: entry.number.trim(),
+        subNumber: entry.subNumber?.trim(),
+      })),
       type,
     };
     console.log(composition, payload);
@@ -336,41 +341,121 @@ export const CreateCompositionForm = ({
 
                 if (field === "catalogEntries") {
                   return (
-                    <Field.Root key={field}>
-                      <Field.Label>Catalog entries</Field.Label>
-                      {catalogEntriesFields.fields.map((row, i) => (
-                        <Flex key={i} w={"100%"} gap={"1em"} align={"center"}>
-                          <NativeSelect.Root>
-                            <NativeSelect.Field
-                              {...register(`catalogEntries.${i}.type`)}
-                              placeholder="Select catalog"
+                    <Fieldset.Root>
+                      <Fieldset.Legend>
+                        Catalog entries{" "}
+                        <Badge
+                          size={"xs"}
+                          fontStyle={"italic"}
+                          variant={"plain"}
+                          color={"fg.subtle"}
+                        >
+                          optional
+                        </Badge>
+                      </Fieldset.Legend>
+                      <Fieldset.Content mt={"0.5em"}>
+                        <Stack>
+                          {catalogEntriesFields.fields.map((_row, i) => (
+                            <Flex
+                              key={i}
+                              w={"100%"}
+                              gap={"1em"}
+                              align={"center"}
                             >
-                              {catalogTypes.map((t) => (
-                                <option key={t} value={CatalogType[t]}>
-                                  {getCatalogTypeLabel(CatalogType[t])}
-                                </option>
-                              ))}
-                            </NativeSelect.Field>
-                            <NativeSelect.Indicator />
-                          </NativeSelect.Root>
-                          <Input {...register(`catalogEntries.${i}.number`)} />
-                          {catalogEntriesValue?.[i].type === CatalogType.OP && (
-                            <Group>
-                              <Text>No.</Text>
-                              <Input
-                                {...register(`catalogEntries.${i}.subNumber`)}
-                              />
-                            </Group>
-                          )}
-                          <IconButton size={"xs"} variant={"ghost"}>
-                            <LuX />
-                          </IconButton>
-                        </Flex>
-                      ))}
-                      <IconButton size={"xs"}>
-                        <LuPlus />
-                      </IconButton>
-                    </Field.Root>
+                              <Field.Root
+                                invalid={!!errors.catalogEntries?.[i]?.type}
+                              >
+                                <NativeSelect.Root>
+                                  <NativeSelect.Field
+                                    {...register(`catalogEntries.${i}.type`, {
+                                      required: true,
+                                    })}
+                                    placeholder="Select catalog"
+                                  >
+                                    {catalogTypes.map((t) => (
+                                      <option
+                                        key={t}
+                                        value={CatalogType[t]}
+                                        disabled={
+                                          !!catalogEntriesValue?.find(
+                                            (f, fi) =>
+                                              f.type === CatalogType[t] &&
+                                              i !== fi
+                                          )
+                                        }
+                                      >
+                                        {getCatalogTypeLabel(CatalogType[t])}
+                                      </option>
+                                    ))}
+                                  </NativeSelect.Field>
+                                  <NativeSelect.Indicator />
+                                </NativeSelect.Root>
+                              </Field.Root>
+
+                              <Field.Root
+                                invalid={!!errors.catalogEntries?.[i]?.number}
+                              >
+                                <Input
+                                  {...register(`catalogEntries.${i}.number`, {
+                                    required: true,
+                                    maxLength: 10,
+                                    validate: (v) => (v.trim().length ?? 0) > 0,
+                                  })}
+                                />
+                              </Field.Root>
+
+                              {catalogEntriesValue?.[i].type ===
+                                CatalogType.OP && (
+                                <Group>
+                                  <Text>No.</Text>
+                                  <Field.Root
+                                    invalid={
+                                      !!errors.catalogEntries?.[i]?.subNumber
+                                    }
+                                  >
+                                    <Input
+                                      {...register(
+                                        `catalogEntries.${i}.subNumber`,
+                                        { maxLength: 10 }
+                                      )}
+                                    />
+                                  </Field.Root>
+                                </Group>
+                              )}
+
+                              <IconButton
+                                size={"xs"}
+                                variant={"ghost"}
+                                onClick={() => catalogEntriesFields.remove(i)}
+                              >
+                                <LuX />
+                              </IconButton>
+                            </Flex>
+                          ))}
+                          <Button
+                            size={"xs"}
+                            variant={"ghost"}
+                            disabled={
+                              catalogEntriesFields.fields.length >=
+                              catalogTypes.length
+                            }
+                            onClick={() => {
+                              if (
+                                catalogEntriesFields.fields.length <
+                                catalogTypes.length
+                              ) {
+                                catalogEntriesFields.append({
+                                  type: "" as CatalogType,
+                                  number: "",
+                                });
+                              }
+                            }}
+                          >
+                            <LuPlus /> Add
+                          </Button>
+                        </Stack>
+                      </Fieldset.Content>
+                    </Fieldset.Root>
                   );
                 }
 
