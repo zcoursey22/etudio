@@ -1,16 +1,11 @@
 import {
-  Badge,
   Box,
   Button,
   Field,
-  Fieldset,
   Flex,
-  Group,
-  IconButton,
   Input,
   NativeSelect,
   Stack,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import {
@@ -20,46 +15,17 @@ import {
   useResourceContext,
   useSources,
 } from "../../../hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
-  Controller,
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
-import {
-  CatalogType,
   Composition,
   CompositionType,
   ResourcePayload,
 } from "../../../resources/models";
-import { Favorite } from "../shared";
 import { useEffect, useRef } from "react";
 import { LoadingMessage } from "../../LoadingMessage";
-import { getCatalogTypeLabel } from "./compositionUtils";
-import { LuPlus, LuX } from "react-icons/lu";
-
-enum FieldType {
-  INPUT,
-  TEXTAREA,
-  SELECT,
-}
-
-type FieldRow<T> = (FieldConfig<T> | "favorite" | "catalogEntries")[];
-
-type FieldConfig<T> = {
-  name: keyof T;
-  label: string;
-  type: FieldType;
-  required?: boolean;
-  showRequiredIndicator?: boolean;
-  maxLength?: number;
-  defaultValue?: T[keyof T];
-  values?: readonly { value: T[keyof T]; label: string }[];
-  autoFocus?: boolean;
-  placeholder?: string;
-  hidden?: boolean;
-  disabled?: boolean;
-};
+import { FieldRow, FieldType, OptionalFieldBadge } from "../shared/form";
+import { FavoriteField } from "../shared/form/FavoriteField";
+import { CatalogEntriesFieldset } from "./CatalogEntriesFieldset";
 
 interface Props {
   handleClose: () => void;
@@ -82,9 +48,6 @@ export const CreateCompositionForm = ({
     useCompositions();
   const compositionTypes = Object.keys(CompositionType) as Array<
     keyof typeof CompositionType
-  >;
-  const catalogTypes = Object.keys(CatalogType) as Array<
-    keyof typeof CatalogType
   >;
 
   const { useCreate, useUpdate } = useResourceContext();
@@ -114,7 +77,6 @@ export const CreateCompositionForm = ({
 
   const fromType = watch("from");
   const partOfCompositionIdField = watch("partOfCompositionId");
-  const catalogEntriesValue = watch("catalogEntries");
 
   const submit: SubmitHandler<Payload> = ({
     name,
@@ -155,7 +117,16 @@ export const CreateCompositionForm = ({
 
   const fieldRows: FieldRow<Payload>[] = [
     [
-      "favorite",
+      {
+        render: ({ control }) => (
+          <FavoriteField
+            control={control}
+            register={register}
+            errors={errors}
+          />
+        ),
+        key: "favorite",
+      },
       {
         name: "name",
         label: "Name",
@@ -244,7 +215,18 @@ export const CreateCompositionForm = ({
             }),
       },
     ],
-    ["catalogEntries"],
+    [
+      {
+        render: ({ control }) => (
+          <CatalogEntriesFieldset
+            control={control}
+            register={register}
+            errors={errors}
+          />
+        ),
+        key: "catalogEntries",
+      },
+    ],
     [
       {
         name: "description",
@@ -302,11 +284,6 @@ export const CreateCompositionForm = ({
     }
   }, [partOfCompositionIdField, compositions, setValue, watch]);
 
-  const catalogEntriesFields = useFieldArray({
-    control,
-    name: "catalogEntries",
-  });
-
   if (artistsLoading || sourcesLoading || compositionsLoading) {
     return <LoadingMessage />;
   }
@@ -318,144 +295,11 @@ export const CreateCompositionForm = ({
           {fieldRows.map((row, i) => (
             <Flex key={i} gap="1em" align="flex-end">
               {row.map((field) => {
-                if (field === "favorite") {
+                if ("render" in field) {
                   return (
-                    <Field.Root key={field} flex={"0"} alignSelf={"center"}>
-                      <Controller
-                        name="isFavorite"
-                        defaultValue={false}
-                        control={control}
-                        render={({ field }) => (
-                          <Favorite
-                            isFavorite={field.value}
-                            controlledOnClick={() =>
-                              field.onChange(!field.value)
-                            }
-                            color="fg"
-                          />
-                        )}
-                      />
-                    </Field.Root>
-                  );
-                }
-
-                if (field === "catalogEntries") {
-                  return (
-                    <Fieldset.Root>
-                      <Fieldset.Legend>
-                        Catalog entries{" "}
-                        <Badge
-                          size={"xs"}
-                          fontStyle={"italic"}
-                          variant={"plain"}
-                          color={"fg.subtle"}
-                        >
-                          optional
-                        </Badge>
-                      </Fieldset.Legend>
-                      <Fieldset.Content mt={"0.5em"}>
-                        <Stack>
-                          {catalogEntriesFields.fields.map((_row, i) => (
-                            <Flex
-                              key={i}
-                              w={"100%"}
-                              gap={"1em"}
-                              align={"center"}
-                            >
-                              <Field.Root
-                                invalid={!!errors.catalogEntries?.[i]?.type}
-                              >
-                                <NativeSelect.Root>
-                                  <NativeSelect.Field
-                                    {...register(`catalogEntries.${i}.type`, {
-                                      required: true,
-                                    })}
-                                    placeholder="Select catalog"
-                                  >
-                                    {catalogTypes.map((t) => (
-                                      <option
-                                        key={t}
-                                        value={CatalogType[t]}
-                                        disabled={
-                                          !!catalogEntriesValue?.find(
-                                            (f, fi) =>
-                                              f.type === CatalogType[t] &&
-                                              i !== fi
-                                          )
-                                        }
-                                      >
-                                        {getCatalogTypeLabel(CatalogType[t])}
-                                      </option>
-                                    ))}
-                                  </NativeSelect.Field>
-                                  <NativeSelect.Indicator />
-                                </NativeSelect.Root>
-                              </Field.Root>
-
-                              <Field.Root
-                                invalid={!!errors.catalogEntries?.[i]?.number}
-                              >
-                                <Input
-                                  {...register(`catalogEntries.${i}.number`, {
-                                    required: true,
-                                    maxLength: 10,
-                                    validate: (v) => (v.trim().length ?? 0) > 0,
-                                  })}
-                                />
-                              </Field.Root>
-
-                              {catalogEntriesValue?.[i].type ===
-                                CatalogType.OP && (
-                                <Group>
-                                  <Text>No.</Text>
-                                  <Field.Root
-                                    invalid={
-                                      !!errors.catalogEntries?.[i]?.subNumber
-                                    }
-                                  >
-                                    <Input
-                                      {...register(
-                                        `catalogEntries.${i}.subNumber`,
-                                        { maxLength: 10 }
-                                      )}
-                                    />
-                                  </Field.Root>
-                                </Group>
-                              )}
-
-                              <IconButton
-                                size={"xs"}
-                                variant={"ghost"}
-                                onClick={() => catalogEntriesFields.remove(i)}
-                              >
-                                <LuX />
-                              </IconButton>
-                            </Flex>
-                          ))}
-                          <Button
-                            size={"xs"}
-                            variant={"ghost"}
-                            disabled={
-                              catalogEntriesFields.fields.length >=
-                              catalogTypes.length
-                            }
-                            onClick={() => {
-                              if (
-                                catalogEntriesFields.fields.length <
-                                catalogTypes.length
-                              ) {
-                                catalogEntriesFields.append({
-                                  type: "" as CatalogType,
-                                  number: "",
-                                });
-                              }
-                            }}
-                          >
-                            <LuPlus /> Add
-                          </Button>
-                        </Stack>
-                      </Fieldset.Content>
-                    </Fieldset.Root>
+                    <Box flex={"1"} key={field.key}>
+                      {field.render({ control, register, errors })}
+                    </Box>
                   );
                 }
 
@@ -493,18 +337,7 @@ export const CreateCompositionForm = ({
                       {label}
                       {showRequiredIndicator && (
                         <Field.RequiredIndicator
-                          fallback={
-                            !required && (
-                              <Badge
-                                size={"xs"}
-                                fontStyle={"italic"}
-                                variant={"plain"}
-                                color={"fg.subtle"}
-                              >
-                                optional
-                              </Badge>
-                            )
-                          }
+                          fallback={!required && <OptionalFieldBadge />}
                         />
                       )}
                       <Field.ErrorText>

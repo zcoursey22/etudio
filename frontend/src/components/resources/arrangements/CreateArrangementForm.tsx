@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Button,
   Field,
@@ -10,29 +9,10 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useResourceContext } from "../../../hooks";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Arrangement, ResourcePayload } from "../../../resources/models";
-import { Favorite } from "../shared";
-
-enum FieldType {
-  INPUT,
-  TEXTAREA,
-  SELECT,
-}
-
-type FieldRow<T> = (FieldConfig<T> | "favorite")[];
-
-type FieldConfig<T> = {
-  name: keyof T;
-  label: string;
-  type: FieldType;
-  required?: boolean;
-  showRequiredIndicator?: boolean;
-  maxLength?: number;
-  defaultValue?: T[keyof T];
-  values?: readonly { value: T[keyof T]; label: string }[];
-  autoFocus?: boolean;
-};
+import { FieldRow, FieldType, OptionalFieldBadge } from "../shared/form";
+import { FavoriteField } from "../shared/form/FavoriteField";
 
 interface Props {
   handleClose: () => void;
@@ -74,7 +54,16 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
 
   const fieldRows: FieldRow<Payload>[] = [
     [
-      "favorite",
+      {
+        render: ({ control }) => (
+          <FavoriteField
+            control={control}
+            register={register}
+            errors={errors}
+          />
+        ),
+        key: "favorite",
+      },
       {
         name: "name",
         label: "Name",
@@ -103,24 +92,11 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
           {fieldRows.map((row, i) => (
             <Flex key={i} gap="1em" align="center">
               {row.map((field) => {
-                if (field === "favorite") {
+                if ("render" in field) {
                   return (
-                    <Field.Root key={field} flex={"0"}>
-                      <Controller
-                        name="isFavorite"
-                        defaultValue={false}
-                        control={control}
-                        render={({ field }) => (
-                          <Favorite
-                            isFavorite={field.value}
-                            controlledOnClick={() =>
-                              field.onChange(!field.value)
-                            }
-                            color="fg"
-                          />
-                        )}
-                      />
-                    </Field.Root>
+                    <Box flex={"1"} key={field.key}>
+                      {field.render({ control, register, errors })}
+                    </Box>
                   );
                 }
 
@@ -151,18 +127,7 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
                       {label}
                       {showRequiredIndicator && (
                         <Field.RequiredIndicator
-                          fallback={
-                            !required && (
-                              <Badge
-                                size={"xs"}
-                                fontStyle={"italic"}
-                                variant={"plain"}
-                                color={"fg.subtle"}
-                              >
-                                optional
-                              </Badge>
-                            )
-                          }
+                          fallback={!required && <OptionalFieldBadge />}
                         />
                       )}
                       <Field.ErrorText>
