@@ -7,3 +7,7 @@ export const formatDate = (date: Date | string) => {
 export const getTitle = (pageTitle: string) => {
   return `${pageTitle} - Etudio`;
 };
+
+export const capitalize = (str: string) => {
+  return str[0].toUpperCase() + str.slice(1);
+};

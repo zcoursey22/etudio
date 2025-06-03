@@ -1,18 +1,13 @@
-import {
-  Box,
-  Button,
-  Field,
-  Flex,
-  Input,
-  NativeSelect,
-  Stack,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 import { useResourceContext } from "../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Arrangement, ResourcePayload } from "../../../resources/models";
-import { FieldRow, FieldType, OptionalFieldBadge } from "../shared/form";
-import { FavoriteField } from "../shared/form/FavoriteField";
+import {
+  FieldType,
+  FavoriteField,
+  FieldRowConfig,
+  FieldRow,
+} from "../shared/form";
 
 interface Props {
   handleClose: () => void;
@@ -29,7 +24,6 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     control,
   } = useForm<Payload>({ defaultValues: arrangement });
 
@@ -52,7 +46,7 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
       });
   };
 
-  const fieldRows: FieldRow<Payload>[] = [
+  const fieldRows: FieldRowConfig<Payload>[] = [
     [
       {
         render: ({ control }) => (
@@ -90,111 +84,14 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
       <form onSubmit={handleSubmit(submit)} noValidate>
         <Stack gap={"1em"}>
           {fieldRows.map((row, i) => (
-            <Flex key={i} gap="1em" align="center">
-              {row.map((field) => {
-                if ("render" in field) {
-                  return (
-                    <Box flex={"1"} key={field.key}>
-                      {field.render({ control, register, errors })}
-                    </Box>
-                  );
-                }
-
-                const {
-                  name,
-                  label,
-                  type,
-                  required,
-                  showRequiredIndicator,
-                  defaultValue,
-                  values,
-                  maxLength,
-                  autoFocus,
-                } = field;
-                const value = watch(name as keyof Payload) || "";
-                const charCount =
-                  typeof value === "string" ? value.trim().length : 0;
-                const isOverCharacterLimit =
-                  maxLength !== undefined && charCount > maxLength;
-
-                return (
-                  <Field.Root
-                    key={name}
-                    invalid={!!errors[name] || isOverCharacterLimit}
-                    required={required}
-                  >
-                    <Field.Label>
-                      {label}
-                      {showRequiredIndicator && (
-                        <Field.RequiredIndicator
-                          fallback={!required && <OptionalFieldBadge />}
-                        />
-                      )}
-                      <Field.ErrorText>
-                        {isOverCharacterLimit
-                          ? `${charCount}/${maxLength} characters`
-                          : errors[name]?.message}
-                      </Field.ErrorText>
-                    </Field.Label>
-                    {type === FieldType.INPUT ? (
-                      <Input
-                        {...register(name, {
-                          required: required ? "" : false,
-                          validate: (v) =>
-                            required
-                              ? (v?.toString()?.trim().length ?? 0) > 0 || ""
-                              : true,
-                          maxLength: {
-                            value: maxLength || Infinity,
-                            message: "",
-                          },
-                        })}
-                        defaultValue={defaultValue as string}
-                        autoFocus={autoFocus}
-                      />
-                    ) : type === FieldType.TEXTAREA ? (
-                      <Textarea
-                        {...register(name, {
-                          required: required ? "" : false,
-                          validate: (v) =>
-                            required
-                              ? (v?.toString()?.trim().length ?? 0) > 0 || ""
-                              : true,
-                          maxLength: {
-                            value: maxLength || Infinity,
-                            message: "",
-                          },
-                        })}
-                        defaultValue={defaultValue as string}
-                        autoFocus={autoFocus}
-                      />
-                    ) : (
-                      <NativeSelect.Root>
-                        <NativeSelect.Field
-                          {...register(name, {
-                            required: required ? "" : false,
-                          })}
-                          defaultValue={defaultValue as string}
-                          autoFocus={autoFocus}
-                        >
-                          {values?.map(({ value, label }) => (
-                            <option
-                              key={value as string}
-                              value={value as string}
-                            >
-                              {label}
-                            </option>
-                          ))}
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                      </NativeSelect.Root>
-                    )}
-                  </Field.Root>
-                );
-              })}
-            </Flex>
+            <FieldRow
+              key={i}
+              row={row}
+              control={control}
+              register={register}
+              errors={errors}
+            />
           ))}
-
           <Flex mt={"1em"} gap={"0.5em"} justifyContent={"flex-end"}>
             <Button variant={"surface"} onClick={handleClose}>
               Cancel

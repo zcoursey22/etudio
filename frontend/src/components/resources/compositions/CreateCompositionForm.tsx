@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Field,
-  Flex,
-  Input,
-  NativeSelect,
-  Stack,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 import {
   ApiComposition,
   useArtists,
@@ -23,9 +14,14 @@ import {
 } from "../../../resources/models";
 import { useEffect, useRef } from "react";
 import { LoadingMessage } from "../../LoadingMessage";
-import { FieldRow, FieldType, OptionalFieldBadge } from "../shared/form";
-import { FavoriteField } from "../shared/form/FavoriteField";
+import {
+  FieldType,
+  FavoriteField,
+  FieldRowConfig,
+  FieldRow,
+} from "../shared/form";
 import { CatalogEntriesFieldset } from "./CatalogEntriesFieldset";
+import { capitalize } from "../../../utils";
 
 interface Props {
   handleClose: () => void;
@@ -115,7 +111,7 @@ export const CreateCompositionForm = ({
       });
   };
 
-  const fieldRows: FieldRow<Payload>[] = [
+  const fieldRows: FieldRowConfig<Payload>[] = [
     [
       {
         render: ({ control }) => (
@@ -148,7 +144,7 @@ export const CreateCompositionForm = ({
         defaultValue: CompositionType.WORK,
         values: compositionTypes.map((type) => ({
           value: CompositionType[type],
-          label: CompositionType[type],
+          label: capitalize(CompositionType[type]),
         })),
       },
       {
@@ -293,123 +289,14 @@ export const CreateCompositionForm = ({
       <form onSubmit={handleSubmit(submit)} noValidate>
         <Stack gap={"1em"}>
           {fieldRows.map((row, i) => (
-            <Flex key={i} gap="1em" align="flex-end">
-              {row.map((field) => {
-                if ("render" in field) {
-                  return (
-                    <Box flex={"1"} key={field.key}>
-                      {field.render({ control, register, errors })}
-                    </Box>
-                  );
-                }
-
-                const {
-                  name,
-                  label,
-                  type,
-                  required,
-                  showRequiredIndicator,
-                  defaultValue,
-                  values,
-                  maxLength,
-                  autoFocus,
-                  placeholder,
-                  hidden,
-                  disabled,
-                } = field;
-
-                if (hidden) return;
-
-                const value = watch(name as keyof Payload) || "";
-                const charCount =
-                  typeof value === "string" ? value.trim().length : 0;
-                const isOverCharacterLimit =
-                  maxLength !== undefined && charCount > maxLength;
-
-                return (
-                  <Field.Root
-                    key={name}
-                    invalid={!!errors[name] || isOverCharacterLimit}
-                    required={required}
-                    disabled={disabled}
-                  >
-                    <Field.Label>
-                      {label}
-                      {showRequiredIndicator && (
-                        <Field.RequiredIndicator
-                          fallback={!required && <OptionalFieldBadge />}
-                        />
-                      )}
-                      <Field.ErrorText>
-                        {isOverCharacterLimit
-                          ? `${charCount}/${maxLength} characters`
-                          : errors[name]?.message}
-                      </Field.ErrorText>
-                    </Field.Label>
-                    {type === FieldType.INPUT ? (
-                      <Input
-                        {...register(name, {
-                          required: required ? "" : false,
-                          validate: (v) =>
-                            required
-                              ? (v?.toString()?.trim().length ?? 0) > 0 || ""
-                              : true,
-                          maxLength: {
-                            value: maxLength || Infinity,
-                            message: "",
-                          },
-                        })}
-                        defaultValue={defaultValue as string}
-                        autoFocus={autoFocus}
-                        placeholder={placeholder}
-                      />
-                    ) : type === FieldType.TEXTAREA ? (
-                      <Textarea
-                        {...register(name, {
-                          required: required ? "" : false,
-                          validate: (v) =>
-                            required
-                              ? (v?.toString()?.trim().length ?? 0) > 0 || ""
-                              : true,
-                          maxLength: {
-                            value: maxLength || Infinity,
-                            message: "",
-                          },
-                        })}
-                        defaultValue={defaultValue as string}
-                        autoFocus={autoFocus}
-                        placeholder={placeholder}
-                      />
-                    ) : (
-                      <NativeSelect.Root>
-                        <NativeSelect.Field
-                          {...register(name, {
-                            required: required ? "" : false,
-                            validate: (v) =>
-                              required ? (v?.toString().length ?? 0) > 0 : true,
-                          })}
-                          defaultValue={defaultValue as string}
-                          autoFocus={autoFocus}
-                          placeholder={placeholder}
-                        >
-                          {values?.map(({ value, label }) => (
-                            <option
-                              key={value as string}
-                              value={value as string}
-                            >
-                              {label}
-                            </option>
-                          ))}
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                      </NativeSelect.Root>
-                    )}
-                  </Field.Root>
-                );
-              })}
-            </Flex>
+            <FieldRow
+              key={i}
+              row={row}
+              control={control}
+              register={register}
+              errors={errors}
+            />
           ))}
-
           <Flex mt={"1em"} gap={"0.5em"} justifyContent={"flex-end"}>
             <Button variant={"surface"} onClick={handleClose}>
               Cancel

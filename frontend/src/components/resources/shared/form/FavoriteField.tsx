@@ -7,7 +7,7 @@ export const FavoriteField = <T extends FieldValues>({
   control,
 }: CustomFieldProps<T>) => {
   return (
-    <Field.Root flex={"0"} alignSelf={"center"}>
+    <Field.Root alignSelf={"center"}>
       <Controller
         name={"isFavorite" as Path<T>}
         control={control}

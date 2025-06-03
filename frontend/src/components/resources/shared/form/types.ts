@@ -9,6 +9,7 @@ export enum FieldType {
   INPUT,
   TEXTAREA,
   SELECT,
+  RADIO,
 }
 
 export type BaseFieldConfig<T extends FieldValues> = {
@@ -41,4 +42,4 @@ export type FieldConfig<T extends FieldValues> =
   | BaseFieldConfig<T>
   | CustomFieldConfig<T>;
 
-export type FieldRow<T extends FieldValues> = FieldConfig<T>[];
+export type FieldRowConfig<T extends FieldValues> = FieldConfig<T>[];
