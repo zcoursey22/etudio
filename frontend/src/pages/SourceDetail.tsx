@@ -63,10 +63,6 @@ export const SourceDetail = () => {
                 icon: <LuMusic />,
                 ...compositionsListState,
                 columnMap: getCompositionColumns(compositionActions),
-                columnOverrides: {
-                  type: { visible: false },
-                  form: { visible: true },
-                },
                 renderGridItemContents: (c) => (
                   <CompositionListGridItemContents composition={c} />
                 ),

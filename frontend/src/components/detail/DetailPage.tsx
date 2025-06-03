@@ -53,7 +53,7 @@ export const DetailPage = <T extends Resource>({
                 {rightOfTitle && <Span fontSize={"xs"}>{rightOfTitle}</Span>}
               </Span>
             </Group>
-            {subtitle && <Text fontSize={"sm"}>{subtitle}</Text>}
+            {subtitle && <Box fontSize={"sm"}>{subtitle}</Box>}
           </Box>
           {actions && (
             <Flex flex={"1"} justify={"flex-end"}>

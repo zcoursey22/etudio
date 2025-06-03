@@ -266,7 +266,7 @@
       "id": 4,
       "name": "swan-lake-theme.pdf",
       "compositionId": 15,
-      "artistId": 11,
+      "artistId": 13,
       "difficulty": 2,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2025-06-01T02:04:18.410Z"
@@ -369,6 +369,12 @@
     {
       "id": 12,
       "name": "Go Ichinose",
+      "created": "2024-10-12T14:30:00.000Z",
+      "lastModified": "2024-10-12T14:30:00.000Z"
+    },
+    {
+      "id": 13,
+      "name": "SkyGuitar",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     }

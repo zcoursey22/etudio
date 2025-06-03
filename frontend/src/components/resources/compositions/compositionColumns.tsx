@@ -1,4 +1,4 @@
-import { Flex, Span } from "@chakra-ui/react";
+// import { Flex, Span } from "@chakra-ui/react";
 import { ROUTE_SEGMENTS } from "../../../constants";
 import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
@@ -25,15 +25,15 @@ export const getCompositionColumns = (
       </>
     ),
   },
-  type: {
-    header: "Type",
-    render: ({ type, partOf, source }) => (
-      <Flex align={"center"} gap={"1"}>
-        <Span>{partOf || source ? `${type},` : type}</Span>
-        <ResourceFrom partOf={partOf} source={source} prefixSpanText="" />
-      </Flex>
-    ),
-  },
+  // type: {
+  //   header: "Type",
+  //   render: ({ type, partOf, source }) => (
+  //     <Flex align={"center"} gap={"1"}>
+  //       <Span>{partOf || source ? `${type},` : type}</Span>
+  //       <ResourceFrom partOf={partOf} source={source} prefixSpanText="" />
+  //     </Flex>
+  //   ),
+  // },
   from: {
     header: "From",
     render: ({ partOf, source }) => (
@@ -44,13 +44,11 @@ export const getCompositionColumns = (
         emptySpanText="-"
       />
     ),
-    visible: false,
   },
-  form: {
-    header: "Form",
-    render: ({ type }) => <>{type}</>,
-    visible: false,
-  },
+  // form: {
+  //   header: "Form",
+  //   render: ({ type }) => <>{type}</>,
+  // },
   composer: {
     header: "Composer",
     render: ({ artist }) => (

@@ -19,7 +19,13 @@ export const CompositionDetail = () => {
               title={name}
               subtitle={
                 <>
-                  {type} by{" "}
+                  {type}
+                  <ResourceFrom
+                    {...composition}
+                    prefixPadding="1"
+                    emptySpanText=""
+                  />
+                  {" by "}
                   <NavLink
                     to={getArtistDetailPath(
                       artist.id,
@@ -28,20 +34,15 @@ export const CompositionDetail = () => {
                   >
                     {artist.name}
                   </NavLink>
-                  {catalogEntries && (
-                    <CompositionCatalogEntriesDisplay
-                      entries={catalogEntries}
-                      prefixSpanText=", "
-                    />
-                  )}
                 </>
               }
               rightOfTitle={
-                <ResourceFrom
-                  {...composition}
-                  prefixPadding="1"
-                  emptySpanText=""
-                />
+                catalogEntries && (
+                  <CompositionCatalogEntriesDisplay
+                    entries={catalogEntries}
+                    prefixSpanText=", "
+                  />
+                )
               }
             />
           );
