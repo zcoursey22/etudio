@@ -165,6 +165,7 @@ export const registry: ResourceRegistry = {
         actions={actions}
       />
     ),
+    detailPageActionOverrides: { create: { visible: false } },
     resourceType: ResourceType.ARRANGEMENT,
   },
 };

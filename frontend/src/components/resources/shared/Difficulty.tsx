@@ -5,11 +5,12 @@ import { useResourceContext } from "../../../hooks";
 import { Arrangement } from "../../../resources/models";
 
 interface Props {
-  id: number;
+  id?: number;
   oneToFive?: number;
+  controlledOnClick?: (value: number) => void;
 }
 
-export const Difficulty = ({ oneToFive = 0, id }: Props) => {
+export const Difficulty = ({ oneToFive = 0, id, controlledOnClick }: Props) => {
   const { useUpdate } = useResourceContext<Arrangement>();
   const { updateResource } = useUpdate();
 
@@ -51,16 +52,20 @@ export const Difficulty = ({ oneToFive = 0, id }: Props) => {
             fontSize={"inherit"}
             zIndex={"1"}
             onClick={() => {
-              updateResource({
-                id,
-                payload: {
-                  difficulty:
-                    hoveringOverIndex + 1 === difficulty
-                      ? 0
-                      : hoveringOverIndex + 1,
-                },
-                method: "PATCH",
-              });
+              const newDifficulty =
+                hoveringOverIndex + 1 === difficulty
+                  ? 0
+                  : hoveringOverIndex + 1;
+              if (controlledOnClick) controlledOnClick(newDifficulty);
+              else if (id) {
+                updateResource({
+                  id,
+                  payload: {
+                    difficulty: newDifficulty,
+                  },
+                  method: "PATCH",
+                });
+              }
             }}
           >
             <Icon size={"sm"}>

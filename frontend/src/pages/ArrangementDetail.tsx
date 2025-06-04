@@ -6,13 +6,15 @@ import { Difficulty, ResourceFrom } from "../components/resources/shared";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import { ResourceProvider } from "../providers";
 import { Arrangement } from "../resources/models";
+import { getFormattedDescription } from "../utils";
 
 export const ArrangementDetail = () => {
   return (
     <ResourceProvider type={ResourceType.ARRANGEMENT}>
       <DetailPageContainer>
         {(arrangement: Arrangement) => {
-          const { id, name, artist, composition, difficulty } = arrangement;
+          const { id, name, artist, composition, difficulty, description } =
+            arrangement;
           return (
             <DetailPage
               resource={arrangement}
@@ -34,7 +36,10 @@ export const ArrangementDetail = () => {
                 <Difficulty id={Number(id!)} oneToFive={difficulty} />
               }
               mainContent={
-                <Stack>
+                <Stack gap={"1em"}>
+                  <Box>
+                    {description && getFormattedDescription(description)}
+                  </Box>
                   <Box>
                     <Box>
                       <NavLink to={getCompositionDetailPath(composition.id)}>

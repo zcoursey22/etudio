@@ -1,5 +1,10 @@
 import { Box, Button, Flex, Stack } from "@chakra-ui/react";
-import { useResourceContext } from "../../../hooks";
+import {
+  ApiArrangement,
+  useArtists,
+  useCompositions,
+  useResourceContext,
+} from "../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Arrangement, ResourcePayload } from "../../../resources/models";
 import {
@@ -8,15 +13,26 @@ import {
   FieldRowConfig,
   FieldRow,
 } from "../shared/form";
+import { LoadingMessage } from "../../LoadingMessage";
+import { DifficultyField } from "./DifficultyField";
 
 interface Props {
   handleClose: () => void;
   arrangement?: Arrangement;
+  compositionId?: string | number;
 }
 
-type Payload = ResourcePayload<Arrangement>;
+type Payload = ResourcePayload<ApiArrangement>;
 
-export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
+export const CreateArrangementForm = ({
+  handleClose,
+  arrangement,
+  compositionId,
+}: Props) => {
+  const { resources: artists, loading: artistsLoading } = useArtists();
+  const { resources: compositions, loading: compositionsLoading } =
+    useCompositions();
+
   const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
   const { updateResource } = useUpdate();
@@ -27,11 +43,21 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
     control,
   } = useForm<Payload>({ defaultValues: arrangement });
 
-  const submit: SubmitHandler<Payload> = (payload) => {
-    payload = {
-      ...payload,
-      name: payload.name.trim(),
-      description: payload.description?.trim(),
+  const submit: SubmitHandler<Payload> = ({
+    name,
+    description,
+    artistId,
+    isFavorite,
+    compositionId,
+    difficulty,
+  }) => {
+    const payload = {
+      name: name.trim(),
+      description: description?.trim(),
+      isFavorite,
+      difficulty,
+      artistId: Number(artistId),
+      compositionId: Number(compositionId),
     };
     console.log(payload);
     const apiCall = arrangement
@@ -47,6 +73,23 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
   };
 
   const fieldRows: FieldRowConfig<Payload>[] = [
+    [
+      {
+        name: "compositionId",
+        label: "Composition",
+        type: FieldType.SELECT,
+        placeholder: "Select a composition",
+        required: true,
+        showRequiredIndicator: true,
+        values: compositions.map(({ id, name }) => ({
+          value: String(id),
+          label: name,
+        })),
+        defaultValue: compositionId,
+        disabled: !!compositionId,
+        autoFocus: !arrangement && !compositionId,
+      },
+    ],
     [
       {
         render: ({ control }) => (
@@ -65,7 +108,31 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
         required: true,
         showRequiredIndicator: true,
         maxLength: 50,
-        autoFocus: true,
+        autoFocus: !!arrangement || !!compositionId,
+      },
+    ],
+    [
+      {
+        render: ({ control }) => (
+          <DifficultyField
+            control={control}
+            register={register}
+            errors={errors}
+          />
+        ),
+        key: "difficulty",
+      },
+      {
+        name: "artistId",
+        label: "Arranger",
+        type: FieldType.SELECT,
+        placeholder: "Select an artist",
+        required: true,
+        showRequiredIndicator: true,
+        values: artists.map((artist) => ({
+          value: String(artist.id),
+          label: artist.name,
+        })),
       },
     ],
     [
@@ -74,10 +141,14 @@ export const CreateArrangementForm = ({ handleClose, arrangement }: Props) => {
         label: "Description",
         type: FieldType.TEXTAREA,
         showRequiredIndicator: true,
-        maxLength: 250,
+        maxLength: 500,
       },
     ],
   ];
+
+  if (artistsLoading || compositionsLoading) {
+    return <LoadingMessage />;
+  }
 
   return (
     <Box>

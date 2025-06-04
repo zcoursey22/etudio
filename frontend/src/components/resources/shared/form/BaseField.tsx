@@ -7,22 +7,27 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import {
+  Control,
+  Controller,
   FieldErrors,
   FieldValues,
   Path,
   UseFormRegister,
+  useWatch,
 } from "react-hook-form";
 import { BaseFieldConfig, FieldType } from "./types";
 import { OptionalFieldBadge } from "./OptionalFieldBadge";
 
 type Props<T extends FieldValues> = {
   field: BaseFieldConfig<T>;
+  control: Control<T>;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
 };
 
 export const BaseField = <T extends FieldValues>({
   field,
+  control,
   register,
   errors,
 }: Props<T>) => {
@@ -41,10 +46,15 @@ export const BaseField = <T extends FieldValues>({
     disabled,
   } = field;
 
+  const value = useWatch<T>({ control, name: name as Path<T> });
+
   if (hidden) return null;
 
   const error = errors[name];
   const invalid = !!error;
+
+  const charCount = value?.length ?? 0;
+  const overCharLimit = maxLength !== undefined && charCount > maxLength;
 
   return (
     <Field.Root
@@ -60,7 +70,11 @@ export const BaseField = <T extends FieldValues>({
             fallback={!required && <OptionalFieldBadge />}
           />
         )}
-        <Field.ErrorText>{error?.message as string}</Field.ErrorText>
+        <Field.ErrorText>
+          {overCharLimit
+            ? `${charCount}/${maxLength}`
+            : error?.message?.toString()}
+        </Field.ErrorText>
       </Field.Label>
 
       {type === FieldType.INPUT && (
@@ -68,7 +82,7 @@ export const BaseField = <T extends FieldValues>({
           {...register(name as Path<T>, {
             required: required ? "" : false,
             validate: (v) =>
-              required ? (v?.toString()?.trim().length ?? 0) > 0 || "" : true,
+              required ? (v?.toString()?.trim().length ?? 0) > 0 || "a" : true,
             maxLength: {
               value: maxLength ?? Infinity,
               message: "",
@@ -120,28 +134,37 @@ export const BaseField = <T extends FieldValues>({
       )}
 
       {type === FieldType.RADIO && (
-        <RadioGroup.Root
-          colorPalette={"blue"}
-          {...register(name as Path<T>, {
+        <Controller
+          name={name as Path<T>}
+          control={control}
+          rules={{
             required: required ? "" : false,
-          })}
+            validate: (v) =>
+              required ? (v?.toString().length ?? 0) > 0 || "" : true,
+          }}
           defaultValue={defaultValue}
-          autoFocus={autoFocus}
-        >
-          <Stack gap={"1em"}>
-            {values?.map(({ value, label }) => (
-              <RadioGroup.Item
-                key={value as string}
-                value={value}
-                disabled={disabled}
-              >
-                <RadioGroup.ItemHiddenInput />
-                <RadioGroup.ItemIndicator />
-                <RadioGroup.ItemText>{label}</RadioGroup.ItemText>
-              </RadioGroup.Item>
-            ))}
-          </Stack>
-        </RadioGroup.Root>
+          render={({ field: { value, onChange } }) => (
+            <RadioGroup.Root
+              colorPalette="blue"
+              value={value}
+              onValueChange={({ value }) => onChange(value)}
+            >
+              <Stack gap="1em">
+                {values?.map(({ value, label }) => (
+                  <RadioGroup.Item
+                    key={value as string}
+                    value={value}
+                    disabled={disabled}
+                  >
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>{label}</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                ))}
+              </Stack>
+            </RadioGroup.Root>
+          )}
+        />
       )}
     </Field.Root>
   );

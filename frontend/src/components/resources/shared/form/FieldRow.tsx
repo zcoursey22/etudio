@@ -32,6 +32,7 @@ export const FieldRow = <T extends FieldValues>({
           <BaseField
             key={field.name as string}
             field={field}
+            control={control}
             register={register}
             errors={errors}
           />

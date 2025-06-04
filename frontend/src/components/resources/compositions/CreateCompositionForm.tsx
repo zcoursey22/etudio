@@ -229,7 +229,7 @@ export const CreateCompositionForm = ({
         label: "Description",
         type: FieldType.TEXTAREA,
         showRequiredIndicator: true,
-        maxLength: 250,
+        maxLength: 500,
       },
     ],
   ];

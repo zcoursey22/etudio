@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Arrangement } from "../../../resources/models";
+import { Arrangement, Resource } from "../../../resources/models";
 import {
   ActionOverrides,
+  createActionConfigMap,
   deleteActionConfigMap,
   downloadActionConfigMap,
   editActionConfigMap,
@@ -21,6 +22,20 @@ export const useArrangementActions = (
     modal,
     actions: resolveActions<Arrangement>(
       {
+        ...createActionConfigMap(({ id }: Resource) =>
+          setModal(
+            <ResourceModal
+              title="Create arrangement"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <CreateArrangementForm
+                handleClose={closeModal}
+                compositionId={id}
+              />
+            </ResourceModal>
+          )
+        ),
         ...downloadActionConfigMap(({ name }) =>
           console.log(`Download ${name}`)
         ),

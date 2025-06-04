@@ -93,7 +93,7 @@ export const CreateGoalForm = ({ handleClose, goal }: Props) => {
         label: "Description",
         type: FieldType.TEXTAREA,
         showRequiredIndicator: true,
-        maxLength: 250,
+        maxLength: 500,
       },
     ],
   ];

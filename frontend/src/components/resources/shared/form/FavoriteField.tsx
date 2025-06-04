@@ -16,7 +16,6 @@ export const FavoriteField = <T extends FieldValues>({
           <Favorite
             isFavorite={field.value}
             controlledOnClick={() => field.onChange(!field.value)}
-            color="fg"
           />
         )}
       />

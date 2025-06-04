@@ -14,6 +14,7 @@ import {
 import { ResourceFrom } from "../components/resources/shared";
 import { LuFolder, LuMusic } from "react-icons/lu";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
+import { getFormattedDescription } from "../utils";
 
 export const SourceDetail = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ export const SourceDetail = () => {
   return (
     <DetailPageContainer useResourceState={detailState}>
       {(source) => {
-        const { name } = source;
+        const { name, description } = source;
         return (
           <DetailPage
             resource={source}
@@ -55,6 +56,7 @@ export const SourceDetail = () => {
             }
             subtitle={"source"}
             actions={actions}
+            mainContent={description && getFormattedDescription(description)}
             subresourceConfigs={[
               {
                 id: ResourceType.COMPOSITION,

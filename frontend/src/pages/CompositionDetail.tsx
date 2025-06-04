@@ -6,13 +6,15 @@ import { ResourceProvider } from "../providers";
 import { Composition } from "../resources/models";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import { CompositionCatalogEntriesDisplay } from "../components/resources/compositions/CompositionCatalogEntriesDisplay";
+import { getFormattedDescription } from "../utils";
 
 export const CompositionDetail = () => {
   return (
     <ResourceProvider type={ResourceType.COMPOSITION}>
       <DetailPageContainer>
         {(composition: Composition) => {
-          const { name, artist, type, catalogEntries } = composition;
+          const { name, artist, type, catalogEntries, description } =
+            composition;
           return (
             <DetailPage
               resource={composition}
@@ -44,6 +46,7 @@ export const CompositionDetail = () => {
                   />
                 )
               }
+              mainContent={description && getFormattedDescription(description)}
             />
           );
         }}

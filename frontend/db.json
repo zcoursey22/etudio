@@ -76,13 +76,15 @@
       "type": "work"
     },
     {
-      "id": 7,
       "name": "Bixby Canyon Bridge",
+      "description": "The first track on American rock band Death Cab for Cutie's sixth studio album, Narrow Stairs.",
+      "isFavorite": false,
       "artistId": 5,
       "sourceId": 4,
-      "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z",
-      "type": "song"
+      "catalogEntries": [],
+      "type": "song",
+      "lastModified": "2025-06-04T15:29:50.566Z",
+      "id": 7
     },
     {
       "id": 8,
@@ -146,7 +148,7 @@
     },
     {
       "name": "Swan Lake",
-      "description": "",
+      "description": "Composed in 1875-1876, it was not popular in its time with many critics calling it overly symphonic and complicated.\n\nToday it's one of the most popular ballets of all time.",
       "isFavorite": false,
       "artistId": 11,
       "catalogEntries": [
@@ -157,25 +159,25 @@
         }
       ],
       "type": "ballet",
-      "lastModified": "2025-06-02T22:33:02.640Z",
+      "lastModified": "2025-06-04T15:40:24.939Z",
       "id": 14
     },
     {
       "name": "Swan's Theme",
-      "description": "",
+      "description": "Famous leitmotif of the ballet",
       "isFavorite": true,
       "artistId": 11,
       "partOfCompositionId": 14,
-      "type": "work",
-      "lastModified": "2025-06-02T17:27:11.973Z",
-      "id": 15,
       "catalogEntries": [
         {
           "type": "opus",
           "number": "20",
           "subNumber": "10"
         }
-      ]
+      ],
+      "type": "work",
+      "lastModified": "2025-06-04T15:37:11.022Z",
+      "id": 15
     }
   ],
   "sources": [
@@ -263,13 +265,14 @@
       "difficulty": 0
     },
     {
-      "id": 4,
       "name": "swan-lake-theme.pdf",
-      "compositionId": 15,
-      "artistId": 13,
+      "description": "A simplified arrangement of the theme.",
+      "isFavorite": false,
       "difficulty": 2,
-      "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-01T02:04:18.410Z"
+      "artistId": 13,
+      "compositionId": 15,
+      "lastModified": "2025-06-04T16:07:47.091Z",
+      "id": 4
     }
   ],
   "parts": [
@@ -386,8 +389,8 @@
       "description": "Before moving on to more challenging pieces, get through No. 1-10 from Sor's Op. 60.",
       "status": "in_progress",
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-02T18:09:05.109Z",
-      "isFavorite": true
+      "lastModified": "2025-06-04T03:20:54.504Z",
+      "isFavorite": false
     },
     {
       "name": "Get more bossa tabs",
@@ -415,6 +418,15 @@
       "lastModified": "2025-05-30T17:27:33.351Z",
       "isFavorite": false,
       "id": 4
+    },
+    {
+      "isFavorite": true,
+      "name": "Theory fundamentals & some history",
+      "status": "in_progress",
+      "description": "[-] https://learning.edx.org/course/course-v1:BerkleeX+OHARM100x+1T2025/home\n[ ] https://www.coursera.org/learn/edinburgh-music-theory\n[ ] https://online.yale.edu/courses/listening-music\n[ ] https://online.yale.edu/courses/introduction-classical-music\n[ ] https://online.yale.edu/courses/music-and-social-action",
+      "created": "2025-06-04T02:36:49.823Z",
+      "lastModified": "2025-06-04T15:20:03.185Z",
+      "id": 5
     }
   ],
   "routines": [

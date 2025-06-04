@@ -11,3 +11,13 @@ export const getTitle = (pageTitle: string) => {
 export const capitalize = (str: string) => {
   return str[0].toUpperCase() + str.slice(1);
 };
+
+export const getFormattedDescription = (description: string) => {
+  return (
+    <>
+      {description?.split("\n").map((line, i) => (
+        <p key={i}>{line || "\u00A0"}</p>
+      ))}
+    </>
+  );
+};

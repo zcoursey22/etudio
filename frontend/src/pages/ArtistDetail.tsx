@@ -14,6 +14,7 @@ import {
 import { LuBookOpenText, LuMusic } from "react-icons/lu";
 import { useArtistActions } from "../components/resources/artists";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
+import { getFormattedDescription } from "../utils";
 
 export const ArtistDetail = () => {
   const { id } = useParams();
@@ -34,13 +35,14 @@ export const ArtistDetail = () => {
   return (
     <DetailPageContainer useResourceState={detailState}>
       {(artist) => {
-        const { name } = artist;
+        const { name, description } = artist;
         return (
           <DetailPage
             resource={artist}
             title={name}
             subtitle={"artist"}
             actions={actions}
+            mainContent={description && getFormattedDescription(description)}
             subresourceConfigs={[
               {
                 id: ResourceType.COMPOSITION,

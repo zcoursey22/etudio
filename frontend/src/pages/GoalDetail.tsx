@@ -3,6 +3,7 @@ import { GoalStatusBadge } from "../components/resources/goals";
 import { ResourceProvider } from "../providers";
 import { Goal } from "../resources/models";
 import { ResourceType } from "../constants";
+import { getFormattedDescription } from "../utils";
 
 export const GoalDetail = () => {
   return (
@@ -15,7 +16,7 @@ export const GoalDetail = () => {
               resource={goal}
               title={name}
               subtitle={<GoalStatusBadge id={Number(id)} status={status} />}
-              mainContent={description}
+              mainContent={description && getFormattedDescription(description)}
             />
           );
         }}

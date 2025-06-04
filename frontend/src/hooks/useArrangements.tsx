@@ -5,7 +5,7 @@ import { ResourceCreateState, ResourceUpdateState } from "./types";
 
 const ARRANGEMENTS = "arrangements";
 
-interface ApiArrangement extends Arrangement {
+export interface ApiArrangement extends Arrangement {
   artistId: number;
   compositionId?: number;
 }
