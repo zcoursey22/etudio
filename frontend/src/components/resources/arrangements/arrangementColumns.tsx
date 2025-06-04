@@ -40,6 +40,10 @@ export const getArrangementColumns = (
       </>
     ),
   },
+  notationType: {
+    header: "Notation",
+    render: ({ notationType }) => <>{notationType}</>,
+  },
   arranger: {
     header: "Arranger",
     render: ({ artist }) => (

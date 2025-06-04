@@ -95,9 +95,16 @@ export enum SourceType {
 export interface Arrangement extends Resource {
   composition: Composition;
   artist: Artist;
+  notationType: NotationType;
   excerpt?: boolean;
   difficulty?: number; // Get rid of this later and use parts[n].difficulty instead
   parts?: Part[];
+}
+
+export enum NotationType {
+  SHEET = "sheet",
+  TAB = "tab",
+  COMBINATION = "combination",
 }
 
 export interface Part extends Base {

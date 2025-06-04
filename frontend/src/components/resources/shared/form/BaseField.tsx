@@ -82,7 +82,7 @@ export const BaseField = <T extends FieldValues>({
           {...register(name as Path<T>, {
             required: required ? "" : false,
             validate: (v) =>
-              required ? (v?.toString()?.trim().length ?? 0) > 0 || "a" : true,
+              required ? (v?.toString()?.trim().length ?? 0) > 0 || "" : true,
             maxLength: {
               value: maxLength ?? Infinity,
               message: "",
@@ -158,7 +158,9 @@ export const BaseField = <T extends FieldValues>({
                   >
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>{label}</RadioGroup.ItemText>
+                    <RadioGroup.ItemText fontWeight={"normal"}>
+                      {label}
+                    </RadioGroup.ItemText>
                   </RadioGroup.Item>
                 ))}
               </Stack>

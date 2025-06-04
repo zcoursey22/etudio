@@ -42,6 +42,7 @@ export const CreateCompositionForm = ({
   const { resources: sources, loading: sourcesLoading } = useSources();
   const { resources: compositions, loading: compositionsLoading } =
     useCompositions();
+
   const compositionTypes = Object.keys(CompositionType) as Array<
     keyof typeof CompositionType
   >;

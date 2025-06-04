@@ -6,7 +6,11 @@ import {
   useResourceContext,
 } from "../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Arrangement, ResourcePayload } from "../../../resources/models";
+import {
+  Arrangement,
+  NotationType,
+  ResourcePayload,
+} from "../../../resources/models";
 import {
   FieldType,
   FavoriteField,
@@ -15,6 +19,7 @@ import {
 } from "../shared/form";
 import { LoadingMessage } from "../../LoadingMessage";
 import { DifficultyField } from "./DifficultyField";
+import { capitalize } from "../../../utils";
 
 interface Props {
   handleClose: () => void;
@@ -33,6 +38,10 @@ export const CreateArrangementForm = ({
   const { resources: compositions, loading: compositionsLoading } =
     useCompositions();
 
+  const notationTypes = Object.keys(NotationType) as Array<
+    keyof typeof NotationType
+  >;
+
   const { useCreate, useUpdate } = useResourceContext();
   const { createResource } = useCreate();
   const { updateResource } = useUpdate();
@@ -50,12 +59,14 @@ export const CreateArrangementForm = ({
     isFavorite,
     compositionId,
     difficulty,
+    notationType,
   }) => {
     const payload = {
       name: name.trim(),
       description: description?.trim(),
       isFavorite,
       difficulty,
+      notationType,
       artistId: Number(artistId),
       compositionId: Number(compositionId),
     };
@@ -132,6 +143,20 @@ export const CreateArrangementForm = ({
         values: artists.map((artist) => ({
           value: String(artist.id),
           label: artist.name,
+        })),
+      },
+    ],
+    [
+      {
+        name: "notationType",
+        label: "Notation",
+        type: FieldType.RADIO,
+        required: true,
+        showRequiredIndicator: true,
+        defaultValue: arrangement?.notationType || NotationType.SHEET,
+        values: notationTypes.map((type) => ({
+          value: NotationType[type],
+          label: capitalize(NotationType[type]),
         })),
       },
     ],

@@ -243,7 +243,8 @@
       "difficulty": 4,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2025-06-01T02:04:26.383Z",
-      "isFavorite": false
+      "isFavorite": false,
+      "notationType": "combination"
     },
     {
       "id": 2,
@@ -253,7 +254,8 @@
       "difficulty": 3,
       "isFavorite": true,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-01T02:04:18.410Z"
+      "lastModified": "2025-06-01T02:04:18.410Z",
+      "notationType": "tab"
     },
     {
       "id": 3,
@@ -262,7 +264,8 @@
       "artistId": 6,
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2025-05-31T23:50:43.706Z",
-      "difficulty": 0
+      "difficulty": 0,
+      "notationType": "combination"
     },
     {
       "name": "swan-lake-theme.pdf",
@@ -272,7 +275,8 @@
       "artistId": 13,
       "compositionId": 15,
       "lastModified": "2025-06-04T16:07:47.091Z",
-      "id": 4
+      "id": 4,
+      "notationType": "sheet"
     }
   ],
   "parts": [
@@ -423,7 +427,7 @@
       "isFavorite": true,
       "name": "Theory fundamentals & some history",
       "status": "in_progress",
-      "description": "[-] https://learning.edx.org/course/course-v1:BerkleeX+OHARM100x+1T2025/home\n[ ] https://www.coursera.org/learn/edinburgh-music-theory\n[ ] https://online.yale.edu/courses/listening-music\n[ ] https://online.yale.edu/courses/introduction-classical-music\n[ ] https://online.yale.edu/courses/music-and-social-action",
+      "description": "[x] https://learning.edx.org/course/course-v1:BerkleeX+OHARM100x+1T2025/home\n[-] https://www.coursera.org/learn/edinburgh-music-theory\n[ ] https://online.yale.edu/courses/listening-music\n[ ] https://online.yale.edu/courses/introduction-classical-music\n[ ] https://online.yale.edu/courses/music-and-social-action",
       "created": "2025-06-04T02:36:49.823Z",
       "lastModified": "2025-06-04T15:20:03.185Z",
       "id": 5
