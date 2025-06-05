@@ -104,7 +104,7 @@ export interface Arrangement extends Resource {
 export enum NotationType {
   SHEET = "sheet",
   TAB = "tab",
-  COMBINATION = "combination",
+  SHEET_TAB = "sheet_tab",
 }
 
 export interface Part extends Base {

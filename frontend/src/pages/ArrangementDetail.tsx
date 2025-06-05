@@ -1,4 +1,4 @@
-import { Box, Span, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Span, Stack, Text } from "@chakra-ui/react";
 import { NavLink } from "../components/nav";
 import { getArtistDetailPath, getCompositionDetailPath } from "../routes";
 import { DetailPage, DetailPageContainer } from "../components/detail";
@@ -7,14 +7,22 @@ import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import { ResourceProvider } from "../providers";
 import { Arrangement } from "../resources/models";
 import { getFormattedDescription } from "../utils";
+import { getNotationTypeLabel } from "../components/resources/arrangements/arrangementUtils";
 
 export const ArrangementDetail = () => {
   return (
     <ResourceProvider type={ResourceType.ARRANGEMENT}>
       <DetailPageContainer>
         {(arrangement: Arrangement) => {
-          const { id, name, artist, composition, difficulty, description } =
-            arrangement;
+          const {
+            id,
+            name,
+            artist,
+            composition,
+            difficulty,
+            description,
+            notationType,
+          } = arrangement;
           return (
             <DetailPage
               resource={arrangement}
@@ -32,8 +40,15 @@ export const ArrangementDetail = () => {
                   </NavLink>
                 </>
               }
+              rightOfTitle={
+                <Span ml={"0.5em"} fontSize={"sm"}>
+                  {getNotationTypeLabel(notationType)}
+                </Span>
+              }
               belowHeader={
-                <Difficulty id={Number(id!)} oneToFive={difficulty} />
+                <Flex gap={"0.5em"}>
+                  <Difficulty id={Number(id!)} oneToFive={difficulty} />
+                </Flex>
               }
               mainContent={
                 <Stack gap={"1em"}>

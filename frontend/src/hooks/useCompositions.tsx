@@ -23,7 +23,7 @@ export const useCompositions = (params?: UseCompositionsParams) => {
     error,
   } = useQuery<ApiComposition[]>(
     [COMPOSITIONS, params],
-    `/${COMPOSITIONS}?_expand=artist&_embed=arrangements${
+    `/${COMPOSITIONS}?_sort=name&_expand=artist&_embed=arrangements${
       params?.artistId ? `&artistId=${params.artistId}` : ""
     }${
       params?.partOfCompositionId

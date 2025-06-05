@@ -14,7 +14,7 @@ export const useGoals = (): ResourceListState<Goal> => {
     data,
     isLoading: loading,
     error,
-  } = useQuery<Goal[]>(GOALS, `/${GOALS}`);
+  } = useQuery<Goal[]>(GOALS, `/${GOALS}?_sort=name`);
   return { resources: data || [], loading, error };
 };
 

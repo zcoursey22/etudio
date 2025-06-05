@@ -22,6 +22,7 @@ import {
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../../routes";
+import { getNotationTypeLabel } from "./arrangementUtils";
 
 interface Props {
   arrangement: Arrangement;
@@ -32,27 +33,45 @@ export const ArrangementListGridItemContents = ({
   arrangement,
   actions,
 }: Props) => {
-  const { name, id, artist, isFavorite, composition, difficulty } = arrangement;
+  const {
+    name,
+    id,
+    artist,
+    isFavorite,
+    composition,
+    difficulty,
+    notationType,
+  } = arrangement;
 
   return (
     <>
       <Card.Body>
         <Card.Title>
           <Flex gap={"0.5em"} align={"center"}>
-            <LinkOverlay asChild>
-              <NavLink
-                colorPalette={"gray"}
-                // color={"blue.900"}
-                // _dark={{ color: "blue.100" }}
-                to={getArrangementDetailPath(id)}
-              >
-                {name}
-              </NavLink>
-            </LinkOverlay>
+            <Flex align={"flex-end"} gap={"0.5em"}>
+              <LinkOverlay asChild>
+                <NavLink
+                  colorPalette={"gray"}
+                  // color={"blue.900"}
+                  // _dark={{ color: "blue.100" }}
+                  to={getArrangementDetailPath(id)}
+                >
+                  {name}
+                </NavLink>
+              </LinkOverlay>
+              <Span fontWeight={"normal"} fontSize={"xs"} color={"fg.muted"}>
+                {getNotationTypeLabel(notationType)}
+              </Span>
+            </Flex>
             <PreviewPDF pdf={null} />
           </Flex>
         </Card.Title>
         <Card.Description as={"div"}>
+          <Text fontSize={"xs"}>
+            arranged by{" "}
+            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+          </Text>
+          <Separator mt={"0.5em"} />
           <Span fontSize={"xs"}>
             <NavLink to={getCompositionDetailPath(composition.id)}>
               {composition.name}
@@ -64,11 +83,6 @@ export const ArrangementListGridItemContents = ({
             <NavLink to={getArtistDetailPath(composition.artist.id)}>
               {composition.artist.name}
             </NavLink>
-          </Text>
-          <Separator mt={"0.5em"} />
-          <Text>
-            arranged by{" "}
-            <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
           </Text>
         </Card.Description>
       </Card.Body>

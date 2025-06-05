@@ -16,6 +16,7 @@ import {
   ActionMenu,
 } from "../../resources/shared";
 import { ROUTE_SEGMENTS } from "../../../constants";
+import { getNotationTypeLabel } from "./arrangementUtils";
 
 export const getArrangementColumns = (
   actions: ActionConfig<Arrangement>[]
@@ -42,7 +43,7 @@ export const getArrangementColumns = (
   },
   notationType: {
     header: "Notation",
-    render: ({ notationType }) => <>{notationType}</>,
+    render: ({ notationType }) => <>{getNotationTypeLabel(notationType)}</>,
   },
   arranger: {
     header: "Arranger",

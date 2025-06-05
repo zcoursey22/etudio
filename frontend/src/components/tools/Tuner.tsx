@@ -193,7 +193,7 @@ export const Tuner = () => {
             >
               <LuMinus />
             </IconButton>
-            <Flex align={"baseline"} display={"inline-flex"} gap={"1"}>
+            <Flex align={"flex-end"} display={"inline-flex"} gap={"1"}>
               <Heading color={hz !== 440 ? "fg.warning" : "fg"}>{hz}</Heading>{" "}
               Hz
             </Flex>

@@ -8,7 +8,10 @@ export const useSupplementaries = () => {
     data,
     isLoading: loading,
     error,
-  } = useQuery<Supplementary[]>(SUPPLEMENTARIES, `/${SUPPLEMENTARIES}`);
+  } = useQuery<Supplementary[]>(
+    SUPPLEMENTARIES,
+    `/${SUPPLEMENTARIES}?_sort=name`
+  );
   return { resources: data || [], loading, error };
 };
 

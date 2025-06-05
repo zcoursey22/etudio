@@ -8,7 +8,7 @@ export const useRoutines = () => {
     data,
     isLoading: loading,
     error,
-  } = useQuery<Routine[]>(ROUTINES, `/${ROUTINES}`);
+  } = useQuery<Routine[]>(ROUTINES, `/${ROUTINES}?_sort=name`);
   return { resources: data || [], loading, error };
 };
 

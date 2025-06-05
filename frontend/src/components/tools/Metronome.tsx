@@ -83,7 +83,7 @@ export const Metronome = () => {
         >
           <LuMinus />
         </IconButton>
-        <Flex align={"baseline"} gap={"1"}>
+        <Flex align={"flex-end"} gap={"1"}>
           <Heading color={"fg"} size={"3xl"}>
             {bpm}
           </Heading>

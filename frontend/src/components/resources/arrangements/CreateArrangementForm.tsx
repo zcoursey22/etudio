@@ -19,7 +19,7 @@ import {
 } from "../shared/form";
 import { LoadingMessage } from "../../LoadingMessage";
 import { DifficultyField } from "./DifficultyField";
-import { capitalize } from "../../../utils";
+import { getNotationTypeLabel } from "./arrangementUtils";
 
 interface Props {
   handleClose: () => void;
@@ -156,7 +156,7 @@ export const CreateArrangementForm = ({
         defaultValue: arrangement?.notationType,
         values: notationTypes.map((type) => ({
           value: NotationType[type],
-          label: capitalize(NotationType[type]),
+          label: getNotationTypeLabel(NotationType[type], true),
         })),
       },
     ],

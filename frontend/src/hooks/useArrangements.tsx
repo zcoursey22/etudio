@@ -21,7 +21,7 @@ export const useArrangements = (params?: UseArrangementsParams) => {
     error,
   } = useQuery<ApiArrangement[]>(
     [ARRANGEMENTS, params],
-    `/${ARRANGEMENTS}?_expand=artist${
+    `/${ARRANGEMENTS}?_sort=name&_expand=artist${
       params?.compositionId ? `&compositionId=${params.compositionId}` : ""
     }${params?.artistId ? `&artistId=${params.artistId}` : ""}`
   );

@@ -8,7 +8,7 @@ export const useArtists = () => {
     data,
     isLoading: loading,
     error,
-  } = useQuery<Artist[]>(ARTISTS, `/${ARTISTS}`);
+  } = useQuery<Artist[]>(ARTISTS, `/${ARTISTS}?_sort=name`);
   return { resources: data || [], loading, error };
 };
 

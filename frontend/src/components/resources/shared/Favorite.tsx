@@ -23,7 +23,7 @@ export const Favorite = ({
       unstyled
       cursor={"pointer"}
       color={isFavorite ? color : "fg.subtle"}
-      fontSize={"inherit"}
+      fontSize={"xs"}
       zIndex={"1"}
       onClick={() => {
         if (controlledOnClick) controlledOnClick();

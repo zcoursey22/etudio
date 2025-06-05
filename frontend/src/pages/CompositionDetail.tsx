@@ -7,6 +7,7 @@ import { Composition } from "../resources/models";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import { CompositionCatalogEntriesDisplay } from "../components/resources/compositions/CompositionCatalogEntriesDisplay";
 import { getFormattedDescription } from "../utils";
+import { Span } from "@chakra-ui/react";
 
 export const CompositionDetail = () => {
   return (
@@ -39,11 +40,12 @@ export const CompositionDetail = () => {
                 </>
               }
               rightOfTitle={
-                catalogEntries && (
-                  <CompositionCatalogEntriesDisplay
-                    entries={catalogEntries}
-                    prefixSpanText=", "
-                  />
+                !!catalogEntries?.length && (
+                  <Span fontSize={"sm"} pl={"0.5em"}>
+                    <CompositionCatalogEntriesDisplay
+                      entries={catalogEntries}
+                    />
+                  </Span>
                 )
               }
               mainContent={description && getFormattedDescription(description)}

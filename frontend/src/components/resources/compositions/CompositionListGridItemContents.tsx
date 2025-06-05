@@ -27,22 +27,23 @@ export const CompositionListGridItemContents = ({
     <>
       <Card.Body>
         <Card.Title>
-          <LinkOverlay asChild>
-            <NavLink
-              colorPalette={"gray"}
-              // color={"blue.900"}
-              // _dark={{ color: "blue.100" }}
-              to={getCompositionDetailPath(id)}
-            >
-              {name}
-            </NavLink>
-          </LinkOverlay>
-          {catalogEntries && (
-            <Span fontWeight={"normal"} color={"fg.muted"} fontSize={"xs"}>
-              {", "}
-              <CompositionCatalogEntriesDisplay entries={catalogEntries} />
-            </Span>
-          )}
+          <Flex align={"flex-end"} gap={"0.5em"}>
+            <LinkOverlay asChild>
+              <NavLink
+                colorPalette={"gray"}
+                // color={"blue.900"}
+                // _dark={{ color: "blue.100" }}
+                to={getCompositionDetailPath(id)}
+              >
+                {name}
+              </NavLink>
+            </LinkOverlay>
+            {!!catalogEntries?.length && (
+              <Span fontWeight={"normal"} color={"fg.muted"} fontSize={"xs"}>
+                <CompositionCatalogEntriesDisplay entries={catalogEntries} />
+              </Span>
+            )}
+          </Flex>
         </Card.Title>
         <Card.Description as={"div"}>
           <Span fontSize={"xs"}>

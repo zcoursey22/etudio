@@ -152,7 +152,7 @@ export const Pomodoro = () => {
                     {String(secondsLeft % 60).padStart(2, "0")}
                   </Heading>
                 </Flex>
-                <Flex align={"baseline"} gap={"1"}>
+                <Flex align={"flex-end"} gap={"1"}>
                   <Heading color={isPaused ? "orange.fg" : "green.fg"}>
                     {isWorking ? "Work" : "Relax"}
                   </Heading>
@@ -173,7 +173,7 @@ export const Pomodoro = () => {
                   >
                     <LuMinus />
                   </IconButton>
-                  <Flex align={"baseline"} gap={"1"}>
+                  <Flex align={"flex-end"} gap={"1"}>
                     <Heading color={"fg"} size={"3xl"}>
                       {workDuration}
                     </Heading>{" "}
@@ -204,7 +204,7 @@ export const Pomodoro = () => {
                   >
                     <LuMinus />
                   </IconButton>
-                  <Flex align={"baseline"} gap={"1"}>
+                  <Flex align={"flex-end"} gap={"1"}>
                     <Heading color={"fg"} size={"3xl"}>
                       {breakDuration}
                     </Heading>{" "}
@@ -241,7 +241,7 @@ export const Pomodoro = () => {
               >
                 <LuSquare fill={"currentcolor"} />
               </IconButton>
-              <Flex align={"baseline"} gap={"1"} flex={"1"} justify={"center"}>
+              <Flex align={"flex-end"} gap={"1"} flex={"1"} justify={"center"}>
                 Set
                 <Heading color={"fg"}>
                   {Math.floor(currentRep / 2) + (currentRep % 2 ? 1 : 0)}
@@ -262,7 +262,7 @@ export const Pomodoro = () => {
               >
                 <LuMinus />
               </IconButton>
-              <Flex align={"baseline"} gap={"1"}>
+              <Flex align={"flex-end"} gap={"1"}>
                 <Heading color={"fg"}>{sets}</Heading>
                 {sets > 1 ? "sets" : "set"}
               </Flex>

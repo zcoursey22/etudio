@@ -240,11 +240,11 @@
       "name": "athletic-theme.pdf",
       "compositionId": 6,
       "artistId": 6,
-      "difficulty": 4,
+      "difficulty": 5,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-01T02:04:26.383Z",
+      "lastModified": "2025-06-05T16:15:57.794Z",
       "isFavorite": false,
-      "notationType": "combination"
+      "notationType": "sheet_tab"
     },
     {
       "id": 2,
@@ -254,7 +254,7 @@
       "difficulty": 3,
       "isFavorite": true,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-01T02:04:18.410Z",
+      "lastModified": "2025-06-05T16:12:50.727Z",
       "notationType": "tab"
     },
     {
@@ -263,18 +263,18 @@
       "compositionId": 10,
       "artistId": 6,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-05-31T23:50:43.706Z",
-      "difficulty": 0,
-      "notationType": "combination"
+      "lastModified": "2025-06-05T16:25:52.834Z",
+      "difficulty": 5,
+      "notationType": "sheet_tab"
     },
     {
       "name": "swan-lake-theme.pdf",
       "description": "A simplified arrangement of the theme.",
       "isFavorite": false,
-      "difficulty": 2,
+      "difficulty": 0,
       "artistId": 13,
       "compositionId": 15,
-      "lastModified": "2025-06-04T16:07:47.091Z",
+      "lastModified": "2025-06-05T16:24:48.795Z",
       "id": 4,
       "notationType": "sheet"
     }
