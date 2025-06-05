@@ -157,7 +157,9 @@ export const BaseField = <T extends FieldValues>({
                     disabled={disabled}
                   >
                     <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemIndicator
+                      borderColor={invalid ? "fg.error" : "auto"}
+                    />
                     <RadioGroup.ItemText fontWeight={"normal"}>
                       {label}
                     </RadioGroup.ItemText>

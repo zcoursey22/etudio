@@ -153,7 +153,7 @@ export const CreateArrangementForm = ({
         type: FieldType.RADIO,
         required: true,
         showRequiredIndicator: true,
-        defaultValue: arrangement?.notationType || NotationType.SHEET,
+        defaultValue: arrangement?.notationType,
         values: notationTypes.map((type) => ({
           value: NotationType[type],
           label: capitalize(NotationType[type]),
