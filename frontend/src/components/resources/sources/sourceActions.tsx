@@ -21,7 +21,7 @@ export const useSourceActions = (overrides?: ActionOverrides<Source>) => {
         ...createActionConfigMap(({ id }) =>
           setModal(
             <ResourceModal
-              title="Create source"
+              title="Add new source"
               isOpen={true}
               handleClose={closeModal}
             >

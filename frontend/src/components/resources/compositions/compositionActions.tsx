@@ -24,7 +24,7 @@ export const useCompositionActions = (
         ...createActionConfigMap(({ id }) =>
           setModal(
             <ResourceModal
-              title="Create composition"
+              title="Add new composition"
               isOpen={true}
               handleClose={closeModal}
             >

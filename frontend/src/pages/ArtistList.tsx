@@ -11,7 +11,7 @@ export const ArtistList = () => {
         subtitle={"Composers and arrangers"}
         renderCreateModal={(isOpen, handleClose) => (
           <ResourceModal
-            title="Create new artist"
+            title="Add new artist"
             handleClose={handleClose}
             isOpen={isOpen}
           >

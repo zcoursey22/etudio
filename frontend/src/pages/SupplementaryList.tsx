@@ -11,7 +11,7 @@ export const SupplementaryList = () => {
         subtitle={"Additional materials"}
         renderCreateModal={(isOpen, handleClose) => (
           <ResourceModal
-            title="Create new supplementary"
+            title="Add new supplementary"
             handleClose={handleClose}
             isOpen={isOpen}
           >

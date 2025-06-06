@@ -10,7 +10,10 @@ export interface Resource extends Base {
   created: Date;
   lastModified: Date;
   isFavorite: boolean;
+  tags?: Tag[];
 }
+
+export type Tag = Record<string, string>;
 
 export type ResourcePayload<T extends Resource> = Omit<
   T,
@@ -21,6 +24,12 @@ export interface Artist extends Resource {
   firstName?: string;
   lastName?: string;
   members?: Artist[];
+  artistType?: ArtistType;
+}
+
+export enum ArtistType {
+  SOLO = "solo",
+  BAND = "band",
 }
 
 // COMPOSITIONS
@@ -32,6 +41,7 @@ export interface Composition extends Resource {
   source?: Source;
   arrangements?: Arrangement[];
   catalogEntries?: CatalogEntry[];
+  genreTags?: Tag[];
 }
 
 export enum CompositionType {
@@ -81,6 +91,7 @@ export interface Source extends Resource {
   artist?: Artist;
   parent?: Source;
   children?: Source[];
+  genreTags?: Tag[];
 }
 
 export enum SourceType {
@@ -88,6 +99,7 @@ export enum SourceType {
   FILM = "film",
   TELEVISION = "television",
   GAMING = "gaming",
+  MULTIMEDIA = "multimedia",
 }
 
 // ARRANGEMENTS
@@ -99,6 +111,7 @@ export interface Arrangement extends Resource {
   excerpt?: boolean;
   difficulty?: number; // Get rid of this later and use parts[n].difficulty instead
   parts?: Part[];
+  genreTags?: Tag[];
 }
 
 export enum NotationType {

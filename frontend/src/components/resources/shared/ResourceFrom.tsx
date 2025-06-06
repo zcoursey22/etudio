@@ -13,6 +13,7 @@ import {
   LuDisc3,
   LuDrama,
   LuGamepad2,
+  LuLayers,
   LuMusic,
   LuPuzzle,
   LuTv,
@@ -49,6 +50,7 @@ const sourceIconMap: { [type in SourceType]: ReactNode } = {
   [SourceType.FILM]: <LuClapperboard />,
   [SourceType.GAMING]: <LuGamepad2 />,
   [SourceType.TELEVISION]: <LuTv />,
+  [SourceType.MULTIMEDIA]: <LuLayers />,
 };
 
 export const ResourceFrom = ({

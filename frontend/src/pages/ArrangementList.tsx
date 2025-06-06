@@ -12,7 +12,7 @@ export const ArrangementList = () => {
         subtitle={"Arrangements or the original composition of works of music"}
         renderCreateModal={(isOpen, handleClose) => (
           <ResourceModal
-            title="Create new arrangement"
+            title="Add new arrangement"
             handleClose={handleClose}
             isOpen={isOpen}
           >

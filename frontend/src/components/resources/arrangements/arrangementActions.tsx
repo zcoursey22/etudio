@@ -25,7 +25,7 @@ export const useArrangementActions = (
         ...createActionConfigMap(({ id }: Resource) =>
           setModal(
             <ResourceModal
-              title="Create arrangement"
+              title="Add new arrangement"
               isOpen={true}
               handleClose={closeModal}
             >

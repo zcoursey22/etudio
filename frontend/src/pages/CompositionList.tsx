@@ -12,7 +12,7 @@ export const CompositionList = () => {
         subtitle={"Works of music"}
         renderCreateModal={(isOpen, handleClose) => (
           <ResourceModal
-            title="Create new composition"
+            title="Add new composition"
             handleClose={handleClose}
             isOpen={isOpen}
           >
