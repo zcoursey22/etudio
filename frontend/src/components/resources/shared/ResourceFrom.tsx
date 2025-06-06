@@ -14,6 +14,7 @@ import {
   LuDrama,
   LuGamepad2,
   LuMusic,
+  LuPuzzle,
   LuTv,
 } from "react-icons/lu";
 import { ROUTE_SEGMENTS } from "../../../constants";
@@ -40,12 +41,13 @@ const compositionIconMap: { [type in CompositionType]: ReactNode } = {
   [CompositionType.CONCERTO]: <LuMusic />,
   [CompositionType.MOVEMENT]: <LuMusic />,
   [CompositionType.SONG]: <LuMusic />,
+  [CompositionType.EXCERPT]: <LuPuzzle />,
 };
 
 const sourceIconMap: { [type in SourceType]: ReactNode } = {
   [SourceType.ALBUM]: <LuDisc3 />,
   [SourceType.FILM]: <LuClapperboard />,
-  [SourceType.GAME]: <LuGamepad2 />,
+  [SourceType.GAMING]: <LuGamepad2 />,
   [SourceType.TELEVISION]: <LuTv />,
 };
 

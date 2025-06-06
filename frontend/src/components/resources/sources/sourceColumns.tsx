@@ -1,5 +1,6 @@
+import { ROUTE_SEGMENTS } from "../../../constants";
 import { Source } from "../../../resources/models";
-import { getSourceDetailPath } from "../../../routes";
+import { getArtistDetailPath, getSourceDetailPath } from "../../../routes";
 import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav";
@@ -11,19 +12,35 @@ export const getSourceColumns = (
   name: {
     header: "Name",
     render: ({ id, name }) => (
-      <NavLink to={getSourceDetailPath(id)}>{name}</NavLink>
+      <>
+        <NavLink to={getSourceDetailPath(id)}>{name}</NavLink>
+      </>
+      // <ResourceFrom
+      //   source={source}
+      //   emptySpanText="-"
+      //   prefixSpanText=""
+      //   prefixPadding="1"
+      // />
     ),
   },
-  parent: {
-    header: "Source",
-    render: ({ parent }) => (
-      <ResourceFrom
-        source={parent}
-        emptySpanText="-"
-        prefixSpanText=""
-        prefixPadding="1"
-      />
-    ),
+  type: {
+    header: "Category",
+    render: ({ type }) => <>{type}</>,
+  },
+  from: {
+    header: "From",
+    render: ({ parent, artist }) =>
+      artist ? (
+        <NavLink to={getArtistDetailPath(artist.id)}>{artist.name}</NavLink>
+      ) : (
+        <ResourceFrom
+          source={parent}
+          emptySpanText="-"
+          prefixSpanText=""
+          prefixPadding="1"
+          sourceSubresourceRouteSegment={ROUTE_SEGMENTS.SOURCES}
+        />
+      ),
   },
   lastModified: {
     header: "Last modified",

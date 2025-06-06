@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Arrangement, Resource } from "../../../resources/models";
 import {
   ActionOverrides,
@@ -15,7 +15,7 @@ import { DeleteArrangementForm } from "./DeleteArrangementForm";
 export const useArrangementActions = (
   overrides?: ActionOverrides<Arrangement>
 ) => {
-  const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const [modal, setModal] = useState<ReactNode | null>(null);
   const closeModal = () => setModal(null);
 
   return {

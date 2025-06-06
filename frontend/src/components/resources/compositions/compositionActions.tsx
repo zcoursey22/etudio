@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Composition } from "../../../resources/models";
 import {
   ActionOverrides,
@@ -14,7 +14,7 @@ import { DeleteCompositionForm } from "./DeleteCompositionForm";
 export const useCompositionActions = (
   overrides?: ActionOverrides<Composition>
 ) => {
-  const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const [modal, setModal] = useState<ReactNode | null>(null);
   const closeModal = () => setModal(null);
 
   return {

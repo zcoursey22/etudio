@@ -1,26 +1,34 @@
-import { List, ListPage } from "../components/list";
-import {
-  getSupplementaryColumns,
-  SupplementaryListGridItemContents,
-  useSupplementaryActions,
-} from "../components/resources/supplementaries";
+import { List, ListContainer, ListPage } from "../components/list";
+import { ResourceModal } from "../components/resources/shared";
 import { ResourceType } from "../constants";
-import { useSupplementaries } from "../hooks";
+import { ResourceProvider } from "../providers";
 
 export const SupplementaryList = () => {
   return (
-    <ListPage
-      title={"Supplementaries"}
-      subtitle={"Additional materials"}
-      id={ResourceType.SUPPLEMENTARY}
-    >
-      <List
-        {...useSupplementaries()}
-        columnMap={getSupplementaryColumns(useSupplementaryActions())}
-        renderGridItemContents={(supplementary) => (
-          <SupplementaryListGridItemContents supplementary={supplementary} />
+    <ResourceProvider type={ResourceType.SUPPLEMENTARY}>
+      <ListPage
+        title={"Supplementaries"}
+        subtitle={"Additional materials"}
+        renderCreateModal={(isOpen, handleClose) => (
+          <ResourceModal
+            title="Create new supplementary"
+            handleClose={handleClose}
+            isOpen={isOpen}
+          >
+            <></>
+            {/* <CreateSupplementaryForm handleClose={handleClose} /> */}
+          </ResourceModal>
         )}
-      />
-    </ListPage>
+      >
+        <ListContainer>
+          {({ listState }) => (
+            <List
+              listState={listState}
+              actionOverrides={{ create: { visible: false } }}
+            />
+          )}
+        </ListContainer>
+      </ListPage>
+    </ResourceProvider>
   );
 };

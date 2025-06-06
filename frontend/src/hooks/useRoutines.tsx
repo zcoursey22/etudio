@@ -1,5 +1,6 @@
-import { useDelete, useQuery } from "./useCRUD";
-import { Routine } from "../resources/models";
+import { useCreate, useDelete, useQuery, useUpdate } from "./useCRUD";
+import { ResourcePayload, Routine } from "../resources/models";
+import { ResourceCreateState, ResourceUpdateState } from "./types";
 
 const ROUTINES = "routines";
 
@@ -21,9 +22,31 @@ export const useRoutine = (id: string | number) => {
   return { resource, loading, error };
 };
 
+export const useCreateRoutine = (): ResourceCreateState<
+  ResourcePayload<Routine>
+> => {
+  const {
+    mutateAsync: createResource,
+    isPending: loading,
+    error,
+  } = useCreate<ResourcePayload<Routine>>(ROUTINES, `/${ROUTINES}`);
+  return { createResource, loading, error };
+};
+
+export const useUpdateRoutine = (): ResourceUpdateState<
+  ResourcePayload<Routine>
+> => {
+  const {
+    mutateAsync: updateResource,
+    isPending: loading,
+    error,
+  } = useUpdate(ROUTINES, `/${ROUTINES}`);
+  return { updateResource, loading, error };
+};
+
 export const useDeleteRoutine = () => {
   const {
-    mutate: deleteResource,
+    mutateAsync: deleteResource,
     isPending: loading,
     error,
   } = useDelete(ROUTINES, `/${ROUTINES}`);

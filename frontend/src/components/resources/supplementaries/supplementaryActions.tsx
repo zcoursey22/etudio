@@ -1,4 +1,4 @@
-import { useDeleteSupplementary } from "../../../hooks";
+import { ReactNode, useState } from "react";
 import { Supplementary } from "../../../resources/models";
 import {
   ActionOverrides,
@@ -6,19 +6,53 @@ import {
   downloadActionConfigMap,
   editActionConfigMap,
   resolveActions,
+  ResourceModal,
 } from "../shared";
+import { DeleteSupplementaryForm } from "./DeleteSupplementaryForm";
 
 export const useSupplementaryActions = (
   overrides?: ActionOverrides<Supplementary>
 ) => {
-  const { deleteResource } = useDeleteSupplementary();
+  const [modal, setModal] = useState<ReactNode | null>(null);
+  const closeModal = () => setModal(null);
 
-  return resolveActions<Supplementary>(
-    {
-      ...downloadActionConfigMap(({ name }) => console.log(`Download ${name}`)),
-      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
-      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
-    },
-    overrides
-  );
+  return {
+    modal,
+    actions: resolveActions<Supplementary>(
+      {
+        ...downloadActionConfigMap(({ name }) =>
+          console.log(`Download ${name}`)
+        ),
+        ...editActionConfigMap((supplementary) =>
+          setModal(
+            <ResourceModal
+              title="Edit supplementary"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <CreateSupplementaryForm
+                handleClose={closeModal}
+                supplementary={supplementary}
+              />
+            </ResourceModal>
+          )
+        ),
+        ...deleteActionConfigMap((supplementary) =>
+          setModal(
+            <ResourceModal
+              title="Delete supplementary"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <DeleteSupplementaryForm
+                handleClose={closeModal}
+                supplementary={supplementary}
+              />
+            </ResourceModal>
+          )
+        ),
+      },
+      overrides
+    ),
+  };
 };

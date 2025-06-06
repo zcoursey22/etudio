@@ -1,22 +1,22 @@
 import { List, ListContainer, ListPage } from "../components/list";
-import { CreateGoalForm } from "../components/resources/goals";
 import { ResourceModal } from "../components/resources/shared";
 import { ResourceType } from "../constants";
 import { ResourceProvider } from "../providers";
 
-export const GoalList = () => {
+export const ArtistList = () => {
   return (
-    <ResourceProvider type={ResourceType.GOAL}>
+    <ResourceProvider type={ResourceType.ARTIST}>
       <ListPage
-        title={"Goals"}
-        subtitle={"What do you want to accomplish?"}
+        title={"Artists"}
+        subtitle={"Composers and arrangers"}
         renderCreateModal={(isOpen, handleClose) => (
           <ResourceModal
-            title="Create new goal"
+            title="Create new artist"
             handleClose={handleClose}
             isOpen={isOpen}
           >
-            <CreateGoalForm handleClose={handleClose} />
+            <></>
+            {/* <CreateArtistForm handleClose={handleClose} /> */}
           </ResourceModal>
         )}
       >

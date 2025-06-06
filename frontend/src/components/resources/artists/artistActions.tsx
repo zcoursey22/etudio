@@ -1,26 +1,46 @@
-import { useDeleteArtist } from "../../../hooks";
+import { ReactNode, useState } from "react";
 import { Artist } from "../../../resources/models";
 import {
   ActionOverrides,
-  createActionConfigMap,
   deleteActionConfigMap,
   editActionConfigMap,
   resolveActions,
+  ResourceModal,
 } from "../shared";
+import { DeleteArtistForm } from "./DeleteArtistForm";
 
 export const useArtistActions = (overrides?: ActionOverrides<Artist>) => {
-  const { deleteResource } = useDeleteArtist();
+  const [modal, setModal] = useState<ReactNode | null>(null);
+  const closeModal = () => setModal(null);
 
-  return resolveActions<Artist>(
-    {
-      ...createActionConfigMap(({ name }) =>
-        console.log(
-          `This should open a menu to create one of the subresources for ${name}`
-        )
-      ),
-      ...editActionConfigMap(({ name }) => console.log(`Edit ${name}`)),
-      ...deleteActionConfigMap(({ id }) => deleteResource(id)),
-    },
-    overrides
-  );
+  return {
+    modal,
+    actions: resolveActions<Artist>(
+      {
+        ...editActionConfigMap((artist) =>
+          setModal(
+            <ResourceModal
+              title="Edit artist"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <CreateArtistForm handleClose={closeModal} artist={artist} />
+            </ResourceModal>
+          )
+        ),
+        ...deleteActionConfigMap((artist) =>
+          setModal(
+            <ResourceModal
+              title="Delete artist"
+              isOpen={true}
+              handleClose={closeModal}
+            >
+              <DeleteArtistForm handleClose={closeModal} artist={artist} />
+            </ResourceModal>
+          )
+        ),
+      },
+      overrides
+    ),
+  };
 };

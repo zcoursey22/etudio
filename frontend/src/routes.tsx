@@ -20,13 +20,15 @@ import {
   Training,
   GoalList,
   GoalDetail,
+  SourceList,
+  ArtistList,
 } from "./pages";
 import { Layout } from "./components/Layout";
 import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 import { Subresource } from "./components/detail";
 import { Arrangement, Composition, Source } from "./resources/models";
-import { ROUTE_SEGMENTS } from "./constants";
+import { ResourceType, ROUTE_SEGMENTS } from "./constants";
 
 const {
   LOGIN,
@@ -55,6 +57,7 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
   const protectedRoutes = {
     element: <RouteGuard redirectTo="/" />,
     children: [
+      { path: ARTISTS, element: <ArtistList /> },
       {
         path: `${ARTISTS}/:id`,
         element: <ArtistDetail />,
@@ -77,18 +80,31 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         children: [
           {
             index: true,
-            element: <Subresource<Arrangement> resourceType={"composition"} />,
+            element: (
+              <Subresource<Arrangement>
+                resourceType={ResourceType.COMPOSITION}
+              />
+            ),
           },
           {
             path: ARRANGEMENTS,
-            element: <Subresource<Arrangement> resourceType={"composition"} />,
+            element: (
+              <Subresource<Arrangement>
+                resourceType={ResourceType.COMPOSITION}
+              />
+            ),
           },
           {
             path: COMPOSITIONS,
-            element: <Subresource<Composition> resourceType={"composition"} />,
+            element: (
+              <Subresource<Composition>
+                resourceType={ResourceType.COMPOSITION}
+              />
+            ),
           },
         ],
       },
+      { path: SOURCES, element: <SourceList /> },
       {
         path: `${SOURCES}/:id`,
         element: <SourceDetail />,
@@ -155,12 +171,15 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
 
 // ARTISTS
 
+export const getArtistListPath = () => {
+  return `/${ARTISTS}`;
+};
 export const getArtistDetailPath = (
   id: number,
   subresourceRouteSegment?: string
 ) => {
   return (
-    `/${ARTISTS}/${id}` +
+    `${getArtistListPath()}/${id}` +
     (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
   );
 };
@@ -180,12 +199,17 @@ export const getCompositionDetailPath = (
   );
 };
 
+// SOURCES
+
+export const getSourceListPath = () => {
+  return `/${SOURCES}`;
+};
 export const getSourceDetailPath = (
   id: number,
   subresourceRouteSegment?: string
 ) => {
   return (
-    `/${SOURCES}/${id}` +
+    `${getSourceListPath()}/${id}` +
     (subresourceRouteSegment ? `/${subresourceRouteSegment}` : "")
   );
 };

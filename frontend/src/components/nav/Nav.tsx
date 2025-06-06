@@ -1,11 +1,13 @@
 import { Button, Flex, Icon, Separator, Stack } from "@chakra-ui/react";
 import {
   getArrangementListPath,
+  getArtistListPath,
   getCompositionListPath,
   getGoalListPath,
   getProfilePath,
   getRoutineListPath,
   getSettingPath,
+  getSourceListPath,
   getSupplementaryListPath,
   getTrainingPath,
 } from "../../routes";
@@ -13,13 +15,15 @@ import { NavItem, NavItemProps } from "./NavItem";
 import {
   LuBicepsFlexed,
   LuBookOpenText,
+  LuCircleUser,
   LuFiles,
   LuListOrdered,
   LuLogOut,
   LuMusic,
+  LuRadio,
   LuSettings,
   LuTarget,
-  LuUser,
+  LuUsers,
 } from "react-icons/lu";
 import { Footer } from "../footer";
 import { Tools } from "../tools";
@@ -48,6 +52,16 @@ export const Nav = () => {
       icon: LuBookOpenText,
     },
     {
+      to: getArtistListPath(),
+      label: "Artists",
+      icon: LuUsers,
+    },
+    {
+      to: getSourceListPath(),
+      label: "Sources",
+      icon: LuRadio,
+    },
+    {
       to: getSupplementaryListPath(),
       label: "Supplementaries",
       icon: LuFiles,
@@ -59,7 +73,7 @@ export const Nav = () => {
   ];
 
   const adminRoutes: NavItemProps[] = [
-    { to: getProfilePath(), label: "Profile", icon: LuUser },
+    { to: getProfilePath(), label: "Profile", icon: LuCircleUser },
     { to: getSettingPath(), label: "Settings", icon: LuSettings },
   ];
 

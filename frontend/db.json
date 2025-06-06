@@ -184,7 +184,7 @@
     {
       "id": 1,
       "name": "Yoshi's Island",
-      "type": "game",
+      "type": "gaming",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },
@@ -192,14 +192,14 @@
       "id": 2,
       "name": "Pokemon RBY",
       "parentId": 3,
-      "type": "game",
+      "type": "gaming",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },
     {
       "id": 3,
       "name": "Pokemon",
-      "type": "game",
+      "type": "gaming",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },
@@ -209,7 +209,8 @@
       "type": "album",
       "artistId": 5,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-06-05T23:13:46.615Z",
+      "isFavorite": false
     },
     {
       "id": 5,
@@ -222,7 +223,7 @@
       "id": 6,
       "name": "Pokemon DPP",
       "parentId": 3,
-      "type": "game",
+      "type": "gaming",
       "created": "2024-10-12T14:30:00.000Z",
       "lastModified": "2024-10-12T14:30:00.000Z"
     },
@@ -231,7 +232,8 @@
       "name": "One Piece",
       "type": "television",
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-06-05T23:20:11.987Z",
+      "isFavorite": false
     }
   ],
   "arrangements": [
@@ -311,7 +313,8 @@
       "id": 1,
       "name": "Frederic Chopin",
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-06-05T23:20:16.877Z",
+      "isFavorite": false
     },
     {
       "id": 2,
@@ -450,7 +453,8 @@
       "id": 3,
       "name": "Tremolo Practice",
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-06-05T23:21:53.847Z",
+      "isFavorite": false
     }
   ],
   "supplementaries": [
@@ -464,7 +468,8 @@
       "id": 2,
       "name": "recording-reference.wav",
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2024-10-12T14:30:00.000Z"
+      "lastModified": "2025-06-05T23:20:08.904Z",
+      "isFavorite": false
     }
   ]
 }

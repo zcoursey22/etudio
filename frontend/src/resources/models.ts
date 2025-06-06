@@ -87,7 +87,7 @@ export enum SourceType {
   ALBUM = "album",
   FILM = "film",
   TELEVISION = "television",
-  GAME = "game",
+  GAMING = "gaming",
 }
 
 // ARRANGEMENTS

@@ -6,12 +6,12 @@ import {
   resolveActions,
   ResourceModal,
 } from "../shared";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { CreateGoalForm } from "./CreateGoalForm";
 import { DeleteGoalForm } from "./DeleteGoalForm";
 
 export const useGoalActions = (overrides?: ActionOverrides<Goal>) => {
-  const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const [modal, setModal] = useState<ReactNode | null>(null);
   const closeModal = () => setModal(null);
 
   return {

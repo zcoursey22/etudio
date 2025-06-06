@@ -45,10 +45,10 @@ export const getCompositionColumns = (
       />
     ),
   },
-  // form: {
-  //   header: "Form",
-  //   render: ({ type }) => <>{type}</>,
-  // },
+  form: {
+    header: "Type",
+    render: ({ type }) => <>{type}</>,
+  },
   composer: {
     header: "Composer",
     render: ({ artist }) => (
