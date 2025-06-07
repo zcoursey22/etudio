@@ -15,6 +15,8 @@ interface Props {
   pdf: string;
 }
 
+const DEFAULT_HEIGHT = 900;
+
 export const PreviewPDF = ({ pdf }: Props) => {
   const [open, setOpen] = useState(false);
   const [numPages, setNumPages] = useState(0);
@@ -59,7 +61,7 @@ export const PreviewPDF = ({ pdf }: Props) => {
         e.preventDefault();
         e.stopPropagation();
         if (e.key === "0") {
-          setScale(1);
+          setScale(containerHeight / DEFAULT_HEIGHT);
         } else {
           setScale((prev) => {
             const delta = e.key === "-" ? -0.25 : 0.25;
@@ -70,12 +72,11 @@ export const PreviewPDF = ({ pdf }: Props) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
+  }, [open, containerHeight]);
 
   useEffect(() => {
     if (open && containerHeight > 0) {
-      const fitScale = containerHeight / 800;
-      setScale(fitScale);
+      setScale(containerHeight / DEFAULT_HEIGHT);
     }
   }, [open, containerHeight]);
 
@@ -109,6 +110,7 @@ export const PreviewPDF = ({ pdf }: Props) => {
                 overflowY={"auto"}
                 scrollbarGutter={"stable"}
                 background={"bg.muted"}
+                pl={"16px"}
               >
                 <Document
                   file={pdf}
