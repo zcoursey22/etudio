@@ -5,7 +5,6 @@ import {
   getArtistDetailPath,
   getCompositionDetailPath,
 } from "../../../routes";
-import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav";
 import {
@@ -26,7 +25,7 @@ export const getArrangementColumns = (
     render: ({ id, name }) => (
       <Flex align={"center"} gap={"0.5em"}>
         <NavLink to={getArrangementDetailPath(id)}>{name}</NavLink>
-        <PreviewPDF pdf={null} />
+        <PreviewPDF pdf={"/sampleScore.pdf"} />
       </Flex>
     ),
   },
@@ -58,11 +57,6 @@ export const getArrangementColumns = (
     render: ({ id, difficulty }) => (
       <Difficulty id={id} oneToFive={difficulty} />
     ),
-  },
-  lastModified: {
-    header: "Last modified",
-    render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
-    textAlign: "right",
   },
   actions: {
     width: "1",

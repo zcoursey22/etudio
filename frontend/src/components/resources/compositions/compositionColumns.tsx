@@ -2,7 +2,6 @@
 import { ROUTE_SEGMENTS } from "../../../constants";
 import { Composition } from "../../../resources/models";
 import { getArtistDetailPath, getCompositionDetailPath } from "../../../routes";
-import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav";
 import { ActionConfig, ResourceFrom, ActionMenu } from "../../resources/shared";
@@ -58,11 +57,6 @@ export const getCompositionColumns = (
         {artist.name}
       </NavLink>
     ),
-  },
-  lastModified: {
-    header: "Last modified",
-    render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
-    textAlign: "right",
   },
   actions: {
     width: "1",

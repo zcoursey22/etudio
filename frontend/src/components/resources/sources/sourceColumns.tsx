@@ -1,7 +1,6 @@
 import { ROUTE_SEGMENTS } from "../../../constants";
 import { Source } from "../../../resources/models";
 import { getArtistDetailPath, getSourceDetailPath } from "../../../routes";
-import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav";
 import { ActionConfig, ResourceFrom, ActionMenu } from "../shared";
@@ -41,11 +40,6 @@ export const getSourceColumns = (
           sourceSubresourceRouteSegment={ROUTE_SEGMENTS.SOURCES}
         />
       ),
-  },
-  lastModified: {
-    header: "Last modified",
-    render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
-    textAlign: "right",
   },
   actions: {
     width: "1",

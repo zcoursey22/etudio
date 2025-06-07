@@ -48,22 +48,20 @@ export const ArrangementListGridItemContents = ({
       <Card.Body>
         <Card.Title>
           <Flex gap={"0.5em"} align={"center"}>
-            <Flex align={"flex-end"} gap={"0.5em"}>
-              <LinkOverlay asChild>
-                <NavLink
-                  colorPalette={"gray"}
-                  // color={"blue.900"}
-                  // _dark={{ color: "blue.100" }}
-                  to={getArrangementDetailPath(id)}
-                >
-                  {name}
-                </NavLink>
-              </LinkOverlay>
-              <Span fontWeight={"normal"} fontSize={"xs"} color={"fg.muted"}>
-                {getNotationTypeLabel(notationType)}
-              </Span>
-            </Flex>
-            <PreviewPDF pdf={null} />
+            <LinkOverlay asChild>
+              <NavLink
+                colorPalette={"gray"}
+                // color={"blue.900"}
+                // _dark={{ color: "blue.100" }}
+                to={getArrangementDetailPath(id)}
+              >
+                {name}
+              </NavLink>
+            </LinkOverlay>
+            <PreviewPDF pdf={"/sampleScore.pdf"} />
+            <Span fontWeight={"normal"} fontSize={"xs"} color={"fg.muted"}>
+              {getNotationTypeLabel(notationType)}
+            </Span>
           </Flex>
         </Card.Title>
         <Card.Description as={"div"}>

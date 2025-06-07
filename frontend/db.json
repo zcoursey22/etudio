@@ -390,7 +390,7 @@
       "artistId": 6,
       "difficulty": 5,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-05T16:15:57.794Z",
+      "lastModified": "2025-06-06T18:33:54.391Z",
       "isFavorite": false,
       "notationType": "sheet_tab"
     },
@@ -399,10 +399,10 @@
       "name": "pokemon-center.pdf",
       "compositionId": 9,
       "artistId": 7,
-      "difficulty": 3,
+      "difficulty": 2,
       "isFavorite": true,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-05T16:12:50.727Z",
+      "lastModified": "2025-06-06T22:24:24.424Z",
       "notationType": "tab"
     },
     {
@@ -411,8 +411,8 @@
       "compositionId": 10,
       "artistId": 6,
       "created": "2024-10-12T14:30:00.000Z",
-      "lastModified": "2025-06-05T16:25:52.834Z",
-      "difficulty": 5,
+      "lastModified": "2025-06-06T22:24:27.994Z",
+      "difficulty": 3,
       "notationType": "sheet_tab"
     },
     {

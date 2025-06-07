@@ -1,6 +1,5 @@
 import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
-import { formatDate } from "../../../utils";
 import { ColumnMap } from "../../list/table/columns";
 import { NavLink } from "../../nav";
 import { ActionConfig, ActionMenu } from "../shared";
@@ -18,11 +17,7 @@ export const getGoalColumns = (
   status: {
     header: "Status",
     render: ({ id, status }) => <GoalStatusBadge id={id} status={status} />,
-  },
-  lastModified: {
-    header: "Last modified",
-    render: ({ lastModified }) => <>{formatDate(lastModified)}</>,
-    textAlign: "right",
+    // textAlign: "right",
   },
   actions: {
     width: "1",

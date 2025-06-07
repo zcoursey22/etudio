@@ -28,7 +28,7 @@ export const SupplementaryListGridItemContents = ({
                 {name}
               </NavLink>
             </LinkOverlay>
-            <PreviewPDF pdf={null} />
+            <PreviewPDF pdf={"/sampleScore.pdf"} />
           </Flex>
         </Card.Title>
       </Card.Body>
