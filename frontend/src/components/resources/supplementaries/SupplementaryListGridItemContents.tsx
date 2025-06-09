@@ -17,7 +17,7 @@ export const SupplementaryListGridItemContents = ({
 
   return (
     <>
-      <Card.Body>
+      <Card.Body overflow={"hidden"}>
         <Card.Title>
           <Flex gap={"0.5em"} align={"center"}>
             <LinkOverlay asChild>
@@ -32,7 +32,7 @@ export const SupplementaryListGridItemContents = ({
           </Flex>
         </Card.Title>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer pt={"1em"}>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={supplementary} actions={actions} isCardView />

@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import { getRoutes } from "./routes";
 import { useAuth } from "./hooks";
 import { pdfjs } from "react-pdf";
+import "./App.css";
 // import { ColorMode, useColorMode } from "./components";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;

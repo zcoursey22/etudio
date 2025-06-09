@@ -4,6 +4,7 @@ import { ActionConfig, Favorite, ActionMenu } from "../shared";
 import { Goal } from "../../../resources/models";
 import { getGoalDetailPath } from "../../../routes";
 import { GoalStatusBadge } from "./GoalStatusBadge";
+import { getFormattedDescription } from "../../../utils";
 
 interface Props {
   goal: Goal;
@@ -15,7 +16,7 @@ export const GoalListGridItemContents = ({ goal, actions }: Props) => {
 
   return (
     <>
-      <Card.Body>
+      <Card.Body overflow={"hidden"}>
         <Card.Title>
           <LinkOverlay asChild>
             <NavLink colorPalette={"gray"} to={getGoalDetailPath(id)}>
@@ -28,12 +29,14 @@ export const GoalListGridItemContents = ({ goal, actions }: Props) => {
           {description && (
             <>
               <Separator mt={"0.5em"} />
-              <Text>{description}</Text>
+              <Text wordBreak={"break-all"}>
+                {getFormattedDescription(description)}
+              </Text>
             </>
           )}
         </Card.Description>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer pt={"1em"}>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={goal} actions={actions} isCardView />

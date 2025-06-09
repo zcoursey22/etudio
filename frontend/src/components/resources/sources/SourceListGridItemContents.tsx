@@ -15,7 +15,7 @@ export const SourceListGridItemContents = ({ source, actions }: Props) => {
 
   return (
     <>
-      <Card.Body>
+      <Card.Body overflow={"hidden"}>
         <Card.Title>
           <LinkOverlay asChild>
             <NavLink colorPalette={"gray"} to={getSourceDetailPath(id)}>
@@ -45,7 +45,7 @@ export const SourceListGridItemContents = ({ source, actions }: Props) => {
           </Span>
         </Card.Description>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer pt={"1em"}>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={source} actions={actions} isCardView />

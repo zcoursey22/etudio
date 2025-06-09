@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 export interface Settings {
   syncListViewType: boolean;
+  darkModeInvertsPdfColors: boolean;
 }
 
 type ISettingsContext = {

@@ -45,7 +45,7 @@ export const ArrangementListGridItemContents = ({
 
   return (
     <>
-      <Card.Body>
+      <Card.Body overflow={"hidden"}>
         <Card.Title>
           <Flex gap={"0.5em"} align={"center"}>
             <LinkOverlay asChild>
@@ -84,7 +84,7 @@ export const ArrangementListGridItemContents = ({
           </Text>
         </Card.Description>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer pt={"1em"}>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Group>
             <Favorite id={id} isFavorite={isFavorite} />

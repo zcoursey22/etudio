@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { LuExpand } from "react-icons/lu";
 import { Document, Page } from "react-pdf";
+import { useColorMode } from "../../chakra";
+import { useSettings } from "../../../hooks";
 
 interface Props {
   pdf: string;
@@ -80,6 +82,9 @@ export const PreviewPDF = ({ pdf }: Props) => {
     }
   }, [open, containerHeight]);
 
+  const { colorMode } = useColorMode();
+  const { settings } = useSettings();
+
   return (
     <Dialog.Root
       open={open}
@@ -111,6 +116,11 @@ export const PreviewPDF = ({ pdf }: Props) => {
                 scrollbarGutter={"stable"}
                 background={"bg.muted"}
                 pl={"16px"}
+                className={
+                  colorMode === "dark" && settings.darkModeInvertsPdfColors
+                    ? "PDFContainerDarkMode"
+                    : ""
+                }
               >
                 <Document
                   file={pdf}

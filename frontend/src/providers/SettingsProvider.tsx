@@ -4,7 +4,10 @@ import { Settings, SettingsContext } from "../contexts";
 
 const KEY = "etudio_settings";
 
-const initialSettings: Settings = { syncListViewType: true };
+const initialSettings: Settings = {
+  syncListViewType: true,
+  darkModeInvertsPdfColors: true,
+};
 
 export const SettingsProvider = ({ children }: PropsWithChildren) => {
   const [settings, setSettings] = useLocalStorage(KEY, initialSettings);

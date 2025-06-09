@@ -25,7 +25,7 @@ export const CompositionListGridItemContents = ({
 
   return (
     <>
-      <Card.Body>
+      <Card.Body overflow={"hidden"}>
         <Card.Title>
           <Flex align={"flex-end"} gap={"0.5em"}>
             <LinkOverlay asChild>
@@ -59,7 +59,7 @@ export const CompositionListGridItemContents = ({
           </Text>
         </Card.Description>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer pt={"1em"}>
         <Flex w={"100%"} align={"center"} justify={"space-between"}>
           <Favorite id={id} isFavorite={isFavorite} />
           <ActionMenu resource={composition} actions={actions} isCardView />

@@ -9,9 +9,9 @@ export const Settings = () => {
   return (
     <>
       <title>{getTitle("Settings")}</title>
-      <Stack>
+      <Stack gap={"1.5em"}>
         <Heading>Settings</Heading>
-        <Stack>
+        <Stack gap={"1em"}>
           <Heading size={"md"}>Display</Heading>
           <Flex align={"center"} justify={"space-between"}>
             <Text color={"fg.muted"} fontSize={"sm"}>
@@ -29,6 +29,24 @@ export const Settings = () => {
                     );
                   });
                 }
+              }}
+              colorPalette={"blue"}
+            >
+              <Switch.HiddenInput />
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+            </Switch.Root>
+          </Flex>
+
+          <Flex align={"center"} justify={"space-between"}>
+            <Text color={"fg.muted"} fontSize={"sm"}>
+              In dark mode, should PDFs invert their colors to appear dark?
+            </Text>
+            <Switch.Root
+              checked={settings.darkModeInvertsPdfColors}
+              onCheckedChange={({ checked }) => {
+                updateSettings({ darkModeInvertsPdfColors: checked });
               }}
               colorPalette={"blue"}
             >

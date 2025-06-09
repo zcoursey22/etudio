@@ -1,0 +1,12 @@
+.PDFContainerDarkMode {
+  .react-pdf__Page {
+    background-color: black !important;
+  }
+  .react-pdf__Page__canvas {
+    filter: invert(100%);
+  }
+  .react-pdf__Page__textContent {
+    color: #ffffff !important;
+    mix-blend-mode: difference;
+  }
+}

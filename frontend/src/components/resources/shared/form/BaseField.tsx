@@ -108,6 +108,7 @@ export const BaseField = <T extends FieldValues>({
           defaultValue={defaultValue as string}
           autoFocus={autoFocus}
           placeholder={placeholder}
+          autoresize
         />
       )}
 

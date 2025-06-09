@@ -564,29 +564,20 @@
       "isFavorite": false
     },
     {
-      "name": "Get more bossa tabs",
-      "description": "",
-      "status": "done",
-      "created": "2025-05-28T21:18:22.137Z",
-      "lastModified": "2025-05-30T19:11:39.417Z",
-      "isFavorite": false,
-      "id": 2
-    },
-    {
       "name": "New guitar search",
-      "description": "",
+      "description": "Spruce",
       "status": "paused",
       "created": "2025-05-28T21:18:52.834Z",
-      "lastModified": "2025-05-30T17:27:33.853Z",
+      "lastModified": "2025-06-09T18:19:19.204Z",
       "isFavorite": false,
       "id": 3
     },
     {
       "name": "Build up new repertoire",
-      "description": "Mostly Carulli etudes along with some Carcassi and Tarrega",
-      "status": "not_started",
+      "description": "* Adelita - Tarrega\n* Lagrima - Tarrega\n* Lavender Town (GSC)\n* Bourre - Bach\n* Barcarolle Op. 51 No. 1 - Coste\n* Nocturno Op. 92 - Henze\n* Waltz No. 2 - Shostakovich\n* Op. 31 No. 3 - Sor",
+      "status": "done",
       "created": "2025-05-28T21:21:19.793Z",
-      "lastModified": "2025-05-30T17:27:33.351Z",
+      "lastModified": "2025-06-09T18:18:49.004Z",
       "isFavorite": false,
       "id": 4
     },
@@ -598,6 +589,15 @@
       "created": "2025-06-04T02:36:49.823Z",
       "lastModified": "2025-06-04T15:20:03.185Z",
       "id": 5
+    },
+    {
+      "isFavorite": false,
+      "name": "Build up practice pieces",
+      "status": "done",
+      "description": "* Minuet in G major (in A major, simplified) - Bach\n* Swan Lake - Tchaikovsky\n* Vals en Sol - Fortea\n* Humoresque - Dvorak\n* Op. 60 No. 1 - Sor\n* Etude in Am - Carulli\n* Etude in C - Carulli",
+      "created": "2025-06-09T17:33:46.268Z",
+      "lastModified": "2025-06-09T18:18:46.372Z",
+      "id": 6
     }
   ],
   "routines": [
