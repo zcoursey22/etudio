@@ -1,4 +1,5 @@
 import { List, ListContainer, ListPage } from "../components/list";
+import { CreateArtistForm } from "../components/resources/artists/CreateArtistForm";
 import { ResourceModal } from "../components/resources/shared";
 import { ResourceType } from "../constants";
 import { ResourceProvider } from "../providers";
@@ -15,8 +16,7 @@ export const ArtistList = () => {
             handleClose={handleClose}
             isOpen={isOpen}
           >
-            <></>
-            {/* <CreateArtistForm handleClose={handleClose} /> */}
+            <CreateArtistForm handleClose={handleClose} />
           </ResourceModal>
         )}
       >

@@ -1,5 +1,6 @@
 import { List, ListContainer, ListPage } from "../components/list";
 import { ResourceModal } from "../components/resources/shared";
+import { CreateSupplementaryForm } from "../components/resources/supplementaries/CreateSupplementaryForm";
 import { ResourceType } from "../constants";
 import { ResourceProvider } from "../providers";
 
@@ -15,8 +16,7 @@ export const SupplementaryList = () => {
             handleClose={handleClose}
             isOpen={isOpen}
           >
-            <></>
-            {/* <CreateSupplementaryForm handleClose={handleClose} /> */}
+            <CreateSupplementaryForm handleClose={handleClose} />
           </ResourceModal>
         )}
       >

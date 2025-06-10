@@ -1,5 +1,6 @@
 import { List, ListContainer, ListPage } from "../components/list";
 import { ResourceModal } from "../components/resources/shared";
+import { CreateSourceForm } from "../components/resources/sources/CreateSourceForm";
 import { ResourceType } from "../constants";
 import { ResourceProvider } from "../providers";
 
@@ -15,8 +16,7 @@ export const SourceList = () => {
             handleClose={handleClose}
             isOpen={isOpen}
           >
-            <></>
-            {/* <CreateSourceForm handleClose={handleClose} /> */}
+            <CreateSourceForm handleClose={handleClose} />
           </ResourceModal>
         )}
       >

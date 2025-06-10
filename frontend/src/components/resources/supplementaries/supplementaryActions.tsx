@@ -9,6 +9,7 @@ import {
   ResourceModal,
 } from "../shared";
 import { DeleteSupplementaryForm } from "./DeleteSupplementaryForm";
+import { CreateSupplementaryForm } from "./CreateSupplementaryForm";
 
 export const useSupplementaryActions = (
   overrides?: ActionOverrides<Supplementary>

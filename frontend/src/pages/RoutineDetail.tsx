@@ -1,28 +1,25 @@
 import { DetailPage, DetailPageContainer } from "../components/detail";
-import { useRoutineActions } from "../components/resources/routines";
-import { useRoutine } from "../hooks";
-import { useParams } from "react-router-dom";
 import { getFormattedDescription } from "../utils";
+import { ResourceProvider } from "../providers";
+import { ResourceType } from "../constants";
+import { Routine } from "../resources/models";
 
 export const RoutineDetail = () => {
-  const { id } = useParams();
-  const detailState = useRoutine(id!);
-  const actions = useRoutineActions();
-
   return (
-    <DetailPageContainer useResourceState={detailState}>
-      {(routine) => {
-        const { name, description } = routine;
-        return (
-          <DetailPage
-            resource={routine}
-            title={name}
-            subtitle={"routine"}
-            actions={actions}
-            mainContent={description && getFormattedDescription(description)}
-          />
-        );
-      }}
-    </DetailPageContainer>
+    <ResourceProvider type={ResourceType.ROUTINE}>
+      <DetailPageContainer>
+        {(routine: Routine) => {
+          const { name, description } = routine;
+          return (
+            <DetailPage
+              resource={routine}
+              title={name}
+              subtitle={"routine"}
+              mainContent={description && getFormattedDescription(description)}
+            />
+          );
+        }}
+      </DetailPageContainer>
+    </ResourceProvider>
   );
 };

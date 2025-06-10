@@ -9,6 +9,7 @@ import {
   ResourceModal,
 } from "../shared";
 import { DeleteSourceForm } from "./DeleteSourceForm";
+import { CreateSourceForm } from "./CreateSourceForm";
 
 export const useSourceActions = (overrides?: ActionOverrides<Source>) => {
   const [modal, setModal] = useState<ReactNode | null>(null);

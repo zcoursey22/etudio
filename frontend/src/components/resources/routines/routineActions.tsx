@@ -8,6 +8,7 @@ import {
   ResourceModal,
 } from "../shared";
 import { DeleteRoutineForm } from "./DeleteRoutineForm";
+import { CreateRoutineForm } from "./CreateRoutineForm";
 
 export const useRoutineActions = (overrides?: ActionOverrides<Routine>) => {
   const [modal, setModal] = useState<ReactNode | null>(null);

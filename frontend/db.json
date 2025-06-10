@@ -573,11 +573,11 @@
       "id": 3
     },
     {
-      "name": "Build up new repertoire",
-      "description": "* Adelita - Tarrega\n* Lagrima - Tarrega\n* Lavender Town (GSC)\n* Bourre - Bach\n* Barcarolle Op. 51 No. 1 - Coste\n* Nocturno Op. 92 - Henze\n* Waltz No. 2 - Shostakovich\n* Op. 31 No. 3 - Sor",
+      "name": "Build up repertoire",
+      "description": "* Menuett in A minor - Krieger\n* Andantino in G major - Carulli\n* Silent Night\n* Adelita - Tarrega\n* Lagrima - Tarrega\n* Lavender Town (GSC)\n* Bourre - Bach\n* Barcarolle Op. 51 No. 1 - Coste\n* Nocturno Op. 92 - Henze\n* Waltz No. 2 - Shostakovich\n* Op. 31 No. 3 - Sor\n* Alicia (Expedition 33)",
       "status": "done",
       "created": "2025-05-28T21:21:19.793Z",
-      "lastModified": "2025-06-09T18:18:49.004Z",
+      "lastModified": "2025-06-09T19:37:42.219Z",
       "isFavorite": false,
       "id": 4
     },
@@ -598,6 +598,15 @@
       "created": "2025-06-09T17:33:46.268Z",
       "lastModified": "2025-06-09T18:18:46.372Z",
       "id": 6
+    },
+    {
+      "isFavorite": false,
+      "name": "Build up repertoire (drop D)",
+      "status": "in_progress",
+      "description": "* Difficult (One Piece)\n* Capricho Arabe - Tarrega\n* Julia Florida - Barrios\n* Cianwood City (HGSS) / Dewford Town (RSE)\n* Gymnopedie No. 2 - Satie\n* Metroid",
+      "created": "2025-06-09T19:21:39.570Z",
+      "lastModified": "2025-06-09T19:39:27.111Z",
+      "id": 7
     }
   ],
   "routines": [

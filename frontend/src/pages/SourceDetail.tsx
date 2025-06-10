@@ -1,90 +1,33 @@
-import { useParams } from "react-router-dom";
-import { useCompositions, useSource } from "../hooks";
 import { DetailPage, DetailPageContainer } from "../components/detail";
-import {
-  getCompositionColumns,
-  CompositionListGridItemContents,
-  useCompositionActions,
-} from "../components/resources/compositions";
-import {
-  getSourceColumns,
-  SourceListGridItemContents,
-  useSourceActions,
-} from "../components/resources/sources";
 import { ResourceFrom } from "../components/resources/shared";
-import { LuFolder, LuMusic } from "react-icons/lu";
 import { ResourceType, ROUTE_SEGMENTS } from "../constants";
 import { getFormattedDescription } from "../utils";
+import { ResourceProvider } from "../providers";
+import { Source } from "../resources/models";
 
 export const SourceDetail = () => {
-  const { id } = useParams();
-  const detailState = useSource(id!);
-  const parentSource = detailState?.resource?.parent;
-  const childSources = detailState?.resource?.children;
-  const actions = useSourceActions();
-
-  const compositionsListState = useCompositions({
-    sourceId: detailState?.resource?.id,
-  });
-  const compositionActions = useCompositionActions({
-    create: { visible: false },
-  });
-
-  const childSourcesListState = {
-    resources: childSources || [],
-    loading: false,
-    error: null,
-  };
-  const childSourceActions = useSourceActions({
-    create: { visible: false },
-  });
-
   return (
-    <DetailPageContainer useResourceState={detailState}>
-      {(source) => {
-        const { name, description } = source;
-        return (
-          <DetailPage
-            resource={source}
-            title={name}
-            rightOfTitle={
-              <ResourceFrom
-                source={parentSource}
-                sourceSubresourceRouteSegment={ROUTE_SEGMENTS.SOURCES}
-                prefixPadding="1"
-              />
-            }
-            subtitle={"source"}
-            actions={actions}
-            mainContent={description && getFormattedDescription(description)}
-            subresourceConfigs={[
-              {
-                id: ResourceType.COMPOSITION,
-                route: ROUTE_SEGMENTS.COMPOSITIONS,
-                title: "Compositions",
-                icon: <LuMusic />,
-                ...compositionsListState,
-                columnMap: getCompositionColumns(compositionActions),
-                renderGridItemContents: (c) => (
-                  <CompositionListGridItemContents composition={c} />
-                ),
-              },
-              {
-                id: ResourceType.SOURCE,
-                route: ROUTE_SEGMENTS.SOURCES,
-                title: "Sources",
-                icon: <LuFolder />,
-                ...childSourcesListState,
-                columnMap: getSourceColumns(childSourceActions),
-                columnOverrides: { parent: { visible: false } },
-                renderGridItemContents: (s) => (
-                  <SourceListGridItemContents source={s} />
-                ),
-              },
-            ]}
-          />
-        );
-      }}
-    </DetailPageContainer>
+    <ResourceProvider type={ResourceType.SOURCE}>
+      <DetailPageContainer>
+        {(source: Source) => {
+          const { name, description } = source;
+          return (
+            <DetailPage
+              resource={source}
+              title={name}
+              rightOfTitle={
+                <ResourceFrom
+                  source={source.parent}
+                  sourceSubresourceRouteSegment={ROUTE_SEGMENTS.SOURCES}
+                  prefixPadding="1"
+                />
+              }
+              subtitle={"source"}
+              mainContent={description && getFormattedDescription(description)}
+            />
+          );
+        }}
+      </DetailPageContainer>
+    </ResourceProvider>
   );
 };

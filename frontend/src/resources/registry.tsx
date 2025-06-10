@@ -255,7 +255,7 @@ export const registry: ResourceRegistry = {
         title: "Sources",
         icon: <LuRadio />,
         getQueryParams: (source) => ({
-          sourceId: source.id,
+          parentId: source.id,
         }),
         columnOverrides: {
           from: { visible: false },
@@ -302,7 +302,7 @@ export const registry: ResourceRegistry = {
         }),
         columnOverrides: {
           from: { visible: false },
-          composer: { visible: false },
+          arranger: { visible: false },
         },
         actionOverrides: { create: { visible: false } },
       },
@@ -314,7 +314,10 @@ export const registry: ResourceRegistry = {
         getQueryParams: (artist) => ({
           artistId: artist.id,
         }),
-        columnOverrides: {},
+        columnOverrides: {
+          from: { visible: false },
+          type: { visible: false },
+        },
         actionOverrides: { create: { visible: false } },
       },
     ],

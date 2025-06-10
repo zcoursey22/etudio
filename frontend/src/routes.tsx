@@ -28,7 +28,7 @@ import { RouteGuard } from "./components/RouteGuard";
 import { AuthLayout } from "./components/AuthLayout";
 import { Subresource } from "./components/detail";
 import { Arrangement, Composition, Source } from "./resources/models";
-import { ResourceType, ROUTE_SEGMENTS } from "./constants";
+import { ROUTE_SEGMENTS } from "./constants";
 
 const {
   LOGIN,
@@ -71,6 +71,10 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             path: `${ARRANGEMENTS}`,
             element: <Subresource<Arrangement> />,
           },
+          {
+            path: `${SOURCES}`,
+            element: <Subresource<Source> />,
+          },
         ],
       },
       { path: COMPOSITIONS, element: <CompositionList /> },
@@ -80,27 +84,15 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
         children: [
           {
             index: true,
-            element: (
-              <Subresource<Arrangement>
-                resourceType={ResourceType.COMPOSITION}
-              />
-            ),
+            element: <Subresource<Arrangement> />,
           },
           {
             path: ARRANGEMENTS,
-            element: (
-              <Subresource<Arrangement>
-                resourceType={ResourceType.COMPOSITION}
-              />
-            ),
+            element: <Subresource<Arrangement> />,
           },
           {
             path: COMPOSITIONS,
-            element: (
-              <Subresource<Composition>
-                resourceType={ResourceType.COMPOSITION}
-              />
-            ),
+            element: <Subresource<Composition> />,
           },
         ],
       },
@@ -113,7 +105,10 @@ export const getRoutes = (isAuthenticated: boolean): RouteObject[] => {
             index: true,
             element: <Subresource<Composition> />,
           },
-          { path: COMPOSITIONS, element: <Subresource<Composition> /> },
+          {
+            path: COMPOSITIONS,
+            element: <Subresource<Composition> />,
+          },
           {
             path: SOURCES,
             element: <Subresource<Source> />,

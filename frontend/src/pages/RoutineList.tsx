@@ -1,4 +1,5 @@
 import { List, ListContainer, ListPage } from "../components/list";
+import { CreateRoutineForm } from "../components/resources/routines/CreateRoutineForm";
 import { ResourceModal } from "../components/resources/shared";
 import { ResourceType } from "../constants";
 import { ResourceProvider } from "../providers";
@@ -15,8 +16,7 @@ export const RoutineList = () => {
             handleClose={handleClose}
             isOpen={isOpen}
           >
-            <></>
-            {/* <CreateRoutineForm handleClose={handleClose} /> */}
+            <CreateRoutineForm handleClose={handleClose} />
           </ResourceModal>
         )}
       >

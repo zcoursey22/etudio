@@ -9,19 +9,16 @@ import { List, ListContainer, ListTypeSwitcher } from "../list";
 import { Flex, Group, Icon, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { registry } from "../../resources/registry";
 import { ResourceProvider } from "../../providers";
-import { useAllSubresourceLists } from "../../hooks";
+import { useAllSubresourceLists, useResourceContext } from "../../hooks";
 import { LuPlus } from "react-icons/lu";
 
 type SubresourceContext<T extends Resource> = {
   resource: T;
 };
 
-export const Subresource = <T extends Resource>({
-  resourceType,
-}: {
-  resourceType?: keyof typeof registry;
-}) => {
+export const Subresource = <T extends Resource>() => {
   const { resource } = useOutletContext<SubresourceContext<T>>();
+  const { resourceType } = useResourceContext();
   const { id } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -35,7 +32,7 @@ export const Subresource = <T extends Resource>({
     ? pathParts.slice(0, -1).join("/")
     : pathname;
 
-  const subresources = registry[resourceType!].subresources ?? [];
+  const subresources = registry[resourceType].subresources ?? [];
   const subresourceListStates = useAllSubresourceLists(
     subresources.map((s) => ({
       type: s.type,
@@ -56,7 +53,7 @@ export const Subresource = <T extends Resource>({
     (a) => a.key === "create" && a.visible !== false
   );
 
-  const showIcons = false;
+  const showIcons = true;
 
   return (
     <ResourceProvider

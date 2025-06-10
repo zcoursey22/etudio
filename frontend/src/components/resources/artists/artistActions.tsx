@@ -8,6 +8,7 @@ import {
   ResourceModal,
 } from "../shared";
 import { DeleteArtistForm } from "./DeleteArtistForm";
+import { CreateArtistForm } from "./CreateArtistForm";
 
 export const useArtistActions = (overrides?: ActionOverrides<Artist>) => {
   const [modal, setModal] = useState<ReactNode | null>(null);
